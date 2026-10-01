@@ -23,8 +23,28 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Die App öffnet sich unter <http://localhost:8501>. Für einen gemeinsamen Zugang im Team kann sie auf einem
-internen Server laufen (`streamlit run app.py --server.address 0.0.0.0`).
+Die App öffnet sich unter <http://localhost:8501>.
+
+## Auf eigenem Server (Ubuntu + nginx)
+
+Im Ordner `deploy/` liegt alles für den Dauerbetrieb: ein systemd-Dienst (startet die App automatisch, auch
+nach Neustart oder Absturz) und eine nginx-Site als Reverse Proxy inklusive WebSocket-Weiterleitung.
+
+```bash
+git clone -b claude/lucid-archimedes-j2yw8g https://github.com/sommer-nt/bosch-flow.git
+cd bosch-flow
+sudo bash deploy/install.sh flow.example.de     # eigenen Hostnamen einsetzen, ohne Angabe: Zugriff per IP
+sudo certbot --nginx -d flow.example.de          # optional: HTTPS (Let's Encrypt)
+```
+
+Die App liegt danach in `/opt/bosch-flow` und läuft als Benutzer `boschflow` nur auf `127.0.0.1:8501`.
+Nach außen erreichbar ist sie ausschließlich über nginx.
+
+| Aufgabe | Befehl |
+|---|---|
+| Neue Version einspielen | `git pull && sudo bash deploy/update.sh` |
+| Status / Log | `systemctl status bosch-flow` · `journalctl -u bosch-flow -f` |
+| Neustart | `sudo systemctl restart bosch-flow` |
 
 ## Aufbau
 
