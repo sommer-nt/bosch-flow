@@ -1,0 +1,23 @@
+[
+  {"name": "standard", "fields": {}, "straenge": [{"floors": 4, "split": "both", "cfg": [{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5}]}]},
+  {"name": "tud_kupfer", "fields": {"glz": "tud", "mat": "kupfer", "vmax": "0.8"}, "straenge": [{"floors": 3, "split": "both", "cfg": [{"l":3,"r":4},{"l":6,"r":2},{"l":1,"r":0}]}]},
+  {"name": "vierleiter", "fields": {"system": "4", "heizTueber": "15", "heizDt": "8"}, "straenge": [{"floors": 5, "split": "both", "cfg": [{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4}]}]},
+  {"name": "flow7000_parallel", "fields": {"station": "flow7000", "wwstage": "1", "qhk": "5.5", "tvl": "60", "vlhk": "45", "dthk": "10"}, "straenge": [{"floors": 6, "split": "one", "cfg": [{"l":3,"r":0},{"l":3,"r":0},{"l":2,"r":0},{"l":2,"r":0},{"l":2,"r":0},{"l":1,"r":0}]}]},
+  {"name": "hps_dle_boost", "fields": {"station": "flow7000", "zuheizer": "on", "zuheizerKW": "11", "dleStufe": "60", "tvl": "42", "vlhk": "35", "qhk": "3"}, "straenge": [{"floors": 3, "split": "both", "cfg": [{"l":2,"r":2},{"l":2,"r":2},{"l":2,"r":2}]}]},
+  {"name": "hps_dle_manuell_erschoepft", "fields": {"station": "flow7000", "zuheizer": "on", "zuheizerKW": "11", "dleStufe": "53", "wwmode": "man", "zapfMenge": "15", "zapfTemp": "50", "tvl": "40"}, "straenge": [{"floors": 2, "split": "both", "cfg": [{"l":3,"r":3},{"l":3,"r":3}]}]},
+  {"name": "hps_dle_stufe_zu_niedrig", "fields": {"station": "flow7000", "zuheizer": "on", "dleStufe": "48", "wwmode": "man", "zapfTemp": "50", "zapfMenge": "8", "tvl": "40"}, "straenge": [{"floors": 2, "split": "both", "cfg": [{"l":2,"r":2},{"l":2,"r":2}]}]},
+  {"name": "hps_dle_nicht_noetig", "fields": {"station": "flow7000", "zuheizer": "on", "tvl": "48"}, "straenge": [{"floors": 2, "split": "both", "cfg": [{"l":2,"r":2},{"l":2,"r":2}]}]},
+  {"name": "manuell_gekappt", "fields": {"wwmode": "man", "zapfMenge": "30", "zapfTemp": "60", "tvl": "65", "wwstage": "1"}, "straenge": [{"floors": 4, "split": "both", "cfg": [{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5}]}]},
+  {"name": "mehrstrang_gemeinsam", "fields": {"zentral": "gemeinsam", "waermequelle": "fernwaerme", "tTot": "2", "tWied": "30"}, "straenge": [
+    {"floors": 4, "split": "both", "cfg": [{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5}]},
+    {"floors": 3, "split": "one", "cfg": [{"l":4,"r":0},{"l":4,"r":0},{"l":3,"r":0}]},
+    {"floors": 8, "split": "both", "cfg": [{"l":2,"r":3},{"l":2,"r":3},{"l":2,"r":3},{"l":2,"r":3},{"l":2,"r":3},{"l":2,"r":3},{"l":2,"r":3},{"l":2,"r":3}]}]},
+  {"name": "mehrstrang_getrennt", "fields": {"zentral": "getrennt", "waermequelle": "wp", "tTot": "3", "tWied": "45", "system": "4"}, "straenge": [
+    {"floors": 4, "split": "both", "cfg": [{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5},{"l":5,"r":5}]},
+    {"floors": 2, "split": "both", "cfg": [{"l":1,"r":7},{"l":0,"r":3}]}]},
+  {"name": "hochhaus_ppr", "fields": {"mat": "ppr", "vmax": "1.5", "qhk": "6", "tsp": "12"}, "straenge": [{"floors": 20, "split": "both", "cfg": [
+    {"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},
+    {"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8}]}]},
+  {"name": "verbund_heizlast_ueber", "fields": {"mat": "verbund", "qhk": "25", "station": "flow8000"}, "straenge": [{"floors": 1, "split": "both", "cfg": [{"l":1,"r":1}]}]},
+  {"name": "flow7000_heizlast_reserve", "fields": {"station": "flow7000", "qhk": "8.5", "glz": "tud"}, "straenge": [{"floors": 2, "split": "one", "cfg": [{"l":6,"r":0},{"l":5,"r":0}]}]}
+]

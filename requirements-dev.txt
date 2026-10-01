@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest>=8
+# nur für tools/make_golden.py (Referenzwerte aus index.html erzeugen)
+playwright>=1.45
