@@ -1,33 +1,37 @@
 """BOSCH Flow – Netz- & Anlagenrechner für Wohnungsstationen (Streamlit).
 
 Start:  streamlit run app.py
-Aufbau und Rechenkern wie die HTML-Version V54 (index.html): links die Eingabekarten ①②③, rechts Kennzahlen,
-Netzschema (Aktueller Strang / Alle Stränge mit Netztopologie), Anlagenschema, Auslegungs-Tabelle, Diagramm,
-Wärmezentrale und DLE-Auslegungshilfe. Auto-Sicherung im Browser, Hell/Dunkel, PDF-Export.
+Kachel-Dashboard: oben die vier Kennzahlen, darunter 3D-Gebäude, Prüfungen, Variantenempfehlung, Rohrnetz, Gerät
+und Stückliste. Jede Kachel öffnet per Klick ihre Details (Schemata, Tabellen, Herleitungen). Die Eingaben fahren als
+Panel von rechts herein. Rechenkern wie die HTML-Version V54 (index.html). Auto-Sicherung im Browser, Hell/Dunkel,
+PDF- und Excel-Export.
 """
 from __future__ import annotations
 
+import base64
 import hmac
 import json
 import os
 from dataclasses import replace
 from datetime import date, datetime
+from pathlib import Path
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 st.set_page_config(page_title="Bosch Flow – Netz- & Anlagenrechner", page_icon="🔥", layout="wide")
 
+from bosch_flow import katalog as KA  # noqa: E402
 from bosch_flow import plots, schemata  # noqa: E402
 from bosch_flow import report as RP  # noqa: E402
-from bosch_flow.bericht import pdf_bericht  # noqa: E402
-from bosch_flow.modell3d import modell  # noqa: E402
 from bosch_flow import varianten as VA  # noqa: E402
-from bosch_flow import katalog as KA  # noqa: E402
-from bosch_flow.calc import (Inputs, Strang, build_params, compute_all, din18015, dle_table, etage_label,  # noqa: E402
+from bosch_flow.bericht import pdf_bericht  # noqa: E402
+from bosch_flow.calc import (Inputs, Strang, compute_all, din18015, dle_table, etage_label,  # noqa: E402
                              gesamt_anlage, project_headline, puffer_produkt, topo_label, topologie, tvl_bounds,
                              zapf_max_lmin)
 from bosch_flow.data import MATNAME, STATIONS, WAERMEQUELLEN  # noqa: E402
+from bosch_flow.modell3d import STUFEN, modell  # noqa: E402
 from bosch_flow.project import dumps, from_html_state, stand  # noqa: E402
 from bosch_flow.report import fmt  # noqa: E402
 from bosch_flow.zeichnung import als_plotly  # noqa: E402
@@ -35,6 +39,7 @@ from browser import browser  # noqa: E402
 
 ss = st.session_state
 BLAU = "#005691"
+ICONS = Path(__file__).parent / "bosch_flow" / "daten" / "icons"
 
 
 # ====================================================================== Zugang (optional)
@@ -63,60 +68,129 @@ try:
     DUNKEL = st.context.theme.type == "dark"
 except Exception:  # noqa: BLE001
     DUNKEL = False
-AKZENT = "#4fa3e0" if DUNKEL else BLAU
+
+# Farb-Token (hell / dunkel)
+F = dict(seite="#0b1016", kachel="#131b24", linie="rgba(255,255,255,.07)", text="#e8eef4", leise="#8fa1b3",
+         akzent="#4fa3e0", akzent_bg="rgba(79,163,224,.12)", schatten="0 1px 2px rgba(0,0,0,.4)",
+         schatten2="0 10px 30px rgba(0,0,0,.45)", gruen="#3ecf6e", gelb="#f2c14e", rot="#ff5a6a") if DUNKEL else \
+    dict(seite="#f3f5f8", kachel="#ffffff", linie="rgba(16,24,40,.07)", text="#101828", leise="#667085",
+         akzent=BLAU, akzent_bg="rgba(0,86,145,.08)", schatten="0 1px 2px rgba(16,24,40,.05)",
+         schatten2="0 12px 32px rgba(16,24,40,.10)", gruen="#12b76a", gelb="#f79009", rot="#e5484d")
+
+
+def _svg(name: str) -> str:
+    raw = (ICONS / f"{name}.svg").read_text(encoding="utf-8")
+    if DUNKEL:
+        raw = raw.replace("#1D1D1B", "#e8eef4")
+    return "data:image/svg+xml;base64," + base64.b64encode(raw.encode()).decode()
+
 
 # ====================================================================== Stil
 st.markdown(f"""
 <style>
-.block-container {{padding-top: 2.6rem; max-width: min(1720px, 98vw)}}
-.kopf {{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; padding-bottom:10px; border-bottom:3px solid;
-       border-image:linear-gradient(90deg,#e20015 0%,#b90276 22%,#50237f 44%,#005691 70%,#008ecf 100%) 1}}
-.logo {{font-weight:800; letter-spacing:.3px; font-size:22px; color:#e20015}}
-.logo span {{color:{'#e6edf3' if DUNKEL else '#141e29'}}}
-.unter {{color:#78889a; font-size:13px}}
-.devbadge {{font-size:12px; color:#78889a; border:1px solid rgba(128,128,128,.3); padding:5px 13px;
-           border-radius:20px; font-weight:500; white-space:nowrap; text-align:center}}
-.devbadge b {{color:{'#4fa3e0' if DUNKEL else BLAU}}}
-.karte-titel {{font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase;
-              color:{'#4fa3e0' if DUNKEL else BLAU}; margin:-4px 0 6px}}
-.karte-titel small {{text-transform:none; letter-spacing:0; font-weight:500; color:#78889a; margin-left:8px}}
-.empf {{border:1px solid rgba(43,147,72,.45); background:rgba(43,147,72,.08); border-radius:12px; padding:10px 14px;
-        margin-bottom:.6rem; font-size:14px; line-height:1.5}}
-.empf ul {{margin:.3rem 0 .2rem 1.1rem; padding:0}} .empf small {{color:#78889a}}
-.empf-tag {{background:#2b9348; color:#fff; border-radius:20px; padding:1px 9px; font-size:11px; font-weight:700;
-            margin-right:8px; letter-spacing:.03em; text-transform:uppercase}}
-.geraet-typ {{font-weight:800; font-size:16px; color:{'#4fa3e0' if DUNKEL else BLAU}; line-height:1.2}}
-.geraet-nr {{font-size:11.5px; color:#78889a; margin:.15rem 0 .35rem}}
-.st-key-geraet [data-testid="stImage"] img {{max-height:190px; object-fit:contain}}
-.hinweis {{font-size:12px; line-height:1.45; color:#78889a; border-left:3px solid {BLAU}; padding:6px 10px;
-          background:rgba(0,86,145,.07); border-radius:0 6px 6px 0; margin:2px 0 8px}}
-.autosave {{font-size:11.5px; color:#2e7d32; text-align:center; margin:2px 0 6px}}
-.info-zeile {{display:flex; justify-content:space-between; gap:.6rem; font-size:12.5px; padding:.18rem 0;
-             border-bottom:1px dashed rgba(128,128,128,.25)}}
-.info-zeile span:first-child {{color:#78889a}}
-.etage {{font-size:13px; font-weight:700; text-align:right}}
-.lr {{font-size:11px; color:#78889a}}
-.abschnitt {{flex:1 1 160px; min-width:150px; border:1px solid rgba(128,128,128,.25); border-left:4px solid {BLAU};
-            border-radius:8px; padding:8px 10px}}
-.abschnitt.krit {{border-color:#b26a00; border-left-color:#b26a00; background:rgba(178,106,0,.08)}}
+.stApp {{background:{F['seite']}}}
+header[data-testid="stHeader"] {{background:transparent}}
+.block-container {{padding-top:2.4rem; padding-bottom:1.5rem; max-width:min(1760px, 98vw)}}
+.superband {{position:fixed; top:0; left:0; right:0; height:4px; z-index:999990;
+            background:linear-gradient(90deg,#e20015 0%,#b90276 22%,#50237f 44%,#005691 70%,#008ecf 100%)}}
+/* Kopfleiste */
+.marke {{font-weight:800; font-size:22px; letter-spacing:.2px; color:#e20015; line-height:1.1}}
+.marke span {{color:{F['text']}}}
+.marke small {{display:block; font-size:12px; font-weight:500; color:{F['leise']}; letter-spacing:0; margin-top:2px}}
+.pille {{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:{F['leise']};
+        background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:999px; padding:5px 12px;
+        white-space:nowrap}}
+.pille i {{width:8px; height:8px; border-radius:50%; background:{F['gruen']}; display:inline-block}}
+/* Kacheln */
+[class*="st-key-kachel"] {{background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:20px;
+        padding:18px 20px 16px; box-shadow:{F['schatten']}; transition:box-shadow .18s, transform .18s;
+        position:relative; gap:.35rem}}
+[class*="st-key-kachel"]:hover {{box-shadow:{F['schatten2']}}}
+[class*="st-key-kachelklick"]:hover {{transform:translateY(-2px); cursor:pointer}}
+[class*="st-key-kachelklick"] [class*="st-key-klick_"] {{position:absolute; inset:0; z-index:4; margin:0}}
+[class*="st-key-kachelklick"] [class*="st-key-klick_"] button {{width:100%; height:100%; opacity:0; cursor:pointer}}
+.k-kopf {{display:flex; align-items:center; justify-content:space-between; gap:8px}}
+.k-titel {{font-size:12.5px; font-weight:700; color:{F['leise']}; letter-spacing:.2px}}
+.k-mehr {{position:absolute; right:18px; bottom:12px; font-size:12px; font-weight:600; color:{F['akzent']}; opacity:0;
+          transition:opacity .18s}}
+[class*="st-key-kachel"]:hover .k-mehr {{opacity:1}}
+.k-wert {{font-size:clamp(28px, 2.6vw, 40px); font-weight:800; color:{F['text']}; letter-spacing:-.5px;
+         line-height:1.05; margin-top:6px}}
+.k-wert span {{font-size:.45em; font-weight:600; color:{F['leise']}; margin-left:5px; letter-spacing:0}}
+.k-unter {{font-size:12.5px; color:{F['leise']}; margin-top:6px}}
+.k-icon {{width:34px; height:34px; border-radius:10px; background:{F['akzent_bg']}; display:flex; align-items:center;
+         justify-content:center}}
+.k-icon img {{width:22px; height:22px}}
+.delta {{display:inline-block; font-size:11.5px; font-weight:700; border-radius:999px; padding:1px 8px; margin-left:6px}}
+.delta.up {{background:rgba(229,72,77,.12); color:{F['rot']}}}
+.delta.down {{background:rgba(18,183,106,.12); color:{F['gruen']}}}
+/* Prüfungen */
+.pruef {{display:flex; align-items:flex-start; gap:10px; padding:7px 0; border-bottom:1px solid {F['linie']};
+        font-size:13.5px; color:{F['text']}}}
+.pruef:last-child {{border-bottom:0}}
+.pruef b {{font-weight:650}}
+.pruef small {{display:block; color:{F['leise']}; font-size:12px; margin-top:1px}}
+.dot {{flex:0 0 10px; height:10px; border-radius:50%; margin-top:5px}}
+.dot.ok {{background:{F['gruen']}; box-shadow:0 0 0 4px rgba(18,183,106,.15)}}
+.dot.warn {{background:{F['gelb']}; box-shadow:0 0 0 4px rgba(247,144,9,.15)}}
+.dot.err {{background:{F['rot']}; box-shadow:0 0 0 4px rgba(229,72,77,.15)}}
+.dot.info {{background:{F['akzent']}; box-shadow:0 0 0 4px {F['akzent_bg']}}}
+.gesamt {{font-size:20px; font-weight:800; color:{F['text']}; margin:4px 0 2px}}
+/* Empfehlung */
+.empf-tag {{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
+           color:{F['gruen']}; background:rgba(18,183,106,.12); border-radius:999px; padding:2px 10px}}
+.empf-titel {{font-size:22px; font-weight:800; color:{F['text']}; margin:8px 0 2px; line-height:1.15}}
+.empf-pkt {{font-size:13px; color:{F['leise']}; margin:2px 0}}
+/* Rohrnetz-Balken */
+.rn {{display:grid; grid-template-columns:42px 1fr 64px 70px; align-items:center; gap:10px; font-size:13px;
+     color:{F['text']}; padding:5px 0}}
+.rn .s {{font-weight:800; color:{F['akzent']}}}
+.rn .bar {{height:8px; border-radius:99px; background:{F['linie']}; overflow:hidden}}
+.rn .bar i {{display:block; height:100%; border-radius:99px}}
+.rn .dn {{font-weight:700; text-align:right}}
+.rn .v {{color:{F['leise']}; text-align:right; font-size:12px}}
+.rn-kopf {{font-size:12px; color:{F['leise']}; margin:2px 0 6px}}
+/* Gerät */
+.g-typ {{font-size:20px; font-weight:800; color:{F['text']}; line-height:1.15}}
+.g-sub {{font-size:12.5px; color:{F['leise']}; margin:3px 0 8px}}
+.g-zeile {{display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid {F['linie']};
+          color:{F['text']}}}
+.g-zeile span {{color:{F['leise']}}}
+/* Eingabe-Panel */
+.st-key-panel {{background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:20px; padding:16px 16px 10px;
+               box-shadow:{F['schatten2']}; position:sticky; top:3.2rem; max-height:calc(100vh - 4rem);
+               overflow-y:auto; animation:reinfahren .28s ease-out}}
+@keyframes reinfahren {{from {{opacity:0; transform:translateX(28px)}} to {{opacity:1; transform:none}}}}
+.p-titel {{font-size:16px; font-weight:800; color:{F['text']}}}
+.hinweis {{font-size:12px; line-height:1.45; color:{F['leise']}; border-left:3px solid {F['akzent']}; padding:6px 10px;
+          background:{F['akzent_bg']}; border-radius:0 8px 8px 0; margin:2px 0 8px}}
+.info-zeile {{display:flex; justify-content:space-between; gap:.6rem; font-size:12.5px; padding:.2rem 0;
+             border-bottom:1px solid {F['linie']}; color:{F['text']}}}
+.info-zeile span:first-child {{color:{F['leise']}}}
+.etage {{font-size:13px; font-weight:700; text-align:right; color:{F['text']}}}
+.lr {{font-size:11px; color:{F['leise']}}}
+/* Details (Dialoge) */
+.abschnitt {{flex:1 1 160px; min-width:150px; border:1px solid {F['linie']}; border-left:4px solid {F['akzent']};
+            border-radius:10px; padding:8px 10px; color:{F['text']}}}
+.abschnitt.krit {{border-left-color:#b26a00; background:rgba(178,106,0,.08)}}
 .abschnitt .num {{display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px;
-                 border-radius:50%; background:{BLAU}; color:#fff; font-size:11px; font-weight:700; margin-right:6px}}
+                 border-radius:50%; background:{F['akzent']}; color:#fff; font-size:11px; font-weight:700; margin-right:6px}}
 .abschnitt.krit .num {{background:#b26a00}}
-.strangkopf {{font-weight:700; font-size:14px; margin:4px 0}}
+.strangkopf {{font-weight:700; font-size:14px; margin:4px 0; color:{F['text']}}}
 .badge2 {{display:inline-block; font-size:11.5px; font-weight:600; padding:2px 9px; border-radius:12px;
-         border:1px solid rgba(128,128,128,.3); margin:0 4px 4px 0}}
-[data-testid="stMetric"] {{border:1px solid rgba(128,128,128,.25); border-top:3px solid {BLAU}; border-radius:12px;
-                          padding:10px 14px}}
-[data-testid="stMetricValue"] {{font-size:clamp(1.3rem, 2vw, 1.9rem) !important; font-weight:700;
-                               color:{'#4fa3e0' if DUNKEL else BLAU}}}
-[data-testid="stMetricValue"] > div {{overflow:visible !important; text-overflow:clip !important}}
-.st-key-kopfschalter {{display:flex; justify-content:flex-end}}
-/* „Anheften“: Netzschema bleibt beim Scrollen oben stehen */
-.st-key-schemakarte-an {{position:sticky; top:3.4rem; z-index:20; max-height:62vh; overflow:auto;
-                        background:{'#0e1117' if DUNKEL else '#ffffff'}}}
-.fuss {{text-align:center; color:#8a949e; font-size:12px; line-height:1.6; padding:1.4rem 0 .4rem;
-        border-top:1px solid rgba(128,128,128,.2); margin-top:1rem}}
-</style>""", unsafe_allow_html=True)
+         border:1px solid {F['linie']}; margin:0 4px 4px 0; color:{F['leise']}}}
+[data-testid="stCaptionContainer"] {{color:{F['leise']} !important}}
+[data-testid="stMetric"] {{background:{F['akzent_bg']}; border-radius:14px; padding:10px 14px}}
+.fuss {{text-align:center; color:{F['leise']}; font-size:11.5px; padding:1.2rem 0 .2rem}}
+div[data-testid="stDialog"] div[role="dialog"] {{border-radius:20px}}
+/* gleiche Höhen je Reihe */
+.st-key-kachelklick_v, .st-key-kachelklick_dn, .st-key-kachelklick_kessel, .st-key-kachelklick_puffer {{min-height:150px}}
+.st-key-kachelklick_rohrnetz, .st-key-kachelklick_geraet, .st-key-kachelklick_stueck {{min-height:190px}}
+.st-key-kachelklick_geraet [data-testid="stImage"] img {{max-height:130px; object-fit:contain}}
+.st-key-panel_zu button {{border:0; background:transparent; min-height:32px; padding:4px 8px}}
+.st-key-panel [data-baseweb="tab-list"] {{gap:6px}}
+</style>
+<div class="superband"></div>""", unsafe_allow_html=True)
 
 
 # ====================================================================== Projektzustand
@@ -157,74 +231,43 @@ def setze(**felder) -> None:
 
 if "inp" not in ss:
     neues_projekt()
+if "panel" not in ss:
+    ss.panel = True
 if msg := ss.pop("meldung", None):
     st.toast(msg[1], icon="✅" if msg[0] == "success" else "⚠️")
 
 
-# ====================================================================== Kopfzeile
-c1, c2, c3 = st.columns([6, 2.2, 0.5], vertical_alignment="center")
-c1.markdown('<div class="kopf"><span class="logo">BOSCH <span>Flow</span></span>'
-            '<span class="unter">Netz- &amp; Anlagenrechner für Wohnungsstationen</span></div>', unsafe_allow_html=True)
-c2.markdown('<div class="devbadge">Entwickelt von <b>Daniel Sommer</b> · HC/SDE3-PSD</div>', unsafe_allow_html=True)
-kopfschalter = c3.container(key="kopfschalter")   # Hell/Dunkel-Schalter (wird am Ende des Laufs eingesetzt)
+# ====================================================================== Kopfleiste
+kopf = st.columns([3.2, 3.4, 1.15, 1.25, 0.62, 0.5], vertical_alignment="center")
+kopf[0].markdown('<div class="marke">BOSCH <span>Flow</span><small>Netz- &amp; Anlagenrechner für '
+                 'Wohnungsstationen</small></div>', unsafe_allow_html=True)
+kopf_status = kopf[1].empty()
+if kopf[2].button("Eingaben", icon=":material/tune:", width="stretch",
+                  type="secondary" if ss.panel else "primary", help="Eingabe-Panel ein-/ausblenden"):
+    ss.panel = not ss.panel
+    st.rerun()
+kopf_pdf = kopf[3].empty()
+kopf_menue = kopf[4].empty()
+kopf_thema = kopf[5].container()
+st.write("")
 
-links, rechts = st.columns([1.12, 3], gap="medium")
-
-
-def karte(titel: str, zusatz: str = "", key: str | None = None):
-    c = st.container(border=True, key=key)
-    c.markdown(f'<div class="karte-titel">{titel}{f"<small>{zusatz}</small>" if zusatz else ""}</div>',
-               unsafe_allow_html=True)
-    return c
-
-
-def geraete_panel(g: dict) -> None:
-    """Produktbild und Katalogdaten der gewählten Station."""
-    with st.container(border=True, key="geraet"):
-        a, b = st.columns([1, 1.5], vertical_alignment="center")
-        a.image(str(g["bild"]), width="stretch")
-        b.markdown(f'<div class="geraet-typ">{g["typ"]}</div><div class="geraet-nr">Bestell-Nr. {g["bestellnr"]}<br>'
-                   f'UVP {fmt(g["uvp"])} € · {KA.MONTAGE[g["montage"]].split(" (")[0]}</div>'
-                   f'<div class="geraet-nr">H × B × T {g["abmessungen"]}</div>', unsafe_allow_html=True)
-        zeilen = [("Primär-Volumenstrom", f"{fmt(g['vPrim'])} l/h"), ("Primär-Druckverlust", f"{fmt(g['dpPrim'])} mbar"),
-                  ("bei Vorlauf", g["vlPunkt"]), ("Zapfmenge max.", f"{g['zapf']} l/min"),
-                  ("Primär-VL laut Katalog", f"{g['vlMin']}–{g['vlMax']} °C")]
-        st.markdown("".join(f'<div class="info-zeile"><span>{x}</span><b>{y}</b></div>' for x, y in zeilen),
-                   unsafe_allow_html=True)
-    for stufe, text in g["hinweise"]:
-        if stufe == "warn":
-            st.warning(text, icon=":material/warning:")
-    infos = [t for s_, t in g["hinweise"] if s_ == "info"]
-    if infos:
-        with st.expander(f"Katalog-Hinweise ({len(infos)})", icon=":material/menu_book:"):
-            st.markdown("\n".join(f"- {t}" for t in infos))
-            st.caption(KA.KATALOG)
+if ss.panel:
+    haupt, panel_spalte = st.columns([2.75, 1.05], gap="large")
+else:
+    haupt, panel_spalte = st.container(), None
 
 
-# ====================================================================== Eingaben (links)
-with links:
+# ====================================================================== Eingabe-Panel (rechts)
+def eingaben() -> None:
     meta = ss.meta
-    # ---------------------------------------------------------------- Projekt
-    with karte("Projekt"):
-        meta["projName"] = st.text_input("Projektname", meta["projName"], key=k("projName"),
-                                         placeholder="z. B. Wohnanlage Musterstraße")
-        meta["projLoc"] = st.text_input("Standort", meta["projLoc"], key=k("projLoc"), placeholder="z. B. Stuttgart")
-        a, b = st.columns(2)
-        meta["projPlanner"] = a.text_input("Planer / Bearbeiter", meta["projPlanner"], key=k("projPlanner"),
-                                           placeholder="Name")
-        try:
-            d0 = date.fromisoformat(str(meta.get("projDate") or "")[:10])
-        except ValueError:
-            d0 = date.today()
-        meta["projDate"] = b.date_input("Datum", d0, key=k("projDate"), format="DD.MM.YYYY").isoformat()
-        projekt_knoepfe = st.container()          # Knöpfe brauchen den Stand nach allen Eingaben – unten befüllt
+    t_geb, t_sys, t_ausl, t_proj = st.tabs(["Gebäude", "System", "Auslegung", "Projekt"])
 
-    # ---------------------------------------------------------------- ① Gebäude
-    with karte("① Gebäude"):
+    # ---------------------------------------------------------------- Gebäude
+    with t_geb:
         straenge = ss.straenge
         n = len(straenge)
         aktiv = meta["activeStrang"]
-        if n > 1:                                  # eigene Zeile, damit auch viele Stränge sichtbar bleiben
+        if n > 1:
             namen = [f"Strang {i + 1}" if n <= 3 else f"S{i + 1}" for i in range(n)]
             w = st.segmented_control("Strang", namen, default=namen[aktiv], key=f"strang_geb_{ss.rev}_{aktiv}_{n}",
                                      label_visibility="collapsed", width="stretch")
@@ -232,12 +275,13 @@ with links:
                 meta["activeStrang"] = namen.index(w)
                 st.rerun()
         b, c = st.columns(2, vertical_alignment="center")
-        if b.button("＋ Strang", help="Neuer Strang als Kopie des aktuellen", width="stretch"):
+        if b.button("Strang", icon=":material/add:", help="Neuer Strang als Kopie des aktuellen", width="stretch"):
             cur = straenge[aktiv]
             straenge.append(Strang(cur.floors, cur.split, [dict(x) for x in cur.cfg]))
             meta["activeStrang"] = len(straenge) - 1
             st.rerun()
-        if c.button("－ Strang", help="Aktuellen Strang löschen", disabled=n <= 1, width="stretch"):
+        if c.button("Strang", icon=":material/remove:", help="Aktuellen Strang löschen", disabled=n <= 1,
+                    width="stretch", key="strang_weg"):
             straenge.pop(aktiv)
             meta["activeStrang"] = min(aktiv, len(straenge) - 1)
             ss.rev += 1
@@ -252,10 +296,9 @@ with links:
         s = straenge[si]
         a, b = st.columns(2)
         fl = int(a.number_input("Etagen", 1, 20, int(s.floors), 1, key=k(f"floors{si}"),
-                                help="Geschosse, die DIESER Steigstrang versorgt. Für jede Etage kann die Stationszahl "
-                                     "einzeln gesetzt werden."))
+                                help="Geschosse, die DIESER Steigstrang versorgt."))
         sp = b.selectbox("Aufteilung", ["both", "one"], 0 if s.split == "both" else 1, key=k(f"split{si}"),
-                         format_func=lambda v: "beidseitig (L + R)" if v == "both" else "einseitig",
+                         format_func=lambda v: "beidseitig" if v == "both" else "einseitig",
                          help="Beidseitig = Stationen links und rechts vom Steigstrang. Einseitig = ein Strang je Etage.")
         if fl != s.floors or sp != s.split:
             cfg = [dict(x) for x in s.cfg[:fl]]
@@ -266,14 +309,12 @@ with links:
             s.floors, s.split, s.cfg = fl, sp, cfg
             ss.rev += 1
             st.rerun()
-        a, b, _ = st.columns([0.9, 0.5, 1.5], vertical_alignment="center")
-        a.markdown('<div class="lr" style="text-align:right">Schnell setzen:</div>', unsafe_allow_html=True)
-        q = b.number_input("Schnell setzen", 0, 16, 5, 1, key=k("quick"), label_visibility="collapsed")
-        if _.button("auf alle Etagen", width="stretch"):
+        a, b = st.columns([1, 1.4], vertical_alignment="bottom")
+        q = a.number_input("Stationen je Seite", 0, 16, 5, 1, key=k("quick"))
+        if b.button("auf alle Etagen", width="stretch", icon=":material/done_all:"):
             s.cfg = [{"l": int(q), "r": int(q) if s.split == "both" else 0} for _x in range(s.floors)]
             ss.rev += 1
             st.rerun()
-        # Etagenliste wie in der HTML: oberste Etage zuerst, je Etage links / rechts
         for f in range(s.floors, 0, -1):
             cf = s.cfg[f - 1]
             if s.split == "both":
@@ -283,53 +324,42 @@ with links:
             e.markdown(f'<div class="etage">{etage_label(f)}</div>', unsafe_allow_html=True)
             cf["l"] = int(l.number_input(f"{etage_label(f)} links", 0, 16, int(cf["l"]), 1,
                                          key=k(f"l{si}_{f}"), label_visibility="collapsed"))
-            ll.markdown('<div class="lr">L</div>' if s.split == "both" else '<div class="lr">Stationen</div>',
+            ll.markdown('<div class="lr">L</div>' if s.split == "both" else '<div class="lr">Stat.</div>',
                         unsafe_allow_html=True)
             if s.split == "both":
                 cf["r"] = int(r.number_input(f"{etage_label(f)} rechts", 0, 16, int(cf["r"]), 1,
                                              key=k(f"r{si}_{f}"), label_visibility="collapsed"))
                 rr.markdown('<div class="lr">R</div>', unsafe_allow_html=True)
 
-    # ---------------------------------------------------------------- ② System & Gerät
-    with karte("② System & Gerät"):
-        v = st.selectbox("Leitersystem (projektweit)", ["2", "4"], ["2", "4"].index(ss.inp.system), key=k("system"),
+    # ---------------------------------------------------------------- System & Gerät
+    with t_sys:
+        v = st.selectbox("Leitersystem", ["2", "4"], ["2", "4"].index(ss.inp.system), key=k("system"),
                          format_func=lambda x: "2-Leiter (Heizung + Trinkwasser über Station)" if x == "2"
                          else "4-Leiter (Heizung + Trinkwasser getrennt)",
-                         help="Grundsatzentscheidung für die GESAMTE Anlage – gilt für alle Stränge. 2-Leiter für "
-                              "Erzeuger mit hoher Vorlauftemperatur (>55 °C, z. B. Kessel/Fernwärme), 4-Leiter für "
-                              "Wärmepumpen/Niedertemperatur.")
+                         help="Gilt für die gesamte Anlage. 2-Leiter für hohe Vorlauftemperaturen (Kessel/Fernwärme), "
+                              "4-Leiter für Wärmepumpen/Niedertemperatur.")
         setze(system=v)
-        st.markdown('<div class="hinweis">' + (
-            "Ein gemeinsames Leitungspaar für Heizung + Trinkwasser. Passt zu Erzeugern mit hoher Vorlauftemperatur "
-            "(Kessel, Fernwärme)." if v == "2" else
-            "Getrennte Leitungspaare für Heizung und Trinkwasser (vier Rohre). Typisch bei Wärmepumpen / "
-            "Niedertemperatur.") + "</div>", unsafe_allow_html=True)
         qv = st.selectbox("Wärmequelle", list(WAERMEQUELLEN), list(WAERMEQUELLEN).index(ss.inp.waermequelle),
                           key=k("waermequelle"), format_func=lambda x: WAERMEQUELLEN[x]["name"],
-                          help="Setzt Kesseltotzeit / Wiederaufheizzeit automatisch (unten anpassbar).")
+                          help="Setzt Kesseltotzeit / Wiederaufheizzeit automatisch (unter Auslegung anpassbar).")
         if qv != ss.inp.waermequelle:
             wq = WAERMEQUELLEN[qv]
             setze(waermequelle=qv, tTot=float(wq["tot"]), tWied=float(wq["wied"]))
             ss.rev += 1
             st.rerun()
-        wq = WAERMEQUELLEN[qv]
-        st.markdown(f'<div class="hinweis">{wq["txt"]}<br><b>Automatisch gesetzt:</b> Kesseltotzeit '
-                    f'<b>{wq["tot"]} min</b> · Wiederaufheizzeit <b>{wq["wied"]} min</b> (unten anpassbar).</div>',
-                    unsafe_allow_html=True)
         stv = st.selectbox("Wohnungsstation", list(STATIONS), list(STATIONS).index(ss.inp.station), key=k("station"),
                            format_func=lambda x: STATIONS[x]["name"],
-                           help="Flow 8000: WW-Vorrang (Heizung pausiert beim Zapfen). Flow 7000: WW-Parallelbetrieb "
-                                "(Heizung läuft weiter).")
+                           help="Flow 8000: WW-Vorrang (Heizung pausiert beim Zapfen). Flow 7000: WW-Parallelbetrieb.")
         stn = STATIONS[stv]
         setze(station=stv, wwstage=min(ss.inp.wwstage, len(stn["stages"]) - 1))
-        ws = st.selectbox("Warmwasser-Leistungsstufe", list(range(len(stn["stages"]))), ss.inp.wwstage,
-                          key=k(f"wwstage_{stv}"),
-                          format_func=lambda i: "{kw} kW · bis {lmin} l/min".format(**stn["stages"][i]),
-                          help="Bestimmt die Zapfmenge je Station laut Gerätedatenblatt (Standard-Modus).")
-        wm = st.selectbox("Warmwasser-Parameter", ["std", "man"], ["std", "man"].index(ss.inp.wwmode), key=k("wwmode"),
-                          format_func=lambda x: "Standard (aus Leistungsstufe)" if x == "std" else "Manuelle Eingabe",
-                          help="Standard: Zapfmenge aus der Leistungsstufe, 45 °C. Manuell: bedarfsgerechte Zapfmenge "
-                               "und Zapftemperatur – optimiert Speicher- und Erzeugergröße.")
+        a, b = st.columns(2)
+        ws = a.selectbox("WW-Leistung", list(range(len(stn["stages"]))), ss.inp.wwstage, key=k(f"wwstage_{stv}"),
+                         format_func=lambda i: "{kw} kW · {lmin} l/min".format(**stn["stages"][i]),
+                         help="Zapfmenge je Station laut Gerätedatenblatt (Standard-Modus).")
+        wm = b.selectbox("WW-Parameter", ["std", "man"], ["std", "man"].index(ss.inp.wwmode), key=k("wwmode"),
+                         format_func=lambda x: "Standard" if x == "std" else "Manuell",
+                         help="Standard: Zapfmenge aus der Leistungsstufe, 45 °C. Manuell: bedarfsgerechte Zapfmenge und "
+                              "Zapftemperatur – optimiert Speicher- und Erzeugergröße.")
         setze(wwstage=ws, wwmode=wm)
         if wm == "man":
             a, b = st.columns(2)
@@ -338,82 +368,60 @@ with links:
             mx = max(5.0, zapf_max_lmin(replace(ss.inp, zapfTemp=zt)))
             zm = a.number_input("Zapfmenge l/min", 5.0, mx, min(max(5.0, float(ss.inp.zapfMenge)), mx), 0.5,
                                 format="%.1f", key=k(f"zapfMenge_{mx}"),
-                                help="Ab 5 l/min. Der Maximalwert ergibt sich aus der kW-Klasse der Station und der "
-                                     "Zapftemperatur – mehr kann die Station nicht liefern.")
+                                help="Ab 5 l/min; Maximum aus kW-Klasse und Zapftemperatur.")
             setze(zapfTemp=zt, zapfMenge=zm)
             st.caption(f"max. {fmt(mx, 1)} l/min bei {stn['stages'][ws]['kw']} kW und {fmt(zt)} °C")
         if stn["zuheizerFaehig"] and ss.inp.system == "2":
             zh = st.selectbox("Elektrischer Zuheizer (DLE)", ["off", "on"], ["off", "on"].index(ss.inp.zuheizer),
                               key=k("zuheizer"),
-                              format_func=lambda x: "mit elektrischem Zuheizer" if x == "on" else "ohne Zuheizer",
-                              help="Nachgeschalteter Durchlauferhitzer (Flow 7000 HPS). Mischt einen elektrisch erhitzten "
-                                   "Teilstrom bei, wenn die Netztemperatur nicht reicht. Feste Stufen 48/53/60 °C.")
+                              format_func=lambda x: "mit elektrischem Zuheizer (HPS)" if x == "on" else "ohne Zuheizer",
+                              help="Nachgeschalteter Durchlauferhitzer (Flow 7000 HPS) als Booster in der Wohnung.")
             setze(zuheizer=zh)
             if zh == "on":
                 a, b = st.columns(2)
                 kw = a.selectbox("Zuheizer-Leistung", [11.0, 13.0], [11.0, 13.0].index(float(ss.inp.zuheizerKW))
                                  if float(ss.inp.zuheizerKW) in (11.0, 13.0) else 0, key=k("zuheizerKW"),
-                                 format_func=lambda x: f"{x:.0f} kW", help="Verfügbar: 11 kW und 13 kW.")
+                                 format_func=lambda x: f"{x:.0f} kW")
                 ds = b.selectbox("DLE-Stufe", [48.0, 53.0, 60.0], [48.0, 53.0, 60.0].index(float(ss.inp.dleStufe))
                                  if float(ss.inp.dleStufe) in (48.0, 53.0, 60.0) else 1, key=k("dleStufe"),
-                                 format_func=lambda x: f"{x:.0f} °C",
-                                 help="Mechanischer Wählschalter – nur drei feste Stufen, nicht gradweise regelbar.")
+                                 format_func=lambda x: f"{x:.0f} °C", help="Drei feste Stufen (Wählschalter).")
                 setze(zuheizerKW=kw, dleStufe=ds)
-                st.markdown('<div class="hinweis">↑ Der DLE ist ein Booster in der Wohnung: Reicht die Netztemperatur '
-                            '(aus dem zentralen Erzeuger) nicht, mischt der DLE einen auf die gewählte Stufe erhitzten '
-                            'Teilstrom bei. Er entlastet die zentrale Auslegung nicht.</div>', unsafe_allow_html=True)
-        P0 = build_params(ss.inp)
-        zeilen = [("Betriebsart", stn["mode"]),
-                  ("WW-Leistung (manuell)", f"{fmt(P0['P_WW_full'], 1)} kW · {fmt(P0['zapfLmin'], 1)} l/min @ "
-                   f"{fmt(P0['zapfTemp'])} °C") if wm == "man" else
-                  ("WW-Leistung / Zapfmenge", "{kw} kW · {lmin} l/min".format(**stn["stages"][ws]))]
-        if P0["zuheizerOn"]:
-            zeilen.append(("Elektr. Zuheizer", f"{fmt(P0['zuheizerMaxKW'])} kW-Klasse · Stufe {fmt(P0['dleStufe'])} °C"))
-        zeilen += [("Heizleistung max.", f"{stn['maxHeatKW']} kW"), ("System", f"{ss.inp.system}-Leiter")]
-        st.markdown("".join(f'<div class="info-zeile"><span>{x}</span><b>{y}</b></div>' for x, y in zeilen),
-                    unsafe_allow_html=True)
         a, b = st.columns(2)
         mo0, hk0 = KA.ausfuehrung(meta)
         mo = a.selectbox("Montage", list(KA.MONTAGE), list(KA.MONTAGE).index(mo0), key=k("montage"),
-                         format_func=KA.MONTAGE.get, help="Ausführung laut Katalog – bestimmt Gerätetyp, Bestell-Nr. "
-                         "und Montagezubehör. Thermentausch (RS) nur Flow 7000 ohne DLE, ungemischt.")
+                         format_func=lambda x: {"ap": "Aufputz", "up": "Unterputz", "rs": "Thermentausch RS"}[x],
+                         help="Ausführung laut Katalog – bestimmt Gerätetyp, Bestell-Nr. und Montagezubehör.")
         hk = b.selectbox("Heizkreis", list(KA.HEIZKREIS), list(KA.HEIZKREIS).index(hk0), key=k("heizkreis"),
-                         format_func=lambda x: x, help="Ungemischt: Heizkreistemperatur = Versorgungstemperatur "
-                         "(Heizkörper). Gemischt: Station mit Pumpe und Mischer für Niedertemperatur (Fußbodenheizung).")
+                         help="Ungemischt: Heizkörper. Gemischt: Station mit Pumpe und Mischer (Fußbodenheizung).")
         meta["montage"], meta["heizkreis"] = mo, hk
-        geraete_panel(KA.geraet(ss.inp, meta))
 
-    # ---------------------------------------------------------------- ③ Auslegung
-    with karte("③ Auslegung"):
+    # ---------------------------------------------------------------- Auslegung
+    with t_ausl:
+        stn = STATIONS[ss.inp.station]
         lo, hi = tvl_bounds(ss.inp)
         mxq = float(stn["maxHeatKW"] + 3)
         a, b = st.columns(2)
-        qhk = a.number_input("Heizlast je Wohnung kW", 0.0, mxq, min(float(ss.inp.qhk), mxq), 0.1, format="%.1f",
-                             key=k(f"qhk_{mxq}"), help=f"Wärmebedarf einer Wohnung. Hart begrenzt auf die Geräte-"
-                                                      f"Heizleistung + 3 kW Reserve (max. {mxq:g} kW).")
-        dthk = b.number_input("Spreizung ΔT K", 1.0, 40.0, float(ss.inp.dthk), 1.0, format="%.0f", key=k("dthk"),
-                              help="Vorlauf minus Rücklauf im Heizkreis.")
         tvl = a.number_input("Versorgungs-VL °C", float(lo), float(hi), float(min(max(float(ss.inp.tvl), lo), hi)), 1.0,
                              format="%.0f", key=k(f"tvl_{lo}_{hi}"),
-                             help=f"Frei einstellbar {lo}–{hi} °C (ohne HPS 50–70, mit HPS 40–50, manuell 40–70). "
-                                  "Kommt 1:1 an der Wohnungsstation an. Unabhängig vom VL Heizkreis.")
-        vlhk = b.number_input("VL Heizkreis °C", 30.0, 70.0, float(ss.inp.vlhk), 1.0, format="%.0f", key=k("vlhk"),
-                              help="Vorlauf im Wohnungs-Heizkreis (nach Mischer). Kann nicht höher sein als die "
-                                   "Netztemperatur an der Station.")
+                             help=f"Frei einstellbar {lo}–{hi} °C. Kommt 1:1 an der Wohnungsstation an.")
+        qhk = b.number_input("Heizlast je WE kW", 0.0, mxq, min(float(ss.inp.qhk), mxq), 0.1, format="%.1f",
+                             key=k(f"qhk_{mxq}"), help=f"Begrenzt auf Geräte-Heizleistung + 3 kW (max. {mxq:g} kW).")
+        vlhk = a.number_input("VL Heizkreis °C", 30.0, 70.0, float(ss.inp.vlhk), 1.0, format="%.0f", key=k("vlhk"),
+                              help="Vorlauf im Wohnungs-Heizkreis; nicht höher als die Netztemperatur.")
+        dthk = b.number_input("Spreizung ΔT K", 1.0, 40.0, float(ss.inp.dthk), 1.0, format="%.0f", key=k("dthk"))
         glz = a.selectbox("Gleichzeitigkeit", ["din", "tud"], ["din", "tud"].index(ss.inp.glz), key=k("glz"),
                           format_func=lambda x: "DIN 4708" if x == "din" else "TU Dresden",
                           help="DIN 4708 (konservativ) oder TU Dresden (aus Messungen, kleinere Rohre).")
         mat = b.selectbox("Rohrmaterial", list(MATNAME), list(MATNAME).index(ss.inp.mat), key=k("mat"),
-                          format_func=lambda x: MATNAME[x], help="Dimensionsreihen nach HIU-Datenbasis.")
-        vmax = a.number_input("max. Geschwindigkeit m/s", 0.5, 3.0, float(ss.inp.vmax), 0.1, format="%.1f",
-                              key=k("vmax"), help="Auslegungsgrenze. Bosch-Standard: 1,0 m/s.")
+                          format_func=lambda x: MATNAME[x])
+        vmax = a.number_input("v max m/s", 0.5, 3.0, float(ss.inp.vmax), 0.1, format="%.1f", key=k("vmax"),
+                              help="Auslegungsgrenze. Bosch-Standard: 1,0 m/s.")
         tsp = b.number_input("Spitzenzeit min", 5.0, 60.0, max(5.0, float(ss.inp.tsp)), 1.0, format="%.0f", key=k("tsp"),
-                             help="Dauer der Spitzenzapfung für die Pufferauslegung. Nicht unter 5 min.")
+                             help="Dauer der Spitzenzapfung für die Pufferauslegung.")
         tTot = a.number_input("Kesseltotzeit min", 1.0, 10.0, float(ss.inp.tTot), 1.0, format="%.0f", key=k("tTot"),
-                              help="Wandgeräte 2–3 min, bodenstehende Kessel 5–7 min. Längere Totzeit wird durch "
-                                   "größeres Puffervolumen kompensiert.")
+                              help="Wandgeräte 2–3 min, bodenstehende Kessel 5–7 min.")
         tWied = b.number_input("Wiederaufheizzeit min", 10.0, 60.0, float(ss.inp.tWied), 1.0, format="%.0f",
-                               key=k("tWied"), help="Empfehlung (Bosch): 20–30 min, Wärmepumpen ca. 45 min.")
+                               key=k("tWied"), help="Empfehlung: 20–30 min, Wärmepumpen ca. 45 min.")
         setze(qhk=qhk, dthk=dthk, tvl=tvl, vlhk=vlhk, glz=glz, mat=mat, vmax=vmax, tsp=tsp, tTot=tTot, tWied=tWied)
         if ss.inp.system == "4":
             hT = a.number_input("Puffer-Mindestlaufzeit min", 5.0, 30.0, float(ss.inp.heizTueber), 1.0, format="%.0f",
@@ -422,75 +430,147 @@ with links:
                                 key=k("heizDt"), help="Nur 4-Leiter: Herstellerpraxis (VDI 4645) 10 K.")
             setze(heizTueber=hT, heizDt=hD)
 
+    # ---------------------------------------------------------------- Projekt
+    with t_proj:
+        meta["projName"] = st.text_input("Projektname", meta["projName"], key=k("projName"),
+                                         placeholder="z. B. Wohnanlage Musterstraße")
+        meta["projLoc"] = st.text_input("Standort", meta["projLoc"], key=k("projLoc"), placeholder="z. B. Stuttgart")
+        a, b = st.columns(2)
+        meta["projPlanner"] = a.text_input("Planer / Bearbeiter", meta["projPlanner"], key=k("projPlanner"),
+                                           placeholder="Name")
+        try:
+            d0 = date.fromisoformat(str(meta.get("projDate") or "")[:10])
+        except ValueError:
+            d0 = date.today()
+        meta["projDate"] = b.date_input("Datum", d0, key=k("projDate"), format="DD.MM.YYYY").isoformat()
+
+
+if panel_spalte is not None:
+    with panel_spalte:
+        with st.container(key="panel"):
+            a, b = st.columns([4, 1], vertical_alignment="center")
+            a.markdown('<div class="p-titel">Eingaben</div>', unsafe_allow_html=True)
+            if b.button("", icon=":material/close:", key="panel_zu", help="Panel schließen"):
+                ss.panel = False
+                st.rerun()
+            eingaben()
+
 # ====================================================================== Rechnung
 inp, straenge, meta = ss.inp, ss.straenge, ss.meta
 results = compute_all(inp, straenge)
 R = results[meta["activeStrang"]]
 P, A = R["P"], R["anlage"]
 HL = project_headline(R, inp)
+G = gesamt_anlage(inp, results)
 n = len(results)
 name = (meta["projName"] or "bosch-flow-projekt").strip().replace(" ", "_")
+KZ = VA.kennzahlen(inp, straenge, meta["topoPos"])
+GERAET = KA.geraet(inp, meta)
+STUECK = KA.projekt_stueckliste(inp, straenge, meta)
+jetzt = stand(inp, straenge, meta)
 
-# ---------------------------------------------------------------------- Projekt-Knöpfe (Stand nach allen Eingaben)
-with projekt_knoepfe:
-    _inp, _str, _meta = inp, [Strang(s.floors, s.split, [dict(c) for c in s.cfg]) for s in straenge], dict(meta)
 
-    def _pdf() -> bytes:
-        schluessel = stand(_inp, _str, _meta)
-        cache = ss.setdefault("pdf_cache", {})
-        if schluessel not in cache:
-            cache.clear()
-            cache[schluessel] = pdf_bericht(_inp, _str, _meta, compute_all(_inp, _str))
-        return cache[schluessel]
+# ====================================================================== Prüfungen
+def pruefungen() -> list[tuple[str, str, str]]:
+    """(Stufe ok/warn/err/info, Titel, Text)."""
+    out = []
+    if KZ["zuSchnell"]:
+        out.append(("err", f"{KZ['zuSchnell']} Abschnitt(e) zu schnell", f"über 120 % von v_max = {fmt(P['vmax'], 1)} m/s"))
+    elif KZ["ueber"]:
+        out.append(("warn", f"{KZ['ueber']} Abschnitt(e) grenzwertig", "zwischen 100 und 120 % von v_max"))
+    else:
+        out.append(("ok", "Geschwindigkeiten im Rahmen", f"alle {KZ['abschnitte']} Abschnitte ≤ {fmt(P['vmax'], 1)} m/s · "
+                    f"max. {fmt(KZ['auslastung'] * 100)} %"))
+    pumpe = next((z for z in STUECK if z["pos"] == "Netzpumpe"), None)
+    if pumpe and pumpe["nr"] != "–":
+        out.append(("ok", "Netzpumpenmodul passt", pumpe["text"]))
+    elif pumpe:
+        out.append(("warn", "Netzpumpe individuell auslegen", pumpe["text"]))
+    if P["vlhkZuHoch"]:
+        out.append(("err", "Heizkreis-VL zu hoch", f"{fmt(P['vlhk'])} °C über Netztemperatur {fmt(P['netzTemp'])} °C – "
+                    f"max. {P['vlhkMax']} °C"))
+    if P["heatOver"]:
+        out.append(("warn", "Heizlast im Reservebereich", f"{fmt(P['qhk'], 1)} kW > {R['st']['maxHeatKW']} kW Nennleistung"))
+    if P["zapfGekappt"]:
+        out.append(("warn", "Zapfmenge gedeckelt", f"auf {fmt(P['zapfLmin'], 1)} l/min (kW-Klasse)"))
+    for stufe, text in GERAET["hinweise"]:
+        if stufe == "warn":
+            out.append(("warn", "Katalog-Hinweis", text))
+    if A["zuheizerOn"]:
+        zst, ztext = RP.dle_fazit(A)
+        out.append(({"none": "info", "ok": "ok", "over": "err"}[zst],
+                    {"none": "DLE wird nicht gebraucht", "ok": "DLE-Leistung passt", "over": "DLE reicht nicht"}[zst],
+                    ztext.replace("**", "")[:140] + ("…" if len(ztext) > 140 else "")))
+    if not any(s in ("warn", "err") for s, _, _ in out):
+        out.append(("ok", f"{GERAET['typ']} im Katalogbereich", f"Primär-VL {GERAET['vlMin']}–{GERAET['vlMax']} °C"))
+    return out
 
-    st.download_button("Planung als PDF exportieren", _pdf, file_name=f"Bosch_Flow_{name}.pdf", mime="application/pdf",
-                       type="primary", width="stretch", icon=":material/picture_as_pdf:")
-    a, b = st.columns(2)
-    a.download_button("Speichern", dumps(inp, straenge, meta), file_name=f"{name}.json",
-                      mime="application/json", width="stretch", icon=":material/save:",
-                      help="Projektdatei (.json) auf den Rechner – gleiches Format wie die HTML-Version.")
-    with b.popover("Laden", icon=":material/folder_open:", width="stretch"):
-        datei = st.file_uploader("Projektdatei (.json)", type=["json"], key="upload")
-        st.caption("Dateien dieser App und der HTML-Version (V52–V54). Das aktuelle Projekt wird ersetzt.")
-        if datei is not None and ss.get("geladen_id") != datei.file_id:
-            ss.geladen_id = datei.file_id
-            if laden(datei.getvalue(), f"Projekt „{datei.name}“ geladen."):
-                st.rerun()
+
+PRUEF = pruefungen()
+n_err = sum(1 for s, _, _ in PRUEF if s == "err")
+n_warn = sum(1 for s, _, _ in PRUEF if s == "warn")
+
+
+# ====================================================================== Kopfleiste befüllen
+farbe_status = F["rot"] if n_err else F["gelb"] if n_warn else F["gruen"]
+text_status = (f"{n_err} Fehler" if n_err else f"{n_warn} Hinweis{'e' if n_warn > 1 else ''}" if n_warn
+               else "Auslegung OK")
+kopf_status.markdown(
+    f'<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">'
+    f'<span class="pille">{meta["projName"] or "Neues Projekt"}</span>'
+    f'<span class="pille"><i style="background:{farbe_status}"></i>{text_status}</span>'
+    f'<span class="pille" title="Jede Eingabe wird automatisch im Browser gesichert.">↻ gesichert '
+    f'{ss.get("zwischen") or datetime.now().strftime("%H:%M")}</span></div>', unsafe_allow_html=True)
+
+_inp, _str, _meta = inp, [Strang(s.floors, s.split, [dict(c) for c in s.cfg]) for s in straenge], dict(meta)
+
+
+def _pdf() -> bytes:
+    cache = ss.setdefault("pdf_cache", {})
+    if jetzt not in cache:
+        cache.clear()
+        cache[jetzt] = pdf_bericht(_inp, _str, _meta, compute_all(_inp, _str))
+    return cache[jetzt]
+
+
+kopf_pdf.download_button("PDF", _pdf, file_name=f"Bosch_Flow_{name}.pdf", mime="application/pdf", type="primary",
+                         width="stretch", icon=":material/picture_as_pdf:", help="Planung als PDF-Bericht exportieren")
+with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Speichern, Laden, Excel, Zurücksetzen"):
+    st.download_button("Projekt speichern (.json)", dumps(inp, straenge, meta), file_name=f"{name}.json",
+                       mime="application/json", width="stretch", icon=":material/save:")
+    datei = st.file_uploader("Projekt laden (.json)", type=["json"], key="upload")
+    if datei is not None and ss.get("geladen_id") != datei.file_id:
+        ss.geladen_id = datei.file_id
+        if laden(datei.getvalue(), f"Projekt „{datei.name}“ geladen."):
+            st.rerun()
     if st.button("Zwischenspeichern", icon=":material/backup:", width="stretch",
-                help="Sichert den aktuellen Stand sofort im Browser. Gesichert wird außerdem automatisch bei jeder "
-                     "Eingabe. Für eine Datei auf dem Rechner „Projekt speichern“ nutzen."):
+                 help="Sichert sofort im Browser (automatisch passiert das bei jeder Eingabe)."):
         ss.zwischen = datetime.now().strftime("%H:%M:%S")
         st.toast(f"Zwischenstand im Browser gesichert ({ss.zwischen}).", icon="💾")
-    st.markdown(f'<div class="autosave" title="Eingaben werden automatisch im Browser gesichert und beim erneuten '
-                f'Öffnen wiederhergestellt.">↻ Automatisch im Browser gesichert · '
-                f'{ss.get("zwischen") or datetime.now().strftime("%H:%M")}</div>', unsafe_allow_html=True)
-    a, b = st.columns(2)
-    a.download_button("Excel", RP.excel_bytes(inp, meta, results, straenge), file_name=f"Bosch_Flow_{name}.xlsx",
-                      width="stretch", icon=":material/table_view:",
-                      mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    with b.popover("Zurücksetzen", icon=":material/restart_alt:", width="stretch"):
-        st.markdown("**Alle Eingaben zurücksetzen?**")
-        st.caption("Projektangaben, Gebäude und alle Stränge werden auf die Ausgangswerte gestellt. Vorher ggf. "
-                   "„Projekt speichern“.")
-        if st.button("Ja, zurücksetzen", type="primary", width="stretch"):
-            neues_projekt()
-            ss.meldung = ("success", "Alle Eingaben zurückgesetzt.")
-            st.rerun()
+    st.download_button("Excel-Export", RP.excel_bytes(inp, meta, results, straenge), file_name=f"Bosch_Flow_{name}.xlsx",
+                       width="stretch", icon=":material/table_view:",
+                       mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    st.divider()
+    if st.button("Alles zurücksetzen", icon=":material/restart_alt:", width="stretch"):
+        neues_projekt()
+        ss.meldung = ("success", "Alle Eingaben zurückgesetzt.")
+        st.rerun()
 
 
-# ====================================================================== Bausteine Ergebnisse
+# ====================================================================== Bausteine
 def schema(szene, key: str, max_hoehe: int | None = None, breite_px: int = 1000, leiste: bool = False) -> None:
     cfg = {"responsive": True, "displaylogo": False, "displayModeBar": "hover" if leiste else False,
            "modeBarButtonsToRemove": ["zoom2d", "pan2d", "select2d", "lasso2d", "zoomIn2d", "zoomOut2d",
                                       "autoScale2d", "resetScale2d"],
            "toImageButtonOptions": {"format": "png", "scale": 2, "filename": key}}
-    st.plotly_chart(als_plotly(szene, max_hoehe=max_hoehe, breite_px=breite_px), width="stretch", config=cfg,
-                    key=key, theme=None)
+    fig = als_plotly(szene, max_hoehe=max_hoehe, breite_px=breite_px)
+    fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, width="stretch", config=cfg, key=key, theme=None)
 
 
 def status_style(df: pd.DataFrame):
-    farben = {"OK": "color:#2e7d32;font-weight:700", "grenzwertig": "color:#b26a00;font-weight:700",
-              "zu schnell": "color:#c0161d;font-weight:700"}
+    farben = {"OK": f"color:{F['gruen']};font-weight:700", "grenzwertig": "color:#b26a00;font-weight:700",
+              "zu schnell": f"color:{F['rot']};font-weight:700"}
     return df.style.map(lambda v: farben.get(v, ""), subset=["Status"])
 
 
@@ -500,67 +580,157 @@ NUMFMT = {"GZ": st.column_config.NumberColumn(format="%.1f"),
           "Δp [Pa/m]": st.column_config.NumberColumn(format="%.0f")}
 
 
+def kachel(key: str, titel: str, icon: str | None = None, klick=None, mehr: str = "Details"):
+    """Kachel-Container; mit ``klick`` ist die ganze Kachel ein Knopf, der den Detail-Dialog öffnet."""
+    c = st.container(key=("kachelklick_" if klick else "kachel_") + key)
+    ic = f'<div class="k-icon"><img src="{_svg(icon)}"></div>' if icon else ""
+    c.markdown(f'<div class="k-kopf"><span class="k-titel">{titel}</span>{ic}</div>'
+               + (f'<span class="k-mehr">{mehr} →</span>' if klick else ""), unsafe_allow_html=True)
+    if klick:
+        if c.button(titel, key=f"klick_{key}", help=f"{titel}: {mehr}"):
+            klick()
+    return c
+
+
+def ausl_farbe(q: float) -> str:
+    return next((f for g, f, _ in STUFEN if q <= g), STUFEN[-1][1])
+
+
+# ====================================================================== Detail-Dialoge
 def abschnitt_karten(T: dict) -> None:
     html = "".join(
         f'<div class="abschnitt{" krit" if a["kritisch"] else ""}"><div><span class="num">{a["strang"]}</span>'
         f'<b>Abschnitt {a["strang"]}</b></div><div style="font-size:13px"><b>{a["load"]} WE</b> · {fmt(a["V"], 2)} m³/h'
-        f'</div><div style="font-size:13px;color:{AKZENT};font-weight:700">{a["dn"]} · {fmt(a["v"], 2)} m/s</div>'
-        + ('<div style="margin-top:4px;font-size:10.5px;font-weight:700;color:#b26a00">◆ maßgeblich (höchste '
-           'Geschwindigkeit)</div>' if a["kritisch"] else "") + "</div>" for a in T["abschnitte"])
+        f'</div><div style="font-size:13px;color:{F["akzent"]};font-weight:700">{a["dn"]} · {fmt(a["v"], 2)} m/s</div>'
+        + ('<div style="margin-top:4px;font-size:10.5px;font-weight:700;color:#b26a00">◆ maßgeblich</div>'
+           if a["kritisch"] else "") + "</div>" for a in T["abschnitte"])
     st.markdown(f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px">{html}</div>',
                 unsafe_allow_html=True)
 
 
-def hauptstrang_tabelle(T: dict) -> None:
-    hs = pd.DataFrame([{"Abschnitt": f"Abschnitt {a['strang']}", "kum. WE": a["load"], "Strang": f"Strang {a['strang']}",
-                        "Leitung": "Hauptstrang", "Nennweite": a["dn"], "V̇": f"{fmt(a['V'], 2)} m³/h",
-                        "v": f"{fmt(a['v'], 2)} m/s" + ("  ◆ maßgeblich" if a["kritisch"] else "")}
-                       for a in T["abschnitte"]])
-    st.dataframe(hs.style.apply(lambda r: ["color:#b26a00;font-weight:700" if "◆" in r["v"] else ""] * len(r), axis=1),
-                 hide_index=True, width="stretch")
+def schliessen() -> None:
+    if st.button("Fertig", type="primary", icon=":material/check:"):
+        st.rerun()
 
 
-@st.dialog("Netztopologie – Vollbild", width="large")
-def topologie_vollbild() -> None:
-    pos = st.slider("Position Wärmezentrale", 0, 100, int(ss.meta["topoPos"]), 1, key=f"topo_fs_{ss.rev}",
-                    help="0 = links, 50 = mittig, 100 = rechts")
-    ss.meta["topoPos"] = float(pos)
-    st.markdown(f"**{topo_label(pos)}**")
+@st.dialog("Rohrnetz", width="large")
+def dialog_rohrnetz() -> None:
     res = compute_all(ss.inp, ss.straenge)
-    schema(schemata.topologie_szene(res, pos, True, DUNKEL), "topo_voll", breite_px=1150, leiste=True)
-    T = topologie(res, pos)
-    abschnitt_karten(T)
-    hauptstrang_tabelle(T)
-    if st.button("Schließen", type="primary", icon=":material/close_fullscreen:"):
-        st.rerun()
+    m = ss.meta
+    nn = len(res)
+    optionen = ["Strang", "Alle Stränge", "Hauptstrang"] if nn > 1 else ["Strang"]
+    a, b = st.columns([2, 2], vertical_alignment="center")
+    ansicht = a.segmented_control("Ansicht", optionen, default="Strang", key="rn_ansicht",
+                                  label_visibility="collapsed") or "Strang"
+    if ansicht == "Strang":
+        if nn > 1:
+            w = b.segmented_control("Strang", [f"S{i + 1}" for i in range(nn)], default=f"S{m['activeStrang'] + 1}",
+                                    key=f"rn_strang_{m['activeStrang']}", label_visibility="collapsed")
+            if w and int(w[1:]) - 1 != m["activeStrang"]:
+                m["activeStrang"] = int(w[1:]) - 1
+                st.rerun(scope="fragment")
+        r = res[m["activeStrang"]]
+        schema(schemata.netzschema(r, DUNKEL), "d_schema", max_hoehe=1100, breite_px=1150)
+        st.caption(RP.schema_note(r, nn).replace("**", ""))
+        mo = st.segmented_control("Tabelle", ["Etagenstrang", "Steigstrang"], default="Etagenstrang", key="d_tab",
+                                  label_visibility="collapsed") or "Etagenstrang"
+        st.dataframe(status_style(RP.strang_table(r, "H" if mo == "Etagenstrang" else "V")), hide_index=True,
+                     width="stretch", column_config=NUMFMT)
+    elif ansicht == "Alle Stränge":
+        for i in range(0, nn, 2):
+            spalten = st.columns(2)
+            for j, r in enumerate(res[i:i + 2]):
+                with spalten[j]:
+                    st.markdown(f'<div class="strangkopf">Strang {i + j + 1} <span class="badge2">{r["totalWE"]} WE'
+                                f'</span><span class="badge2">{r["floors"]} Etagen</span><span class="badge2">Strangfuß '
+                                f'{r["vRows"][0]["dim"]}</span></div>', unsafe_allow_html=True)
+                    schema(schemata.netzschema(r, DUNKEL), f"d_all_{i + j}", max_hoehe=700, breite_px=560)
+    else:
+        G_ = gesamt_anlage(ss.inp, res)
+        if G_["getrennt"]:
+            st.warning("Getrennte Ausführung: kein gemeinsamer Hauptstrang – die Topologie dient nur der Übersicht.")
+        a, b = st.columns([3, 1], vertical_alignment="bottom")
+        pos = a.slider("Position Wärmezentrale", 0, 100, int(m["topoPos"]), 1, key=f"topo_d_{ss.rev}",
+                       help="0 = links, 50 = mittig, 100 = rechts. Wird mit dem Projekt gespeichert.")
+        m["topoPos"] = float(pos)
+        b.markdown(f"**{topo_label(pos)}**")
+        schema(schemata.topologie_szene(res, pos, True, DUNKEL), "d_topo", breite_px=1150, leiste=True)
+        T = topologie(res, pos)
+        abschnitt_karten(T)
+        st.info(RP.hauptstrang_erklaerung(res, T), icon=":material/school:")
+    schliessen()
 
 
-def modell_3d(res: list, key: str, hoehe: int) -> None:
-    farbe = "dn" if ss.get("m3d_farbe") == "Nennweite" else "v"
-    nur = ss.meta["activeStrang"] if ss.get("m3d_umfang") == "Aktueller Strang" and len(res) > 1 else None
-    fig = modell(res, ss.meta["topoPos"], farbe, DUNKEL, nur, hoehe)
-    st.plotly_chart(fig, width="stretch", key=key, theme=None,
-                    config={"displaylogo": False, "responsive": True,
-                            "toImageButtonOptions": {"format": "png", "scale": 2, "filename": "Bosch_Flow_3D"}})
+@st.dialog("Volumenstrom & Gleichzeitigkeit", width="large")
+def dialog_volumenstrom() -> None:
+    res = compute_all(ss.inp, ss.straenge)
+    G_ = gesamt_anlage(ss.inp, res)
+    ctx = {"P": res[0]["P"], "totalWE": G_["we"]}
+    st.caption(f"Bezogen auf {G_['we']} Wohnungen" + (" (Summe getrennter Anlagen; je Strang gilt der eigene Verlauf)"
+                                                       if G_["getrennt"] else " – kumuliert über alle Stränge"))
+    a, b = st.columns(2)
+    a.plotly_chart(plots.chart_volumenstrom(ctx, DUNKEL), width="stretch", key="d_v", theme=None)
+    b.plotly_chart(plots.chart_gleichzeitigkeit(ctx, DUNKEL), width="stretch", key="d_g", theme=None)
+    st.caption("WW-Anteil je Station auf 1,3 m³/h gedeckelt – realistische, nicht überzogene Dimensionen. TU Dresden "
+               "liegt bei vielen Wohnungen unter DIN 4708.")
+    schliessen()
 
 
-@st.dialog("3D-Gebäudemodell – Vollbild", width="large")
-def modell_vollbild() -> None:
-    modell_3d(compute_all(ss.inp, ss.straenge), "m3d_voll", 760)
-    if st.button("Schließen", type="primary", icon=":material/close_fullscreen:"):
-        st.rerun()
+@st.dialog("Wärmezentrale", width="large")
+def dialog_zentrale() -> None:
+    res = compute_all(ss.inp, ss.straenge)
+    r = res[ss.meta["activeStrang"]]
+    a_ = r["anlage"]
+    schema(schemata.anlagenschema(r, project_headline(r, ss.inp), DUNKEL), "d_anlage", breite_px=1150)
+    st.dataframe(pd.DataFrame(RP.anlage_rows(a_), columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
+        lambda z: [f"font-weight:700;color:{F['akzent']}" if z["Größe"].startswith("→") else ""] * len(z), axis=1),
+        hide_index=True, width="stretch",
+        column_config={"Herleitung": st.column_config.TextColumn(width="large")})
+    st.caption(RP.anlage_note(a_).replace("**", ""))
+    if a_["zuheizerOn"]:
+        st.markdown("##### DLE-Auslegungshilfe")
+        tbl = dle_table(a_)
+        st.dataframe(pd.DataFrame(RP.dle_rows_text(tbl), columns=["Netztemp. an Station", "Stufe 48 °C",
+                                                                  "Stufe 53 °C", "Stufe 60 °C"]),
+                     hide_index=True, width="stretch")
+        zst, ztext = RP.dle_fazit(a_)
+        {"none": st.info, "ok": st.success, "over": st.error}[zst](ztext)
+        d = din18015(a_["weForZentrale"])
+        st.plotly_chart(plots.chart_din18015(d["nWE"], DUNKEL), width="stretch", key="d_din", theme=None)
+        st.caption(RP.DLE_ELEKTRO)
+    with st.expander("Systemprinzip aus dem Katalog", icon=":material/image:"):
+        st.image(str(KA.BILDER / "systemprinzip.jpg"), width="stretch")
+    schliessen()
 
 
-def stueckliste_df() -> pd.DataFrame:
-    zeilen = KA.projekt_stueckliste(ss.inp, ss.straenge, ss.meta)
-    def eur(v):
-        return "auf Anfrage" if v is None else f"{fmt(v, 2)} €"
-    df = pd.DataFrame([{"Position": z["pos"], "Bezeichnung": z["text"], "Bestell-Nr.": z["nr"], "Menge": str(z["menge"]),
-                        "UVP": eur(z["uvp"]), "Summe": eur(z["summe"])} for z in zeilen])
-    summe = sum(z["summe"] or 0 for z in zeilen)
-    return pd.concat([df, pd.DataFrame([{"Position": "Summe", "Bezeichnung": "Katalogpositionen (UVP, ohne MwSt.)",
-                                         "Bestell-Nr.": "", "Menge": "", "UVP": "", "Summe": eur(summe)}])],
-                     ignore_index=True)
+@st.dialog("3D-Gebäudemodell", width="large")
+def dialog_3d() -> None:
+    a, b = st.columns(2)
+    farbe = a.segmented_control("Färbung", ["Geschwindigkeit", "Nennweite"], default="Geschwindigkeit",
+                                key="m3d_farbe", label_visibility="collapsed") or "Geschwindigkeit"
+    res = compute_all(ss.inp, ss.straenge)
+    nur = None
+    if len(res) > 1:
+        umfang = b.segmented_control("Umfang", ["Ganzes Projekt", "Aktueller Strang"], default="Ganzes Projekt",
+                                     key="m3d_umfang", label_visibility="collapsed") or "Ganzes Projekt"
+        nur = ss.meta["activeStrang"] if umfang == "Aktueller Strang" else None
+    fig = modell(res, ss.meta["topoPos"], "dn" if farbe == "Nennweite" else "v", DUNKEL, nur, 720)
+    st.plotly_chart(fig, width="stretch", key="m3d_voll", theme=None,
+                    config={"displaylogo": False, "toImageButtonOptions": {"format": "png", "scale": 2}})
+    st.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte · Legende anklicken = Stufe ein/aus")
+    schliessen()
+
+
+@st.dialog("Prüfungen", width="medium")
+def dialog_pruefungen() -> None:
+    for stufe, titel, text in PRUEF:
+        st.markdown(f'<div class="pruef"><span class="dot {stufe}"></span><div><b>{titel}</b><small>{text}</small>'
+                    f'</div></div>', unsafe_allow_html=True)
+    infos = [t for s_, t in GERAET["hinweise"] if s_ == "info"]
+    if infos:
+        st.markdown("##### Katalog-Hinweise")
+        st.markdown("\n".join(f"- {t}" for t in infos))
+    schliessen()
 
 
 def variante_uebernehmen(aenderung: dict, titel: str) -> None:
@@ -570,321 +740,196 @@ def variante_uebernehmen(aenderung: dict, titel: str) -> None:
     ss.meldung = ("success", f"Variante übernommen: {titel}")
 
 
-def varianten_karte() -> None:
+@st.dialog("Variantenvergleich", width="large")
+def dialog_varianten() -> None:
     V = VA.vergleich(ss.inp, ss.straenge, ss.meta["topoPos"])
     basis, zeilen, best = V["basis"], V["zeilen"], V["empfehlung"]
-    bv = best["variante"]
-    if bv.gruppe == "Planung" and basis["ueber"]:
-        st.warning(f"{basis['ueber']} Abschnitt(e) über v_max – keine der geprüften Auslegungsvarianten behebt das. "
-                   "Rohrmaterial, Strangaufteilung oder v_max prüfen.", icon=":material/warning:")
-    elif bv.gruppe == "Planung":
-        st.markdown('<div class="empf ok"><b>✓ Die aktuelle Planung ist unter den geprüften Varianten die beste.</b>'
-                    '<br>Keine Auslegungsvariante ist ohne Geschwindigkeits-Überschreitung günstiger.</div>',
-                    unsafe_allow_html=True)
-    else:
-        punkte = "".join(f"<li>{x}</li>" for x in VA.begruendung(best, basis))
-        st.markdown(f'<div class="empf"><span class="empf-tag">Empfehlung</span><b>{bv.titel}</b> '
-                    f'<small>({bv.gruppe})</small> · Bewertung {fmt(best["wert"] * 100)} % der aktuellen Planung'
-                    f'<ul>{punkte}</ul>{f"<small>{bv.hinweis}</small>" if bv.hinweis else ""}</div>',
-                    unsafe_allow_html=True)
-        st.button(f"Empfehlung übernehmen: {bv.titel}", type="primary", icon=":material/check:", key="va_best",
-                  on_click=variante_uebernehmen, args=(bv.aenderung, bv.titel))
-
-    # Balken: Bewertung je Variante (100 % = aktuelle Planung)
-    import plotly.graph_objects as go
     farbe = []
     for z in zeilen:
         v = z["variante"]
-        farbe.append("#e63946" if z["k"]["zuSchnell"] else "#f4a261" if z["k"]["ueber"] else
-                     ("#4fa3e0" if DUNKEL else "#005691") if v.gruppe == "Planung" else
-                     "#2b9348" if z is best else "#80b918" if v.empfehlbar and z["wert"] < 1 else
-                     "#9aa5b1" if not v.empfehlbar else "#c4ccd4")
-    namen = [f"{z['variante'].titel}{'' if z['variante'].empfehlbar else ' ⓘ'}" for z in zeilen]
+        farbe.append(F["rot"] if z["k"]["zuSchnell"] else F["gelb"] if z["k"]["ueber"] else
+                     F["akzent"] if v.gruppe == "Planung" else F["gruen"] if z is best else
+                     "#80b918" if v.empfehlbar and z["wert"] < 1 else "#9aa5b1")
     werte = [z["wert"] * 100 for z in zeilen]
-    fig = go.Figure(go.Bar(x=werte, y=namen, orientation="h", marker=dict(color=farbe),
+    fig = go.Figure(go.Bar(x=werte, y=[z["variante"].titel + ("" if z["variante"].empfehlbar else " ⓘ") for z in zeilen],
+                           orientation="h", marker=dict(color=farbe, cornerradius=6),
                            text=[f"{fmt(w)} %" for w in werte], textposition="outside", cliponaxis=False,
-                           hovertext=[f"<b>{z['variante'].titel}</b> · {z['variante'].gruppe}<br>"
-                                      + ("<br>".join(VA.begruendung(z, basis)) or "keine Änderung")
+                           hovertext=[("<br>".join(VA.begruendung(z, basis)) or "keine Änderung")
                                       + (f"<br><i>{z['variante'].hinweis}</i>" if z["variante"].hinweis else "")
                                       for z in zeilen], hoverinfo="text"))
-    fig.add_vline(x=100, line=dict(color="#8a949e", dash="dot", width=1))
-    ink = "#e6edf3" if DUNKEL else "#12181f"
-    fig.update_layout(height=60 + 30 * len(zeilen), margin=dict(l=10, r=40, t=10, b=30), paper_bgcolor="rgba(0,0,0,0)",
-                      plot_bgcolor="rgba(0,0,0,0)", font=dict(color=ink, size=12), showlegend=False, separators=",.",
-                      bargap=0.35)
-    fig.update_xaxes(title="Bewertung in % der aktuellen Planung (kleiner = besser)", gridcolor="rgba(128,128,128,.2)",
+    fig.add_vline(x=100, line=dict(color=F["leise"], dash="dot", width=1))
+    fig.update_layout(height=60 + 32 * len(zeilen), margin=dict(l=10, r=40, t=10, b=30), paper_bgcolor="rgba(0,0,0,0)",
+                      plot_bgcolor="rgba(0,0,0,0)", font=dict(color=F["text"], size=12), showlegend=False,
+                      separators=",.", bargap=0.35)
+    fig.update_xaxes(title="Bewertung in % der aktuellen Planung (kleiner = besser)", gridcolor=F["linie"],
                      range=[0, max(werte) * 1.15])
     fig.update_yaxes(autorange="reversed", automargin=True)
     st.plotly_chart(fig, width="stretch", key="va_chart", theme=None, config={"displayModeBar": False})
-
-    df = pd.DataFrame([{
-        "Variante": z["variante"].titel + ("" if z["variante"].empfehlbar else " ⓘ"),
-        "Anschluss": z["k"]["anschluss"], "V̇ [m³/h]": z["k"]["V"],
-        "Δ Rohrnetz": (z["k"]["dnSumme"] / basis["dnSumme"] - 1) * 100,
-        "max. v/v_max": z["k"]["auslastung"] * 100, "> v_max": z["k"]["ueber"],
-        "Erzeuger [kW]": z["k"]["kessel"], "Puffer": z["k"]["pufferText"],
-        "Bewertung [%]": z["wert"] * 100} for z in zeilen])
-    st.dataframe(df, hide_index=True, width="stretch", column_config={
-        "V̇ [m³/h]": st.column_config.NumberColumn(format="%.2f"),
-        "Δ Rohrnetz": st.column_config.NumberColumn(format="%+.0f %%", help="Summe der Nennweiten aller Abschnitte "
-                                                    "gegenüber der aktuellen Planung"),
-        "max. v/v_max": st.column_config.ProgressColumn(format="%.0f %%", min_value=0, max_value=120),
-        "Erzeuger [kW]": st.column_config.NumberColumn(format="%.0f"),
-        "Puffer": st.column_config.TextColumn(width="medium"),
-        "Bewertung [%]": st.column_config.NumberColumn(format="%.0f %%")})
+    andere = [z for z in zeilen if z["variante"].gruppe != "Planung"]
     a, b = st.columns([3, 1.3], vertical_alignment="bottom")
-    andere = [z["variante"] for z in zeilen if z["variante"].gruppe != "Planung"]
-    wahl = a.selectbox("Variante übernehmen", range(len(andere)), format_func=lambda i: andere[i].titel,
-                       key=f"va_wahl_{ss.rev}")
-    b.button("Übernehmen", key="va_ueb", width="stretch", icon=":material/swap_horiz:",
-             on_click=variante_uebernehmen, args=(andere[wahl].aenderung, andere[wahl].titel))
-    if vorher := ss.get("va_vorher"):
-        if st.button(f"Rückgängig: {vorher[1]}", key="va_undo", icon=":material/undo:"):
-            ss.inp = vorher[0]
-            ss.rev += 1
-            del ss.va_vorher
-            st.rerun()
-    st.caption("Bewertung: 50 % Rohrnetz (Summe der Nennweiten aller Abschnitte), 25 % Erzeugerleistung, 25 % "
-               "Puffervolumen; Abschnitte über v_max werden bestraft. Preise, Energieeffizienz und Montage fließen "
-               "nicht ein. ⓘ = wird gezeigt, aber nicht automatisch empfohlen (Rechenverfahren, Leitersystem, höherer "
-               "Vorlauf). „Übernehmen“ ändert die Eingaben links und lässt sich rückgängig machen.")
+    vorgabe = next((i for i, z in enumerate(andere) if z is best), 0)
+    wahl = a.selectbox("Variante", range(len(andere)), vorgabe, key=f"va_wahl_{ss.rev}",
+                       format_func=lambda i: f"{andere[i]['variante'].titel} · {fmt(andere[i]['wert'] * 100)} %")
+    if b.button("Übernehmen", type="primary", width="stretch", icon=":material/swap_horiz:"):
+        z = andere[wahl]["variante"]
+        variante_uebernehmen(z.aenderung, z.titel)
+        st.rerun()
+    st.caption("Bewertung: 50 % Rohrnetz (Summe der Nennweiten), 25 % Erzeugerleistung, 25 % Puffervolumen; Abschnitte "
+               "über v_max werden bestraft. Preise, Energieeffizienz und Montage fließen nicht ein. ⓘ = nur gezeigt, nicht "
+               "automatisch empfohlen (Rechenverfahren, Leitersystem, höherer Vorlauf).")
 
 
-# ====================================================================== Ergebnisse (rechts)
-with rechts:
-    k1, k2, k3, k4 = st.columns(4)
-    scope = " (Projekt)" if HL["projektweit"] else ""
-    pp = puffer_produkt(A["pufferVol"])
-    k1.metric("Spitzen-Volumenstrom" + scope, f"{fmt(HL['Vtot'], 2)} m³/h")
-    k2.metric("Strangfuß" + (" gesamt" if HL["projektweit"] else " unten"), HL["dim"])
-    k3.metric("Kessel-/FW-Leistung", f"{fmt(A['kesselQ'])} kW")
-    k4.metric("Pufferspeicher", pp["text"], help=f"berechnet {fmt(A['pufferVol'])} l → Auswahl" if pp["liter"] else None)
+@st.dialog("Wohnungsstation", width="large")
+def dialog_geraet() -> None:
+    g = KA.geraet(ss.inp, ss.meta)
+    a, b = st.columns([1, 1.6], vertical_alignment="center")
+    a.image(str(g["bild"]), width="stretch")
+    with b:
+        st.markdown(f'<div class="g-typ">{g["typ"]}</div><div class="g-sub">Bestell-Nr. {g["bestellnr"]} · UVP '
+                    f'{fmt(g["uvp"])} € · {KA.MONTAGE[g["montage"]]}</div>', unsafe_allow_html=True)
+        zeilen = [("Primär-Volumenstrom", f"{fmt(g['vPrim'])} l/h"), ("Primär-Druckverlust", f"{fmt(g['dpPrim'])} mbar"),
+                  ("bei Vorlauf", g["vlPunkt"]), ("Zapfmenge max.", f"{g['zapf']} l/min"),
+                  ("Primär-VL laut Katalog", f"{g['vlMin']}–{g['vlMax']} °C"), ("H × B × T", g["abmessungen"]),
+                  ("Heizleistung max.", f"{g['heizKW']} kW")]
+        st.markdown("".join(f'<div class="g-zeile"><span>{x}</span><b>{y}</b></div>' for x, y in zeilen),
+                    unsafe_allow_html=True)
+    for stufe, text in g["hinweise"]:
+        (st.warning if stufe == "warn" else st.caption)(text)
+    st.caption(KA.KATALOG)
+    schliessen()
 
-    if P["heatOver"]:
-        st.warning(f"⚠ Heizlast {fmt(P['qhk'], 1)} kW liegt über der Nenn-Heizleistung der {R['st']['name']} "
-                   f"({R['st']['maxHeatKW']} kW) – im Reservebereich (bis max. {R['st']['maxHeatKW'] + 3} kW). Höher ist "
-                   "nicht möglich; für mehr Heizlast ein größeres Gerät wählen.")
-    if P["vlhkZuHoch"]:
-        st.error(f"⚠ Der Heizkreis-Vorlauf ({fmt(P['vlhk'])} °C) liegt über der Netztemperatur an der Station "
-                 f"({fmt(P['netzTemp'])} °C). Das ist ohne eigenen Booster für die Heizung technisch nicht möglich – "
-                 f"max. {P['vlhkMax']} °C.")
-    if P["zapfGekappt"]:
-        st.warning(f"Zapfmenge auf {fmt(P['zapfLmin'], 1)} l/min gedeckelt (Leistungsanschlag der kW-Klasse).")
 
-    # ---------------------------------------------------------------- Netzschema
-    angeheftet = ss.get("angeheftet", False)
-    with st.container(border=True, key="schemakarte-an" if angeheftet else "schemakarte"):
-        a, b, c, d = st.columns([1.5, 2.5, 1.3, 2.3], vertical_alignment="center")
-        a.markdown('<div class="karte-titel" style="margin:0">Netzschema</div>', unsafe_allow_html=True)
-        if n > 1:
-            w = b.segmented_control("Strang (Schema)", [f"S{i + 1}" for i in range(n)],
-                                    default=f"S{meta['activeStrang'] + 1}", label_visibility="collapsed",
-                                    key=f"strang_schema_{ss.rev}_{meta['activeStrang']}_{n}")
-            if w and int(w[1:]) - 1 != meta["activeStrang"]:
-                meta["activeStrang"] = int(w[1:]) - 1
-                st.rerun()
-        an = c.toggle("📌 Anheften", angeheftet, key="anheften", help="Vorschau beim Scrollen anheften")
-        if an != angeheftet:
-            ss.angeheftet = an
-            st.rerun()
-        ansicht = "Aktueller Strang"
-        if n > 1:
-            ansicht = d.segmented_control("Ansicht", ["Aktueller Strang", "Alle Stränge"], default="Aktueller Strang",
-                                          key="ansicht", label_visibility="collapsed") or "Aktueller Strang"
-        if ansicht == "Aktueller Strang":
-            schema(schemata.netzschema(R, DUNKEL), "schema", max_hoehe=1200)
-            st.info(RP.schema_note(R, n), icon=":material/info:")
-            st.caption("Tipp: Mit der Maus über Stationen und Nennweiten-Marken fahren – zeigt WE, Gleichzeitigkeit, "
-                       "Volumenstrom, Rohr, Geschwindigkeit und Druckverlust. Farbe der Nennweite: grün = OK, "
-                       "orange = grenzwertig, rot = zu schnell.")
-        else:
-            G = gesamt_anlage(inp, results)
-            for i, r in enumerate(results):
-                with st.container(border=True):
-                    st.markdown(
-                        f'<div class="strangkopf">Strang {i + 1} <span class="badge2">{r["totalWE"]} Wohnungen</span>'
-                        f'<span class="badge2">{r["floors"]} Etagen</span><span class="badge2">'
-                        f'{"beidseitig" if r["split"] == "both" else "einseitig"}</span><span class="badge2">Strangfuß '
-                        f'{r["vRows"][0]["dim"]} · {fmt(r["vRows"][0]["Vtot"], 2)} m³/h</span></div>',
+@st.dialog("Stückliste", width="large")
+def dialog_stueckliste() -> None:
+    zeilen = KA.projekt_stueckliste(ss.inp, ss.straenge, ss.meta)
+
+    def eur(v):
+        return "auf Anfrage" if v is None else f"{fmt(v, 2)} €"
+    df = pd.DataFrame([{"Position": z["pos"], "Bezeichnung": z["text"], "Bestell-Nr.": z["nr"], "Menge": str(z["menge"]),
+                        "UVP": eur(z["uvp"]), "Summe": eur(z["summe"])} for z in zeilen])
+    df.loc[len(df)] = ["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", "", "",
+                       eur(sum(z["summe"] or 0 for z in zeilen))]
+    st.dataframe(df.style.apply(lambda r: ["font-weight:700" if r["Position"] == "Summe" else ""] * len(r), axis=1),
+                 hide_index=True, width="stretch", column_config={"Bezeichnung": st.column_config.TextColumn(width="large")})
+    st.caption(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer und Montage nicht enthalten.")
+    schliessen()
+
+
+# ====================================================================== Dashboard
+def kpi_werte() -> dict:
+    return {"V": HL["Vtot"], "kessel": float(G["kesselQ"] if n > 1 else A["kesselQ"]),
+            "puffer": float(G["pufferVol"] if n > 1 else A["pufferVol"])}
+
+
+kpi = kpi_werte()
+if ss.get("kpi_stand") != jetzt:
+    ss.kpi_alt, ss.kpi_neu, ss.kpi_stand = ss.get("kpi_neu"), kpi, jetzt
+alt = ss.get("kpi_alt") or {}
+
+
+def delta(key: str, d: int = 0) -> str:
+    if key not in alt or abs(kpi[key] - alt[key]) < 10 ** -max(d, 0) / 2:
+        return ""
+    x = kpi[key] - alt[key]
+    return f'<span class="delta {"up" if x > 0 else "down"}">{"▲" if x > 0 else "▼"} {fmt(abs(x), d)}</span>'
+
+
+with haupt:
+    # ---------------------------------------------------------------- Reihe 1: Kennzahlen
+    pp = puffer_produkt(kpi["puffer"])
+    kach = st.columns(4, gap="medium")
+    with kach[0]:
+        with kachel("v", "Volumenstrom", "pumpe", dialog_volumenstrom, "Diagramme"):
+            st.markdown(f'<div class="k-wert">{fmt(HL["Vtot"], 2)}<span>m³/h</span></div><div class="k-unter">'
+                        f'{"Projekt" if HL["projektweit"] else "Strangfuß"} · {HL["we"]} WE {delta("V", 2)}</div>',
                         unsafe_allow_html=True)
-                    schema(schemata.netzschema(r, DUNKEL), f"schema_all_{i}", max_hoehe=900)
-                    st.markdown(f"**Auslegung Steigstrang – Strang {i + 1}**")
-                    st.dataframe(status_style(RP.strang_table(r, "V")), hide_index=True, width="stretch",
-                                 column_config=NUMFMT)
-            # Gesamtübersicht mit Netztopologie
-            with st.container(border=True):
-                st.markdown(f"#### Gesamtübersicht – alle {n} Stränge")
-                st.caption("Netztopologie: Wärmezentrale (Keller) → Steigrohr → horizontaler Hauptstrang → vertikale "
-                           "Stränge mit Wohnungsstationen")
-                if G["getrennt"]:
-                    st.warning("**Hinweis – getrennte Ausführung:** Es gibt **keinen gemeinsamen Hauptstrang**. Jeder "
-                               "Strang hat eine **eigene Wärmezentrale** (siehe Einzelschemata oben). Die folgende "
-                               "Topologie mit gemeinsamer Leitung dient nur der Übersicht – für die getrennte Ausführung "
-                               "gelten die Einzelwerte je Strang.")
-                a, b, c = st.columns([3, 1.2, 1], vertical_alignment="bottom")
-                pos = a.slider("Position Wärmezentrale", 0, 100, int(meta["topoPos"]), 1, key=f"topo_{ss.rev}",
-                               help="0 = links, 50 = mittig, 100 = rechts. Wird mit dem Projekt gespeichert.")
-                meta["topoPos"] = float(pos)
-                b.markdown(f"**{topo_label(pos)}**")
-                if c.button("⤢ Vollbild", width="stretch"):
-                    topologie_vollbild()
-                T = topologie(results, pos)
-                schema(schemata.topologie_szene(results, pos, False, DUNKEL), "topo", leiste=True)
-                abschnitt_karten(T)
-                zeilen = [{"Strang": f"Strang {i + 1}", "Wohnungen": r["totalWE"], "Etagen": str(r["floors"]),
-                           "Aufteilung": "beidseitig" if r["split"] == "both" else "einseitig",
-                           "Strangfuß": r["vRows"][0]["dim"], "V̇ Strangfuß": f"{fmt(r['vRows'][0]['Vtot'], 2)} m³/h",
-                           "v": f"{fmt(r['vRows'][0]['v'], 2)} m/s"} for i, r in enumerate(results)]
-                zeilen.append({"Strang": "Summe", "Wohnungen": G["we"], "Etagen": "–",
-                               "Aufteilung": "getrennte Anlagen" if G["getrennt"] else "alle Stränge",
-                               "Strangfuß": "–" if G["getrennt"] else T["gesamt"]["dim"],
-                               "V̇ Strangfuß": "–" if G["getrennt"] else f"{fmt(T['gesamt']['Vtot'], 2)} m³/h",
-                               "v": "–" if G["getrennt"] else f"{fmt(T['gesamt']['v'], 2)} m/s"})
-                st.dataframe(pd.DataFrame(zeilen).style.apply(
-                    lambda r: ["font-weight:700" if r["Strang"] == "Summe" else ""] * len(r), axis=1),
-                    hide_index=True, width="stretch")
-                st.markdown('<div class="karte-titel">Hauptstrang – Nennweite je Abschnitt <small>folgt der Position '
-                            'der Wärmezentrale</small></div>', unsafe_allow_html=True)
-                hauptstrang_tabelle(T)
-                st.info(RP.hauptstrang_erklaerung(results, T), icon=":material/school:")
-                c = st.columns(3)
-                c[0].metric("Wohnungen gesamt", G["we"])
-                c[1].metric(f"Kessel-/FW-Leistung {'(Σ getrennte Anlagen)' if G['getrennt'] else '(gesamt)'}",
-                            f"{fmt(G['kesselQ'])} kW")
-                c[2].metric(f"Pufferspeicher {'(Σ getrennte Anlagen)' if G['getrennt'] else '(gesamt)'}",
-                            f"{fmt(G['pufferVol'])} l")
-                st.caption(RP.gesamt_note(G, n))
-            with st.container(border=True):
-                st.markdown("#### Diagramme – Volumenstrom & Gleichzeitigkeit")
-                st.caption(f"Referenz-Verlauf über alle {G['we']} Wohnungen (bei gemeinsamer Zentrale). In getrennter "
-                           "Ausführung gilt je Strang der eigene Verlauf." if G["getrennt"] else
-                           f"Bezogen auf die Gesamtanlage ({G['we']} Wohnungen) – kumuliert über alle Stränge")
-                ctx = {"P": results[0]["P"], "totalWE": G["we"]}
-                a, b = st.columns(2)
-                a.plotly_chart(plots.chart_volumenstrom(ctx), width="stretch", key="chart_all_v")
-                b.plotly_chart(plots.chart_gleichzeitigkeit(ctx), width="stretch", key="chart_all_g")
+    with kach[1]:
+        with kachel("dn", "Anschluss", "station", dialog_rohrnetz, "Rohrnetz"):
+            st.markdown(f'<div class="k-wert">{HL["dim"]}</div><div class="k-unter">v = {fmt(HL["v"], 2)} m/s · '
+                        f'{MATNAME[inp.mat].split(" ")[0]}</div>', unsafe_allow_html=True)
+    with kach[2]:
+        with kachel("kessel", "Erzeuger", "erzeuger", dialog_zentrale, "Wärmezentrale"):
+            st.markdown(f'<div class="k-wert">{fmt(kpi["kessel"])}<span>kW</span></div><div class="k-unter">'
+                        f'{WAERMEQUELLEN[inp.waermequelle]["name"].split(" (")[0]} {delta("kessel")}</div>',
+                        unsafe_allow_html=True)
+    with kach[3]:
+        with kachel("puffer", "Pufferspeicher", "puffer", dialog_zentrale, "Wärmezentrale"):
+            st.markdown(f'<div class="k-wert">{fmt(kpi["puffer"])}<span>l</span></div><div class="k-unter">'
+                        f'Auswahl {pp["text"]} {delta("puffer")}</div>', unsafe_allow_html=True)
 
-    # ---------------------------------------------------------------- 3D-Gebäudemodell
-    with karte("3D-Gebäudemodell", "Drehen: ziehen · Zoom: Mausrad · Werte: Maus über ein Rohr"):
-        a, b, c = st.columns([2, 2, 1], vertical_alignment="center")
-        a.segmented_control("Färbung", ["Geschwindigkeit", "Nennweite"], default="Geschwindigkeit", key="m3d_farbe",
-                            label_visibility="collapsed")
-        if n > 1:
-            b.segmented_control("Umfang", ["Ganzes Projekt", "Aktueller Strang"], default="Ganzes Projekt",
-                                key="m3d_umfang", label_visibility="collapsed")
-        if c.button("⤢ Vollbild", key="m3d_vb", width="stretch"):
-            modell_vollbild()
-        modell_3d(results, "m3d", 560)
-        st.caption("Schematisches Raummodell: Keller mit Hauptstrang und Wärmezentrale (Position wie in der "
-                   "Netztopologie), je Strang das Steigrohr und je Etage die Leitungen zu den Stationen. Rohrdicke = "
-                   "Nennweite, Farbe = Ausnutzung der zulässigen Geschwindigkeit bzw. Nennweite. Legende anklicken "
-                   "blendet einzelne Stufen ein/aus.")
+    # ---------------------------------------------------------------- Reihe 2: 3D | Prüfungen + Empfehlung
+    links, rechts = st.columns([1.85, 1], gap="medium")
+    with links:
+        with kachel("3d", "3D-Gebäude · Rohrnetz live"):
+            fig3d = modell(results, meta["topoPos"], "v", DUNKEL, None, 470)
+            fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
+            st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
+                            config={"displayModeBar": False, "displaylogo": False})
+            a, b = st.columns([3, 1], vertical_alignment="center")
+            a.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte")
+            if b.button("Vollbild", icon=":material/open_in_full:", key="m3d_vb", width="stretch"):
+                dialog_3d()
+    with rechts:
+        with kachel("pruef", "Prüfungen", None, dialog_pruefungen, "Alle"):
+            gesamt = ("Alles im grünen Bereich" if not (n_err or n_warn) else
+                      f"{n_err} Fehler · {n_warn} Hinweise" if n_err else f"{n_warn} Hinweis{'e' if n_warn > 1 else ''}")
+            st.markdown(f'<div class="gesamt" style="color:{farbe_status}">{gesamt}</div>' + "".join(
+                f'<div class="pruef"><span class="dot {s_}"></span><div><b>{t}</b><small>{x}</small></div></div>'
+                for s_, t, x in PRUEF[:4]), unsafe_allow_html=True)
+        V = VA.vergleich(inp, straenge, meta["topoPos"])
+        best = V["empfehlung"]
+        with kachel("varianten", "Empfehlung", None, dialog_varianten, "Vergleich"):
+            if best["variante"].gruppe == "Planung":
+                st.markdown(f'<span class="empf-tag">Optimal</span><div class="empf-titel">Aktuelle Planung</div>'
+                            f'<div class="empf-pkt">Keine der {len(V["zeilen"]) - 1} geprüften Varianten ist besser.</div>',
+                            unsafe_allow_html=True)
+            else:
+                pkt = "".join(f'<div class="empf-pkt">• {x}</div>' for x in VA.begruendung(best, V["basis"])[:3])
+                st.markdown(f'<span class="empf-tag">Besser · {fmt(best["wert"] * 100)} %</span><div class="empf-titel">'
+                            f'{best["variante"].titel}</div>{pkt}', unsafe_allow_html=True)
 
-    # ---------------------------------------------------------------- Variantenvergleich
-    with karte("Variantenvergleich", "dieselbe Planung mit anderen Eingaben – automatisch bewertet"):
-        varianten_karte()
+    # ---------------------------------------------------------------- Reihe 3: Rohrnetz | Gerät | Stückliste
+    c1, c2, c3 = st.columns([1.35, 1, 1], gap="medium")
+    with c1:
+        with kachel("rohrnetz", "Rohrnetz", "station", dialog_rohrnetz, "Schemata & Tabellen"):
+            vmax = P["vmax"]
+            kopfzeile = (f"Hauptstrang zur Zentrale ({topo_label(meta['topoPos'])}): <b>{topologie(results, meta['topoPos'])['gesamt']['dim']}</b>"
+                         if n > 1 and not G["getrennt"] else
+                         f"{n} getrennte Anlagen" if G["getrennt"] else f"{R['floors']} Etagen · {R['totalWE']} Wohnungen")
+            zeilen = []
+            for i, r in enumerate(results[:6]):
+                fuss = r["vRows"][0]
+                q = fuss["v"] / vmax
+                zeilen.append(f'<div class="rn"><span class="s">S{i + 1}</span><span class="bar"><i style="width:'
+                              f'{min(100, q * 100 / 1.2):.0f}%;background:{ausl_farbe(q)}"></i></span><span class="dn">'
+                              f'{fuss["dim"]}</span><span class="v">{r["totalWE"]} WE · {fmt(fuss["v"], 2)}</span></div>')
+            mehr = f'<div class="rn-kopf">+ {n - 6} weitere Stränge</div>' if n > 6 else ""
+            st.markdown(f'<div class="rn-kopf">{kopfzeile}</div>{"".join(zeilen)}{mehr}'
+                        f'<div class="rn-kopf" style="margin-top:8px">Balken = Strangfuß v / v_max</div>',
+                        unsafe_allow_html=True)
+    with c2:
+        with kachel("geraet", "Wohnungsstation", None, dialog_geraet, "Datenblatt"):
+            stg = STATIONS[inp.station]["stages"][min(int(inp.wwstage), len(STATIONS[inp.station]["stages"]) - 1)]
+            bild = base64.b64encode(GERAET["bild"].read_bytes()).decode()
+            st.markdown(f'<div style="display:flex;gap:16px;align-items:center;margin-top:6px">'
+                        f'<img src="data:image/png;base64,{bild}" style="height:118px;width:auto;object-fit:contain">'
+                        f'<div><div class="g-typ">{GERAET["typ"]}</div><div class="g-sub">{G["we"]} Stationen · '
+                        f'{stg["kw"]} kW · {stg["lmin"]} l/min<br>{KA.MONTAGE[GERAET["montage"]].split(" (")[0]} · '
+                        f'{GERAET["heizkreis"]}</div></div></div>', unsafe_allow_html=True)
+    with c3:
+        summe = sum(z["summe"] or 0 for z in STUECK)
+        pumpe = next((z for z in STUECK if z["pos"] == "Netzpumpe"), None)
+        with kachel("stueck", "Stückliste (UVP)", None, dialog_stueckliste, "Positionen"):
+            st.markdown(f'<div class="k-wert">{fmt(summe / 1000, 1)}<span>T€</span></div><div class="k-unter">'
+                        f'{len(STUECK)} Positionen · {STUECK[0]["menge"]} Stationen<br>'
+                        f'Netzpumpe: {pumpe["text"].split(" (")[0].replace("Netzpumpenmodul ", "") if pumpe and pumpe["nr"] != "–" else "individuell auslegen"}'
+                        f'</div>', unsafe_allow_html=True)
 
-    # ---------------------------------------------------------------- Anlagenschema
-    with karte("Anlagenschema (Heizzentrale)", "Erzeuger · Puffer · Netzpumpe · Station"):
-        schema(schemata.anlagenschema(R, HL, DUNKEL), "anlage")
-        with st.expander("Systemprinzip aus dem Katalog (Beispiel mit Pufferlademanagement MS 200)",
-                         icon=":material/image:"):
-            st.image(str(KA.BILDER / "systemprinzip.jpg"), width="stretch")
-            st.caption("Wärmeerzeuger → Pufferspeicher → Netzpumpe → Wohnungsstationen. Quelle: " + KA.KATALOG + ".")
-
-    # ---------------------------------------------------------------- Auslegungs-Tabelle
-    with karte("Auslegungs-Tabelle", f"Strang {meta['activeStrang'] + 1} von {n}" if n > 1 else ""):
-        mo = st.segmented_control("Tabelle", ["Etagenstrang", "Steigstrang"], default="Etagenstrang", key="tab",
-                                  label_visibility="collapsed") or "Etagenstrang"
-        m = "H" if mo == "Etagenstrang" else "V"
-        st.dataframe(status_style(RP.strang_table(R, m)), hide_index=True, width="stretch", column_config=NUMFMT)
-        st.caption(f"Maßgeblicher (längster) Etagenstrang: von der äußersten Station (1 WE, kleinste Dimension) bis zum "
-                   f"Steigstrang ({R['govN']} WE). WW-Volumenstrom je Station gedeckelt auf 1,3 m³/h." if m == "H" else
-                   f"Steigstrang kumuliert alle Etagen. Ganz unten trägt er alle {R['totalWE']} Wohnungen – maßgeblich "
-                   "für die zentrale Pumpe.")
-
-    # ---------------------------------------------------------------- Diagramm
-    with karte("Diagramm"):
-        mo = st.segmented_control("Diagramm", ["Volumenstrom", "Gleichzeitigkeit"], default="Volumenstrom",
-                                  key="chart", label_visibility="collapsed") or "Volumenstrom"
-        if mo == "Volumenstrom":
-            st.plotly_chart(plots.chart_volumenstrom(R), width="stretch", key="chart_v")
-            st.caption("Volumenstrom über kumulierte Wohnungszahl. WW-Anteil je Station auf 1,3 m³/h gedeckelt – "
-                       "dadurch realistische, nicht überzogene Dimensionen.")
-        else:
-            st.plotly_chart(plots.chart_gleichzeitigkeit(R), width="stretch", key="chart_g")
-            st.caption("TU Dresden (ROUND(WE^-0,57·WE)) liegt bei vielen Wohnungen unter DIN 4708.")
-
-    # ---------------------------------------------------------------- Wärmezentrale
-    with karte("Wärmezentrale – Kessel & Pufferspeicher", "HIU-Rechenlogik"):
-        st.dataframe(pd.DataFrame(RP.anlage_rows(A), columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
-            lambda r: [f"font-weight:700;color:{BLAU}" if r["Größe"].startswith("→") else ""] * len(r), axis=1),
-            hide_index=True, width="stretch",
-            column_config={"Größe": st.column_config.TextColumn(width="medium"),
-                           "Wert": st.column_config.TextColumn(width="small"),
-                           "Einheit": st.column_config.TextColumn(width="small"),
-                           "Herleitung": st.column_config.TextColumn(width="large")})
-        st.caption(RP.anlage_note(A))
-
-    # ---------------------------------------------------------------- Stückliste (Katalog)
-    with karte("Stückliste & Netzpumpe", f"{KA.KATALOG}"):
-        st.dataframe(stueckliste_df().style.apply(
-            lambda r: ["font-weight:700" if r["Position"] == "Summe" else ""] * len(r), axis=1).set_properties(
-            subset=["Menge", "UVP", "Summe"], **{"text-align": "right"}), hide_index=True, width="stretch",
-            column_config={"Bezeichnung": st.column_config.TextColumn(width="large")})
-        st.caption(KA.PREISHINWEIS + " Montage- und Regelungszubehör nach Ausführung; Rohrleitungen, Erzeuger, "
-                   "Puffer und Montage nicht enthalten. Netzpumpenmodul nach Spitzen-Volumenstrom bei 0,8 bar "
-                   "Restförderhöhe – die Förderhöhe des Netzes ist gesondert zu prüfen.")
-
-    # ---------------------------------------------------------------- DLE-Auslegungshilfe
-    if A["zuheizerOn"]:
-        with karte("DLE-Auslegungshilfe"):
-            tbl = dle_table(A)
-            bg = {"none": "background:rgba(128,128,128,.08);color:#8a94a0",
-                  "ok": "background:rgba(46,125,50,.14);color:#1f7d24;font-weight:700",
-                  "over": "background:rgba(192,22,29,.12);color:#c0161d;font-weight:700"}
-            df = pd.DataFrame([{"Netztemp. an Station": f"{r['netzTemp']} °C" + (" ◄ aktuell" if r["aktuell"] else ""),
-                                **{f"Stufe {x} °C": RP.dle_cell_text(r["cells"][x]) for x in (48, 53, 60)}} for r in tbl])
-            zust = [[r["cells"][x]["state"] for x in (48, 53, 60)] for r in tbl]
-            akt = [r["aktuell"] for r in tbl]
-            stufe = int(A["dleStufe"])
-
-            def faerben(col):
-                if col.name == "Netztemp. an Station":
-                    return ["font-weight:700" if akt[i] else "" for i in range(len(col))]
-                j = list(df.columns).index(col.name) - 1
-                return [bg[zust[i][j]] + (";outline:2px solid #007BC0" if akt[i] and (48, 53, 60)[j] == stufe else "")
-                        for i in range(len(col))]
-            st.dataframe(df.style.apply(faerben), hide_index=True, width="stretch")
-            state, text = RP.dle_fazit(A)
-            {"none": st.info, "ok": st.success, "over": st.error}[state](text)
-            st.caption(f"Die Tabelle zeigt die nötige DLE-Leistung, um {fmt(A['zapfLmin'])} l/min von der jeweiligen "
-                       f"Netztemperatur auf {fmt(A['zapfTemp'])} °C zu mischen. Grün = passt in die "
-                       f"{fmt(A['zuheizerMaxKW'])}-kW-Klasse, rot = über der Klasse, grau = DLE nicht nötig. Der Rahmen "
-                       "markiert die aktuelle Kombination. Referenz für energieeffiziente Betriebsweisen mit abgesenkter "
-                       "Netztemperatur.")
-            st.warning(RP.DLE_ELEKTRO)
-            d = din18015(A["weForZentrale"])
-            st.markdown("##### Stromseitige Gleichzeitigkeit · DIN 18015-1 (Anhang A)")
-            st.caption(RP.DIN18015_TEXT)
-            st.plotly_chart(plots.chart_din18015(d["nWE"]), width="stretch", key="chart_din")
-            bezug = ("Wohneinheiten dieses Strangs (getrennte Zentrale)" if A["zentralMode"] == "getrennt" else
-                     "Wohneinheiten aller Stränge (gemeinsame Zentrale)" if A["nStraenge"] > 1 else
-                     "Wohneinheiten am Netzanschluss")
-            a, b = st.columns(2)
-            a.metric(f"MIT elektr. WW (maßgeblich) · {d['nWE']} {bezug}", f"≈ {fmt(d['mit'])} kW",
-                     help="Richtwert Leistung am Netzanschluss" + (" – Kurve ab 30 WE im Plateau" if d["nWE"] >= 30 else ""))
-            b.metric("OHNE elektr. WW (Referenz)", f"≈ {fmt(d['ohne'])} kW")
-            st.caption(RP.PMAX_HINWEIS)
-
-st.markdown('<div class="fuss">Rechenkern nach Bosch-HIU-Methodik (Gleichzeitigkeit DIN 4708 / TU Dresden, '
-            'Knotenpunkt-Formel, Darcy-Weisbach, turbulent).<br>Werkzeug zur Vorplanung – ersetzt keine verbindliche '
-            'Rohrnetzberechnung. Prüfung obliegt Planer, Installateur oder Bauherr.<br>Entwickelt von Daniel Sommer · '
-            'HC/SDE3-PSD</div>', unsafe_allow_html=True)
+    st.markdown('<div class="fuss">Werkzeug zur Vorplanung nach Bosch-HIU-Methodik – ersetzt keine verbindliche '
+                'Rohrnetzberechnung · Entwickelt von Daniel Sommer · HC/SDE3-PSD</div>', unsafe_allow_html=True)
 
 # ====================================================================== Auto-Sicherung + Hell/Dunkel (Browser)
-jetzt = stand(ss.inp, ss.straenge, ss.meta)
-with kopfschalter:
+with kopf_thema:
     gespeichert = browser(dumps(ss.inp, ss.straenge, ss.meta) if ss.get("sicherung_gelesen") else None, DUNKEL)
 if gespeichert is not None and not ss.get("sicherung_gelesen"):
     ss.sicherung_gelesen = True

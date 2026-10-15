@@ -30,6 +30,11 @@ Die App öffnet sich unter <http://localhost:8501>.
 
 ## Bedienung (Kurzüberblick)
 
+- **Kachel-Dashboard:** Oben vier Kennzahlen (Volumenstrom, Anschluss, Erzeuger, Puffer, mit Trend zur letzten
+  Änderung), darunter 3D-Gebäude, Prüfungen (Ampel), Variantenempfehlung, Rohrnetz, Wohnungsstation und Stückliste.
+  Ein Klick auf eine Kachel öffnet die Details (Schemata, Tabellen, Herleitungen, Diagramme).
+- **Eingaben:** Panel rechts mit den Reitern Gebäude · System · Auslegung · Projekt, ein-/ausblendbar über
+  „Eingaben“. PDF oben rechts, Speichern/Laden/Excel/Zurücksetzen im Menü „···“.
 - **Sicherung:** Jede Eingabe wird automatisch im Browser gesichert und beim nächsten Öffnen wiederhergestellt
   (auch nach dem Hell/Dunkel-Umschalten). „Zwischenspeichern“ sichert sofort; „Speichern“ lädt eine Projektdatei
   (.json) herunter, die auch die HTML-Version öffnet. Die Browser-Sicherung bleibt im jeweiligen Browser.
