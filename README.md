@@ -11,7 +11,9 @@ Es gibt zwei Versionen mit identischem Rechenweg:
 | | `index.html` (V54) | Python / Streamlit |
 |---|---|---|
 | Start | Datei im Browser öffnen, läuft offline | `streamlit run app.py` |
-| Oberfläche | Original mit Canvas-Schemata | gleicher Aufbau: Eingaben links, Karten rechts |
+| Oberfläche | Original mit Canvas-Schemata | gleicher Aufbau: Eingabekarten ①②③ links, Ergebniskarten rechts |
+| Sicherung | automatisch im Browser | automatisch im Browser + „Zwischenspeichern“, Wiederherstellen beim Öffnen |
+| Hell/Dunkel | Schalter ☾/☀ | Schalter ☾/☀ in der Kopfzeile |
 | Export | PDF (Druck), Projekt-JSON | PDF-Auslegungsbericht, Projekt-JSON, Excel |
 | Projektdateien | `.json` | dasselbe `.json`-Format, in beide Richtungen austauschbar |
 
@@ -26,6 +28,18 @@ streamlit run app.py
 
 Die App öffnet sich unter <http://localhost:8501>.
 
+## Bedienung (Kurzüberblick)
+
+- **Sicherung:** Jede Eingabe wird automatisch im Browser gesichert und beim nächsten Öffnen wiederhergestellt
+  (auch nach dem Hell/Dunkel-Umschalten). „Zwischenspeichern“ sichert sofort; „Speichern“ lädt eine Projektdatei
+  (.json) herunter, die auch die HTML-Version öffnet. Die Browser-Sicherung bleibt im jeweiligen Browser.
+- **Netzschema:** Mit der Maus über Stationen und DN-Marken fahren – zeigt WE, Gleichzeitigkeit, Volumenstrom, Rohr,
+  Geschwindigkeit, Druckverlust und Status. DN-Farbe: grün = OK, orange = grenzwertig, rot = über v_max.
+  „📌 Anheften“ hält das Schema beim Scrollen sichtbar.
+- **Alle Stränge:** Netztopologie mit Regler für die Position der Wärmezentrale (wird mitgespeichert), „⤢ Vollbild“,
+  Hauptstrang je Abschnitt mit maßgeblichem Abschnitt, Gesamt-Kennzahlen und Diagramme.
+- **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
+
 ## Streamlit Cloud
 
 Repository `sommer-nt/bosch-flow`, Branch wählen, Main file `app.py`. `requirements.txt` und `packages.txt`
@@ -39,7 +53,8 @@ APP_PASSWORT = "..."
 ## Aufbau
 
 ```
-app.py                  Streamlit-Oberfläche
+app.py                  Streamlit-Oberfläche (Aufbau wie index.html)
+browser.py              Auto-Sicherung im Browser (localStorage) und Hell/Dunkel-Schalter
 bosch_flow/
   data.py               Datenbasis (Rohrreihen, Stationen, DIN 4708, Puffergrößen …)
   calc.py               Rechenkern – 1:1 aus index.html übertragen
@@ -48,7 +63,7 @@ bosch_flow/
   zeichnung.py          Zeichenschicht: dieselbe Grafik für Bildschirm (Plotly) und PDF
   bericht.py            PDF-Auslegungsbericht (A4 quer, wie „Planung als PDF exportieren“)
   plots.py              Diagramme (Plotly)
-  daten/icons/          Bosch-Piktogramme aus der HTML (Erzeuger, Puffer, Heizkreis)
+  daten/icons/          Piktogramme: Erzeuger, Puffer, Heizkreis (aus der HTML) + Pumpe, Trinkwasser, Station
   project.py            Projektdateien laden/speichern (kompatibel mit index.html)
 tests/
   scenarios.json        15 Prüffälle (2-/4-Leiter, DLE, manuell, Mehrstrang, Hochhaus …)

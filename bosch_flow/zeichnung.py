@@ -101,6 +101,10 @@ class Szene:
     breite: float
     hoehe: float
     elemente: list = field(default_factory=list)
+    hover: list = field(default_factory=list)      # (x, y, text) – Infos beim Überfahren mit der Maus
+
+    def info(self, x: float, y: float, text: str) -> None:
+        self.hover.append((x, y, text))
 
     def add(self, *el):
         self.elemente.extend(el)
@@ -177,13 +181,20 @@ def als_plotly(s: Szene, papier: str = "rgba(0,0,0,0)", max_hoehe: int | None = 
                                sizex=e.x1 - e.x0, sizey=e.y1 - e.y0, xanchor="left", yanchor="top",
                                sizing="contain", layer="above"))
     fig = go.Figure()
+    if s.hover:
+        fig.add_trace(go.Scatter(
+            x=[h[0] for h in s.hover], y=[h[1] for h in s.hover], mode="markers", text=[h[2] for h in s.hover],
+            hovertemplate="%{text}<extra></extra>", showlegend=False,
+            marker=dict(size=22, color="rgba(0,0,0,0)", line=dict(width=0))))
+        fig.update_layout(hoverlabel=dict(bgcolor="#ffffff", bordercolor="#005691", font=dict(color="#12181f", size=12)))
     # Höhe passend zur erwarteten Darstellungsbreite – sonst bleibt über/unter dem Schema Leerraum
     hoehe = int(s.hoehe * min(1.0, breite_px / s.breite)) + 4
     if max_hoehe is not None:
         hoehe = min(hoehe, max_hoehe)
     fig.update_layout(shapes=shapes, annotations=notes, images=images, height=hoehe, showlegend=False,
                       margin=dict(l=0, r=0, t=0, b=0), plot_bgcolor=papier, paper_bgcolor=papier,
-                      dragmode=False, font=dict(family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"))
+                      dragmode=False, hovermode="closest",
+                      font=dict(family="Segoe UI, Roboto, Helvetica, Arial, sans-serif"))
     fig.update_xaxes(range=[0, s.breite], visible=False, fixedrange=True)
     fig.update_yaxes(range=[s.hoehe, 0], visible=False, fixedrange=True, scaleanchor="x", scaleratio=1)
     return fig

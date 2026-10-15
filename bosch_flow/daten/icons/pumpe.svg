@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <!-- Umwälzpumpe: Gehäuse, Laufrad-Pfeil, Anschlüsse, Fuß – Linienstil wie die Bosch-Piktogramme -->
+  <g fill="none" stroke="#1D1D1B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="96" cy="92" r="52"/>
+    <path d="M76 66 L124 92 L76 118 Z"/>
+    <path d="M16 92 H44"/>
+    <path d="M148 92 H176"/>
+    <path d="M16 78 V106"/>
+    <path d="M176 78 V106"/>
+    <path d="M70 140 L58 168 H134 L122 140"/>
+  </g>
+</svg>

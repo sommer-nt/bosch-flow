@@ -12,9 +12,26 @@ from .report import fmt
 from .zeichnung import Icon, Pfeil, Szene, farben
 
 
+ZENTRALE = "#0a3b5c"   # Wärmezentrale in beiden Farbschemata dunkelblau mit weißer Schrift (Kontrast)
+
+
 def _wdn(dn: str) -> float:
     i = next((k for k, s in enumerate(DN_SERIES) if s[0] == dn), 1)
     return max(0, i * 0.8)
+
+
+def _status_farbe(r: dict, R: dict, F: dict) -> str:
+    """Grün = v ≤ vmax, Orange = grenzwertig (≤ 1,2 · vmax), Rot = zu schnell – wie die Auslegungs-Tabelle."""
+    vmax = R["P"]["vmax"]
+    return F["dn"] if r["v"] <= vmax else F["warn"] if r["v"] <= vmax * 1.2 else F["vl"]
+
+
+def _info(titel: str, r: dict, R: dict) -> str:
+    vmax = R["P"]["vmax"]
+    status = "OK" if r["v"] <= vmax else "grenzwertig" if r["v"] <= vmax * 1.2 else "zu schnell"
+    return (f"<b>{titel}</b><br>{r['weCum']} WE · GZ {fmt(r['gz'], 1)}<br>V̇ = {fmt(r['Vtot'], 2)} m³/h"
+            f"<br><b>{r['dim']}</b> ({r['raw']}) · di {fmt(r['di'], 1)} mm<br>v = {fmt(r['v'], 2)} m/s · "
+            f"Δp = {fmt(r['dp'])} Pa/m<br>Status: <b>{status}</b> (v_max {fmt(vmax, 1)} m/s)")
 
 
 # ====================================================================== Netzschema (ein Strang)
@@ -60,17 +77,22 @@ def netzschema(R: dict, dunkel: bool = False) -> Szene:
                 if we > 1:
                     s.text(xs, y + 13, f"Σ {we} WE", 8, F["soft"], fett=True)
                 s.text(xs, y + 25, f"{fmt(r['Vtot'], 2)} m³/h", 8, F["dn"] if we == 1 else F["ink"], fett=we > 1)
-                s.text(xs, y + 37, r["dim"], 8.5, F["dn"], fett=True)
+                s.text(xs, y + 37, r["dim"], 8.5, _status_farbe(r, R, F), fett=True)
+                s.info(xs, y, _info(f"{etage_label(f)} · {'links' if seite == 'l' else 'rechts'} · Abschnitt an St. {k}", r, R))
     # Steigstrang
     y_top, y_bot = y_of(floors) - 6, hoehe - 52
     s.linie(xr - 5, y_top, xr - 5, y_bot, F["vl"], 5)
     s.linie(xr + 5, y_top, xr + 5, y_bot, F["rl"], 5)
     for r in R["vRows"]:
         yb = y_of(r["floor"]) + fh / 2 if r["floor"] > 1 else (y_of(1) + y_bot) / 2 + 4
-        s.rechteck(xr - 25, yb - 9, xr + 25, yb + 9, fuell=F["dnbg"], rand=F["dn"], breite=0.8, radius=8)
-        s.text(xr, yb, r["dim"], 9.5, F["dn"], fett=True)
+        col = _status_farbe(r, R, F)
+        s.rechteck(xr - 25, yb - 9, xr + 25, yb + 9, fuell=F["dnbg"] if col == F["dn"] else F["card"], rand=col,
+                   breite=0.8 if col == F["dn"] else 1.6, radius=8)
+        s.text(xr, yb, r["dim"], 9.5, col, fett=True)
+        s.info(xr, yb, _info(f"Steigstrang unter {etage_label(r['floor'])}"
+                             + (" · Strangfuß" if r["floor"] == 1 else ""), r, R))
     # Wärmezentrale
-    s.rechteck(xr - 150, y_bot, xr + 150, y_bot + 30, fuell=F["navy"], radius=7)
+    s.rechteck(xr - 150, y_bot, xr + 150, y_bot + 30, fuell=ZENTRALE, radius=7)
     s.text(xr, y_bot + 15, "WÄRMEZENTRALE — Kessel · Puffer · Pumpe", 10.5, "#ffffff", fett=True)
     # Legende
     yl = hoehe - 10
@@ -120,43 +142,42 @@ def topologie_szene(results: list, pos: float = 50, gross: bool = False, dunkel:
         s.text(x + 2, byy + bh / 2 - 7, f"Strang {i + 1}", 12 if gross else 11, F["ink"], fett=True)
         s.text(x + 2, byy + bh / 2 + 9, f"{r['totalWE']} WE · {r['vRows'][0]['dim']}", 10 if gross else 9.5,
                F["soft"], fett=True)
+        f0 = r["vRows"][0]
+        s.info(x, byy + bh / 2, f"<b>Strang {i + 1}</b><br>{r['floors']} Etagen · {r['totalWE']} WE · "
+                                f"{'beidseitig' if r['split'] == 'both' else 'einseitig'}<br>Strangfuß <b>{f0['dim']}</b> · "
+                                f"{fmt(f0['Vtot'], 2)} m³/h · v {fmt(f0['v'], 2)} m/s")
     cr = 11 if gross else 10
     for a in T["abschnitte"]:
         x = bx[a["strang"] - 1]
         cy = main_y + (24 if gross else 22)
         s.kreis(x, cy, cr, fuell=F["warn"] if a["kritisch"] else F["accent"], rand=F["papier"], breite=2)
         s.text(x, cy, str(a["strang"]), 12 if gross else 11, "#ffffff", fett=True)
+        s.info(x, cy, f"<b>Hauptstrang · Abschnitt {a['strang']}</b><br>{a['load']} WE kumuliert<br>"
+                      f"V̇ = {fmt(a['V'], 2)} m³/h<br><b>{a['dn']}</b> · v = {fmt(a['v'], 2)} m/s"
+                      + ("<br><b>◆ maßgeblich (höchste Geschwindigkeit)</b>" if a["kritisch"] else ""))
     zx = max(6, min(W - zw - 6, zcx - zw / 2))
     zy = main_y + 64
     mlw = max(4, min(11, 2.5 + _wdn(T["gesamt"]["dim"])))
     s.linie(zcx - 5, main_y - mlw / 2 - 1, zcx - 5, zy, F["vl"], 4)
     s.linie(zcx + 5, main_y + mlw / 2 + 1, zcx + 5, zy, F["rl"], 4)
-    s.rechteck(zx, zy, zx + zw, zy + zh, fuell=F["navy"], radius=10)
+    s.rechteck(zx, zy, zx + zw, zy + zh, fuell=ZENTRALE, radius=10)
     s.rechteck(zx + zw / 2 - 16, zy + 12, zx + zw / 2 + 16, zy + 42, fuell="#2c6f99", rand="#ffffff", breite=2,
                radius=5)
     s.kreis(zx + zw / 2, zy + 27, 4, rand="#ffffff", breite=2)
     s.text(zx + zw / 2, zy + 55, "Wärmezentrale", 11, "#ffffff", fett=True)
     s.text(zx + zw / 2, zy + 69, "Erzeuger · Puffer · Pumpe", 8, "#d5e2ec")
     s.text(zx + zw / 2, zy + 82, f"Σ {T['gesamtWE']} WE · {T['gesamt']['dim']}", 9.5, "#ffffff", fett=True)
+    g = T["gesamt"]
+    s.info(zx + zw / 2, zy + zh / 2, f"<b>Wärmezentrale</b> ({T['label']})<br>Σ {T['gesamtWE']} WE · "
+                                     f"V̇ = {fmt(g['Vtot'], 2)} m³/h<br>Anschluss <b>{g['dim']}</b> · v {fmt(g['v'], 2)} m/s")
     s.text(lane_l - 8, main_y + 16, "Hauptstrang", 11, F["soft"], fett=True, anker="start", vanker="top")
     return s
 
 
 # ====================================================================== Anlagenschema (Heizzentrale)
-def _tap(s: Szene, x0, y0, w, h, col):
-    """Wasserhahn (Trinkwasser) – Ersatz für das fehlende icons/tap-water.svg der HTML-Version."""
-    s.rechteck(x0 + w * .30, y0 + h * .18, x0 + w * .62, y0 + h * .34, rand=col, breite=2, radius=3)
-    s.linie(x0 + w * .46, y0 + h * .06, x0 + w * .46, y0 + h * .18, col, 2)
-    s.linie(x0 + w * .34, y0 + h * .06, x0 + w * .58, y0 + h * .06, col, 2)
-    s.linie(x0 + w * .62, y0 + h * .26, x0 + w * .78, y0 + h * .26, col, 2.4)
-    s.linie(x0 + w * .78, y0 + h * .26, x0 + w * .78, y0 + h * .44, col, 2.4)
-    for i, dy in enumerate((.58, .74)):
-        s.kreis(x0 + w * .78, y0 + h * dy, w * (.06 - i * .01), fuell=col)
-
-
 def _pumpe(s: Szene, x, y, r, F):
-    s.kreis(x, y, r, fuell=F["card"], rand=F["ink"], breite=2)
-    s.text(x + 1, y, "▶", r * 0.95, F["ink"])
+    g = r * 2.3
+    s.add(Icon("pumpe", x - g / 2, y - g / 2, x + g / 2, y + g / 2, F["icon_invert"]))
 
 
 def _badge(s: Szene, x, y, txt, col, caption, F):
@@ -237,19 +258,30 @@ def anlagenschema(R: dict, headline: dict, dunkel: bool = False) -> Szene:
         s.add(Icon("heizkreis", hx - 28, iy, hx + 28, iy + 56, inv))
         s.text(hx, iy + 70, "Heizkreis", 10, F["ink"], fett=True)
         s.text(hx, iy + 84, f"≤ {st['maxHeatKW']} kW", 8.5, F["soft"])
-        s.rechteck(tx - 34, iy - 4, tx + 34, iy + 60, fuell=F["card"], rand=F["rl"], breite=1, radius=8)
-        _tap(s, tx - 28, iy, 56, 56, F["rl"])
+        s.add(Icon("trinkwasser", tx - 28, iy, tx + 28, iy + 56, inv))
         s.text(tx, iy + 70, "Trinkwasser", 10, F["ink"], fett=True)
         s.text(tx, iy + 84, f"{fmt(A['stationKW'])} kW · {fmt(A['zapfLmin'], 1).removesuffix(',0')} l/min", 8.5, F["soft"])
     else:
         s.add(Icon("heizkreis", X_STA - 28, mid - 110, X_STA + 28, mid - 54, inv))
         s.text(X_STA, mid - 40, "Heizkreis", 10, F["ink"], fett=True)
-        _tap(s, X_STA - 28, mid + 30, 56, 56, F["rl"])
+        s.add(Icon("trinkwasser", X_STA - 28, mid + 30, X_STA + 28, mid + 86, inv))
         s.text(X_STA, mid + 100, "Trinkwasser", 10, F["ink"], fett=True)
     if A["zuheizerOn"]:
         s.rechteck(X_STA - 95, by1 - 26, X_STA + 95, by1 - 8, fuell=F["gold"], radius=9)
         s.text(X_STA, by1 - 17, f"⚡ DLE {fmt(A['zuheizerMaxKW'])} kW · Stufe {fmt(A['dleStufe'])} °C", 9.5, "#ffffff",
                fett=True)
+    # Infos beim Überfahren
+    s.info(X_ERZ, mid, f"<b>Wärmeerzeuger</b><br>Kessel-/FW-Leistung <b>{fmt(A['kesselQ'])} kW</b><br>"
+                       f"Q theoretisch {fmt(A['Qtheor'], 1)} kW · GZ {fmt(A['gz'], 1)}<br>Totzeit {fmt(A['tTot'])} min · "
+                       f"Wiederaufheizzeit {fmt(A['tWied'])} min")
+    if not four:
+        s.info(X_PUF, mid, f"<b>Bereitschaftspuffer</b><br>berechnet {fmt(A['pufferVol'])} l<br>Auswahl "
+                           f"<b>{puffer_produkt(A['pufferVol'])['text']}</b><br>Versorgungs-VL {fmt(A['vlKeller'])} °C")
+        s.info(X_PMP, mid, f"<b>Netzpumpe</b><br>V̇ = {fmt(headline['Vtot'], 2)} m³/h<br>Anschluss {headline['dim']} · "
+                           f"v {fmt(headline['v'], 2)} m/s")
+    s.info(X_STA, (by0 + by1) / 2, f"<b>{n_we}× {name}</b><br>{st['mode']}<br>Heizung ≤ {st['maxHeatKW']} kW · "
+                                    f"WW {fmt(A['stationKW'])} kW / {fmt(A['zapfLmin'], 1)} l/min @ {fmt(A['zapfTemp'])} °C"
+                                    f"<br>Netztemperatur an Station {fmt(A['netzTemp'])} °C")
     # Hinweisbox
     y0 = H - 54
     s.rechteck(60, y0, W - 60, y0 + 44, fuell=F["panel"], rand=F["cardline"], radius=6)

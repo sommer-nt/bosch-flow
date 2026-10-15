@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <!-- Trinkwasser / Zapfstelle: Wandanschluss, Griff, Auslauf, Tropfen -->
+  <g fill="none" stroke="#1D1D1B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 56 V104"/>
+    <path d="M24 70 H64"/>
+    <path d="M24 90 H96 C116 90 128 102 128 122 V128"/>
+    <path d="M64 70 V90"/>
+    <path d="M84 44 V70"/>
+    <path d="M62 44 H106"/>
+    <rect x="52" y="70" width="44" height="20" rx="6"/>
+    <path d="M128 146 C120 158 114 164 114 172 A14 14 0 0 0 142 172 C142 164 136 158 128 146 Z"/>
+  </g>
+</svg>
