@@ -39,13 +39,14 @@ def chart_gleichzeitigkeit(R: dict, dunkel: bool = False) -> go.Figure:
 def chart_din18015(n_we: int, dunkel: bool = False) -> go.Figure:
     xs = [x / 2 for x in range(2, 61)]
     n = max(1, min(30, n_we))
+    blau, rot = ("#4fa3e0", "#ff5a6a") if dunkel else (RL, VL)
     fig = go.Figure([
         go.Scatter(x=xs, y=[din_interp(DIN_MIT, x) for x in xs], name="MIT elektr. WW-Bereitung (HPS)",
-                   line=dict(color=RL, width=2.6)),
+                   line=dict(color=blau, width=2.6)),
         go.Scatter(x=xs, y=[din_interp(DIN_OHNE, x) for x in xs], name="OHNE elektr. WW-Bereitung",
-                   line=dict(color=VL, width=2.4)),
+                   line=dict(color=rot, width=2.4)),
         go.Scatter(x=[n, n], y=[din_interp(DIN_MIT, n), din_interp(DIN_OHNE, n)], mode="markers",
-                   marker=dict(size=10, color=[RL, VL], line=dict(color="white", width=1.5)), showlegend=False,
+                   marker=dict(size=10, color=[blau, rot], line=dict(color="white", width=1.5)), showlegend=False,
                    hoverinfo="skip"),
     ])
     fig.add_vline(x=n, line=dict(color=SOFT, dash="dot", width=1))
@@ -57,10 +58,12 @@ def chart_din18015(n_we: int, dunkel: bool = False) -> go.Figure:
 
 def _chart(fig: go.Figure, ylab: str, yfmt: str, dunkel: bool = False) -> go.Figure:
     ink, gitter = ("#dbe4ec", "rgba(255,255,255,.08)") if dunkel else (INK, "#e9edf1")
-    fig.update_layout(height=340, margin=dict(l=10, r=10, t=36, b=10), plot_bgcolor="rgba(0,0,0,0)",
+    fig.update_layout(height=360, margin=dict(l=64, r=18, t=44, b=56), plot_bgcolor="rgba(0,0,0,0)",
                       paper_bgcolor="rgba(0,0,0,0)", font={**FONT, "color": ink}, hovermode="x unified", separators=",.",
                       legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0, font=dict(color=ink)),
                       hoverlabel=dict(bgcolor="#1b2733" if dunkel else "#ffffff", font=dict(color=ink)))
-    fig.update_xaxes(title="kumulierte Wohneinheiten", gridcolor=gitter, zeroline=False, linecolor=gitter)
-    fig.update_yaxes(title=ylab, gridcolor=gitter, zeroline=False, rangemode="tozero", hoverformat=yfmt)
+    fig.update_xaxes(title="kumulierte Wohneinheiten", gridcolor=gitter, zeroline=False, linecolor=gitter,
+                     automargin=False, title_standoff=12)
+    fig.update_yaxes(title=ylab, gridcolor=gitter, zeroline=False, rangemode="tozero", hoverformat=yfmt,
+                     automargin=False, title_standoff=10)
     return fig

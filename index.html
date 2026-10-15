@@ -235,21 +235,24 @@
     body.print-all #allView{display:block !important}
     body.print-all .kpis{display:none !important}
 
-    /* Container-Karten dürfen über Seiten fließen (kein Block-Sprung -> keine Leerräume).
-       Nur die kleinen, wirklich unteilbaren Einheiten werden zusammengehalten. */
+    /* ===== KOMPAKTE SEITENFÜLLUNG (V54, Tim) =====
+       GRUNDREGEL: KEINE erzwungenen Seitenumbrüche mehr vor einzelnen Blöcken.
+       Jeder Block bleibt als Einheit zusammen (break-inside:avoid), erzwingt aber
+       KEINEN Umbruch davor. So füllen sich die Seiten natürlich – ein Block rutscht
+       nur dann weiter, wenn er wirklich nicht mehr auf die Seite passt. Dadurch
+       keine halbleeren Seiten und keine Mini-Rest-Seiten mehr. */
     body.print-all .card{break-inside:auto !important;page-break-inside:auto !important;border:none !important;margin:0 !important;padding:0 !important}
     body.print-all .card>.body{padding:0 !important}
     body.print-all .gesamtcard{break-inside:auto !important;page-break-inside:auto !important;border:none !important;background:none !important;padding:0 !important;margin:0 !important}
-    body.print-all .gesamt-start{break-before:page !important;page-break-before:always !important}
+    /* Gesamtübersicht: Überschrift bei ihrem Inhalt halten, KEIN erzwungener Umbruch davor. */
+    body.print-all .gesamt-start{break-before:auto !important;page-break-before:auto !important;margin-top:10px !important}
 
     /* ===== NETZSCHEMA je Strang =====
-       Ein Strang-Schema samt Kopf bleibt zusammen (das ist eine sinnvolle Einheit),
-       aber es erzwingt KEINEN Umbruch davor/danach -> füllt die Seite. */
-    /* Jeder Strang = EINE geschlossene Einheit (Kopf + Schema + Tabelle) auf EINER Seite.
-       Neue Seite je Strang -> bei gleichen Strängen völlig regelmäßig, nie abgeschnitten. */
-    .strangblock{break-inside:avoid;page-break-inside:avoid;border:none;margin:0}
-    body.print-all .strangblock{break-before:page;page-break-before:always;break-inside:avoid;page-break-inside:avoid}
-    body.print-all .strangblock:first-of-type{break-before:auto;page-break-before:avoid}
+       Jeder Strang = EINE geschlossene Einheit (Kopf + Schema + Tabelle), die zusammen
+       bleibt – aber OHNE erzwungenen Umbruch davor, damit zwei kleine Stränge sich eine
+       Seite teilen können statt jeweils eine fast leere Seite zu belegen. */
+    .strangblock{break-inside:avoid;page-break-inside:avoid;border:none;margin:0 0 12px}
+    body.print-all .strangblock{break-before:auto;page-break-before:auto;break-inside:avoid;page-break-inside:avoid}
     .strangblock-head{break-after:avoid;page-break-after:avoid;border-radius:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
     .strangblock-body{padding:0 !important;break-inside:avoid;page-break-inside:avoid}
     .schema-scroll{break-inside:avoid;page-break-inside:avoid;overflow:visible !important;border:none !important}
@@ -265,10 +268,12 @@
     /* Einzelne Blöcke innerhalb der Gesamtübersicht zusammenhalten, aber Container fließt */
     .topo-wrap,.chart-half{break-inside:avoid;page-break-inside:avoid}
 
-    /* ===== Netztopologie: eigene Querformat-Seite im PDF ===== */
+    /* ===== Netztopologie: breite Grafik als Einheit zusammenhalten, aber KEIN
+       erzwungener Umbruch davor – sie rutscht nur bei Platzmangel auf die nächste Seite. */
     body.print-all #topoSection{
-      break-before:page;page-break-before:always;
+      break-before:auto;page-break-before:auto;
       break-inside:avoid;page-break-inside:avoid;
+      margin-top:10px;
     }
     body.print-all #topoSection .topo-ctrl{display:none !important}  /* Regler/Button raus */
     body.print-all #topoSection .topo-wrap{
@@ -283,14 +288,23 @@
     /* ===== Anlagenschema + Zusammenfassungs-Tabellen: je eigener, sauberer Seitenanfang =====
        Diese Karten stehen NICHT in #allView, sie werden zusätzlich mitgedruckt.
        Jede beginnt auf einer neuen Seite und bekommt einen sichtbaren Karten-Kopf zurück. */
+    /* Kompakte Karten (Anlagenschema, Tabellen) als Einheit zusammenhalten. */
     body.print-all #plantCard,
     body.print-all #tableCard,
-    body.print-all #kesselCard,
-    body.print-all #dleHelpCard{
-      break-before:page;page-break-before:always;
-      break-inside:avoid-page;page-break-inside:avoid;
+    body.print-all #kesselCard{
+      break-before:auto;page-break-before:auto;
+      break-inside:avoid;page-break-inside:avoid;
       border:1px solid #d3dae1 !important;border-radius:6px;
-      margin:0 0 8px !important;padding:0 !important;
+      margin:0 0 10px !important;padding:0 !important;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    }
+    /* DLE-Karte kann hoch werden (Tabelle + ELT-Hinweis + DIN-Diagramm): darf intern
+       umbrechen, die unteilbaren Teilbereiche (unten) bleiben jeweils zusammen. */
+    body.print-all #dleHelpCard{
+      break-before:auto;page-break-before:auto;
+      break-inside:auto;page-break-inside:auto;
+      border:1px solid #d3dae1 !important;border-radius:6px;
+      margin:0 0 10px !important;padding:0 !important;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
     }
     body.print-all #plantCard>.body,
@@ -299,6 +313,9 @@
     body.print-all #dleHelpCard>.body{padding:12px !important}
     /* DIN-18015-1-Abschnitt als Einheit halten (Diagramm + Ablesewert + Pmax-Hinweis) */
     body.print-all #dinSektion{break-inside:avoid;page-break-inside:avoid}
+    /* DIN-Diagramm im Druck etwas kompakter, damit die Fußzeile mit auf die Seite passt
+       (verhindert, dass 2 Fußzeilen-Zeilen auf eine eigene Seite rutschen). */
+    body.print-all #dinSektion svg{max-width:440px !important}
     body.print-all #plantCard h2,
     body.print-all #tableCard h2,
     body.print-all #kesselCard h2,
@@ -319,7 +336,11 @@
     body.print-all #tableCard tr,
     body.print-all #kesselCard tr{break-inside:avoid;page-break-inside:avoid}
 
-    .foot{margin-top:14px;border-top:1px solid #ccc;padding-top:8px;font-size:10px}
+    .foot{margin-top:10px;border-top:1px solid #ccc;padding-top:8px;font-size:10px;break-before:avoid;page-break-before:avoid;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;margin-bottom:0 !important}
+    /* V54: verhindert eine leere Abschlussseite (Phantomseite durch Rest-Umbrüche/Margins). */
+    body.print-all .foot{break-after:avoid !important;page-break-after:avoid !important}
+    body.print-all .wrap:last-child,body.print-all .wrap>*:last-child{margin-bottom:0 !important;padding-bottom:0 !important}
+    body.print-all #allView:last-child>*:last-child{margin-bottom:0 !important}
   }
 </style>
 </head>
@@ -1088,8 +1109,11 @@ function drawSchema(R, canvasEl, opts){
   // kein Wegschieben durch break-inside:avoid). floorH wird ggf. weiter verkleinert.
   if(printMode && opts.printH){
     const maxFloorH = Math.floor((opts.printH - padTop - padBot)/floors);
-    // Nur verkleinern, wenn nötig – aber nie unter die Höhe, die Station + 3 Wertzeilen braucht.
-    if(maxFloorH < floorH) floorH = Math.max(60, maxFloorH);
+    // Nur verkleinern, wenn nötig. Bei vielen Etagen darf die Etagenhöhe weiter
+    // schrumpfen (bis 50 px), damit Schema + Auslegungstabelle zusammen auf EINE Seite
+    // passen und keine halbleere Schema-Seite + dünne Tabellen-Seite entsteht.
+    const floorFloor = floors>=5 ? 50 : 60;
+    if(maxFloorH < floorH) floorH = Math.max(floorFloor, maxFloorH);
   }
   // Font-Größen folgen der effektiven Etagenhöhe (im Druck kompakter, aber lesbar)
   const hScale = printMode ? Math.max(0.62, Math.min(1, floorH/112)) : Math.max(0.85,scale);
@@ -1232,7 +1256,9 @@ function drawPlant(R){
   const cssW = PT
     ? PT.printW
     : Math.min(1220,Math.max(1000,(cv.parentElement.clientWidth||1000)));
-  const cssH = PT ? Math.min(470, PT.printH) : 470;
+  // V54 (Tim): Anlagenschema im Druck kompakter (360 statt 470 px), damit die
+  // Auslegungs-Tabelle mit auf dieselbe Seite passt -> weniger Seiten.
+  const cssH = PT ? Math.min(360, PT.printH) : 470;
   cv.style.width=cssW+'px';cv.style.height=cssH+'px';cv.width=cssW*DPR;cv.height=cssH*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);
   ctx.clearRect(0,0,cssW,cssH);
   const isDark = document.documentElement.getAttribute('data-theme')==='dark';
@@ -1743,11 +1769,16 @@ function renderAllStraenge(){
     // auf EINE Seite passen (sonst schiebt das Schema die Tabelle auf die nächste Seite/schneidet ab).
     let schemaPT = window.__PRINT_TARGET__||undefined;
     if(window.__PRINT_TARGET__){
-      const rowsEst = (R.floors||4) + 3;                 // Steigstrang-Zeilen + Kopf/Summe
-      const tableH  = 30 + rowsEst*24;                   // Titel + Zeilen (grobe, sichere Schätzung)
-      const headH   = 40;                                // Strang-Kopfzeile
-      const reserve = headH + tableH + 24;               // + Sicherheitsabstand
-      const schemaH = Math.max(280, window.__PRINT_TARGET__.printH - reserve);
+      // V54 (Tim): Strang-Schema im Druck so deckeln, dass Schema + Kopf + Auslegungstabelle
+      // GARANTIERT zusammen auf EINE Seite passen (sonst trennt der Umbruch Schema und Tabelle
+      // und lässt die Schema-Seite halbleer). Wir rechnen den Platz für die Tabelle heraus.
+      const floorsN = R.floors||1;
+      const tableRows = floorsN + 2;                 // Etagen-Zeilen + Kopf/Summe
+      const tableH = 34 + tableRows*22;              // Titel + Zeilen (sichere Schätzung)
+      const headH  = 42;                             // Strang-Kopfzeile
+      const avail  = window.__PRINT_TARGET__.printH - headH - tableH - 20; // Rest für das Schema
+      // Schema: so groß wie der Platz erlaubt, aber mind. 170 und höchstens 360 px.
+      const schemaH = Math.max(170, Math.min(360, avail));
       schemaPT = {printW: window.__PRINT_TARGET__.printW, printH: schemaH};
     }
     try{ drawSchema(R, cv, schemaPT); }catch(e){}

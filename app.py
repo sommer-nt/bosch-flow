@@ -2,8 +2,8 @@
 
 Start:  streamlit run app.py
 Kachel-Dashboard: oben die vier Kennzahlen, darunter 3D-Gebäude, Prüfungen, Variantenempfehlung, Rohrnetz, Gerät
-und Stückliste. Jede Kachel öffnet per Klick ihre Details (Schemata, Tabellen, Herleitungen). Die Eingaben fahren als
-Panel von rechts herein. Rechenkern wie die HTML-Version V54 (index.html). Auto-Sicherung im Browser, Hell/Dunkel,
+und Stückliste. Jede Kachel öffnet per Klick ihre Details (Schemata, Tabellen, Herleitungen). Die Eingaben stehen im
+Panel links (ein-/ausblendbar). Rechenkern wie die HTML-Version V54 (index.html). Auto-Sicherung im Browser, Hell/Dunkel,
 PDF- und Excel-Export.
 """
 from __future__ import annotations
@@ -160,7 +160,7 @@ header[data-testid="stHeader"] {{background:transparent}}
 .st-key-panel {{background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:20px; padding:16px 16px 10px;
                box-shadow:{F['schatten2']}; position:sticky; top:3.2rem; max-height:calc(100vh - 4rem);
                overflow-y:auto; animation:reinfahren .28s ease-out}}
-@keyframes reinfahren {{from {{opacity:0; transform:translateX(28px)}} to {{opacity:1; transform:none}}}}
+@keyframes reinfahren {{from {{opacity:0; transform:translateX(-28px)}} to {{opacity:1; transform:none}}}}
 .p-titel {{font-size:16px; font-weight:800; color:{F['text']}}}
 .hinweis {{font-size:12px; line-height:1.45; color:{F['leise']}; border-left:3px solid {F['akzent']}; padding:6px 10px;
           background:{F['akzent_bg']}; border-radius:0 8px 8px 0; margin:2px 0 8px}}
@@ -252,7 +252,7 @@ kopf_thema = kopf[5].container()
 st.write("")
 
 if ss.panel:
-    haupt, panel_spalte = st.columns([2.75, 1.05], gap="large")
+    panel_spalte, haupt = st.columns([1.05, 2.75], gap="large")
 else:
     haupt, panel_spalte = st.container(), None
 
@@ -695,9 +695,7 @@ def dialog_zentrale() -> None:
                      hide_index=True, width="stretch")
         zst, ztext = RP.dle_fazit(a_)
         {"none": st.info, "ok": st.success, "over": st.error}[zst](ztext)
-        d = din18015(a_["weForZentrale"])
-        st.plotly_chart(plots.chart_din18015(d["nWE"], DUNKEL), width="stretch", key="d_din", theme=None)
-        st.caption(RP.DLE_ELEKTRO)
+        st.caption("Stromseitige Gleichzeitigkeit (DIN 18015-1): eigene Kachel „Strom“ auf dem Dashboard.")
     with st.expander("Systemprinzip aus dem Katalog", icon=":material/image:"):
         st.image(str(KA.BILDER / "systemprinzip.jpg"), width="stretch")
     schliessen()
@@ -718,6 +716,30 @@ def dialog_3d() -> None:
     st.plotly_chart(fig, width="stretch", key="m3d_voll", theme=None,
                     config={"displaylogo": False, "toImageButtonOptions": {"format": "png", "scale": 2}})
     st.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte · Legende anklicken = Stufe ein/aus")
+    schliessen()
+
+
+@st.dialog("Stromseitige Gleichzeitigkeit · DIN 18015-1", width="large")
+def dialog_strom() -> None:
+    res = compute_all(ss.inp, ss.straenge)
+    a_ = res[ss.meta["activeStrang"]]["anlage"]
+    d = din18015(a_["weForZentrale"])
+    bezug = ("Wohneinheiten dieses Strangs (getrennte Zentrale)" if a_["zentralMode"] == "getrennt" else
+             "Wohneinheiten aller Stränge (gemeinsame Zentrale)" if a_["nStraenge"] > 1 else
+             "Wohneinheiten am Netzanschluss")
+    if a_["zuheizerOn"]:
+        st.caption(RP.DIN18015_TEXT)
+    else:
+        st.caption("Ohne elektrischen Zuheizer (DLE) gilt die rote Kurve (OHNE elektr. WW-Bereitung). Mit Flow 7000 HPS "
+                   "und DLE wird die blaue Kurve (MIT) maßgeblich.")
+    st.plotly_chart(plots.chart_din18015(d["nWE"], DUNKEL), width="stretch", key="d_strom", theme=None)
+    a, b = st.columns(2)
+    a.metric(f"MIT elektr. WW{' (maßgeblich)' if a_['zuheizerOn'] else ''} · {d['nWE']} {bezug}", f"≈ {fmt(d['mit'])} kW",
+             help="Richtwert Leistung am Netzanschluss" + (" – Kurve ab 30 WE im Plateau" if d["nWE"] >= 30 else ""))
+    b.metric(f"OHNE elektr. WW{' (maßgeblich)' if not a_['zuheizerOn'] else ' (Referenz)'}", f"≈ {fmt(d['ohne'])} kW")
+    st.caption(RP.PMAX_HINWEIS)
+    if a_["zuheizerOn"]:
+        st.warning(RP.DLE_ELEKTRO)
     schliessen()
 
 
@@ -887,6 +909,15 @@ with haupt:
                 pkt = "".join(f'<div class="empf-pkt">• {x}</div>' for x in VA.begruendung(best, V["basis"])[:3])
                 st.markdown(f'<span class="empf-tag">Besser · {fmt(best["wert"] * 100)} %</span><div class="empf-titel">'
                             f'{best["variante"].titel}</div>{pkt}', unsafe_allow_html=True)
+
+        dstrom = din18015(A["weForZentrale"])
+        mit_dle = A["zuheizerOn"]
+        with kachel("strom", "Strom · Gleichzeitigkeit DIN 18015", None, dialog_strom, "Kurve"):
+            st.markdown(f'<div class="k-wert">≈ {fmt(dstrom["mit"] if mit_dle else dstrom["ohne"])}<span>kW</span></div>'
+                        f'<div class="k-unter">am Netzanschluss · {dstrom["nWE"]} WE · '
+                        f'{"MIT elektr. WW (DLE)" if mit_dle else "ohne elektr. WW"}<br>'
+                        f'{"ohne DLE wären es" if mit_dle else "mit DLE wären es"} ≈ '
+                        f'{fmt(dstrom["ohne"] if mit_dle else dstrom["mit"])} kW</div>', unsafe_allow_html=True)
 
     # ---------------------------------------------------------------- Reihe 3: Rohrnetz | Gerät | Stückliste
     c1, c2, c3 = st.columns([1.35, 1, 1], gap="medium")
