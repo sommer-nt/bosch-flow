@@ -14,6 +14,7 @@ from fpdf.fonts import FontFace
 
 from . import report as RP
 from . import schemata as SC
+from . import varianten as VA
 from .calc import Inputs, din18015, dle_table, gesamt_anlage, gz, project_headline, puffer_produkt, seg, topologie
 from .data import MATNAME, WAERMEQUELLEN
 from .zeichnung import in_pdf
@@ -310,6 +311,30 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
         pdf.kacheln([(f"MIT elektr. WW (maßgeblich) · {d['nWE']} WE", f"≈ {RP.fmt(d['mit'])} kW"),
                      ("OHNE elektr. WW (Referenz)", f"≈ {RP.fmt(d['ohne'])} kW")])
         pdf.absatz(RP.PMAX_HINWEIS, 8, GRAU)
+
+    # ------------------------------------------------------------ Variantenvergleich
+    V = VA.vergleich(inp, straenge, float(meta.get("topoPos", 50)))
+    pdf.abschnitt("Variantenvergleich – dieselbe Planung mit anderen Eingaben", neue_seite=True)
+    best = V["empfehlung"]
+    if best["variante"].gruppe == "Planung":
+        pdf.absatz("Ergebnis: Die aktuelle Planung ist unter den geprüften Varianten die beste.", 9, BOSCH_BLAU)
+    else:
+        pdf.absatz(f"Empfehlung: {best['variante'].titel} ({best['variante'].gruppe}) – Bewertung "
+                   f"{RP.fmt(best['wert'] * 100)} % der aktuellen Planung: "
+                   + "; ".join(VA.begruendung(best, V["basis"])), 9, BOSCH_BLAU)
+    basis = V["basis"]
+    pdf.tabelle(["Variante", "Bereich", "Anschluss", "V̇ [m³/h]", "Δ Rohrnetz", "max. v/v_max", "> v_max",
+                 "Erzeuger [kW]", "Puffer", "Bewertung"],
+                [[z["variante"].titel + ("" if z["variante"].empfehlbar else " *"), z["variante"].gruppe,
+                  z["k"]["anschluss"], RP.fmt(z["k"]["V"], 2),
+                  f"{(z['k']['dnSumme'] / basis['dnSumme'] - 1) * 100:+.0f} %".replace("-", "−"),
+                  f"{RP.fmt(z['k']['auslastung'] * 100)} %", str(z["k"]["ueber"]), RP.fmt(z["k"]["kessel"]),
+                  z["k"]["pufferText"], f"{RP.fmt(z['wert'] * 100)} %"] for z in V["zeilen"]],
+                [50, 24, 20, 20, 22, 24, 16, 24, 50, 22], fett_wenn=lambda z: z[0] == best["variante"].titel)
+    pdf.absatz("Bewertung: 50 % Rohrnetz (Summe der Nennweiten aller Abschnitte), 25 % Erzeugerleistung, 25 % "
+               "Puffervolumen; Abschnitte über v_max werden bestraft. Preise, Energieeffizienz und Montage fließen "
+               "nicht ein. * = gezeigt, aber nicht automatisch empfohlen (Rechenverfahren, Leitersystem, höherer "
+               "Vorlauf). 4-Leiter: das zusätzliche Heiznetz ist im Rohrvergleich nicht enthalten.", 8, GRAU)
 
     # ------------------------------------------------------------ Hinweise
     pdf.abschnitt("Hinweise", platz=50)

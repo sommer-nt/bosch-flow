@@ -167,3 +167,22 @@ def test_3d_modell(sc):
     einzel = modell(res, 50, "v", dunkel=True, nur_strang=len(res) - 1)
     assert len(einzel.data[-1].hovertext) == len(res[-1]["vRows"]) + sum(
         c["l"] + (c["r"] if res[-1]["split"] == "both" else 0) for c in res[-1]["cfg"])
+
+
+@pytest.mark.parametrize("sc", SCENARIOS, ids=[s["name"] for s in SCENARIOS])
+def test_variantenvergleich(sc):
+    """Basiszeile = aktuelle Planung (Bewertung 1,0); Varianten rechnen den unveränderten Kern mit geänderten Feldern."""
+    from bosch_flow.varianten import anwenden, kennzahlen, vergleich
+    inp, straenge, meta = build(sc)
+    V = vergleich(inp, straenge, meta["topoPos"])
+    assert V["zeilen"][0]["variante"].gruppe == "Planung"
+    assert V["zeilen"][0]["wert"] == pytest.approx(1.0)
+    best = V["empfehlung"]
+    assert best["wert"] <= 1.0 + 1e-9
+    if best["variante"].gruppe != "Planung":
+        assert best["variante"].empfehlbar and best["k"]["zuSchnell"] == 0
+    for z in V["zeilen"][1:]:
+        neu = anwenden(inp, z["variante"].aenderung)
+        assert kennzahlen(neu, straenge, meta["topoPos"]) == z["k"]
+        res = compute_all(neu, straenge)
+        assert z["k"]["we"] == sum(r["totalWE"] for r in res)

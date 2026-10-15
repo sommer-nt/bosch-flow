@@ -41,6 +41,9 @@ Die App öffnet sich unter <http://localhost:8501>.
 - **3D-Gebäudemodell:** Das ganze Rohrnetz als drehbares Raummodell – Keller mit Hauptstrang und Wärmezentrale,
   Steigrohre, Etagenleitungen und Stationen. Rohrdicke = Nennweite, Farbe = Ausnutzung von v_max oder Nennweite;
   jedes Rohrstück zeigt beim Überfahren seine Werte. Ganzes Projekt oder nur der aktuelle Strang, auch im Vollbild.
+- **Variantenvergleich:** Rechnet dieselbe Planung mit anderem Rohrmaterial, Vorlauf, Station, Zentrale,
+  Gleichzeitigkeit und Leitersystem durch, bewertet (Rohrnetz, Erzeuger, Puffer, v_max) und empfiehlt die beste
+  Auslegungsvariante – mit einem Klick übernehmen und rückgängig machen. Auch im PDF-Bericht.
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
 
 ## Streamlit Cloud
@@ -67,6 +70,7 @@ bosch_flow/
   bericht.py            PDF-Auslegungsbericht (A4 quer, wie „Planung als PDF exportieren“)
   plots.py              Diagramme (Plotly)
   modell3d.py           3D-Gebäudemodell des Rohrnetzes (Plotly)
+  varianten.py          Variantenvergleich mit Bewertung und Empfehlung
   daten/icons/          Piktogramme: Erzeuger, Puffer, Heizkreis (aus der HTML) + Pumpe, Trinkwasser, Station
   project.py            Projektdateien laden/speichern (kompatibel mit index.html)
 tests/

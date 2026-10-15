@@ -22,6 +22,7 @@ from bosch_flow import plots, schemata  # noqa: E402
 from bosch_flow import report as RP  # noqa: E402
 from bosch_flow.bericht import pdf_bericht  # noqa: E402
 from bosch_flow.modell3d import modell  # noqa: E402
+from bosch_flow import varianten as VA  # noqa: E402
 from bosch_flow.calc import (Inputs, Strang, build_params, compute_all, din18015, dle_table, etage_label,  # noqa: E402
                              gesamt_anlage, project_headline, puffer_produkt, topo_label, topologie, tvl_bounds,
                              zapf_max_lmin)
@@ -78,6 +79,11 @@ st.markdown(f"""
 .karte-titel {{font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase;
               color:{'#4fa3e0' if DUNKEL else BLAU}; margin:-4px 0 6px}}
 .karte-titel small {{text-transform:none; letter-spacing:0; font-weight:500; color:#78889a; margin-left:8px}}
+.empf {{border:1px solid rgba(43,147,72,.45); background:rgba(43,147,72,.08); border-radius:12px; padding:10px 14px;
+        margin-bottom:.6rem; font-size:14px; line-height:1.5}}
+.empf ul {{margin:.3rem 0 .2rem 1.1rem; padding:0}} .empf small {{color:#78889a}}
+.empf-tag {{background:#2b9348; color:#fff; border-radius:20px; padding:1px 9px; font-size:11px; font-weight:700;
+            margin-right:8px; letter-spacing:.03em; text-transform:uppercase}}
 .hinweis {{font-size:12px; line-height:1.45; color:#78889a; border-left:3px solid {BLAU}; padding:6px 10px;
           background:rgba(0,86,145,.07); border-radius:0 6px 6px 0; margin:2px 0 8px}}
 .autosave {{font-size:11.5px; color:#2e7d32; text-align:center; margin:2px 0 6px}}
@@ -119,6 +125,7 @@ def neues_projekt(inp: Inputs | None = None, straenge: list | None = None, meta:
     m["activeStrang"] = max(0, min(len(ss.straenge) - 1, int(m.get("activeStrang") or 0)))
     ss.meta = m
     ss.rev = ss.get("rev", 0) + 1
+    ss.pop("va_vorher", None)
     ss.pdf_cache = {}
 
 
@@ -507,6 +514,93 @@ def modell_vollbild() -> None:
         st.rerun()
 
 
+def variante_uebernehmen(aenderung: dict, titel: str) -> None:
+    ss.va_vorher = (ss.inp, titel)
+    ss.inp = VA.anwenden(ss.inp, aenderung)
+    ss.rev += 1
+    ss.meldung = ("success", f"Variante übernommen: {titel}")
+
+
+def varianten_karte() -> None:
+    V = VA.vergleich(ss.inp, ss.straenge, ss.meta["topoPos"])
+    basis, zeilen, best = V["basis"], V["zeilen"], V["empfehlung"]
+    bv = best["variante"]
+    if bv.gruppe == "Planung" and basis["ueber"]:
+        st.warning(f"{basis['ueber']} Abschnitt(e) über v_max – keine der geprüften Auslegungsvarianten behebt das. "
+                   "Rohrmaterial, Strangaufteilung oder v_max prüfen.", icon=":material/warning:")
+    elif bv.gruppe == "Planung":
+        st.markdown('<div class="empf ok"><b>✓ Die aktuelle Planung ist unter den geprüften Varianten die beste.</b>'
+                    '<br>Keine Auslegungsvariante ist ohne Geschwindigkeits-Überschreitung günstiger.</div>',
+                    unsafe_allow_html=True)
+    else:
+        punkte = "".join(f"<li>{x}</li>" for x in VA.begruendung(best, basis))
+        st.markdown(f'<div class="empf"><span class="empf-tag">Empfehlung</span><b>{bv.titel}</b> '
+                    f'<small>({bv.gruppe})</small> · Bewertung {fmt(best["wert"] * 100)} % der aktuellen Planung'
+                    f'<ul>{punkte}</ul>{f"<small>{bv.hinweis}</small>" if bv.hinweis else ""}</div>',
+                    unsafe_allow_html=True)
+        st.button(f"Empfehlung übernehmen: {bv.titel}", type="primary", icon=":material/check:", key="va_best",
+                  on_click=variante_uebernehmen, args=(bv.aenderung, bv.titel))
+
+    # Balken: Bewertung je Variante (100 % = aktuelle Planung)
+    import plotly.graph_objects as go
+    farbe = []
+    for z in zeilen:
+        v = z["variante"]
+        farbe.append("#e63946" if z["k"]["zuSchnell"] else "#f4a261" if z["k"]["ueber"] else
+                     ("#4fa3e0" if DUNKEL else "#005691") if v.gruppe == "Planung" else
+                     "#2b9348" if z is best else "#80b918" if v.empfehlbar and z["wert"] < 1 else
+                     "#9aa5b1" if not v.empfehlbar else "#c4ccd4")
+    namen = [f"{z['variante'].titel}{'' if z['variante'].empfehlbar else ' ⓘ'}" for z in zeilen]
+    werte = [z["wert"] * 100 for z in zeilen]
+    fig = go.Figure(go.Bar(x=werte, y=namen, orientation="h", marker=dict(color=farbe),
+                           text=[f"{fmt(w)} %" for w in werte], textposition="outside", cliponaxis=False,
+                           hovertext=[f"<b>{z['variante'].titel}</b> · {z['variante'].gruppe}<br>"
+                                      + ("<br>".join(VA.begruendung(z, basis)) or "keine Änderung")
+                                      + (f"<br><i>{z['variante'].hinweis}</i>" if z["variante"].hinweis else "")
+                                      for z in zeilen], hoverinfo="text"))
+    fig.add_vline(x=100, line=dict(color="#8a949e", dash="dot", width=1))
+    ink = "#e6edf3" if DUNKEL else "#12181f"
+    fig.update_layout(height=60 + 30 * len(zeilen), margin=dict(l=10, r=40, t=10, b=30), paper_bgcolor="rgba(0,0,0,0)",
+                      plot_bgcolor="rgba(0,0,0,0)", font=dict(color=ink, size=12), showlegend=False, separators=",.",
+                      bargap=0.35)
+    fig.update_xaxes(title="Bewertung in % der aktuellen Planung (kleiner = besser)", gridcolor="rgba(128,128,128,.2)",
+                     range=[0, max(werte) * 1.15])
+    fig.update_yaxes(autorange="reversed", automargin=True)
+    st.plotly_chart(fig, width="stretch", key="va_chart", theme=None, config={"displayModeBar": False})
+
+    df = pd.DataFrame([{
+        "Variante": z["variante"].titel + ("" if z["variante"].empfehlbar else " ⓘ"),
+        "Anschluss": z["k"]["anschluss"], "V̇ [m³/h]": z["k"]["V"],
+        "Δ Rohrnetz": (z["k"]["dnSumme"] / basis["dnSumme"] - 1) * 100,
+        "max. v/v_max": z["k"]["auslastung"] * 100, "> v_max": z["k"]["ueber"],
+        "Erzeuger [kW]": z["k"]["kessel"], "Puffer": z["k"]["pufferText"],
+        "Bewertung [%]": z["wert"] * 100} for z in zeilen])
+    st.dataframe(df, hide_index=True, width="stretch", column_config={
+        "V̇ [m³/h]": st.column_config.NumberColumn(format="%.2f"),
+        "Δ Rohrnetz": st.column_config.NumberColumn(format="%+.0f %%", help="Summe der Nennweiten aller Abschnitte "
+                                                    "gegenüber der aktuellen Planung"),
+        "max. v/v_max": st.column_config.ProgressColumn(format="%.0f %%", min_value=0, max_value=120),
+        "Erzeuger [kW]": st.column_config.NumberColumn(format="%.0f"),
+        "Puffer": st.column_config.TextColumn(width="medium"),
+        "Bewertung [%]": st.column_config.NumberColumn(format="%.0f %%")})
+    a, b = st.columns([3, 1.3], vertical_alignment="bottom")
+    andere = [z["variante"] for z in zeilen if z["variante"].gruppe != "Planung"]
+    wahl = a.selectbox("Variante übernehmen", range(len(andere)), format_func=lambda i: andere[i].titel,
+                       key=f"va_wahl_{ss.rev}")
+    b.button("Übernehmen", key="va_ueb", width="stretch", icon=":material/swap_horiz:",
+             on_click=variante_uebernehmen, args=(andere[wahl].aenderung, andere[wahl].titel))
+    if vorher := ss.get("va_vorher"):
+        if st.button(f"Rückgängig: {vorher[1]}", key="va_undo", icon=":material/undo:"):
+            ss.inp = vorher[0]
+            ss.rev += 1
+            del ss.va_vorher
+            st.rerun()
+    st.caption("Bewertung: 50 % Rohrnetz (Summe der Nennweiten aller Abschnitte), 25 % Erzeugerleistung, 25 % "
+               "Puffervolumen; Abschnitte über v_max werden bestraft. Preise, Energieeffizienz und Montage fließen "
+               "nicht ein. ⓘ = wird gezeigt, aber nicht automatisch empfohlen (Rechenverfahren, Leitersystem, höherer "
+               "Vorlauf). „Übernehmen“ ändert die Eingaben links und lässt sich rückgängig machen.")
+
+
 # ====================================================================== Ergebnisse (rechts)
 with rechts:
     k1, k2, k3, k4 = st.columns(4)
@@ -636,6 +730,10 @@ with rechts:
                    "Netztopologie), je Strang das Steigrohr und je Etage die Leitungen zu den Stationen. Rohrdicke = "
                    "Nennweite, Farbe = Ausnutzung der zulässigen Geschwindigkeit bzw. Nennweite. Legende anklicken "
                    "blendet einzelne Stufen ein/aus.")
+
+    # ---------------------------------------------------------------- Variantenvergleich
+    with karte("Variantenvergleich", "dieselbe Planung mit anderen Eingaben – automatisch bewertet"):
+        varianten_karte()
 
     # ---------------------------------------------------------------- Anlagenschema
     with karte("Anlagenschema (Heizzentrale)", "Erzeuger · Puffer · Netzpumpe · Station"):
