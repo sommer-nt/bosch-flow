@@ -4,23 +4,50 @@ Start:  streamlit run app.py
 """
 from __future__ import annotations
 
+import hmac
 import json
-from dataclasses import asdict, fields
+import os
+from dataclasses import fields
 from datetime import date
 
 import pandas as pd
 import streamlit as st
 
-from bosch_flow import plots
-from bosch_flow.calc import (Inputs, Strang, compute, compute_all, din18015, dle_table, etage_label,
-                             gesamt_anlage, project_headline, puffer_produkt, tvl_bounds, zapf_max_lmin)
+from bosch_flow import plots, schemata
+from bosch_flow import report as RP
+from bosch_flow.bericht import pdf_bericht
+from bosch_flow.calc import (Inputs, Strang, compute_all, din18015, dle_table, etage_label, gesamt_anlage,
+                             project_headline, puffer_produkt, topo_label, topologie, tvl_bounds, zapf_max_lmin)
 from bosch_flow.data import MATNAME, STATIONS, WAERMEQUELLEN
-from bosch_flow.project import META_KEYS, dumps, from_html_state
+from bosch_flow.project import META_KEYS, dumps, from_html_state, stand
 from bosch_flow.report import (anlage_note, anlage_rows, dle_cell_text, dle_fazit, excel_bytes, fmt,
                                strang_table)
+from bosch_flow.zeichnung import als_plotly
 
 st.set_page_config(page_title="Bosch Flow", page_icon="🔥", layout="wide")
 ss = st.session_state
+
+
+def _secret(name: str) -> str | None:
+    """Umgebungsvariable oder Streamlit-Secret (Streamlit Cloud: Settings → Secrets)."""
+    if os.environ.get(name, "").strip():
+        return os.environ[name].strip()
+    try:
+        return str(st.secrets[name]).strip() or None
+    except Exception:  # noqa: BLE001 – keine Secrets hinterlegt
+        return None
+
+
+_passwort = _secret("APP_PASSWORT")
+if _passwort and not ss.get("angemeldet"):
+    st.markdown("### 🔒 BOSCH Flow · Netz- & Anlagenrechner")
+    eingabe = st.text_input("Passwort", type="password")
+    if eingabe:
+        if hmac.compare_digest(eingabe, _passwort):
+            ss.angemeldet = True
+            st.rerun()
+        st.error("Passwort falsch.")
+    st.stop()
 DEFAULTS = Inputs()
 FLOAT_FIELDS = [f.name for f in fields(Inputs) if isinstance(getattr(DEFAULTS, f.name), (int, float))
                 and f.name != "wwstage"]
@@ -29,8 +56,12 @@ FLOAT_FIELDS = [f.name for f in fields(Inputs) if isinstance(getattr(DEFAULTS, f
 # ------------------------------------------------------------------ Zustand
 def init_state(force: bool = False):
     if force or "straenge" not in ss:
+        angemeldet = ss.get("angemeldet")
         for k in list(ss.keys()):
             del ss[k]
+        if angemeldet:
+            ss.angemeldet = True
+        ss.topo_pos = 50
         ss.straenge = [Strang.new()]
         ss.active = 0
         ss.edver = 0
@@ -50,6 +81,7 @@ def current_meta() -> dict:
     m = {k: ss[f"m_{k}"] for k in META_KEYS}
     m["projDate"] = m["projDate"].isoformat() if isinstance(m["projDate"], date) else (m["projDate"] or "")
     m["activeStrang"] = ss.active
+    m["topoPos"] = float(ss.topo_pos)
     return m
 
 
@@ -72,6 +104,7 @@ def load_project():
     except ValueError:
         ss.m_projDate = date.today()
     ss.straenge, ss.active = straenge, meta["activeStrang"]
+    ss.topo_pos = int(round(meta["topoPos"]))
     ss.edver += 1
     ss.load_msg = ("success", f"Projekt „{up.name}“ geladen.")
 
@@ -82,7 +115,9 @@ def apply_waermequelle():
 
 
 def add_strang():
-    ss.straenge.append(Strang.new(4, "both", int(ss.get("quickval", 5))))
+    """Neuer Strang als 1:1-Kopie des aktuellen (wie „+ Strang“ der HTML-Version)."""
+    cur = ss.straenge[ss.active]
+    ss.straenge.append(Strang(cur.floors, cur.split, [dict(c) for c in cur.cfg]))
     ss.active = len(ss.straenge) - 1
     ss.edver += 1
 
@@ -250,6 +285,17 @@ with sb:
     st.download_button("📊 Auslegung als Excel", excel_bytes(inp, meta, results, straenge), file_name=f"{stem}.xlsx",
                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                        width="stretch")
+    schluessel = stand(inp, straenge, meta)
+    if ss.get("pdf_stand") != schluessel:
+        ss.pdf_stand, ss.pdf_daten = schluessel, None
+    if ss.pdf_daten is None:
+        if st.button("📄 Planung als PDF exportieren", type="primary", width="stretch"):
+            with st.spinner("PDF wird erstellt …"):
+                ss.pdf_daten = pdf_bericht(inp, straenge, meta, results)
+            st.rerun()
+    else:
+        st.download_button("📄 PDF herunterladen", ss.pdf_daten, file_name=f"{stem}.pdf", mime="application/pdf",
+                           type="primary", width="stretch")
     st.button("↺ Alles zurücksetzen", on_click=init_state, kwargs={"force": True}, width="stretch")
 
 # ------------------------------------------------------------------ Hauptbereich
@@ -276,25 +322,44 @@ if P["heatOver"]:
                f"({R['st']['maxHeatKW']} kW) – im Reservebereich (bis max. {R['st']['maxHeatKW'] + 3} kW). "
                "Für mehr Heizlast ein größeres Gerät wählen.")
 
-tab_names = ["Netzschema", "Anlagenschema", "Auslegungs-Tabelle", "Diagramm", "Wärmezentrale"]
-if A["zuheizerOn"]:
-    tab_names.append("DLE-Auslegungshilfe")
+try:
+    DUNKEL = st.context.theme.type == "dark"
+except Exception:  # noqa: BLE001
+    DUNKEL = False
+NOBAR = {"displayModeBar": False, "responsive": True}
+
+# Ansicht wie in der HTML-Version: Karten untereinander, bei mehreren Strängen „Aktueller Strang / Alle Stränge“
+ansicht = "Aktueller Strang"
 if len(straenge) > 1:
-    tab_names.append("Alle Stränge")
-tabs = dict(zip(tab_names, st.tabs(tab_names)))
+    ansicht = st.segmented_control("Ansicht", ["Aktueller Strang", "Alle Stränge"], default="Aktueller Strang",
+                                   key="ansicht", label_visibility="collapsed") or "Aktueller Strang"
+if ansicht == "Alle Stränge":
+    tab_names = ["Alle Stränge"]
+else:
+    tab_names = ["Netzschema", "Anlagenschema", "Auslegungs-Tabelle", "Diagramm",
+                 "Wärmezentrale – Kessel & Pufferspeicher"] + (["DLE-Auslegungshilfe"] if A["zuheizerOn"] else [])
+tabs = {}
+for name in tab_names:
+    tabs[name] = st.container(border=True)
+    if name != "Alle Stränge":
+        tabs[name].markdown(f"##### {name}" + (f" – Strang {ss.active + 1}" if len(straenge) > 1 and
+                                                 name in ("Netzschema", "Auslegungs-Tabelle") else ""))
 strang_hint = f"Strang {ss.active + 1} von {len(straenge)} · " if len(straenge) > 1 else ""
 station_name = "Flow 7000 (F7002 HPS)" if P["zuheizerOn"] else R["st"]["name"]
 
-with tabs["Netzschema"]:
-    st.plotly_chart(plots.netzschema(R), width="stretch", config={"displayModeBar": False})
-    st.info(f"{strang_hint}**{R['floors']}** Etagen · **{R['totalWE']}** Wohnungen "
-            f"{'in diesem Strang' if len(straenge) > 1 else 'gesamt'} · {P['system']}-Leiter · {station_name} · "
-            f"GLZ nach **{'TU Dresden' if P['glz'] == 'tud' else 'DIN 4708'}**. Maßgeblicher Etagenstrang außen "
-            f"**{R['hRows'][0]['dim']}**, Strangfuß **{foot['dim']}** bei **{fmt(foot['Vtot'], 2)} m³/h**, "
-            f"v = {fmt(foot['v'], 2)} m/s.")
+if "Netzschema" in tabs:
+    with tabs["Netzschema"]:
+        st.plotly_chart(als_plotly(schemata.netzschema(R, DUNKEL), max_hoehe=1100), width="stretch", config=NOBAR, theme=None)
+        st.info(f"{strang_hint}**{R['floors']}** Etagen · **{R['totalWE']}** Wohnungen "
+                f"{'in diesem Strang' if len(straenge) > 1 else 'gesamt'} · {P['system']}-Leiter · {station_name} · "
+                f"GLZ nach **{'TU Dresden' if P['glz'] == 'tud' else 'DIN 4708'}**. Maßgeblicher Etagenstrang außen "
+                f"**{R['hRows'][0]['dim']}**, Strangfuß **{foot['dim']}** bei **{fmt(foot['Vtot'], 2)} m³/h**, "
+                f"v = {fmt(foot['v'], 2)} m/s.")
 
-with tabs["Anlagenschema"]:
-    st.plotly_chart(plots.anlagenschema(R, HL), width="stretch", config={"displayModeBar": False})
+if "Anlagenschema" in tabs:
+    with tabs["Anlagenschema"]:
+        st.caption("Erzeuger · Puffer · Netzpumpe · Station")
+        st.plotly_chart(als_plotly(schemata.anlagenschema(R, HL, DUNKEL)), width="stretch", config=NOBAR, theme=None)
 
 NUMFMT = {"GZ": st.column_config.NumberColumn(format="%.1f"),
           "V̇ ges. [m³/h]": st.column_config.NumberColumn(format="%.2f"),
@@ -308,36 +373,39 @@ def styled(df: pd.DataFrame):
     return df.style.map(lambda v: colors.get(v, ""), subset=["Status"])
 
 
-with tabs["Auslegungs-Tabelle"]:
-    mode = st.segmented_control("Ansicht", ["Etagenstrang", "Steigstrang"], default="Etagenstrang",
-                                label_visibility="collapsed") or "Etagenstrang"
-    m = "H" if mode == "Etagenstrang" else "V"
-    st.dataframe(styled(strang_table(R, m)), hide_index=True, width="stretch", column_config=NUMFMT)
-    st.caption(f"Maßgeblicher (längster) Etagenstrang: von der äußersten Station (1 WE, kleinste Dimension) bis zum "
-               f"Steigstrang ({R['govN']} WE). WW-Volumenstrom je Station gedeckelt auf 1,3 m³/h." if m == "H" else
-               f"Steigstrang kumuliert alle Etagen. Ganz unten trägt er alle {R['totalWE']} Wohnungen – maßgeblich "
-               "für die zentrale Pumpe.")
+if "Auslegungs-Tabelle" in tabs:
+    with tabs["Auslegungs-Tabelle"]:
+        mode = st.segmented_control("Ansicht", ["Etagenstrang", "Steigstrang"], default="Etagenstrang",
+                                    label_visibility="collapsed") or "Etagenstrang"
+        m = "H" if mode == "Etagenstrang" else "V"
+        st.dataframe(styled(strang_table(R, m)), hide_index=True, width="stretch", column_config=NUMFMT)
+        st.caption(f"Maßgeblicher (längster) Etagenstrang: von der äußersten Station (1 WE, kleinste Dimension) bis zum "
+                   f"Steigstrang ({R['govN']} WE). WW-Volumenstrom je Station gedeckelt auf 1,3 m³/h." if m == "H" else
+                   f"Steigstrang kumuliert alle Etagen. Ganz unten trägt er alle {R['totalWE']} Wohnungen – maßgeblich "
+                   "für die zentrale Pumpe.")
 
-with tabs["Diagramm"]:
-    mode = st.segmented_control("Diagramm", ["Volumenstrom", "Gleichzeitigkeit"], default="Volumenstrom",
-                                label_visibility="collapsed") or "Volumenstrom"
-    if mode == "Volumenstrom":
-        st.plotly_chart(plots.chart_volumenstrom(R), width="stretch")
-        st.caption("Volumenstrom über kumulierte Wohnungszahl. WW-Anteil je Station auf 1,3 m³/h gedeckelt – "
-                   "dadurch realistische, nicht überzogene Dimensionen.")
-    else:
-        st.plotly_chart(plots.chart_gleichzeitigkeit(R), width="stretch")
-        st.caption("TU Dresden (ROUND(WE^-0,57·WE)) liegt bei vielen Wohnungen unter DIN 4708.")
+if "Diagramm" in tabs:
+    with tabs["Diagramm"]:
+        mode = st.segmented_control("Diagramm", ["Volumenstrom", "Gleichzeitigkeit"], default="Volumenstrom",
+                                    label_visibility="collapsed") or "Volumenstrom"
+        if mode == "Volumenstrom":
+            st.plotly_chart(plots.chart_volumenstrom(R), width="stretch")
+            st.caption("Volumenstrom über kumulierte Wohnungszahl. WW-Anteil je Station auf 1,3 m³/h gedeckelt – "
+                       "dadurch realistische, nicht überzogene Dimensionen.")
+        else:
+            st.plotly_chart(plots.chart_gleichzeitigkeit(R), width="stretch")
+            st.caption("TU Dresden (ROUND(WE^-0,57·WE)) liegt bei vielen Wohnungen unter DIN 4708.")
 
-with tabs["Wärmezentrale"]:
-    rows = anlage_rows(A)
-    st.dataframe(pd.DataFrame(rows, columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
-        lambda r: ["font-weight:700;color:#005691" if r["Größe"].startswith("→") else ""] * len(r), axis=1),
-        hide_index=True, width="stretch", column_config={"Größe": st.column_config.TextColumn(width="medium"),
-                       "Wert": st.column_config.TextColumn(width="small"),
-                       "Einheit": st.column_config.TextColumn(width="small"),
-                       "Herleitung": st.column_config.TextColumn(width="large")})
-    st.caption(anlage_note(A))
+if "Wärmezentrale – Kessel & Pufferspeicher" in tabs:
+    with tabs["Wärmezentrale – Kessel & Pufferspeicher"]:
+        rows = anlage_rows(A)
+        st.dataframe(pd.DataFrame(rows, columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
+            lambda r: ["font-weight:700;color:#005691" if r["Größe"].startswith("→") else ""] * len(r), axis=1),
+            hide_index=True, width="stretch", column_config={"Größe": st.column_config.TextColumn(width="medium"),
+                           "Wert": st.column_config.TextColumn(width="small"),
+                           "Einheit": st.column_config.TextColumn(width="small"),
+                           "Herleitung": st.column_config.TextColumn(width="large")})
+        st.caption(anlage_note(A))
 
 if "DLE-Auslegungshilfe" in tabs:
     with tabs["DLE-Auslegungshilfe"]:
@@ -354,50 +422,88 @@ if "DLE-Auslegungshilfe" in tabs:
         {"none": st.info, "ok": st.success, "over": st.error}[state](text)
         st.caption(f"Die Tabelle zeigt die nötige DLE-Leistung, um {fmt(A['zapfLmin'])} l/min von der jeweiligen "
                    f"Netztemperatur auf {fmt(A['zapfTemp'])} °C zu mischen.")
-        st.warning("**⚡ Elektrische Anmeldung & Leitungsbemessung (DLE 11 kW / 13 kW):** Die dezentralen "
-                   "Durchlauferhitzer sind elektrische Großgeräte. Die Dimensionierung des Hausanschlusses und der "
-                   "Hauptleitungen darf **nicht** durch einfache Addition der Einzelleistungen erfolgen, sondern muss "
-                   "durch eine **ELT-Fachkraft** mit dem degressiven Gleichzeitigkeitsfaktor nach **DIN 18015-1 "
-                   "(Anhang A)** bemessen werden. Anmeldung bzw. Genehmigung beim örtlichen **Netzbetreiber** gemäß "
-                   "regionaler **TAB** bauseits.")
+        st.warning(RP.DLE_ELEKTRO)
         d = din18015(A["weForZentrale"])
         st.markdown("##### Stromseitige Gleichzeitigkeit · DIN 18015-1 (Anhang A)")
+        st.caption(RP.DIN18015_TEXT)
         st.plotly_chart(plots.chart_din18015(d["nWE"]), width="stretch")
         c1, c2 = st.columns(2)
         c1.metric(f"MIT elektr. WW (maßgeblich) · {d['nWE']} WE", f"≈ {fmt(d['mit'])} kW")
         c2.metric("OHNE elektr. WW (Referenz)", f"≈ {fmt(d['ohne'])} kW")
-        st.caption("**Hinweis Pmax:** Die maximale Anschlussleistung Pmax ergibt sich aus dem Wohnbedarf nach DIN "
-                   "zuzüglich bewerteter Sonderlasten (z. B. Ladeinfrastruktur), abzüglich möglicher Effekte durch "
-                   "Lastmanagement, Speicher und Gleichzeitigkeitsfaktoren, und muss bauseits ermittelt werden.")
+        st.caption(RP.PMAX_HINWEIS)
 
 if "Alle Stränge" in tabs:
     with tabs["Alle Stränge"]:
         G = gesamt_anlage(inp, results)
-        st.markdown(f"#### Gesamtübersicht – alle {len(results)} Stränge")
+        n = len(results)
+        st.markdown(f"#### Gesamtübersicht – alle {n} Stränge")
+        st.caption("Netztopologie: Wärmezentrale (Keller) → Steigrohr → horizontaler Hauptstrang → vertikale Stränge "
+                   "mit Wohnungsstationen")
         if G["getrennt"]:
-            st.warning("**Getrennte Ausführung:** Jeder Strang hat eine eigene Wärmezentrale. Die Gesamtwerte sind die "
-                       "Summe der Einzelanlagen.")
-        c = st.columns(4)
+            st.warning("**Hinweis – getrennte Ausführung:** Es gibt **keinen gemeinsamen Hauptstrang**. Jeder Strang hat "
+                       "eine **eigene Wärmezentrale**. Die Topologie mit gemeinsamer Leitung dient nur der Übersicht – "
+                       "für die getrennte Ausführung gelten die Einzelwerte je Strang.")
+        c1, c2 = st.columns([3, 1], vertical_alignment="bottom")
+        pos = c1.slider("Position Wärmezentrale", 0, 100, int(ss.topo_pos), key=f"topo_slider_{ss.edver}",
+                        help="0 = links, 50 = mittig, 100 = rechts. Wird mit dem Projekt gespeichert (V54).")
+        ss.topo_pos = pos
+        c2.markdown(f"**{topo_label(pos)}**")
+        T = topologie(results, pos)
+        st.plotly_chart(als_plotly(schemata.topologie_szene(results, pos, False, DUNKEL)), width="stretch",
+                        config={"displayModeBar": True, "modeBarButtonsToRemove": ["toImage"]}, key="topo", theme=None)
+        karten = "".join(
+            f'<div style="flex:1 1 160px;min-width:150px;border:1px solid rgba(128,128,128,.25);border-left:4px solid '
+            f'{"#b26a00" if a["kritisch"] else "#005691"};border-radius:8px;padding:8px 10px;'
+            f'{"background:rgba(178,106,0,.07)" if a["kritisch"] else ""}"><b>Abschnitt {a["strang"]}</b>'
+            f'<div style="font-size:13px"><b>{a["load"]} WE</b> · {fmt(a["V"], 2)} m³/h</div>'
+            f'<div style="font-size:13px;color:#005691;font-weight:700">{a["dn"]} · {fmt(a["v"], 2)} m/s</div>'
+            + ('<div style="font-size:10.5px;font-weight:700;color:#b26a00">◆ maßgeblich (höchste Geschwindigkeit)</div>'
+               if a["kritisch"] else "") + "</div>" for a in T["abschnitte"])
+        st.markdown(f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px">{karten}</div>',
+                    unsafe_allow_html=True)
+        zeilen = [{"Strang": f"Strang {i + 1}", "Wohnungen": r["totalWE"], "Etagen": str(r["floors"]),
+                   "Aufteilung": "beidseitig" if r["split"] == "both" else "einseitig", "Strangfuß": r["vRows"][0]["dim"],
+                   "V̇ Strangfuß": f"{fmt(r['vRows'][0]['Vtot'], 2)} m³/h", "v": f"{fmt(r['vRows'][0]['v'], 2)} m/s"}
+                  for i, r in enumerate(results)]
+        zeilen.append({"Strang": "Summe", "Wohnungen": G["we"], "Etagen": "–",
+                       "Aufteilung": "getrennte Anlagen" if G["getrennt"] else "alle Stränge",
+                       "Strangfuß": "–" if G["getrennt"] else T["gesamt"]["dim"],
+                       "V̇ Strangfuß": "–" if G["getrennt"] else f"{fmt(T['gesamt']['Vtot'], 2)} m³/h",
+                       "v": "–" if G["getrennt"] else f"{fmt(T['gesamt']['v'], 2)} m/s"})
+        st.dataframe(pd.DataFrame(zeilen).style.apply(
+            lambda r: ["font-weight:700" if r["Strang"] == "Summe" else ""] * len(r), axis=1),
+            hide_index=True, width="stretch")
+        st.markdown("**Hauptstrang – Nennweite je Abschnitt** (folgt der Position der Wärmezentrale)")
+        hs = pd.DataFrame([{"Abschnitt": f"Abschnitt {a['strang']}", "kum. WE": a["load"], "Strang": f"Strang {a['strang']}",
+                            "Leitung": "Hauptstrang", "Nennweite": a["dn"], "V̇": f"{fmt(a['V'], 2)} m³/h",
+                            "v": f"{fmt(a['v'], 2)} m/s" + ("  ◆ maßgeblich" if a["kritisch"] else "")}
+                           for a in T["abschnitte"]])
+        st.dataframe(hs.style.apply(lambda r: ["color:#b26a00;font-weight:700" if "◆" in r["v"] else ""] * len(r),
+                                    axis=1), hide_index=True, width="stretch")
+        st.info(RP.hauptstrang_erklaerung(results, T))
+        c = st.columns(3)
         c[0].metric("Wohnungen gesamt", G["we"])
-        c[1].metric("Gleichzeitigkeit gesamt", "–" if G["gz"] is None else fmt(G["gz"], 1))
-        c[2].metric("Kessel-/FW-Leistung", f"{fmt(G['kesselQ'])} kW")
-        c[3].metric("Pufferspeicher", puffer_produkt(G["pufferVol"])["text"])
-        c[3].caption(f"berechnet {fmt(G['pufferVol'])} l")
-        st.dataframe(pd.DataFrame([{
-            "Strang": f"Strang {i + 1}", "Etagen": r["floors"], "Aufteilung": "beidseitig" if r["split"] == "both"
-            else "einseitig", "Wohnungen": r["totalWE"], "Strangfuß": r["vRows"][0]["dim"],
-            "V̇ Strangfuß [m³/h]": r["vRows"][0]["Vtot"], "v [m/s]": r["vRows"][0]["v"],
-            **({"Kessel [kW]": r["anlage"]["kesselQ"], "Puffer [l]": round(r["anlage"]["pufferVol"])}
-               if G["getrennt"] else {})} for i, r in enumerate(results)]),
-            hide_index=True, width="stretch",
-            column_config={"V̇ Strangfuß [m³/h]": st.column_config.NumberColumn(format="%.2f"),
-                           "v [m/s]": st.column_config.NumberColumn(format="%.2f")})
+        c[1].metric(f"Kessel-/FW-Leistung {'(Σ getrennte Anlagen)' if G['getrennt'] else '(gesamt)'}",
+                    f"{fmt(G['kesselQ'])} kW")
+        c[2].metric(f"Pufferspeicher {'(Σ getrennte Anlagen)' if G['getrennt'] else '(gesamt)'}",
+                    f"{fmt(G['pufferVol'])} l")
+        st.caption(RP.gesamt_note(G, n))
+        st.markdown("##### Diagramme – Volumenstrom & Gleichzeitigkeit")
+        st.caption(f"Referenz-Verlauf über alle {G['we']} Wohnungen (bei gemeinsamer Zentrale). In getrennter Ausführung "
+                   "gilt je Strang der eigene Verlauf." if G["getrennt"] else
+                   f"Bezogen auf die Gesamtanlage ({G['we']} Wohnungen) – kumuliert über alle Stränge")
+        ctx = {"P": results[0]["P"], "totalWE": G["we"]}
+        c1, c2 = st.columns(2)
+        c1.plotly_chart(plots.chart_volumenstrom(ctx), width="stretch", key="chart_all_v")
+        c2.plotly_chart(plots.chart_gleichzeitigkeit(ctx), width="stretch", key="chart_all_g")
         for i, r in enumerate(results):
-            with st.expander(f"Strang {i + 1} · {r['totalWE']} Wohnungen · Strangfuß {r['vRows'][0]['dim']}"):
-                st.plotly_chart(plots.netzschema(r), width="stretch", config={"displayModeBar": False},
-                                key=f"schema_all_{i}")
-                st.dataframe(styled(strang_table(r, "V")), hide_index=True, width="stretch",
-                             column_config=NUMFMT)
+            with st.expander(f"Strang {i + 1} · {r['totalWE']} Wohnungen · {r['floors']} Etagen · "
+                             f"{'beidseitig' if r['split'] == 'both' else 'einseitig'} · Strangfuß "
+                             f"{r['vRows'][0]['dim']} · {fmt(r['vRows'][0]['Vtot'], 2)} m³/h"):
+                st.plotly_chart(als_plotly(schemata.netzschema(r, DUNKEL), max_hoehe=900), width="stretch",
+                                config=NOBAR, key=f"schema_all_{i}", theme=None)
+                st.markdown(f"**Auslegung Steigstrang – Strang {i + 1}**")
+                st.dataframe(styled(strang_table(r, "V")), hide_index=True, width="stretch", column_config=NUMFMT)
 
 st.caption("Rechenkern nach Bosch-HIU-Methodik (Gleichzeitigkeit DIN 4708 / TU Dresden, Knotenpunkt-Formel, "
            "Darcy-Weisbach, turbulent). Werkzeug zur Vorplanung – ersetzt keine verbindliche Rohrnetzberechnung. "

@@ -212,3 +212,68 @@ def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list) -> bytes
                     if isinstance(c.value, float):
                         c.number_format = "0.00"
     return buf.getvalue()
+
+
+# ---------------------------------------------------------------- Texte (wie HTML V54)
+DLE_ELEKTRO = ("⚡ Elektrische Anmeldung & Leitungsbemessung (DLE 11 kW / 13 kW): Die dezentralen Durchlauferhitzer "
+               "(11 kW / 13 kW) sind elektrische Großgeräte. Die Dimensionierung des Hausanschlusses und der "
+               "Hauptleitungen darf nicht durch einfache Addition der Einzelleistungen erfolgen. Sie muss zwingend "
+               "durch eine ELT-Fachkraft unter Anwendung des degressiven Gleichzeitigkeitsfaktors nach DIN 18015-1 "
+               "(Anhang A) bemessen werden. Die Anmeldung bzw. Genehmigung sind beim örtlichen Netzbetreiber gemäß den "
+               "regionalen TAB bauseits vorzunehmen.")
+PMAX_HINWEIS = ("Hinweis Pmax: Die maximale Anschlussleistung Pmax ergibt sich aus dem Wohnbedarf nach DIN zuzüglich "
+                "bewerteter Sonderlasten (z. B. Ladeinfrastruktur), abzüglich möglicher Effekte durch Lastmanagement, "
+                "Speicher und Gleichzeitigkeitsfaktoren, und muss bauseits ermittelt werden.")
+DIN18015_TEXT = ("Die HPS-Variante hat je Wohnung einen elektrischen Durchlauferhitzer (11 / 13 kW). Für den "
+                 "elektrischen Netzanschluss dürfen die Einzelleistungen nicht addiert werden – es gilt der degressive "
+                 "Gleichzeitigkeitsfaktor. Da HPS immer elektrische WW-Bereitung nutzt, ist die blaue Kurve (MIT) "
+                 "maßgeblich.")
+HAFTUNGSHINWEISE = [
+    "Rechenkern nach Bosch-HIU-Methodik (Gleichzeitigkeit DIN 4708 / TU Dresden, Knotenpunkt-Formel, "
+    "Darcy-Weisbach, turbulent).",
+    "Werkzeug zur Vorplanung – ersetzt keine verbindliche Rohrnetzberechnung. Prüfung obliegt Planer, Installateur "
+    "oder Bauherr.",
+    "Kesselleistung und Pufferspeicher sind überschlägige Auslegungswerte (Rechenweg 1:1 aus dem Bosch-HIU-Tool).",
+    "Elektrische Durchlauferhitzer (DLE) sind von einer ELT-Fachkraft nach DIN 18015-1 zu bemessen und beim "
+    "Netzbetreiber anzumelden.",
+]
+
+
+def hauptstrang_erklaerung(results: list, T: dict) -> str:
+    from .calc import seg
+    P = results[0]["P"]
+    w_outer = results[0]["totalWE"]
+    dn_outer = seg(w_outer, P)["dim"]
+    g = T["gesamt"]["dim"]
+    return (f"So liest sich die Hauptstrang-Auslegung: Der senkrechte Strang (Steigleitung) und der waagerechte "
+            f"Hauptstrang sind zwei verschiedene Leitungen. Ein einzelner Strang führt am Strangfuß {dn_outer} "
+            f"({w_outer} WE). Der Hauptstrang sammelt die Stränge von außen zur Zentrale hin auf und wird deshalb "
+            f"abschnittsweise dicker: am äußeren Abschnitt {dn_outer} (nur {w_outer} WE), und mit jedem weiteren Strang "
+            f"eine Stufe größer – bis zur Gesamtlast an der Zentrale ({g}, {T['gesamtWE']} WE). Die scheinbare "
+            f"Reduzierung „{g} → {dn_outer}“ ist also kein Sprung, sondern die zwei Enden derselben Treppe: viel Last "
+            f"nahe der Zentrale, wenig Last ganz außen. Dimensioniert wird je Abschnitt nach der Strömungsgeschwindigkeit "
+            f"(v ≤ {fmt(P['vmax'], 2)} m/s). Der als ◆ maßgeblich markierte Abschnitt hat die höchste Geschwindigkeit.")
+
+
+def gesamt_note(G: dict, n: int) -> str:
+    if G["getrennt"]:
+        return (f"Getrennte Ausführung: Jeder Strang ist eine eigene Anlage mit eigenem Kessel und Puffer. Die "
+                f"Gesamtwerte sind die Summe der {n} Einzelanlagen – NICHT eine gemeinsame Zentrale über {G['we']} "
+                "Wohnungen. Deshalb liegt die Summe höher als bei gemeinsamer Ausführung (ungünstigere "
+                "Gleichzeitigkeit kleiner Einzelanlagen).")
+    return (f"Gemeinsame Wärmezentrale über alle Stränge ({G['we']} Wohnungen). Bei getrennter Ausführung siehe die "
+            "Einzelwerte je Strang.")
+
+
+def schema_note(R: dict, n_str: int) -> str:
+    P, foot = R["P"], R["vRows"][0]
+    name = "Flow 7000 (F7002 HPS)" if P["zuheizerOn"] else R["st"]["name"]
+    vor = (f"Strang {R['activeStrang'] + 1} von {n_str} · alle Stränge zusammen {R['allWE']} Wohnungen · "
+           f"Wärmezentrale {'gemeinsam' if R['anlage']['zentralMode'] == 'gemeinsam' else 'getrennt je Strang'}. "
+           if n_str > 1 else "")
+    return (f"{vor}**{R['floors']}** Etagen · **{R['totalWE']}** Wohnungen "
+            f"{'in diesem Strang' if n_str > 1 else 'gesamt'}"
+            + (" (links/rechts je Etage einstellbar)" if R["sides"] == 2 else " (einseitig)")
+            + f" · {P['system']}-Leiter · {name} · GLZ nach **{'TU Dresden' if P['glz'] == 'tud' else 'DIN 4708'}**. "
+            f"Maßgeblicher Etagenstrang außen **{R['hRows'][0]['dim']}**, Strangfuß **{foot['dim']}** bei "
+            f"**{fmt(foot['Vtot'], 2)} m³/h**, v = {fmt(foot['v'], 2)} m/s.")

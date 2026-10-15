@@ -8,10 +8,11 @@ Bosch-HIU-Methodik) und DLE-Auslegungshilfe (Flow 7000 HPS).
 
 Es gibt zwei Versionen mit identischem Rechenweg:
 
-| | `index.html` | Python / Streamlit |
+| | `index.html` (V54) | Python / Streamlit |
 |---|---|---|
 | Start | Datei im Browser öffnen, läuft offline | `streamlit run app.py` |
-| Oberfläche | Original mit Canvas-Schemata und PDF-Export | Web-App mit Plotly-Schemata und Excel-Export |
+| Oberfläche | Original mit Canvas-Schemata | gleicher Aufbau: Eingaben links, Karten rechts |
+| Export | PDF (Druck), Projekt-JSON | PDF-Auslegungsbericht, Projekt-JSON, Excel |
 | Projektdateien | `.json` | dasselbe `.json`-Format, in beide Richtungen austauschbar |
 
 ## Python-Version starten
@@ -25,26 +26,15 @@ streamlit run app.py
 
 Die App öffnet sich unter <http://localhost:8501>.
 
-## Auf eigenem Server (Ubuntu + nginx)
+## Streamlit Cloud
 
-Im Ordner `deploy/` liegt alles für den Dauerbetrieb: ein systemd-Dienst (startet die App automatisch, auch
-nach Neustart oder Absturz) und eine nginx-Site als Reverse Proxy inklusive WebSocket-Weiterleitung.
+Repository `sommer-nt/bosch-flow`, Branch wählen, Main file `app.py`. `requirements.txt` und `packages.txt`
+(Schrift für Umlaute im PDF) werden automatisch installiert. Optional unter **Settings → Secrets** ein Passwort
+setzen (Vorlage: `.streamlit/secrets.toml.beispiel`):
 
-```bash
-git clone -b claude/lucid-archimedes-j2yw8g https://github.com/sommer-nt/bosch-flow.git
-cd bosch-flow
-sudo bash deploy/install.sh flow.example.de     # eigenen Hostnamen einsetzen, ohne Angabe: Zugriff per IP
-sudo certbot --nginx -d flow.example.de          # optional: HTTPS (Let's Encrypt)
+```toml
+APP_PASSWORT = "..."
 ```
-
-Die App liegt danach in `/opt/bosch-flow` und läuft als Benutzer `boschflow` nur auf `127.0.0.1:8501`.
-Nach außen erreichbar ist sie ausschließlich über nginx.
-
-| Aufgabe | Befehl |
-|---|---|
-| Neue Version einspielen | `git pull && sudo bash deploy/update.sh` |
-| Status / Log | `systemctl status bosch-flow` · `journalctl -u bosch-flow -f` |
-| Neustart | `sudo systemctl restart bosch-flow` |
 
 ## Aufbau
 
@@ -54,10 +44,14 @@ bosch_flow/
   data.py               Datenbasis (Rohrreihen, Stationen, DIN 4708, Puffergrößen …)
   calc.py               Rechenkern – 1:1 aus index.html übertragen
   report.py             Tabellen, Herleitungstexte, Excel-Export
-  plots.py              Netzschema, Anlagenschema, Diagramme (Plotly)
+  schemata.py           Netzschema, Netztopologie, Anlagenschema (wie die Canvas-Zeichnungen der HTML)
+  zeichnung.py          Zeichenschicht: dieselbe Grafik für Bildschirm (Plotly) und PDF
+  bericht.py            PDF-Auslegungsbericht (A4 quer, wie „Planung als PDF exportieren“)
+  plots.py              Diagramme (Plotly)
+  daten/icons/          Bosch-Piktogramme aus der HTML (Erzeuger, Puffer, Heizkreis)
   project.py            Projektdateien laden/speichern (kompatibel mit index.html)
 tests/
-  scenarios.json        14 Prüffälle (2-/4-Leiter, DLE, manuell, Mehrstrang, Hochhaus …)
+  scenarios.json        15 Prüffälle (2-/4-Leiter, DLE, manuell, Mehrstrang, Hochhaus …)
   golden.json           Referenzwerte, direkt aus index.html berechnet
   test_calc.py          vergleicht Python mit den Referenzwerten
 tools/make_golden.py    erzeugt golden.json neu aus index.html (Headless-Chromium)
@@ -79,7 +73,7 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
-Die Tests prüfen alle Zwischen- und Endwerte (Volumenströme, Dimensionen, Geschwindigkeiten, Druckverluste,
+Die Tests prüfen alle Zwischen- und Endwerte (Volumenströme, Dimensionen, Geschwindigkeiten, Druckverluste, Hauptstrang je Position der Wärmezentrale,
 Kessel, Puffer, DLE-Tabelle, Herleitungstexte) gegen die HTML-Version. Wenn `index.html` geändert wird,
 die Referenzwerte mit `python tools/make_golden.py` neu erzeugen und die Abweichungen prüfen.
 

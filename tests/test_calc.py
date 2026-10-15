@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from bosch_flow.calc import (Inputs, Strang, compute, dle_table, gz_din, gz_tud, project_headline,
-                             puffer_produkt)
+from bosch_flow.calc import (Inputs, Strang, compute, compute_all, dle_table, gz_din, gz_tud, project_headline,
+                             puffer_produkt, topologie)
 from bosch_flow.project import from_html_state
 
 HERE = Path(__file__).parent
@@ -111,6 +111,37 @@ def test_projektdatei_roundtrip():
     inp = Inputs(system="4", station="flow7000", wwstage=1, mat="kupfer", qhk=5.5, zentral="getrennt")
     straenge = [Strang.new(5, "both", 3), Strang(2, "one", [{"l": 4, "r": 0}, {"l": 6, "r": 0}])]
     meta = {"projName": "Wohnanlage Süd", "projLoc": "Stuttgart", "projPlanner": "", "projDate": "2026-10-01",
-            "activeStrang": 1}
+            "activeStrang": 1, "topoPos": 30.0}
     inp2, straenge2, meta2 = loads(dumps(inp, straenge, meta))
     assert inp2 == inp and straenge2 == straenge and meta2 == meta
+
+
+@pytest.mark.parametrize("sc", SCENARIOS, ids=[s["name"] for s in SCENARIOS])
+def test_netztopologie_wie_html(sc):
+    """Hauptstrang-Abschnitte je Position der Wärmezentrale (V54, drawTopoT)."""
+    inp, straenge, _ = build(sc)
+    results = compute_all(inp, straenge)
+    for pos, erwartet in GOLDEN[sc["name"]]["topo"].items():
+        t = topologie(results, float(pos))
+        py = [{"num": a["strang"], "side": a["seite"], "load": a["load"], "V": a["V"], "dn": a["dn"], "v": a["v"]}
+              for a in t["abschnitte"]]
+        assert_close(py, erwartet, f"pos{pos}")
+
+
+def test_topopos_aus_html_datei():
+    """V54 speichert topoPos top-level und in fields; ältere Dateien ohne topoPos -> mittig."""
+    from bosch_flow.project import from_html_state
+    basis = {"fields": {}, "straenge": SCENARIOS[0]["straenge"]}
+    assert from_html_state(basis)[2]["topoPos"] == 50
+    assert from_html_state({**basis, "topoPos": 20})[2]["topoPos"] == 20
+    assert from_html_state({"fields": {"topoPos": "80"}, "straenge": []})[2]["topoPos"] == 80
+    assert from_html_state({**basis, "topoPos": 250})[2]["topoPos"] == 100
+
+
+@pytest.mark.parametrize("sc", SCENARIOS, ids=[s["name"] for s in SCENARIOS])
+def test_pdf_bericht(sc):
+    """Der PDF-Auslegungsbericht entsteht für jeden Prüffall (inkl. Topologie, DLE, 4-Leiter, getrennt)."""
+    from bosch_flow.bericht import pdf_bericht
+    inp, straenge, meta = build(sc)
+    pdf = pdf_bericht(inp, straenge, {**meta, "projName": "Test Süd"}, compute_all(inp, straenge), "15.10.2026 10:00")
+    assert pdf.startswith(b"%PDF") and len(pdf) > 20000

@@ -19,5 +19,10 @@
     {"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},
     {"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8},{"l":8,"r":8}]}]},
   {"name": "verbund_heizlast_ueber", "fields": {"mat": "verbund", "qhk": "25", "station": "flow8000"}, "straenge": [{"floors": 1, "split": "both", "cfg": [{"l":1,"r":1}]}]},
-  {"name": "flow7000_heizlast_reserve", "fields": {"station": "flow7000", "qhk": "8.5", "glz": "tud"}, "straenge": [{"floors": 2, "split": "one", "cfg": [{"l":6,"r":0},{"l":5,"r":0}]}]}
+  {"name": "flow7000_heizlast_reserve", "fields": {"station": "flow7000", "qhk": "8.5", "glz": "tud"}, "straenge": [{"floors": 2, "split": "one", "cfg": [{"l":6,"r":0},{"l":5,"r":0}]}]},
+  {"name": "vier_straenge_asymmetrisch", "fields": {"zentral": "gemeinsam", "glz": "tud"}, "straenge": [
+    {"floors": 2, "split": "one", "cfg": [{"l":2,"r":0},{"l":1,"r":0}]},
+    {"floors": 6, "split": "both", "cfg": [{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4},{"l":4,"r":4}]},
+    {"floors": 3, "split": "both", "cfg": [{"l":1,"r":2},{"l":3,"r":0},{"l":2,"r":2}]},
+    {"floors": 5, "split": "one", "cfg": [{"l":6,"r":0},{"l":6,"r":0},{"l":6,"r":0},{"l":6,"r":0},{"l":6,"r":0}]}]}
 ]

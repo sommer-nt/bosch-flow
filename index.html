@@ -642,6 +642,10 @@ function currentStage(){const st=currentStation();const i=Math.max(0,Math.min(st
 // Jeder Strang: {floors, split, cfg:[{l,r}...], name}. Ein Umschalter waehlt den aktiven.
 var STRAENGE=[];
 var ACTIVE_STRANG=0;
+// V54 (Tim-Fix): Position der Wärmezentrale persistent halten. Der Topo-Slider wird bei
+// jedem Re-Render neu erzeugt (innerHTML) – ohne diese globale Merk-Variable würde er
+// jedes Mal auf 50 (mittig) zurückfallen (sichtbar bei PDF-Export und Speichern/Laden).
+var TOPO_POS=50;
 function newStrang(floors,split,seed){
   // seed: optionaler Vorgabewert je Etagenseite (Default 5). Erlaubt "+ Strang"
   // mit dem zuletzt per "auf alle Etagen" gesetzten Wert.
@@ -1780,7 +1784,7 @@ function renderAllStraenge(){
   vt+=`<div id="topoSection">`;
   vt+=`<div class="topo-ctrl" style="display:flex;align-items:center;gap:12px;margin:2px 0 8px;flex-wrap:wrap">
     <span style="font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px">Position Wärmezentrale</span>
-    <input id="topoPos" type="range" min="0" max="100" value="50" step="1" style="width:200px;accent-color:var(--accent)">
+    <input id="topoPos" type="range" min="0" max="100" value="${TOPO_POS}" step="1" style="width:200px;accent-color:var(--accent)">
     <span id="topoPosVal" style="font-size:12px;font-weight:700;color:var(--accent);min-width:80px">mittig</span>
     <button id="topoFsBtn" type="button" style="margin-left:auto;border:1px solid var(--line);background:var(--paper);color:var(--accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer">⤢ Vollbild</button>
   </div>`;
@@ -1862,11 +1866,16 @@ function renderAllStraenge(){
     tb.innerHTML=rows;
   };
   const topoDraw=(pos)=>{ try{ drawTopoT(all.results, document.getElementById('topoCanvas'), pos, 'fit'); renderTopoLegend(document.getElementById('topoCanvas'),'topoLegend'); renderHsTable(document.getElementById('topoCanvas')); }catch(e){ try{ drawTopology(all.results, document.getElementById('topoCanvas')); }catch(e2){} } };
-  let topoPos=50;
-  topoDraw(topoPos);
   const posEl=document.getElementById('topoPos'), posVal=document.getElementById('topoPosVal');
   const posLabel=p=>p<=20?'links':p<40?'linke Mitte':p<=60?'mittig':p<80?'rechte Mitte':'rechts';
-  if(posEl){ let cRaf=0; posEl.addEventListener('input',()=>{ topoPos=+posEl.value; posVal.textContent=posLabel(topoPos); if(!cRaf) cRaf=requestAnimationFrame(()=>{ cRaf=0; topoDraw(topoPos); }); }); }
+  // V54-Fix (Tim): Die eingestellte Position der Wärmezentrale aus dem Slider übernehmen,
+  // NICHT bei jedem Re-Render auf 50 (mittig) zurücksetzen. So bleibt die seitliche
+  // Anordnung beim PDF-Export und beim Speichern/Laden erhalten.
+  // Quelle der Wahrheit ist die globale TOPO_POS (überlebt den innerHTML-Neuaufbau).
+  if(posEl) posEl.value=TOPO_POS;
+  if(posVal) posVal.textContent=posLabel(TOPO_POS);
+  topoDraw(TOPO_POS);
+  if(posEl){ let cRaf=0; posEl.addEventListener('input',()=>{ TOPO_POS=+posEl.value; if(posVal) posVal.textContent=posLabel(TOPO_POS); if(!cRaf) cRaf=requestAnimationFrame(()=>{ cRaf=0; topoDraw(TOPO_POS); }); }); }
 
   // Vollbild-Modal
   const fsBtn=document.getElementById('topoFsBtn'), modal=document.getElementById('topoModal');
@@ -1875,17 +1884,17 @@ function renderAllStraenge(){
   if(fsBtn&&modal){
     fsBtn.addEventListener('click',()=>{
       modal.style.display='block';
-      fsPos.value=topoPos; fsPosVal.textContent=posLabel(topoPos);
+      fsPos.value=TOPO_POS; fsPosVal.textContent=posLabel(TOPO_POS);
       // nach dem Sichtbarwerden zeichnen (Container hat dann Breite)
-      requestAnimationFrame(()=>requestAnimationFrame(()=>fsDraw(topoPos)));
+      requestAnimationFrame(()=>requestAnimationFrame(()=>fsDraw(TOPO_POS)));
     });
     let fsRaf=0, bgTimer=0;
-    fsPos.addEventListener('input',()=>{ topoPos=+fsPos.value; fsPosVal.textContent=posLabel(topoPos);
+    fsPos.addEventListener('input',()=>{ TOPO_POS=+fsPos.value; fsPosVal.textContent=posLabel(TOPO_POS);
       // Vollbild flüssig: max. ein Redraw pro Frame
-      if(!fsRaf) fsRaf=requestAnimationFrame(()=>{ fsRaf=0; fsDraw(topoPos); });
+      if(!fsRaf) fsRaf=requestAnimationFrame(()=>{ fsRaf=0; fsDraw(TOPO_POS); });
       // Karte im Hintergrund erst nach kurzem Stillstand aktualisieren (nicht bei jedem Schritt)
-      if(posEl){posEl.value=topoPos; posVal.textContent=posLabel(topoPos);}
-      clearTimeout(bgTimer); bgTimer=setTimeout(()=>topoDraw(topoPos), 200);
+      if(posEl){posEl.value=TOPO_POS; posVal.textContent=posLabel(TOPO_POS);}
+      clearTimeout(bgTimer); bgTimer=setTimeout(()=>topoDraw(TOPO_POS), 200);
     });
     const closeFs=()=>{ modal.style.display='none'; };
     document.getElementById('topoFsClose').addEventListener('click',closeFs);
@@ -2786,6 +2795,7 @@ function resetAll(){
   STRAENGE=[newStrang(4,'both')];
   ACTIVE_STRANG=0;
   FLOORCFG=STRAENGE[0].cfg;
+  TOPO_POS=50;   // Position Wärmezentrale zurück auf mittig
   // 2) Alle Eingabefelder auf ihre HTML-Ausgangswerte (defaultValue / erste Option) stellen
   const wrap=document.querySelector('.grid');
   if(wrap){
@@ -2847,7 +2857,7 @@ document.getElementById('btnExport').onclick=()=>{
   try{
     const all=computeAllStraenge();
     const tc=document.getElementById('topoCanvas');
-    if(tc){ const pos=(document.getElementById('topoPos')||{}).value; drawTopoT(all.results, tc, pos!=null?+pos:50, 'fit'); }
+    if(tc){ drawTopoT(all.results, tc, TOPO_POS, 'fit'); }
   }catch(e){}
   const pn=document.getElementById('projName').value.trim();const o=document.title;if(pn)document.title='Bosch Flow – '+pn;
   window.addEventListener('afterprint',function r(){
@@ -2914,13 +2924,17 @@ function collectState(){
       fields[el.id]=el.value;
     });
   }
+  // Position der Wärmezentrale aus der globalen Merk-Variable (nicht aus dem DOM,
+  // da der Slider je nach Ansicht evtl. gar nicht existiert).
+  fields.topoPos = String(TOPO_POS);
   return {
     app:'Bosch Flow – Netz- & Anlagenrechner',
     version:SAVE_VERSION,
     savedAt:new Date().toISOString(),
     fields,
     straenge:STRAENGE,            // vollständiges Strang-Modell (floors/split/cfg)
-    activeStrang:ACTIVE_STRANG
+    activeStrang:ACTIVE_STRANG,
+    topoPos:TOPO_POS              // Position Wärmezentrale (persistent)
   };
 }
 
@@ -2961,6 +2975,9 @@ function applyState(state){
   Object.keys(f).forEach(id=>{ if(priority.indexOf(id)<0) setField(id); });
   // 3) Projektkopf explizit (liegt außerhalb .grid-Logik-Priorität)
   ['projName','projLoc','projPlanner','projDate'].forEach(setField);
+  // 3b) Position der Wärmezentrale wiederherstellen (top-level oder aus fields; abwärtskompatibel).
+  let tp = (state.topoPos!=null) ? state.topoPos : (f.topoPos!=null ? f.topoPos : TOPO_POS);
+  tp = +tp; if(!isFinite(tp)) tp=50; TOPO_POS = Math.max(0,Math.min(100,tp));
   // 4) Abhängige UI neu aufbauen (wie nach resetAll)
   const host=document.getElementById('floorList'); if(host) host.dataset.sig='';
   if(typeof setViewMode==='function') setViewMode('single');

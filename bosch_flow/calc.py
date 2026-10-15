@@ -436,3 +436,37 @@ def dle_table(A: dict) -> list:
     return [{"netzTemp": t, "aktuell": t == tn_real,
              "cells": {stufe: dle_cell(t, stufe, A["zapfLmin"], A["zapfTemp"], A["zuheizerMaxKW"])
                        for stufe in (48, 53, 60)}} for t in temps]
+
+
+# ---------------------------------------------------------------- Netztopologie (V54)
+def topo_label(pos: float) -> str:
+    """Beschriftung des Reglers „Position Wärmezentrale“."""
+    return ("links" if pos <= 20 else "linke Mitte" if pos < 40 else "mittig" if pos <= 60
+            else "rechte Mitte" if pos < 80 else "rechts")
+
+
+def topologie(results: list, pos: float = 50) -> dict:
+    """Hauptstrang aller Stränge (drawTopoT): Die Wärmezentrale sitzt bei ``pos`` (0 = links, 100 = rechts)
+    zwischen den Strang-Abzweigen. Jeder Abschnitt trägt die kumulierte Last von außen bis zur Zentrale."""
+    n = len(results)
+    P = results[0]["P"]
+    pos = max(0, min(100, pos))
+    left = max(0, min(n, js_round(n * (pos / 100))))
+    abschnitte = []
+    cum = 0
+    for i in range(left):
+        cum += results[i]["totalWE"]
+        s = seg(cum, P)
+        abschnitte.append({"strang": i + 1, "seite": "L", "load": cum, "V": s["Vtot"], "dn": s["dim"], "v": s["v"]})
+    cum = 0
+    for i in range(n - 1, left - 1, -1):
+        cum += results[i]["totalWE"]
+        s = seg(cum, P)
+        abschnitte.append({"strang": i + 1, "seite": "R", "load": cum, "V": s["Vtot"], "dn": s["dim"], "v": s["v"]})
+    abschnitte.sort(key=lambda a: a["strang"])
+    v_max = max(js_round(a["v"] * 100) for a in abschnitte)
+    for a in abschnitte:
+        a["kritisch"] = n > 1 and js_round(a["v"] * 100) == v_max
+    gtot = sum(r["totalWE"] for r in results)
+    return {"pos": pos, "label": topo_label(pos), "links": left, "abschnitte": abschnitte, "gesamtWE": gtot,
+            "gesamt": seg(gtot, P)}

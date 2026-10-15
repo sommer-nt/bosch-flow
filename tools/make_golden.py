@@ -31,7 +31,12 @@ JS = """
   const strip = R => ({P:R.P, anlage:R.anlage, hRows:R.hRows, vRows:R.vRows, totalWE:R.totalWE, allWE:R.allWE,
                        govN:R.govN, singleStationV:R.singleStationV, perStationDim:R.perStationDim,
                        kpiPuffer:pufferProdukt(R.anlage.pufferVol)});
-  return {name:sc.name, results:results.map(strip), headline:head,
+  const all = computeAllStraenge(); const topo = {};
+  for (const pos of [0, 20, 30, 50, 62, 80, 100]) {
+    const cv = document.createElement('canvas'); document.body.appendChild(cv);
+    drawTopoT(all.results, cv, pos, 'fit'); topo[pos] = cv.__segInfo; cv.remove();
+  }
+  return {name:sc.name, results:results.map(strip), headline:head, topo,
           anlageTable:rowsOf('#anlageBody'), dleTable:rowsOf('#dleHelpTbl tbody')};
 }
 """

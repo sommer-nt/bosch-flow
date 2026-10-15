@@ -279,6 +279,78 @@
    "v": 0.7612576018510006,
    "projektweit": false
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -619,6 +691,78 @@
    "dim": "DN 50",
    "v": 0.6863868685080176,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 16,
+     "V": 4.851782873156906,
+     "dn": "DN 50",
+     "v": 0.6863868685080176
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -965,6 +1109,78 @@
    "dim": "DN 50",
    "v": 0.7584973112965602,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -1337,6 +1553,78 @@
    "v": 0.7557773603803721,
    "projektweit": false
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 13,
+     "V": 6.347157351676699,
+     "dn": "DN 50",
+     "v": 0.7557773603803721
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -1613,6 +1901,78 @@
    "dim": "DN 50",
    "v": 0.7895791005569746,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 6.631030585923105,
+     "dn": "DN 50",
+     "v": 0.7895791005569746
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -1944,6 +2304,78 @@
    "v": 0.9358429026341711,
    "projektweit": false
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 12,
+     "V": 7.859380911435942,
+     "dn": "DN 50",
+     "v": 0.9358429026341711
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -2253,6 +2685,78 @@
    "v": 0.6845433004301666,
    "projektweit": false
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 5.748920607623962,
+     "dn": "DN 50",
+     "v": 0.6845433004301666
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -2542,6 +3046,78 @@
    "dim": "DN 40",
    "v": 0.9302175490070312,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 8,
+     "V": 4.885752364574377,
+     "dn": "DN 40",
+     "v": 0.9302175490070312
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -2923,6 +3499,78 @@
    "dim": "DN 65",
    "v": 0.7228201198290509,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.100276544816527,
+     "dn": "DN 65",
+     "v": 0.7228201198290509
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -3812,6 +4460,190 @@
    "v": 0.6623842704363669,
    "projektweit": true
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 91,
+     "V": 21.482327569185696,
+     "dn": "DN 100",
+     "v": 0.6623842704363669
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 10.637380019744594,
+     "dn": "DN 65",
+     "v": 0.7612576018510006
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 12.976486353937773,
+     "dn": "DN 65",
+     "v": 0.9286543175025243
+    },
+    {
+     "num": 3,
+     "side": "L",
+     "load": 91,
+     "V": 21.482327569185696,
+     "dn": "DN 100",
+     "v": 0.6623842704363669
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -4418,6 +5250,134 @@
    "dim": "DN 50",
    "v": 0.7584973112965602,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 51,
+     "V": 7.4479999999999995,
+     "dn": "DN 50",
+     "v": 0.8868583947467471
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 11,
+     "V": 3.234,
+     "dn": "DN 40",
+     "v": 0.8265359610603497
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 51,
+     "V": 7.4479999999999995,
+     "dn": "DN 50",
+     "v": 0.8868583947467471
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 11,
+     "V": 3.234,
+     "dn": "DN 40",
+     "v": 0.8265359610603497
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 11,
+     "V": 3.234,
+     "dn": "DN 40",
+     "v": 0.8265359610603497
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 11,
+     "V": 3.234,
+     "dn": "DN 40",
+     "v": 0.8265359610603497
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 11,
+     "V": 3.234,
+     "dn": "DN 40",
+     "v": 0.8265359610603497
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 7.4479999999999995,
+     "dn": "DN 50",
+     "v": 0.8868583947467471
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 40,
+     "V": 6.37,
+     "dn": "DN 50",
+     "v": 0.7584973112965602
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 7.4479999999999995,
+     "dn": "DN 50",
+     "v": 0.8868583947467471
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -5130,6 +6090,78 @@
    "v": 4.907602195219682,
    "projektweit": false
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 320,
+     "V": 88.36240278972008,
+     "dn": "DN 80",
+     "v": 4.907602195219682
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -5354,6 +6386,78 @@
    "dim": "DN 25",
    "v": 0.9403284538137884,
    "projektweit": false
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 2,
+     "V": 1.7972920607623961,
+     "dn": "DN 25",
+     "v": 0.9403284538137884
+    }
+   ]
   },
   "anlageTable": [
    [
@@ -5678,6 +6782,78 @@
    "v": 0.7046299727277072,
    "projektweit": false
   },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 11,
+     "V": 5.917612177956116,
+     "dn": "DN 50",
+     "v": 0.7046299727277072
+    }
+   ]
+  },
   "anlageTable": [
    [
     "Größe",
@@ -5738,6 +6914,1317 @@
     "1000 l",
     "",
     "nächste lieferbare Baugröße · aufgerundet aus 780 l (Reihe 500/750/1000/1500)"
+   ]
+  ],
+  "dleTable": []
+ },
+ {
+  "name": "vier_straenge_asymmetrisch",
+  "results": [
+   {
+    "P": {
+     "qhk": 4,
+     "dthk": 7,
+     "tvl": 55,
+     "vlhk": 35,
+     "glz": "tud",
+     "mat": "stahl",
+     "vmax": 1,
+     "system": "2",
+     "wwVorrang": true,
+     "maxHeatKW": 15,
+     "qhkMax": 18,
+     "rlhk": 28,
+     "zapfLmin": 14,
+     "zapfTemp": 45,
+     "zapfLminMax": 14,
+     "zapfGekappt": false,
+     "stationKW": 35,
+     "zuheizerOn": false,
+     "zuheizerMaxKW": 11,
+     "zuheizerAllowed": false,
+     "dleStufe": 53,
+     "netzVerlust": 0,
+     "vlKeller": 55,
+     "netzTemp": 55,
+     "vlhkZuHoch": false,
+     "vlhkMax": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "P_WW": 34.1922,
+     "P_WW_full": 34.1922,
+     "dleAktiv": false,
+     "zuheizerKW": 0,
+     "entlastungKW": 0,
+     "dleLmin": 0,
+     "netzLmin": 14,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "heatOver": false
+    },
+    "anlage": {
+     "gz": 7,
+     "kRed": 0.7,
+     "tTot": 5,
+     "tWied": 30,
+     "tSpitz": 8,
+     "Qtheor": 474.5454,
+     "Qentn": 2465.127,
+     "pufferVol": 2198.2205250596653,
+     "QKzus": 0,
+     "kesselQ": 364,
+     "P_WW": 34.1922,
+     "stationKW": 35,
+     "zapfLmin": 14,
+     "totalHeat": 364,
+     "zuheizerOn": false,
+     "zuheizerKW": 0,
+     "zuheizerMaxKW": 11,
+     "dleStufe": 53,
+     "netzTemp": 55,
+     "netzLmin": 14,
+     "dleLmin": 0,
+     "dleAktiv": false,
+     "dleStufeZuNiedrig": null,
+     "P_WW_full": 34.1922,
+     "entlastungKW": 0,
+     "zapfTemp": 45,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "zuheizerLmin": 14,
+     "tvl": 55,
+     "vlKeller": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "vlhk": 35,
+     "wwmode": "std",
+     "netzVerlust": 0,
+     "zentralMode": "gemeinsam",
+     "nStraenge": 4,
+     "weForZentrale": 91,
+     "four": false,
+     "wwPufferVol": 2198.2205250596653,
+     "heizPufferVol": 0,
+     "heizPumpV": 0,
+     "wwPumpV": 0,
+     "heatLoad": 364,
+     "heizTueber": 10,
+     "heizDt": 10
+    },
+    "hRows": [
+     {
+      "weCum": 1,
+      "gz": 1,
+      "vWWsingle": 0.98,
+      "vWWtot": 0.98,
+      "vHeat": 0,
+      "Vtot": 0.98,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 18.617306418733524,
+      "v": 0.6969858599389018,
+      "Re": 20824.727537733248,
+      "lam": 0.025611118888936562,
+      "dp": 685.6780329168311
+     },
+     {
+      "weCum": 2,
+      "gz": 1.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.274,
+      "vHeat": 0.08916913474093181,
+      "Vtot": 1.3631691347409318,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 21.95728712570644,
+      "v": 0.969499603693446,
+      "Re": 24560.723854257765,
+      "lam": 0.024586173021459868,
+      "dp": 558.1112584534314
+     }
+    ],
+    "vRows": [
+     {
+      "floor": 1,
+      "weFloor": 2,
+      "weCum": 3,
+      "gz": 1.6,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.568,
+      "vHeat": 0.17833826948186363,
+      "Vtot": 1.7463382694818637,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 24.85238052083565,
+      "v": 0.7604072853830853,
+      "Re": 27799.083356639432,
+      "lam": 0.02385673971796098,
+      "dp": 478.4666020767193
+     },
+     {
+      "floor": 2,
+      "weFloor": 1,
+      "weCum": 1,
+      "gz": 1,
+      "vWWsingle": 0.98,
+      "vWWtot": 0.98,
+      "vHeat": 0,
+      "Vtot": 0.98,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 18.617306418733524,
+      "v": 0.6969858599389018,
+      "Re": 20824.727537733248,
+      "lam": 0.025611118888936562,
+      "dp": 685.6780329168311
+     }
+    ],
+    "totalWE": 3,
+    "allWE": 91,
+    "govN": 2,
+    "singleStationV": 0.98,
+    "perStationDim": "DN 20",
+    "kpiPuffer": {
+     "liter": 2250,
+     "text": "1500 + 750 l",
+     "anzahl": 2,
+     "combo": [
+      1500,
+      750
+     ]
+    }
+   },
+   {
+    "P": {
+     "qhk": 4,
+     "dthk": 7,
+     "tvl": 55,
+     "vlhk": 35,
+     "glz": "tud",
+     "mat": "stahl",
+     "vmax": 1,
+     "system": "2",
+     "wwVorrang": true,
+     "maxHeatKW": 15,
+     "qhkMax": 18,
+     "rlhk": 28,
+     "zapfLmin": 14,
+     "zapfTemp": 45,
+     "zapfLminMax": 14,
+     "zapfGekappt": false,
+     "stationKW": 35,
+     "zuheizerOn": false,
+     "zuheizerMaxKW": 11,
+     "zuheizerAllowed": false,
+     "dleStufe": 53,
+     "netzVerlust": 0,
+     "vlKeller": 55,
+     "netzTemp": 55,
+     "vlhkZuHoch": false,
+     "vlhkMax": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "P_WW": 34.1922,
+     "P_WW_full": 34.1922,
+     "dleAktiv": false,
+     "zuheizerKW": 0,
+     "entlastungKW": 0,
+     "dleLmin": 0,
+     "netzLmin": 14,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "heatOver": false
+    },
+    "anlage": {
+     "gz": 7,
+     "kRed": 0.7,
+     "tTot": 5,
+     "tWied": 30,
+     "tSpitz": 8,
+     "Qtheor": 474.5454,
+     "Qentn": 2465.127,
+     "pufferVol": 2198.2205250596653,
+     "QKzus": 0,
+     "kesselQ": 364,
+     "P_WW": 34.1922,
+     "stationKW": 35,
+     "zapfLmin": 14,
+     "totalHeat": 364,
+     "zuheizerOn": false,
+     "zuheizerKW": 0,
+     "zuheizerMaxKW": 11,
+     "dleStufe": 53,
+     "netzTemp": 55,
+     "netzLmin": 14,
+     "dleLmin": 0,
+     "dleAktiv": false,
+     "dleStufeZuNiedrig": null,
+     "P_WW_full": 34.1922,
+     "entlastungKW": 0,
+     "zapfTemp": 45,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "zuheizerLmin": 14,
+     "tvl": 55,
+     "vlKeller": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "vlhk": 35,
+     "wwmode": "std",
+     "netzVerlust": 0,
+     "zentralMode": "gemeinsam",
+     "nStraenge": 4,
+     "weForZentrale": 91,
+     "four": false,
+     "wwPufferVol": 2198.2205250596653,
+     "heizPufferVol": 0,
+     "heizPumpV": 0,
+     "wwPumpV": 0,
+     "heatLoad": 364,
+     "heizTueber": 10,
+     "heizDt": 10
+    },
+    "hRows": [
+     {
+      "weCum": 1,
+      "gz": 1,
+      "vWWsingle": 0.98,
+      "vWWtot": 0.98,
+      "vHeat": 0,
+      "Vtot": 0.98,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 18.617306418733524,
+      "v": 0.6969858599389018,
+      "Re": 20824.727537733248,
+      "lam": 0.025611118888936562,
+      "dp": 685.6780329168311
+     },
+     {
+      "weCum": 2,
+      "gz": 1.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.274,
+      "vHeat": 0.08916913474093181,
+      "Vtot": 1.3631691347409318,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 21.95728712570644,
+      "v": 0.969499603693446,
+      "Re": 24560.723854257765,
+      "lam": 0.024586173021459868,
+      "dp": 558.1112584534314
+     },
+     {
+      "weCum": 3,
+      "gz": 1.6,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.568,
+      "vHeat": 0.17833826948186363,
+      "Vtot": 1.7463382694818637,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 24.85238052083565,
+      "v": 0.7604072853830853,
+      "Re": 27799.083356639432,
+      "lam": 0.02385673971796098,
+      "dp": 478.4666020767193
+     },
+     {
+      "weCum": 4,
+      "gz": 1.8,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.764,
+      "vHeat": 0.2802458520429286,
+      "Vtot": 2.0442458520429287,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 26.888735032753665,
+      "v": 0.8901250497527046,
+      "Re": 30076.884824109246,
+      "lam": 0.023409678691663233,
+      "dp": 433.94392426664587
+     }
+    ],
+    "vRows": [
+     {
+      "floor": 1,
+      "weFloor": 8,
+      "weCum": 48,
+      "gz": 5.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 5.194,
+      "vHeat": 5.439317219196841,
+      "Vtot": 10.63331721919684,
+      "dim": "DN 65",
+      "raw": "DN 65",
+      "di": 70.3,
+      "dCalc": 61.32508996957379,
+      "v": 0.7609668500121041,
+      "Re": 68596.2975051161,
+      "lam": 0.019397730627331872,
+      "dp": 157.65990510623232
+     },
+     {
+      "floor": 2,
+      "weFloor": 8,
+      "weCum": 40,
+      "gz": 4.9,
+      "vWWsingle": 0.98,
+      "vWWtot": 4.8020000000000005,
+      "vHeat": 4.471195184866724,
+      "Vtot": 9.273195184866726,
+      "dim": "DN 65",
+      "raw": "DN 65",
+      "di": 70.3,
+      "dCalc": 57.268856223712255,
+      "v": 0.6636305476371789,
+      "Re": 64059.123292743025,
+      "lam": 0.019689872191569074,
+      "dp": 171.3692588423161
+     },
+     {
+      "floor": 3,
+      "weFloor": 8,
+      "weCum": 32,
+      "gz": 4.4,
+      "vWWsingle": 0.98,
+      "vWWtot": 4.312,
+      "vHeat": 3.5158115983567404,
+      "Vtot": 7.827811598356741,
+      "dim": "DN 50",
+      "raw": "DN 50",
+      "di": 54.5,
+      "dCalc": 52.61674658362731,
+      "v": 0.9320838384128126,
+      "Re": 58855.421234482455,
+      "lam": 0.02006079356511147,
+      "dp": 190.03458575178635
+     },
+     {
+      "floor": 4,
+      "weFloor": 8,
+      "weCum": 24,
+      "gz": 3.9,
+      "vWWsingle": 0.98,
+      "vWWtot": 3.822,
+      "vHeat": 2.560428011846757,
+      "Vtot": 6.382428011846757,
+      "dim": "DN 50",
+      "raw": "DN 50",
+      "di": 54.5,
+      "dCalc": 47.51128443769004,
+      "v": 0.7599771564410698,
+      "Re": 53144.61346497767,
+      "lam": 0.02052173947010659,
+      "dp": 215.29102683379048
+     },
+     {
+      "floor": 5,
+      "weFloor": 8,
+      "weCum": 16,
+      "gz": 3.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 3.234,
+      "vHeat": 1.6177828731569057,
+      "Vtot": 4.851782873156906,
+      "dim": "DN 40",
+      "raw": "DN 40",
+      "di": 43.1,
+      "dCalc": 41.4242341060163,
+      "v": 0.9237499643466842,
+      "Re": 46335.832333351565,
+      "lam": 0.021166330159890112,
+      "dp": 254.68279621644422
+     },
+     {
+      "floor": 6,
+      "weFloor": 8,
+      "weCum": 8,
+      "gz": 2.4,
+      "vWWsingle": 0.98,
+      "vWWtot": 2.352,
+      "vHeat": 0.7133530779274545,
+      "Vtot": 3.0653530779274543,
+      "dim": "DN 40",
+      "raw": "DN 32",
+      "di": 37.2,
+      "dCalc": 32.92638572715776,
+      "v": 0.7834336896271086,
+      "Re": 36830.40909078049,
+      "lam": 0.022315869449477225,
+      "dp": 337.81449568198116
+     }
+    ],
+    "totalWE": 48,
+    "allWE": 91,
+    "govN": 4,
+    "singleStationV": 0.98,
+    "perStationDim": "DN 20",
+    "kpiPuffer": {
+     "liter": 2250,
+     "text": "1500 + 750 l",
+     "anzahl": 2,
+     "combo": [
+      1500,
+      750
+     ]
+    }
+   },
+   {
+    "P": {
+     "qhk": 4,
+     "dthk": 7,
+     "tvl": 55,
+     "vlhk": 35,
+     "glz": "tud",
+     "mat": "stahl",
+     "vmax": 1,
+     "system": "2",
+     "wwVorrang": true,
+     "maxHeatKW": 15,
+     "qhkMax": 18,
+     "rlhk": 28,
+     "zapfLmin": 14,
+     "zapfTemp": 45,
+     "zapfLminMax": 14,
+     "zapfGekappt": false,
+     "stationKW": 35,
+     "zuheizerOn": false,
+     "zuheizerMaxKW": 11,
+     "zuheizerAllowed": false,
+     "dleStufe": 53,
+     "netzVerlust": 0,
+     "vlKeller": 55,
+     "netzTemp": 55,
+     "vlhkZuHoch": false,
+     "vlhkMax": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "P_WW": 34.1922,
+     "P_WW_full": 34.1922,
+     "dleAktiv": false,
+     "zuheizerKW": 0,
+     "entlastungKW": 0,
+     "dleLmin": 0,
+     "netzLmin": 14,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "heatOver": false
+    },
+    "anlage": {
+     "gz": 7,
+     "kRed": 0.7,
+     "tTot": 5,
+     "tWied": 30,
+     "tSpitz": 8,
+     "Qtheor": 474.5454,
+     "Qentn": 2465.127,
+     "pufferVol": 2198.2205250596653,
+     "QKzus": 0,
+     "kesselQ": 364,
+     "P_WW": 34.1922,
+     "stationKW": 35,
+     "zapfLmin": 14,
+     "totalHeat": 364,
+     "zuheizerOn": false,
+     "zuheizerKW": 0,
+     "zuheizerMaxKW": 11,
+     "dleStufe": 53,
+     "netzTemp": 55,
+     "netzLmin": 14,
+     "dleLmin": 0,
+     "dleAktiv": false,
+     "dleStufeZuNiedrig": null,
+     "P_WW_full": 34.1922,
+     "entlastungKW": 0,
+     "zapfTemp": 45,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "zuheizerLmin": 14,
+     "tvl": 55,
+     "vlKeller": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "vlhk": 35,
+     "wwmode": "std",
+     "netzVerlust": 0,
+     "zentralMode": "gemeinsam",
+     "nStraenge": 4,
+     "weForZentrale": 91,
+     "four": false,
+     "wwPufferVol": 2198.2205250596653,
+     "heizPufferVol": 0,
+     "heizPumpV": 0,
+     "wwPumpV": 0,
+     "heatLoad": 364,
+     "heizTueber": 10,
+     "heizDt": 10
+    },
+    "hRows": [
+     {
+      "weCum": 1,
+      "gz": 1,
+      "vWWsingle": 0.98,
+      "vWWtot": 0.98,
+      "vHeat": 0,
+      "Vtot": 0.98,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 18.617306418733524,
+      "v": 0.6969858599389018,
+      "Re": 20824.727537733248,
+      "lam": 0.025611118888936562,
+      "dp": 685.6780329168311
+     },
+     {
+      "weCum": 2,
+      "gz": 1.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.274,
+      "vHeat": 0.08916913474093181,
+      "Vtot": 1.3631691347409318,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 21.95728712570644,
+      "v": 0.969499603693446,
+      "Re": 24560.723854257765,
+      "lam": 0.024586173021459868,
+      "dp": 558.1112584534314
+     },
+     {
+      "weCum": 3,
+      "gz": 1.6,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.568,
+      "vHeat": 0.17833826948186363,
+      "Vtot": 1.7463382694818637,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 24.85238052083565,
+      "v": 0.7604072853830853,
+      "Re": 27799.083356639432,
+      "lam": 0.02385673971796098,
+      "dp": 478.4666020767193
+     }
+    ],
+    "vRows": [
+     {
+      "floor": 1,
+      "weFloor": 3,
+      "weCum": 10,
+      "gz": 2.7,
+      "vWWsingle": 0.98,
+      "vWWtot": 2.646,
+      "vHeat": 0.9299066908697176,
+      "Vtot": 3.5759066908697177,
+      "dim": "DN 40",
+      "raw": "DN 32",
+      "di": 37.2,
+      "dCalc": 35.56287783278443,
+      "v": 0.9139194413729551,
+      "Re": 39779.505405799144,
+      "lam": 0.021919975866466834,
+      "dp": 307.2215702670247
+     },
+     {
+      "floor": 2,
+      "weFloor": 3,
+      "weCum": 7,
+      "gz": 2.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 2.254,
+      "vHeat": 0.5987070475462565,
+      "Vtot": 2.8527070475462564,
+      "dim": "DN 40",
+      "raw": "DN 32",
+      "di": 37.2,
+      "dCalc": 31.76379587623037,
+      "v": 0.7290862588643405,
+      "Re": 35529.97301591764,
+      "lam": 0.022504303980211075,
+      "dp": 353.13577754006457
+     },
+     {
+      "floor": 3,
+      "weFloor": 4,
+      "weCum": 4,
+      "gz": 1.8,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.764,
+      "vHeat": 0.2802458520429286,
+      "Vtot": 2.0442458520429287,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 26.888735032753665,
+      "v": 0.8901250497527046,
+      "Re": 30076.884824109246,
+      "lam": 0.023409678691663233,
+      "dp": 433.94392426664587
+     }
+    ],
+    "totalWE": 10,
+    "allWE": 91,
+    "govN": 3,
+    "singleStationV": 0.98,
+    "perStationDim": "DN 20",
+    "kpiPuffer": {
+     "liter": 2250,
+     "text": "1500 + 750 l",
+     "anzahl": 2,
+     "combo": [
+      1500,
+      750
+     ]
+    }
+   },
+   {
+    "P": {
+     "qhk": 4,
+     "dthk": 7,
+     "tvl": 55,
+     "vlhk": 35,
+     "glz": "tud",
+     "mat": "stahl",
+     "vmax": 1,
+     "system": "2",
+     "wwVorrang": true,
+     "maxHeatKW": 15,
+     "qhkMax": 18,
+     "rlhk": 28,
+     "zapfLmin": 14,
+     "zapfTemp": 45,
+     "zapfLminMax": 14,
+     "zapfGekappt": false,
+     "stationKW": 35,
+     "zuheizerOn": false,
+     "zuheizerMaxKW": 11,
+     "zuheizerAllowed": false,
+     "dleStufe": 53,
+     "netzVerlust": 0,
+     "vlKeller": 55,
+     "netzTemp": 55,
+     "vlhkZuHoch": false,
+     "vlhkMax": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "P_WW": 34.1922,
+     "P_WW_full": 34.1922,
+     "dleAktiv": false,
+     "zuheizerKW": 0,
+     "entlastungKW": 0,
+     "dleLmin": 0,
+     "netzLmin": 14,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "heatOver": false
+    },
+    "anlage": {
+     "gz": 7,
+     "kRed": 0.7,
+     "tTot": 5,
+     "tWied": 30,
+     "tSpitz": 8,
+     "Qtheor": 474.5454,
+     "Qentn": 2465.127,
+     "pufferVol": 2198.2205250596653,
+     "QKzus": 0,
+     "kesselQ": 364,
+     "P_WW": 34.1922,
+     "stationKW": 35,
+     "zapfLmin": 14,
+     "totalHeat": 364,
+     "zuheizerOn": false,
+     "zuheizerKW": 0,
+     "zuheizerMaxKW": 11,
+     "dleStufe": 53,
+     "netzTemp": 55,
+     "netzLmin": 14,
+     "dleLmin": 0,
+     "dleAktiv": false,
+     "dleStufeZuNiedrig": null,
+     "P_WW_full": 34.1922,
+     "entlastungKW": 0,
+     "zapfTemp": 45,
+     "zuheizerNeed": 0,
+     "zuheizerRestNetz": 0,
+     "zuheizerErschoepft": false,
+     "zuheizerWirkungslos": false,
+     "mischTemp": 45,
+     "zielErreicht": true,
+     "zuheizerLmin": 14,
+     "tvl": 55,
+     "vlKeller": 55,
+     "vlKellerWW": 45,
+     "vlHeizFuehrt": false,
+     "vlhk": 35,
+     "wwmode": "std",
+     "netzVerlust": 0,
+     "zentralMode": "gemeinsam",
+     "nStraenge": 4,
+     "weForZentrale": 91,
+     "four": false,
+     "wwPufferVol": 2198.2205250596653,
+     "heizPufferVol": 0,
+     "heizPumpV": 0,
+     "wwPumpV": 0,
+     "heatLoad": 364,
+     "heizTueber": 10,
+     "heizDt": 10
+    },
+    "hRows": [
+     {
+      "weCum": 1,
+      "gz": 1,
+      "vWWsingle": 0.98,
+      "vWWtot": 0.98,
+      "vHeat": 0,
+      "Vtot": 0.98,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 18.617306418733524,
+      "v": 0.6969858599389018,
+      "Re": 20824.727537733248,
+      "lam": 0.025611118888936562,
+      "dp": 685.6780329168311
+     },
+     {
+      "weCum": 2,
+      "gz": 1.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.274,
+      "vHeat": 0.08916913474093181,
+      "Vtot": 1.3631691347409318,
+      "dim": "DN 20",
+      "raw": "DN 20",
+      "di": 22.3,
+      "dCalc": 21.95728712570644,
+      "v": 0.969499603693446,
+      "Re": 24560.723854257765,
+      "lam": 0.024586173021459868,
+      "dp": 558.1112584534314
+     },
+     {
+      "weCum": 3,
+      "gz": 1.6,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.568,
+      "vHeat": 0.17833826948186363,
+      "Vtot": 1.7463382694818637,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 24.85238052083565,
+      "v": 0.7604072853830853,
+      "Re": 27799.083356639432,
+      "lam": 0.02385673971796098,
+      "dp": 478.4666020767193
+     },
+     {
+      "weCum": 4,
+      "gz": 1.8,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.764,
+      "vHeat": 0.2802458520429286,
+      "Vtot": 2.0442458520429287,
+      "dim": "DN 25",
+      "raw": "DN 25",
+      "di": 28.5,
+      "dCalc": 26.888735032753665,
+      "v": 0.8901250497527046,
+      "Re": 30076.884824109246,
+      "lam": 0.023409678691663233,
+      "dp": 433.94392426664587
+     },
+     {
+      "weCum": 5,
+      "gz": 2,
+      "vWWsingle": 0.98,
+      "vWWtot": 1.96,
+      "vHeat": 0.38215343460399354,
+      "Vtot": 2.3421534346039934,
+      "dim": "DN 40",
+      "raw": "DN 32",
+      "di": 37.2,
+      "dCalc": 28.78137115863067,
+      "v": 0.5986005071184942,
+      "Re": 32193.92747050411,
+      "lam": 0.023033582605609802,
+      "dp": 398.89495475216063
+     },
+     {
+      "weCum": 6,
+      "gz": 2.2,
+      "vWWsingle": 0.98,
+      "vWWtot": 2.156,
+      "vHeat": 0.4840610171650584,
+      "Vtot": 2.6400610171650585,
+      "dim": "DN 40",
+      "raw": "DN 32",
+      "di": 37.2,
+      "dCalc": 30.557005414144896,
+      "v": 0.6747388281015726,
+      "Re": 34180.095541549104,
+      "lam": 0.02271002645390367,
+      "dp": 370.43787118981464
+     }
+    ],
+    "vRows": [
+     {
+      "floor": 1,
+      "weFloor": 6,
+      "weCum": 30,
+      "gz": 4.3,
+      "vWWsingle": 0.98,
+      "vWWtot": 4.2139999999999995,
+      "vHeat": 3.273781089774211,
+      "Vtot": 7.48778108977421,
+      "dim": "DN 50",
+      "raw": "DN 50",
+      "di": 54.5,
+      "dCalc": 51.461255614244706,
+      "v": 0.8915952628211876,
+      "Re": 57562.925743003034,
+      "lam": 0.020159743537670194,
+      "dp": 195.25994168352983
+     },
+     {
+      "floor": 2,
+      "weFloor": 6,
+      "weCum": 24,
+      "gz": 3.9,
+      "vWWsingle": 0.98,
+      "vWWtot": 3.822,
+      "vHeat": 2.560428011846757,
+      "Vtot": 6.382428011846757,
+      "dim": "DN 50",
+      "raw": "DN 50",
+      "di": 54.5,
+      "dCalc": 47.51128443769004,
+      "v": 0.7599771564410698,
+      "Re": 53144.61346497767,
+      "lam": 0.02052173947010659,
+      "dp": 215.29102683379048
+     },
+     {
+      "floor": 3,
+      "weFloor": 6,
+      "weCum": 18,
+      "gz": 3.5,
+      "vWWsingle": 0.98,
+      "vWWtot": 3.4299999999999997,
+      "vHeat": 1.847074933919302,
+      "Vtot": 5.277074933919302,
+      "dim": "DN 50",
+      "raw": "DN 50",
+      "di": 54.5,
+      "dCalc": 43.20166048248078,
+      "v": 0.6283590500609517,
+      "Re": 48324.00501396061,
+      "lam": 0.020965613522211556,
+      "dp": 241.88874823876782
+     },
+     {
+      "floor": 4,
+      "weFloor": 6,
+      "weCum": 12,
+      "gz": 2.9,
+      "vWWsingle": 0.98,
+      "vWWtot": 2.842,
+      "vHeat": 1.1591987516321136,
+      "Vtot": 4.0011987516321135,
+      "dim": "DN 40",
+      "raw": "DN 40",
+      "di": 43.1,
+      "dCalc": 37.618274507518926,
+      "v": 0.7618039184344659,
+      "Re": 42078.606831676654,
+      "lam": 0.02163780128911667,
+      "dp": 286.6967617928679
+     },
+     {
+      "floor": 5,
+      "weFloor": 6,
+      "weCum": 6,
+      "gz": 2.2,
+      "vWWsingle": 0.98,
+      "vWWtot": 2.156,
+      "vHeat": 0.4840610171650584,
+      "Vtot": 2.6400610171650585,
+      "dim": "DN 40",
+      "raw": "DN 32",
+      "di": 37.2,
+      "dCalc": 30.557005414144896,
+      "v": 0.6747388281015726,
+      "Re": 34180.095541549104,
+      "lam": 0.02271002645390367,
+      "dp": 370.43787118981464
+     }
+    ],
+    "totalWE": 30,
+    "allWE": 91,
+    "govN": 6,
+    "singleStationV": 0.98,
+    "perStationDim": "DN 20",
+    "kpiPuffer": {
+     "liter": 2250,
+     "text": "1500 + 750 l",
+     "anzahl": 2,
+     "combo": [
+      1500,
+      750
+     ]
+    }
+   }
+  ],
+  "headline": {
+   "we": 91,
+   "Vtot": 17.56029616891182,
+   "dim": "DN 80",
+   "v": 0.9124972349564291,
+   "projektweit": true
+  },
+  "topo": {
+   "0": [
+    {
+     "num": 1,
+     "side": "R",
+     "load": 91,
+     "V": 17.56029616891182,
+     "dn": "DN 80",
+     "v": 0.9124972349564291
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 88,
+     "V": 17.092881182127957,
+     "dn": "DN 80",
+     "v": 0.8882086421607928
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 9.273195184866726,
+     "dn": "DN 65",
+     "v": 0.6636305476371789
+    },
+    {
+     "num": 4,
+     "side": "R",
+     "load": 30,
+     "V": 7.48778108977421,
+     "dn": "DN 50",
+     "v": 0.8915952628211876
+    }
+   ],
+   "20": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 3,
+     "V": 1.7463382694818637,
+     "dn": "DN 25",
+     "v": 0.7604072853830853
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 88,
+     "V": 17.092881182127957,
+     "dn": "DN 80",
+     "v": 0.8882086421607928
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 9.273195184866726,
+     "dn": "DN 65",
+     "v": 0.6636305476371789
+    },
+    {
+     "num": 4,
+     "side": "R",
+     "load": 30,
+     "V": 7.48778108977421,
+     "dn": "DN 50",
+     "v": 0.8915952628211876
+    }
+   ],
+   "30": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 3,
+     "V": 1.7463382694818637,
+     "dn": "DN 25",
+     "v": 0.7604072853830853
+    },
+    {
+     "num": 2,
+     "side": "R",
+     "load": 88,
+     "V": 17.092881182127957,
+     "dn": "DN 80",
+     "v": 0.8882086421607928
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 9.273195184866726,
+     "dn": "DN 65",
+     "v": 0.6636305476371789
+    },
+    {
+     "num": 4,
+     "side": "R",
+     "load": 30,
+     "V": 7.48778108977421,
+     "dn": "DN 50",
+     "v": 0.8915952628211876
+    }
+   ],
+   "50": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 3,
+     "V": 1.7463382694818637,
+     "dn": "DN 25",
+     "v": 0.7604072853830853
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 11.100732205980702,
+     "dn": "DN 65",
+     "v": 0.7944171179585192
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 9.273195184866726,
+     "dn": "DN 65",
+     "v": 0.6636305476371789
+    },
+    {
+     "num": 4,
+     "side": "R",
+     "load": 30,
+     "V": 7.48778108977421,
+     "dn": "DN 50",
+     "v": 0.8915952628211876
+    }
+   ],
+   "62": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 3,
+     "V": 1.7463382694818637,
+     "dn": "DN 25",
+     "v": 0.7604072853830853
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 11.100732205980702,
+     "dn": "DN 65",
+     "v": 0.7944171179585192
+    },
+    {
+     "num": 3,
+     "side": "R",
+     "load": 40,
+     "V": 9.273195184866726,
+     "dn": "DN 65",
+     "v": 0.6636305476371789
+    },
+    {
+     "num": 4,
+     "side": "R",
+     "load": 30,
+     "V": 7.48778108977421,
+     "dn": "DN 50",
+     "v": 0.8915952628211876
+    }
+   ],
+   "80": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 3,
+     "V": 1.7463382694818637,
+     "dn": "DN 25",
+     "v": 0.7604072853830853
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 11.100732205980702,
+     "dn": "DN 65",
+     "v": 0.7944171179585192
+    },
+    {
+     "num": 3,
+     "side": "L",
+     "load": 61,
+     "V": 12.800884748893347,
+     "dn": "DN 65",
+     "v": 0.9160874959271759
+    },
+    {
+     "num": 4,
+     "side": "R",
+     "load": 30,
+     "V": 7.48778108977421,
+     "dn": "DN 50",
+     "v": 0.8915952628211876
+    }
+   ],
+   "100": [
+    {
+     "num": 1,
+     "side": "L",
+     "load": 3,
+     "V": 1.7463382694818637,
+     "dn": "DN 25",
+     "v": 0.7604072853830853
+    },
+    {
+     "num": 2,
+     "side": "L",
+     "load": 51,
+     "V": 11.100732205980702,
+     "dn": "DN 65",
+     "v": 0.7944171179585192
+    },
+    {
+     "num": 3,
+     "side": "L",
+     "load": 61,
+     "V": 12.800884748893347,
+     "dn": "DN 65",
+     "v": 0.9160874959271759
+    },
+    {
+     "num": 4,
+     "side": "L",
+     "load": 91,
+     "V": 17.56029616891182,
+     "dn": "DN 80",
+     "v": 0.9124972349564291
+    }
+   ]
+  },
+  "anlageTable": [
+   [
+    "Größe",
+    "Wert",
+    "",
+    "Herleitung"
+   ],
+   [
+    "WW-Leistung je Station",
+    "34,2",
+    "kW",
+    "aus Zapfmenge 14 l/min: Zapfmenge × 60/1000 × 1,163 × (45−10)"
+   ],
+   [
+    "Versorgungs-VL (Keller)",
+    "55",
+    "°C",
+    "Standard: frei eingestellt 55 °C (Bereich 50–70 °C, unabhängig vom Heizkreis)"
+   ],
+   [
+    "= Netztemperatur an Station",
+    "55",
+    "°C",
+    "was der Puffer liefert, kommt 1:1 an der Station an: 55 °C"
+   ],
+   [
+    "Gleichzeitigkeit (Gesamtanlage)",
+    "7,0",
+    "–",
+    "über alle 91 Wohnungen der gemeinsamen Zentrale"
+   ],
+   [
+    "Q theoretisch",
+    "474,5",
+    "kW",
+    "WW-Leistung × GZ + reduzierter Heizanteil"
+   ],
+   [
+    "entnommene Wärmemenge",
+    "2.465",
+    "kWh",
+    "Energie aus dem Puffer während der 8-min-Spitze"
+   ],
+   [
+    "→ Kessel-/FW-Leistung",
+    "364",
+    "kW",
+    "Zusatzleistung für Puffernachladung + Grund-Heizleistung"
+   ],
+   [
+    "→ Pufferspeicher-Volumen",
+    "2.198",
+    "l",
+    "Bereitschaftsvolumen inkl. Totzeit 5 min"
+   ],
+   [
+    "→ Auswahl Pufferspeicher (Bosch)",
+    "1500 + 750 l",
+    "",
+    "Kombination 2250 l (min. Überschuss) · aufgerundet aus 2.198 l (Reihe 500/750/1000/1500)"
    ]
   ],
   "dleTable": []

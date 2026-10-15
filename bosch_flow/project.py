@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import asdict, fields
 from datetime import datetime, timezone
 
 from .calc import Inputs, Strang
 
 APP_NAME = "Bosch Flow – Netz- & Anlagenrechner"
-SAVE_VERSION = 52
+SAVE_VERSION = 52  # wie index.html V54 (Dateiformat unverändert, + topoPos)
 META_KEYS = ("projName", "projLoc", "projPlanner", "projDate")
 
 
@@ -35,6 +36,13 @@ def from_html_state(state: dict) -> tuple[Inputs, list[Strang], dict]:
                 for s in state.get("straenge") or []] or [Strang.new()]
     meta = {k: f.get(k, "") for k in META_KEYS}
     meta["activeStrang"] = max(0, min(len(straenge) - 1, int(state.get("activeStrang") or 0)))
+    # V54: Position der Wärmezentrale (top-level oder in fields; abwärtskompatibel)
+    tp = state.get("topoPos", f.get("topoPos", 50))
+    try:
+        tp = float(tp)
+    except (TypeError, ValueError):
+        tp = 50.0
+    meta["topoPos"] = max(0.0, min(100.0, tp if math.isfinite(tp) else 50.0))
     return inp, straenge, meta
 
 
@@ -45,9 +53,12 @@ def to_html_state(inp: Inputs, straenge: list[Strang], meta: dict) -> dict:
     flds.update(inp.as_fields())
     flds["floors"] = str(straenge[active].floors)
     flds["split"] = straenge[active].split
+    topo = meta.get("topoPos", 50)
+    flds["topoPos"] = str(topo)
     return {"app": APP_NAME, "version": SAVE_VERSION,
             "savedAt": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
-            "fields": flds, "straenge": [asdict(s) for s in straenge], "activeStrang": active}
+            "fields": flds, "straenge": [asdict(s) for s in straenge], "activeStrang": active,
+            "topoPos": topo}
 
 
 def dumps(inp: Inputs, straenge: list[Strang], meta: dict) -> str:
@@ -56,3 +67,10 @@ def dumps(inp: Inputs, straenge: list[Strang], meta: dict) -> str:
 
 def loads(text: str) -> tuple[Inputs, list[Strang], dict]:
     return from_html_state(json.loads(text))
+
+
+def stand(inp: Inputs, straenge: list[Strang], meta: dict) -> str:
+    """Vergleichbarer Projektstand (ohne Zeitstempel) – für Auto-Sicherung und Zwischenspeicher."""
+    d = to_html_state(inp, straenge, meta)
+    d.pop("savedAt", None)
+    return json.dumps(d, ensure_ascii=False, sort_keys=True)
