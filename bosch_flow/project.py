@@ -10,7 +10,7 @@ from .calc import Inputs, Strang
 
 APP_NAME = "Bosch Flow – Netz- & Anlagenrechner"
 SAVE_VERSION = 52  # wie index.html V54 (Dateiformat unverändert, + topoPos)
-META_KEYS = ("projName", "projLoc", "projPlanner", "projDate")
+META_KEYS = ("projName", "projLoc", "projPlanner", "projDate", "montage", "heizkreis")  # letzte zwei: Katalog-Ausführung
 
 
 def _convert(raw, default):

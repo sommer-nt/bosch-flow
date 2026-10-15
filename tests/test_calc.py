@@ -111,7 +111,7 @@ def test_projektdatei_roundtrip():
     inp = Inputs(system="4", station="flow7000", wwstage=1, mat="kupfer", qhk=5.5, zentral="getrennt")
     straenge = [Strang.new(5, "both", 3), Strang(2, "one", [{"l": 4, "r": 0}, {"l": 6, "r": 0}])]
     meta = {"projName": "Wohnanlage Süd", "projLoc": "Stuttgart", "projPlanner": "", "projDate": "2026-10-01",
-            "activeStrang": 1, "topoPos": 30.0}
+            "montage": "up", "heizkreis": "gemischt", "activeStrang": 1, "topoPos": 30.0}
     inp2, straenge2, meta2 = loads(dumps(inp, straenge, meta))
     assert inp2 == inp and straenge2 == straenge and meta2 == meta
 
@@ -186,3 +186,26 @@ def test_variantenvergleich(sc):
         assert kennzahlen(neu, straenge, meta["topoPos"]) == z["k"]
         res = compute_all(neu, straenge)
         assert z["k"]["we"] == sum(r["totalWE"] for r in res)
+
+
+def test_katalog_geraete_und_stueckliste():
+    """Katalog 03/2026: jede Kombination liefert ein Gerät mit Bild; Kennlinie trifft die Katalogpunkte."""
+    from bosch_flow import katalog as KA
+    for station in ("flow8000", "flow7000"):
+        for stufe in (0, 1):
+            for system in ("2", "4"):
+                for zh in ("off", "on"):
+                    for mo in KA.MONTAGE:
+                        for hk in KA.HEIZKREIS:
+                            inp = Inputs(station=station, wwstage=stufe, system=system, zuheizer=zh,
+                                         tvl=45 if zh == "on" else 60)
+                            g = KA.geraet(inp, {"montage": mo, "heizkreis": hk})
+                            assert g["bild"].exists() and g["bestellnr"] and g["uvp"] > 0
+                            zeilen = KA.stueckliste(inp, {"montage": mo, "heizkreis": hk}, 12, 2, 8.0)
+                            assert zeilen[0]["menge"] == 12 and any(z["pos"] == "Netzpumpe" for z in zeilen)
+    g = KA.geraet(Inputs(station="flow8000", wwstage=0, tvl=60), {})
+    assert g["typ"] == "F8001 35 S" and g["vPrim"] == 859 and g["dpPrim"] == 446
+    g = KA.geraet(Inputs(station="flow7000", wwstage=1, tvl=55), {"heizkreis": "gemischt"})
+    assert g["typ"] == "F7002 45 MS" and g["vPrim"] == 1375 and g["dpPrim"] == 559
+    assert KA.netzpumpe(9.9)["typ"] == "NM 3" and KA.netzpumpe(10)["typ"] == "NM 6"
+    assert KA.netzpumpe(15.2) is None

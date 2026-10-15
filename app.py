@@ -23,6 +23,7 @@ from bosch_flow import report as RP  # noqa: E402
 from bosch_flow.bericht import pdf_bericht  # noqa: E402
 from bosch_flow.modell3d import modell  # noqa: E402
 from bosch_flow import varianten as VA  # noqa: E402
+from bosch_flow import katalog as KA  # noqa: E402
 from bosch_flow.calc import (Inputs, Strang, build_params, compute_all, din18015, dle_table, etage_label,  # noqa: E402
                              gesamt_anlage, project_headline, puffer_produkt, topo_label, topologie, tvl_bounds,
                              zapf_max_lmin)
@@ -84,6 +85,9 @@ st.markdown(f"""
 .empf ul {{margin:.3rem 0 .2rem 1.1rem; padding:0}} .empf small {{color:#78889a}}
 .empf-tag {{background:#2b9348; color:#fff; border-radius:20px; padding:1px 9px; font-size:11px; font-weight:700;
             margin-right:8px; letter-spacing:.03em; text-transform:uppercase}}
+.geraet-typ {{font-weight:800; font-size:16px; color:{'#4fa3e0' if DUNKEL else BLAU}; line-height:1.2}}
+.geraet-nr {{font-size:11.5px; color:#78889a; margin:.15rem 0 .35rem}}
+.st-key-geraet [data-testid="stImage"] img {{max-height:190px; object-fit:contain}}
 .hinweis {{font-size:12px; line-height:1.45; color:#78889a; border-left:3px solid {BLAU}; padding:6px 10px;
           background:rgba(0,86,145,.07); border-radius:0 6px 6px 0; margin:2px 0 8px}}
 .autosave {{font-size:11.5px; color:#2e7d32; text-align:center; margin:2px 0 6px}}
@@ -172,6 +176,29 @@ def karte(titel: str, zusatz: str = "", key: str | None = None):
     c.markdown(f'<div class="karte-titel">{titel}{f"<small>{zusatz}</small>" if zusatz else ""}</div>',
                unsafe_allow_html=True)
     return c
+
+
+def geraete_panel(g: dict) -> None:
+    """Produktbild und Katalogdaten der gewählten Station."""
+    with st.container(border=True, key="geraet"):
+        a, b = st.columns([1, 1.5], vertical_alignment="center")
+        a.image(str(g["bild"]), width="stretch")
+        b.markdown(f'<div class="geraet-typ">{g["typ"]}</div><div class="geraet-nr">Bestell-Nr. {g["bestellnr"]}<br>'
+                   f'UVP {fmt(g["uvp"])} € · {KA.MONTAGE[g["montage"]].split(" (")[0]}</div>'
+                   f'<div class="geraet-nr">H × B × T {g["abmessungen"]}</div>', unsafe_allow_html=True)
+        zeilen = [("Primär-Volumenstrom", f"{fmt(g['vPrim'])} l/h"), ("Primär-Druckverlust", f"{fmt(g['dpPrim'])} mbar"),
+                  ("bei Vorlauf", g["vlPunkt"]), ("Zapfmenge max.", f"{g['zapf']} l/min"),
+                  ("Primär-VL laut Katalog", f"{g['vlMin']}–{g['vlMax']} °C")]
+        st.markdown("".join(f'<div class="info-zeile"><span>{x}</span><b>{y}</b></div>' for x, y in zeilen),
+                   unsafe_allow_html=True)
+    for stufe, text in g["hinweise"]:
+        if stufe == "warn":
+            st.warning(text, icon=":material/warning:")
+    infos = [t for s_, t in g["hinweise"] if s_ == "info"]
+    if infos:
+        with st.expander(f"Katalog-Hinweise ({len(infos)})", icon=":material/menu_book:"):
+            st.markdown("\n".join(f"- {t}" for t in infos))
+            st.caption(KA.KATALOG)
 
 
 # ====================================================================== Eingaben (links)
@@ -345,6 +372,16 @@ with links:
         zeilen += [("Heizleistung max.", f"{stn['maxHeatKW']} kW"), ("System", f"{ss.inp.system}-Leiter")]
         st.markdown("".join(f'<div class="info-zeile"><span>{x}</span><b>{y}</b></div>' for x, y in zeilen),
                     unsafe_allow_html=True)
+        a, b = st.columns(2)
+        mo0, hk0 = KA.ausfuehrung(meta)
+        mo = a.selectbox("Montage", list(KA.MONTAGE), list(KA.MONTAGE).index(mo0), key=k("montage"),
+                         format_func=KA.MONTAGE.get, help="Ausführung laut Katalog – bestimmt Gerätetyp, Bestell-Nr. "
+                         "und Montagezubehör. Thermentausch (RS) nur Flow 7000 ohne DLE, ungemischt.")
+        hk = b.selectbox("Heizkreis", list(KA.HEIZKREIS), list(KA.HEIZKREIS).index(hk0), key=k("heizkreis"),
+                         format_func=lambda x: x, help="Ungemischt: Heizkreistemperatur = Versorgungstemperatur "
+                         "(Heizkörper). Gemischt: Station mit Pumpe und Mischer für Niedertemperatur (Fußbodenheizung).")
+        meta["montage"], meta["heizkreis"] = mo, hk
+        geraete_panel(KA.geraet(ss.inp, meta))
 
     # ---------------------------------------------------------------- ③ Auslegung
     with karte("③ Auslegung"):
@@ -512,6 +549,18 @@ def modell_vollbild() -> None:
     modell_3d(compute_all(ss.inp, ss.straenge), "m3d_voll", 760)
     if st.button("Schließen", type="primary", icon=":material/close_fullscreen:"):
         st.rerun()
+
+
+def stueckliste_df() -> pd.DataFrame:
+    zeilen = KA.projekt_stueckliste(ss.inp, ss.straenge, ss.meta)
+    def eur(v):
+        return "auf Anfrage" if v is None else f"{fmt(v, 2)} €"
+    df = pd.DataFrame([{"Position": z["pos"], "Bezeichnung": z["text"], "Bestell-Nr.": z["nr"], "Menge": str(z["menge"]),
+                        "UVP": eur(z["uvp"]), "Summe": eur(z["summe"])} for z in zeilen])
+    summe = sum(z["summe"] or 0 for z in zeilen)
+    return pd.concat([df, pd.DataFrame([{"Position": "Summe", "Bezeichnung": "Katalogpositionen (UVP, ohne MwSt.)",
+                                         "Bestell-Nr.": "", "Menge": "", "UVP": "", "Summe": eur(summe)}])],
+                     ignore_index=True)
 
 
 def variante_uebernehmen(aenderung: dict, titel: str) -> None:
@@ -738,6 +787,10 @@ with rechts:
     # ---------------------------------------------------------------- Anlagenschema
     with karte("Anlagenschema (Heizzentrale)", "Erzeuger · Puffer · Netzpumpe · Station"):
         schema(schemata.anlagenschema(R, HL, DUNKEL), "anlage")
+        with st.expander("Systemprinzip aus dem Katalog (Beispiel mit Pufferlademanagement MS 200)",
+                         icon=":material/image:"):
+            st.image(str(KA.BILDER / "systemprinzip.jpg"), width="stretch")
+            st.caption("Wärmeerzeuger → Pufferspeicher → Netzpumpe → Wohnungsstationen. Quelle: " + KA.KATALOG + ".")
 
     # ---------------------------------------------------------------- Auslegungs-Tabelle
     with karte("Auslegungs-Tabelle", f"Strang {meta['activeStrang'] + 1} von {n}" if n > 1 else ""):
@@ -772,6 +825,16 @@ with rechts:
                            "Einheit": st.column_config.TextColumn(width="small"),
                            "Herleitung": st.column_config.TextColumn(width="large")})
         st.caption(RP.anlage_note(A))
+
+    # ---------------------------------------------------------------- Stückliste (Katalog)
+    with karte("Stückliste & Netzpumpe", f"{KA.KATALOG}"):
+        st.dataframe(stueckliste_df().style.apply(
+            lambda r: ["font-weight:700" if r["Position"] == "Summe" else ""] * len(r), axis=1).set_properties(
+            subset=["Menge", "UVP", "Summe"], **{"text-align": "right"}), hide_index=True, width="stretch",
+            column_config={"Bezeichnung": st.column_config.TextColumn(width="large")})
+        st.caption(KA.PREISHINWEIS + " Montage- und Regelungszubehör nach Ausführung; Rohrleitungen, Erzeuger, "
+                   "Puffer und Montage nicht enthalten. Netzpumpenmodul nach Spitzen-Volumenstrom bei 0,8 bar "
+                   "Restförderhöhe – die Förderhöhe des Netzes ist gesondert zu prüfen.")
 
     # ---------------------------------------------------------------- DLE-Auslegungshilfe
     if A["zuheizerOn"]:

@@ -204,6 +204,14 @@ def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list) -> bytes
             start = len(R["hRows"]) + 4
             pd.DataFrame([["Steigstrang"]]).to_excel(xw, sheet_name=sh, index=False, header=False, startrow=start, startcol=col)
             strang_table(R, "V").to_excel(xw, sheet_name=sh, index=False, startrow=start + 1, startcol=col)
+        from .katalog import KATALOG, PREISHINWEIS, projekt_stueckliste
+        zeilen = projekt_stueckliste(inp, straenge, meta)
+        sl = pd.DataFrame([{"Position": z["pos"], "Bezeichnung": z["text"], "Bestell-Nr.": z["nr"], "Menge": z["menge"],
+                            "UVP €": z["uvp"], "Summe €": z["summe"]} for z in zeilen])
+        sl.loc[len(sl)] = ["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", None, None,
+                           float(sum(z["summe"] or 0 for z in zeilen))]
+        sl.to_excel(xw, sheet_name="Stückliste", index=False, startrow=1)
+        pd.DataFrame([[f"{KATALOG} – {PREISHINWEIS}"]]).to_excel(xw, sheet_name="Stückliste", index=False, header=False)
         for ws in xw.book.worksheets:
             for column in ws.columns:
                 width = max(len(str(c.value)) if c.value is not None else 0 for c in column)

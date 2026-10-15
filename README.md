@@ -44,6 +44,11 @@ Die App öffnet sich unter <http://localhost:8501>.
 - **Variantenvergleich:** Rechnet dieselbe Planung mit anderem Rohrmaterial, Vorlauf, Station, Zentrale,
   Gleichzeitigkeit und Leitersystem durch, bewertet (Rohrnetz, Erzeuger, Puffer, v_max) und empfiehlt die beste
   Auslegungsvariante – mit einem Klick übernehmen und rückgängig machen. Auch im PDF-Bericht.
+- **Gerät & Stückliste (Katalog März 2026):** Unter ② wählt man Montage (Auf-/Unterputz, Thermentausch RS) und
+  Heizkreis (ungemischt/gemischt). Die App zeigt die passende Station mit Produktbild, Bestell-Nr., UVP und den
+  Katalogdaten am gewählten Vorlauf (Primär-Volumenstrom, Primär-Druckverlust, Mindest-/Höchstvorlauf) samt
+  Katalog-Hinweisen. Die Stückliste (App, PDF, Excel) enthält Stationen, Montage- und Regelungszubehör,
+  thermischen Bypass, Netzpumpenmodul NM 3/6/10 und Inbetriebnahme. Der Rechenkern V54 bleibt unverändert.
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
 
 ## Streamlit Cloud
@@ -71,6 +76,8 @@ bosch_flow/
   plots.py              Diagramme (Plotly)
   modell3d.py           3D-Gebäudemodell des Rohrnetzes (Plotly)
   varianten.py          Variantenvergleich mit Bewertung und Empfehlung
+  katalog.py            Gerätedaten, Bestell-Nr., Netzpumpen, Stückliste (Bosch Katalog 03/2026)
+  daten/produkte/       Produktbilder (freigestellt) und Systemprinzip aus dem Katalog
   daten/icons/          Piktogramme: Erzeuger, Puffer, Heizkreis (aus der HTML) + Pumpe, Trinkwasser, Station
   project.py            Projektdateien laden/speichern (kompatibel mit index.html)
 tests/

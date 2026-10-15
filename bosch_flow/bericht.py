@@ -14,6 +14,7 @@ from fpdf.fonts import FontFace
 
 from . import report as RP
 from . import schemata as SC
+from . import katalog as KA
 from . import varianten as VA
 from .calc import Inputs, din18015, dle_table, gesamt_anlage, gz, project_headline, puffer_produkt, seg, topologie
 from .data import MATNAME, WAERMEQUELLEN
@@ -298,6 +299,41 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
     pdf.tabelle(["Größe", "Wert", "Einheit", "Herleitung"], [list(r) for r in RP.anlage_rows(A)], [62, 30, 16, 165],
                 fett_wenn=lambda z: str(z[0]).startswith("→"))
     pdf.absatz(RP.anlage_note(A), 8, GRAU)
+
+    # ------------------------------------------------------------ Wohnungsstation & Stückliste (Katalog)
+    g = KA.geraet(inp, meta)
+    pdf.abschnitt(f"Wohnungsstation & Stückliste – {KA.KATALOG}", neue_seite=True)
+    y0 = pdf.get_y()
+    pdf.image(str(g["bild"]), x=pdf.l_margin, y=y0, h=48, keep_aspect_ratio=True, w=40)
+    pdf.set_left_margin(pdf.l_margin + 46)
+    pdf.set_xy(pdf.l_margin, y0)
+    pdf.set_font(pdf.schrift, "B", 13)
+    pdf.set_text_color(*BOSCH_BLAU)
+    pdf.cell(0, 7, pdf.t(f"{g['typ']}  ·  Bestell-Nr. {g['bestellnr']}  ·  UVP {RP.fmt(g['uvp'])} €"),
+             new_x="LMARGIN", new_y="NEXT")
+    pdf.set_text_color(0, 0, 0)
+    pdf.parameter([("Montage / Heizkreis", f"{KA.MONTAGE[g['montage']]} · {g['heizkreis']}"),
+                   ("Abmessungen H × B × T", g["abmessungen"]),
+                   ("Primär-VL laut Katalog", f"{g['vlMin']}–{g['vlMax']} °C"),
+                   ("Primär-Volumenstrom", f"{RP.fmt(g['vPrim'])} l/h bei {g['vlPunkt']}"),
+                   ("Primär-Druckverlust", f"{RP.fmt(g['dpPrim'])} mbar bei {g['vlPunkt']}"),
+                   ("Zapfmenge max.", f"{g['zapf']} l/min")], spalten=3)
+    hw = [t for _, t in g["hinweise"]]
+    pdf.absatz("\n".join(f"- {t}" for t in hw), 7.5, GRAU)
+    pdf.set_left_margin(12)
+    pdf.set_y(max(pdf.get_y(), y0 + 50) + 2)
+    zeilen = KA.projekt_stueckliste(inp, straenge, meta)
+
+    def eur(v):
+        return "auf Anfrage" if v is None else f"{RP.fmt(v, 2)} €"
+    summe = sum(z["summe"] or 0 for z in zeilen)
+    pdf.tabelle(["Position", "Bezeichnung", "Bestell-Nr.", "Menge", "UVP", "Summe"],
+                [[z["pos"], z["text"], z["nr"], str(z["menge"]), eur(z["uvp"]), eur(z["summe"])] for z in zeilen]
+                + [["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", "", "", eur(summe)]],
+                [30, 130, 28, 16, 32, 37], fett_wenn=lambda z: z[0] == "Summe")
+    pdf.absatz(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer und Montage nicht enthalten. Netzpumpenmodul nach "
+               "Spitzen-Volumenstrom bei 0,8 bar Restförderhöhe; die Förderhöhe des Netzes ist gesondert zu prüfen.",
+               7.5, GRAU)
 
     if A["zuheizerOn"]:
         pdf.abschnitt("DLE-Auslegungshilfe (Mischbooster, analog Bosch Tab. 7)", platz=70)
