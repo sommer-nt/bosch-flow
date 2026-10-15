@@ -145,3 +145,25 @@ def test_pdf_bericht(sc):
     inp, straenge, meta = build(sc)
     pdf = pdf_bericht(inp, straenge, {**meta, "projName": "Test Süd"}, compute_all(inp, straenge), "15.10.2026 10:00")
     assert pdf.startswith(b"%PDF") and len(pdf) > 20000
+
+
+@pytest.mark.parametrize("sc", SCENARIOS, ids=[s["name"] for s in SCENARIOS])
+def test_3d_modell(sc):
+    """Jedes Rohrstück (Steigstrang, Etagenleitungen, Hauptstrang) hat genau einen Hover-Punkt mit seinen Daten."""
+    from bosch_flow.calc import topologie
+    from bosch_flow.modell3d import modell
+    inp, straenge, meta = build(sc)
+    res = compute_all(inp, straenge)
+    for modus in ("v", "dn"):
+        fig = modell(res, meta["topoPos"], modus)
+        erwartet = sum(len(r["vRows"]) + sum(c["l"] + (c["r"] if r["split"] == "both" else 0) for c in r["cfg"])
+                       for r in res)
+        if len(res) > 1:
+            erwartet += len(topologie(res, meta["topoPos"])["abschnitte"])
+        hover = fig.data[-1]
+        assert len(hover.hovertext) == erwartet
+        stationen = next(t for t in fig.data if t.name == "Wohnungsstation")
+        assert len(stationen.x) == sum(r["totalWE"] for r in res)
+    einzel = modell(res, 50, "v", dunkel=True, nur_strang=len(res) - 1)
+    assert len(einzel.data[-1].hovertext) == len(res[-1]["vRows"]) + sum(
+        c["l"] + (c["r"] if res[-1]["split"] == "both" else 0) for c in res[-1]["cfg"])

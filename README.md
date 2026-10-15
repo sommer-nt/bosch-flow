@@ -38,6 +38,9 @@ Die App öffnet sich unter <http://localhost:8501>.
   „📌 Anheften“ hält das Schema beim Scrollen sichtbar.
 - **Alle Stränge:** Netztopologie mit Regler für die Position der Wärmezentrale (wird mitgespeichert), „⤢ Vollbild“,
   Hauptstrang je Abschnitt mit maßgeblichem Abschnitt, Gesamt-Kennzahlen und Diagramme.
+- **3D-Gebäudemodell:** Das ganze Rohrnetz als drehbares Raummodell – Keller mit Hauptstrang und Wärmezentrale,
+  Steigrohre, Etagenleitungen und Stationen. Rohrdicke = Nennweite, Farbe = Ausnutzung von v_max oder Nennweite;
+  jedes Rohrstück zeigt beim Überfahren seine Werte. Ganzes Projekt oder nur der aktuelle Strang, auch im Vollbild.
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
 
 ## Streamlit Cloud
@@ -63,6 +66,7 @@ bosch_flow/
   zeichnung.py          Zeichenschicht: dieselbe Grafik für Bildschirm (Plotly) und PDF
   bericht.py            PDF-Auslegungsbericht (A4 quer, wie „Planung als PDF exportieren“)
   plots.py              Diagramme (Plotly)
+  modell3d.py           3D-Gebäudemodell des Rohrnetzes (Plotly)
   daten/icons/          Piktogramme: Erzeuger, Puffer, Heizkreis (aus der HTML) + Pumpe, Trinkwasser, Station
   project.py            Projektdateien laden/speichern (kompatibel mit index.html)
 tests/

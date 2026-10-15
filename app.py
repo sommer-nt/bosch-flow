@@ -21,6 +21,7 @@ st.set_page_config(page_title="Bosch Flow – Netz- & Anlagenrechner", page_icon
 from bosch_flow import plots, schemata  # noqa: E402
 from bosch_flow import report as RP  # noqa: E402
 from bosch_flow.bericht import pdf_bericht  # noqa: E402
+from bosch_flow.modell3d import modell  # noqa: E402
 from bosch_flow.calc import (Inputs, Strang, build_params, compute_all, din18015, dle_table, etage_label,  # noqa: E402
                              gesamt_anlage, project_headline, puffer_produkt, topo_label, topologie, tvl_bounds,
                              zapf_max_lmin)
@@ -189,21 +190,20 @@ with links:
         straenge = ss.straenge
         n = len(straenge)
         aktiv = meta["activeStrang"]
-        a, b, c = st.columns([3, 1, 1], vertical_alignment="center")
-        if n > 1:
-            w = a.segmented_control("Strang", [f"Strang {i + 1}" for i in range(n)], default=f"Strang {aktiv + 1}",
-                                    key=f"strang_geb_{ss.rev}_{aktiv}_{n}", label_visibility="collapsed")
-            if w and int(w.split()[-1]) - 1 != aktiv:
-                meta["activeStrang"] = int(w.split()[-1]) - 1
+        if n > 1:                                  # eigene Zeile, damit auch viele Stränge sichtbar bleiben
+            namen = [f"Strang {i + 1}" if n <= 3 else f"S{i + 1}" for i in range(n)]
+            w = st.segmented_control("Strang", namen, default=namen[aktiv], key=f"strang_geb_{ss.rev}_{aktiv}_{n}",
+                                     label_visibility="collapsed", width="stretch")
+            if w and namen.index(w) != aktiv:
+                meta["activeStrang"] = namen.index(w)
                 st.rerun()
-        else:
-            a.markdown('<span class="badge2">Strang 1</span>', unsafe_allow_html=True)
-        if b.button("＋", help="+ Strang: neuer Strang als Kopie des aktuellen", width="stretch"):
+        b, c = st.columns(2, vertical_alignment="center")
+        if b.button("＋ Strang", help="Neuer Strang als Kopie des aktuellen", width="stretch"):
             cur = straenge[aktiv]
             straenge.append(Strang(cur.floors, cur.split, [dict(x) for x in cur.cfg]))
             meta["activeStrang"] = len(straenge) - 1
             st.rerun()
-        if c.button("－", help="– Strang: aktuellen Strang löschen", disabled=n <= 1, width="stretch"):
+        if c.button("－ Strang", help="Aktuellen Strang löschen", disabled=n <= 1, width="stretch"):
             straenge.pop(aktiv)
             meta["activeStrang"] = min(aktiv, len(straenge) - 1)
             ss.rev += 1
@@ -491,6 +491,22 @@ def topologie_vollbild() -> None:
         st.rerun()
 
 
+def modell_3d(res: list, key: str, hoehe: int) -> None:
+    farbe = "dn" if ss.get("m3d_farbe") == "Nennweite" else "v"
+    nur = ss.meta["activeStrang"] if ss.get("m3d_umfang") == "Aktueller Strang" and len(res) > 1 else None
+    fig = modell(res, ss.meta["topoPos"], farbe, DUNKEL, nur, hoehe)
+    st.plotly_chart(fig, width="stretch", key=key, theme=None,
+                    config={"displaylogo": False, "responsive": True,
+                            "toImageButtonOptions": {"format": "png", "scale": 2, "filename": "Bosch_Flow_3D"}})
+
+
+@st.dialog("3D-Gebäudemodell – Vollbild", width="large")
+def modell_vollbild() -> None:
+    modell_3d(compute_all(ss.inp, ss.straenge), "m3d_voll", 760)
+    if st.button("Schließen", type="primary", icon=":material/close_fullscreen:"):
+        st.rerun()
+
+
 # ====================================================================== Ergebnisse (rechts)
 with rechts:
     k1, k2, k3, k4 = st.columns(4)
@@ -604,6 +620,22 @@ with rechts:
                 a, b = st.columns(2)
                 a.plotly_chart(plots.chart_volumenstrom(ctx), width="stretch", key="chart_all_v")
                 b.plotly_chart(plots.chart_gleichzeitigkeit(ctx), width="stretch", key="chart_all_g")
+
+    # ---------------------------------------------------------------- 3D-Gebäudemodell
+    with karte("3D-Gebäudemodell", "Drehen: ziehen · Zoom: Mausrad · Werte: Maus über ein Rohr"):
+        a, b, c = st.columns([2, 2, 1], vertical_alignment="center")
+        a.segmented_control("Färbung", ["Geschwindigkeit", "Nennweite"], default="Geschwindigkeit", key="m3d_farbe",
+                            label_visibility="collapsed")
+        if n > 1:
+            b.segmented_control("Umfang", ["Ganzes Projekt", "Aktueller Strang"], default="Ganzes Projekt",
+                                key="m3d_umfang", label_visibility="collapsed")
+        if c.button("⤢ Vollbild", key="m3d_vb", width="stretch"):
+            modell_vollbild()
+        modell_3d(results, "m3d", 560)
+        st.caption("Schematisches Raummodell: Keller mit Hauptstrang und Wärmezentrale (Position wie in der "
+                   "Netztopologie), je Strang das Steigrohr und je Etage die Leitungen zu den Stationen. Rohrdicke = "
+                   "Nennweite, Farbe = Ausnutzung der zulässigen Geschwindigkeit bzw. Nennweite. Legende anklicken "
+                   "blendet einzelne Stufen ein/aus.")
 
     # ---------------------------------------------------------------- Anlagenschema
     with karte("Anlagenschema (Heizzentrale)", "Erzeuger · Puffer · Netzpumpe · Station"):
