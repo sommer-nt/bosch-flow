@@ -59,7 +59,7 @@ Die App öffnet sich unter <http://localhost:8501>.
   Heizkreis (ungemischt/gemischt). Die App zeigt die passende Station mit Produktbild, Bestell-Nr., UVP und den
   Katalogdaten am gewählten Vorlauf (Primär-Volumenstrom, Primär-Druckverlust, Mindest-/Höchstvorlauf) samt
   Katalog-Hinweisen. Die Stückliste (App, PDF, Excel) enthält Stationen, Montage- und Regelungszubehör,
-  thermischen Bypass, Netzpumpenmodul NM 3/6/10 und Inbetriebnahme. Der Rechenkern V54 bleibt unverändert.
+  thermischen Bypass, Netzpumpe als Betriebspunkt (bauseits) und Inbetriebnahme. Der Rechenkern V54 bleibt unverändert.
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
 
 ## Streamlit Cloud
