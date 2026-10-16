@@ -32,15 +32,15 @@ Die App öffnet sich unter <http://localhost:8501>.
 
 - **Kachel-Dashboard:** Oben vier Kennzahlen (Volumenstrom, Anschluss, Erzeuger, Puffer, mit Trend zur letzten
   Änderung), darunter 3D-Gebäude, Prüfungen (Ampel), Variantenempfehlung, Strom-Gleichzeitigkeit nach DIN 18015-1,
-  Rohrnetz, Wohnungsstation und Stückliste.
+  Rohrnetz, Netzpumpe (Betriebspunkt), Rohrmengen, Wohnungsstation und Stückliste. Die Position der Wärmezentrale
+  lässt sich im Reiter „Gebäude“ und direkt unter dem 3D-Modell verschieben.
   Ein Klick auf eine Kachel öffnet die Details (Schemata, Tabellen, Herleitungen, Diagramme).
 - **Eingaben:** Panel links mit den Reitern Gebäude · System · Auslegung · Hydraulik · Projekt, ein-/ausblendbar über
   „Eingaben“. PDF oben rechts, Speichern/Laden/Excel/Zurücksetzen im Menü „···“.
 - **Druckverlust, Pumpe & Rohrmengen (Erweiterung über V54):** Reiter „Hydraulik“ mit Geschosshöhe, Stations- und
   Strangabständen, Zuschlag Einzelwiderstände und Ansatz Wärmezentrale. Daraus: Druckverlust je Abschnitt im gewählten
   Rohr (Darcy-Weisbach, λ wie im HIU-Kern), ungünstigster Fließweg, Förderhöhe inkl. Primär-Δp der Station laut
-  Katalog, Prüfung gegen Netzpumpenmodul NM 3/6/10 (0,8 bar Restförderhöhe) und Rohrmengen je Nennweite mit
-  Wasserinhalt. Auch in PDF (eigene Seite), Excel (Blatt „Hydraulik“) und Stückliste.
+  Katalog als Betriebspunkt der (bauseits auszulegenden) Netzpumpe und Rohrmengen je Nennweite mit Wasserinhalt. Auch in PDF (eigene Seite), Excel (Blatt „Hydraulik“) und Stückliste.
 - **Sicherung:** Jede Eingabe wird automatisch im Browser gesichert und beim nächsten Öffnen wiederhergestellt
   (auch nach dem Hell/Dunkel-Umschalten). „Zwischenspeichern“ sichert sofort; „Speichern“ lädt eine Projektdatei
   (.json) herunter, die auch die HTML-Version öffnet. Die Browser-Sicherung bleibt im jeweiligen Browser.

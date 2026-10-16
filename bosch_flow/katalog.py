@@ -243,16 +243,11 @@ def stueckliste(inp: Inputs, meta: dict, n_stationen: int, n_straenge: int, v_ne
         z("f7_mp_basis", n_stationen, "Montage")
     if reihe in ("flow7000", "hps", "fwm", "fwmhps") and float(inp.tvl) >= 70:
         z("verbruehschutz", n_stationen, "Zubehör")
-    pumpe = netzpumpe(v_netz / max(1, zentralen), dp_bar)
-    if pumpe:
-        zeilen.append({"pos": "Netzpumpe", "text": f"Netzpumpenmodul {pumpe['typ']} ({pumpe['pumpe']}), bis "
-                       f"{_de(pumpe['vmax'])} m³/h bei 0,8 bar", "nr": pumpe["bestellnr"],
-                       "menge": zentralen, "uvp": pumpe["uvp"]})
-    else:
-        grund = (f"Förderhöhe {_de(dp_bar, 2)} bar über 0,8 bar Restförderhöhe" if dp_bar and dp_bar > RESTFOERDERHOEHE
-                 else f"Volumenstrom {_de(v_netz / max(1, zentralen))} m³/h über dem Bereich von NM 10")
-        zeilen.append({"pos": "Netzpumpe", "text": f"{grund} – Netzpumpe individuell auslegen", "nr": "–",
-                       "menge": zentralen, "uvp": None})
+    v_je = v_netz / max(1, zentralen)
+    punkt = f"V̇ {_de(v_je, 2)} m³/h" + (f", Förderhöhe {_de(dp_bar, 2)} bar (≈ {_de(dp_bar * 10.2, 1)} m)"
+                                         if dp_bar is not None else "")
+    zeilen.append({"pos": "Netzpumpe", "text": f"Netzpumpe bauseits – Betriebspunkt {punkt}", "nr": "bauseits",
+                   "menge": zentralen, "uvp": None})
     z("ibn_ab6" if n_stationen >= 6 else "ibn_1_5", n_stationen, "Dienstleistung")
     z("pauschale", 1, "Dienstleistung")
     for r in zeilen:

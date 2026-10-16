@@ -101,12 +101,14 @@ header[data-testid="stHeader"] {{background:transparent}}
 .pille {{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:{F['leise']};
         background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:999px; padding:5px 12px;
         white-space:nowrap}}
+.kopf-info {{font-size:12.5px; color:{F['leise']}; text-align:right; line-height:1.45}}
+.kopf-info b {{color:{F['text']}; font-size:13.5px}}
 .pille i {{width:8px; height:8px; border-radius:50%; background:{F['gruen']}; display:inline-block}}
 /* Kacheln */
 [class*="st-key-kachel"] {{background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:20px;
         padding:18px 20px 16px; box-shadow:{F['schatten']}; transition:box-shadow .18s, transform .18s;
         position:relative; gap:.35rem}}
-[class*="st-key-kachel"]:hover {{box-shadow:{F['schatten2']}}}
+[class*="st-key-kachelklick"]:hover {{box-shadow:{F['schatten2']}}}
 [class*="st-key-kachelklick"]:hover {{transform:translateY(-2px); cursor:pointer}}
 [class*="st-key-kachelklick"] [class*="st-key-klick_"] {{position:absolute; inset:0; z-index:4; margin:0}}
 [class*="st-key-kachelklick"] [class*="st-key-klick_"] button {{width:100%; height:100%; opacity:0; cursor:pointer}}
@@ -119,8 +121,7 @@ header[data-testid="stHeader"] {{background:transparent}}
          line-height:1.05; margin-top:6px}}
 .k-wert span {{font-size:.45em; font-weight:600; color:{F['leise']}; margin-left:5px; letter-spacing:0}}
 .k-unter {{font-size:12.5px; color:{F['leise']}; margin-top:6px}}
-.k-icon {{width:34px; height:34px; border-radius:10px; background:{F['akzent_bg']}; display:flex; align-items:center;
-         justify-content:center}}
+.k-icon {{width:30px; height:30px; display:flex; align-items:center; justify-content:center; opacity:.75}}
 .k-icon img {{width:22px; height:22px}}
 .delta {{display:inline-block; font-size:11.5px; font-weight:700; border-radius:999px; padding:1px 8px; margin-left:6px}}
 .delta.up {{background:rgba(229,72,77,.12); color:{F['rot']}}}
@@ -243,7 +244,7 @@ if msg := ss.pop("meldung", None):
 kopf = st.columns([3.2, 3.4, 1.15, 1.25, 0.62, 0.5], vertical_alignment="center")
 kopf[0].markdown('<div class="marke">BOSCH <span>Flow</span><small>Netz- &amp; Anlagenrechner für '
                  'Wohnungsstationen</small></div>', unsafe_allow_html=True)
-kopf_status = kopf[1].empty()
+kopf_status = kopf[1].container()
 if kopf[2].button("Eingaben", icon=":material/tune:", width="stretch",
                   type="secondary" if ss.panel else "primary", help="Eingabe-Panel ein-/ausblenden"):
     ss.panel = not ss.panel
@@ -259,7 +260,19 @@ else:
     haupt, panel_spalte = st.container(), None
 
 
-# ====================================================================== Eingabe-Panel (rechts)
+def zentrale_regler(schluessel: str) -> None:
+    """Position der Wärmezentrale (0 = links … 100 = rechts); mehrere Regler teilen sich denselben Wert."""
+    m = ss.meta
+    pos = st.slider("Position Wärmezentrale", 0, 100, int(m["topoPos"]), 5,
+                    key=f"{schluessel}_{ss.rev}_{int(m['topoPos'])}", format="%d %%",
+                    help="0 % = links am ersten Strang, 50 % = mittig, 100 % = rechts. Der Hauptstrang wird je "
+                         "Abschnitt neu dimensioniert und mit dem Projekt gespeichert.")
+    if pos != int(m["topoPos"]):
+        m["topoPos"] = float(pos)
+        st.rerun()
+
+
+# ====================================================================== Eingabe-Panel (links)
 def eingaben() -> None:
     meta = ss.meta
     t_geb, t_sys, t_ausl, t_hyd, t_proj = st.tabs(["Gebäude", "System", "Auslegung", "Hydraulik", "Projekt"])
@@ -294,6 +307,9 @@ def eingaben() -> None:
                          help="Gemeinsam = eine Zentrale für alle Stränge (Summe der Wohnungen). Getrennt = jeder Strang "
                               "eigener Kessel/Puffer.")
         setze(zentral=z)
+        if n > 1 and z == "gemeinsam":
+            zentrale_regler("topo_geb")
+            st.caption(f"Wärmezentrale: **{topo_label(meta['topoPos'])}**")
         si = meta["activeStrang"]
         s = straenge[si]
         a, b = st.columns(2)
@@ -495,13 +511,8 @@ def pruefungen() -> list[tuple[str, str, str]]:
     else:
         out.append(("ok", "Geschwindigkeiten im Rahmen", f"alle {KZ['abschnitte']} Abschnitte ≤ {fmt(P['vmax'], 1)} m/s · "
                     f"max. {fmt(KZ['auslastung'] * 100)} %"))
-    if HYD["nm"]:
-        out.append(("ok", f"{HYD['nm']['typ']} passt", f"Förderhöhe {fmt(HYD['bar'], 2)} bar ≤ 0,8 bar bei "
-                    f"{fmt(HYD['V'], 1)} m³/h"))
-    else:
-        out.append(("warn", "Netzpumpenmodul reicht nicht",
-                    f"Förderhöhe {fmt(HYD['bar'], 2)} bar (davon Station {fmt(HYD['dpStation'] / 1e5, 2)} bar) bei "
-                    f"{fmt(HYD['V'], 1)} m³/h – über NM-Bereich (0,8 bar), Pumpe individuell auslegen"))
+    out.append(("info", "Betriebspunkt Netzpumpe", f"V̇ {fmt(HYD['V'], 2)} m³/h · Förderhöhe {fmt(HYD['bar'], 2)} bar "
+                f"(≈ {fmt(HYD['H'], 1)} m) – bauseits zu erbringen"))
     if P["vlhkZuHoch"]:
         out.append(("err", "Heizkreis-VL zu hoch", f"{fmt(P['vlhk'])} °C über Netztemperatur {fmt(P['netzTemp'])} °C – "
                     f"max. {P['vlhkMax']} °C"))
@@ -531,12 +542,17 @@ n_warn = sum(1 for s, _, _ in PRUEF if s == "warn")
 farbe_status = F["rot"] if n_err else F["gelb"] if n_warn else F["gruen"]
 text_status = (f"{n_err} Fehler" if n_err else f"{n_warn} Hinweis{'e' if n_warn > 1 else ''}" if n_warn
                else "Auslegung OK")
-kopf_status.markdown(
-    f'<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">'
-    f'<span class="pille">{meta["projName"] or "Neues Projekt"}</span>'
-    f'<span class="pille"><i style="background:{farbe_status}"></i>{text_status}</span>'
-    f'<span class="pille" title="Jede Eingabe wird automatisch im Browser gesichert.">↻ gesichert '
-    f'{ss.get("zwischen") or datetime.now().strftime("%H:%M")}</span></div>', unsafe_allow_html=True)
+with kopf_status:
+    a, b = st.columns([1.5, 1], vertical_alignment="center")
+    a.markdown(f'<div class="kopf-info"><b>{meta["projName"] or "Neues Projekt"}</b><br>'
+               f'<span title="Jede Eingabe wird automatisch im Browser gesichert.">↻ automatisch gesichert '
+               f'{ss.get("zwischen") or datetime.now().strftime("%H:%M")}</span></div>', unsafe_allow_html=True)
+    b.markdown(f'<style>.st-key-status_knopf button {{border-radius:999px; font-weight:700; color:{farbe_status}; '
+               f'border-color:{farbe_status}}}</style>', unsafe_allow_html=True)
+    if b.button(text_status, key="status_knopf", width="stretch",
+                icon=":material/check_circle:" if not (n_err or n_warn) else ":material/error:",
+                help="Alle Prüfungen anzeigen"):
+        ss.oeffne = "pruef"
 
 _inp, _str, _meta = inp, [Strang(s.floors, s.split, [dict(c) for c in s.cfg]) for s in straenge], dict(meta)
 
@@ -666,8 +682,8 @@ def dialog_rohrnetz() -> None:
         if G_["getrennt"]:
             st.warning("Getrennte Ausführung: kein gemeinsamer Hauptstrang – die Topologie dient nur der Übersicht.")
         a, b = st.columns([3, 1], vertical_alignment="bottom")
-        pos = a.slider("Position Wärmezentrale", 0, 100, int(m["topoPos"]), 1, key=f"topo_d_{ss.rev}",
-                       help="0 = links, 50 = mittig, 100 = rechts. Wird mit dem Projekt gespeichert.")
+        pos = a.slider("Position Wärmezentrale", 0, 100, int(m["topoPos"]), 5, key=f"topo_d_{ss.rev}", format="%d %%",
+                       help="0 % = links, 50 % = mittig, 100 % = rechts. Wird mit dem Projekt gespeichert.")
         m["topoPos"] = float(pos)
         b.markdown(f"**{topo_label(pos)}**")
         schema(schemata.topologie_szene(res, pos, True, DUNKEL), "d_topo", breite_px=1150, leiste=True)
@@ -765,9 +781,9 @@ def dialog_hydraulik() -> None:
     st.caption("Erweiterung über den Rechenkern V54 hinaus: vereinfachtes Vorplanungsmodell mit den Längen aus dem "
                "Reiter „Hydraulik“. Ersetzt keine Rohrnetzberechnung.")
     a, b, c, d = st.columns(4)
-    a.metric("Förderhöhe", f"{fmt(h['bar'], 2)} bar", help=f"≈ {fmt(h['H'], 1)} m Wassersäule")
-    b.metric("Volumenstrom Pumpe", f"{fmt(h['V'], 2)} m³/h", help=f"{h['pumpen']} Netzpumpe(n)")
-    c.metric("Netzpumpenmodul", h["nm"]["typ"] if h["nm"] else "individuell")
+    a.metric("Förderhöhe Netzpumpe", f"{fmt(h['bar'], 2)} bar", help="Erforderlich am ungünstigsten Fließweg")
+    b.metric("Förderhöhe", f"{fmt(h['H'], 1)} m", help="Wassersäule")
+    c.metric("Volumenstrom" + (f" je Anlage ({h['pumpen']}×)" if h["pumpen"] > 1 else ""), f"{fmt(h['V'], 2)} m³/h")
     d.metric("Rohrleitung VL + RL", f"{fmt(h['laenge'])} m", help=f"Wasserinhalt ≈ {fmt(h['inhalt'])} l")
     teile = [("Rohrnetz VL + RL", h["dpRohr"], F["akzent"]), ("Einzelwiderstände", h["dpEinzel"], "#80b918"),
              (f"Station {h['station']}", h["dpStation"], F["gelb"]), ("Wärmezentrale", h["dpZentrale"], "#9aa5b1")]
@@ -775,19 +791,15 @@ def dialog_hydraulik() -> None:
                             text=f"{t}<br>{fmt(w / 1e5, 2)} bar" if w / h["dpGes"] > 0.12 else "",
                             textposition="inside", insidetextanchor="middle",
                             hovertemplate=f"{t}: {fmt(w / 1e5, 3)} bar<extra></extra>") for t, w, f in teile])
-    fig.add_vline(x=0.8, line=dict(color=F["rot"], width=2, dash="dash"),
-                  annotation_text="NM: 0,8 bar Restförderhöhe", annotation_position="top")
     fig.update_layout(barmode="stack", height=170, margin=dict(l=10, r=20, t=40, b=30), showlegend=False,
                       paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", separators=",.",
                       font=dict(color=F["text"], size=12))
-    fig.update_xaxes(title="bar", gridcolor=F["linie"], range=[0, max(1.0, h["bar"] * 1.1)])
+    fig.update_xaxes(title="bar", gridcolor=F["linie"], range=[0, h["bar"] * 1.04])
     fig.update_yaxes(visible=False)
     st.plotly_chart(fig, width="stretch", key="hy_bar", theme=None, config={"displayModeBar": False})
-    if not h["nm"]:
-        st.warning(f"Kein Netzpumpenmodul NM 3/6/10 reicht: {fmt(h['bar'], 2)} bar bei {fmt(h['V'], 1)} m³/h. Allein die "
-                   f"Station braucht {fmt(h['dpStation'] / 1e5, 2)} bar bei {h['stationVL']} – ein höherer "
-                   "Versorgungs-VL senkt den Stations-Druckverlust deutlich (Katalog-Kennlinie). Sonst Pumpe individuell "
-                   "auslegen.", icon=":material/warning:")
+    st.info(f"**Betriebspunkt der Netzpumpe (bauseits):** V̇ = {fmt(h['V'], 2)} m³/h bei {fmt(h['bar'], 2)} bar "
+            f"(≈ {fmt(h['H'], 1)} m). Davon Station {h['station']} {fmt(h['dpStation'] / 1e5, 2)} bar bei "
+            f"{h['stationVL']} laut Katalog.", icon=":material/water_pump:")
     if h["vierLeiter"]:
         st.info("4-Leiter: gerechnet ist das Trinkwasser-Netz. Das Heiznetz ist eine eigene Pumpengruppe und hier nicht "
                 "enthalten.", icon=":material/info:")
@@ -912,13 +924,18 @@ def dialog_stueckliste() -> None:
     def eur(v):
         return "auf Anfrage" if v is None else f"{fmt(v, 2)} €"
     df = pd.DataFrame([{"Position": z["pos"], "Bezeichnung": z["text"], "Bestell-Nr.": z["nr"], "Menge": str(z["menge"]),
-                        "UVP": eur(z["uvp"]), "Summe": eur(z["summe"])} for z in zeilen])
+                        "UVP": "–" if z["nr"] == "bauseits" else eur(z["uvp"]),
+                        "Summe": "bauseits" if z["nr"] == "bauseits" else eur(z["summe"])} for z in zeilen])
     df.loc[len(df)] = ["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", "", "",
                        eur(sum(z["summe"] or 0 for z in zeilen))]
     st.dataframe(df.style.apply(lambda r: ["font-weight:700" if r["Position"] == "Summe" else ""] * len(r), axis=1),
                  hide_index=True, width="stretch", column_config={"Bezeichnung": st.column_config.TextColumn(width="large")})
-    st.caption(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer und Montage nicht enthalten.")
+    st.caption(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer, Netzpumpe und Montage nicht enthalten.")
     schliessen()
+
+
+if ss.pop("oeffne", None) == "pruef":
+    dialog_pruefungen()
 
 
 # ====================================================================== Dashboard
@@ -971,6 +988,8 @@ with haupt:
             fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
             st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
                             config={"displayModeBar": False, "displaylogo": False})
+            if n > 1 and not G["getrennt"]:
+                zentrale_regler("topo_3d")
             a, b = st.columns([3, 1], vertical_alignment="center")
             a.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte")
             if b.button("Vollbild", icon=":material/open_in_full:", key="m3d_vb", width="stretch"):
@@ -1014,12 +1033,10 @@ with haupt:
                         f'<div class="rn-kopf" style="margin-top:8px">Balken = Strangfuß v / v_max</div>',
                         unsafe_allow_html=True)
     with c4:
-        farbe_p = F["gruen"] if HYD["nm"] else F["gelb"]
-        with kachel("pumpe", "Pumpe · Förderhöhe", "pumpe", dialog_hydraulik, "Druckverlust"):
+        with kachel("pumpe", "Netzpumpe · Betriebspunkt", "pumpe", dialog_hydraulik, "Druckverlust"):
             st.markdown(f'<div class="k-wert">{fmt(HYD["bar"], 2)}<span>bar</span></div><div class="k-unter">'
-                        f'≈ {fmt(HYD["H"], 1)} m · {fmt(HYD["V"], 1)} m³/h<br><b style="color:{farbe_p}">'
-                        f'{HYD["nm"]["typ"] + " passt" if HYD["nm"] else "über NM-Bereich"}</b> · '
-                        f'{fmt(HYD["laenge"])} m Rohr</div>', unsafe_allow_html=True)
+                        f'Förderhöhe ≈ {fmt(HYD["H"], 1)} m<br>bei {fmt(HYD["V"], 2)} m³/h · bauseits</div>',
+                        unsafe_allow_html=True)
     with c5:
         dstrom = din18015(A["weForZentrale"])
         mit_dle = A["zuheizerOn"]
@@ -1039,7 +1056,7 @@ with haupt:
                         f'Vor- und Rücklauf · {len(HYD["rohrmengen"])} Nennweiten<br>meist {dn_max["dim"]} '
                         f'({fmt(dn_max["L"])} m) · Inhalt ≈ {fmt(HYD["inhalt"])} l</div>', unsafe_allow_html=True)
     with c2:
-        with kachel("geraet", "Wohnungsstation", None, dialog_geraet, "Datenblatt"):
+        with kachel("geraet", "Wohnungsstation", None, dialog_geraet, "Gerätedaten"):
             stg = STATIONS[inp.station]["stages"][min(int(inp.wwstage), len(STATIONS[inp.station]["stages"]) - 1)]
             bild = base64.b64encode(GERAET["bild"].read_bytes()).decode()
             st.markdown(f'<div style="display:flex;gap:16px;align-items:center;margin-top:6px">'
@@ -1053,8 +1070,7 @@ with haupt:
         with kachel("stueck", "Stückliste (UVP)", None, dialog_stueckliste, "Positionen"):
             st.markdown(f'<div class="k-wert">{fmt(summe / 1000, 1)}<span>T€</span></div><div class="k-unter">'
                         f'{len(STUECK)} Positionen · {STUECK[0]["menge"]} Stationen<br>'
-                        f'Netzpumpe: {pumpe["text"].split(" (")[0].replace("Netzpumpenmodul ", "") if pumpe and pumpe["nr"] != "–" else "individuell auslegen"}'
-                        f'</div>', unsafe_allow_html=True)
+                        f'ohne Rohrleitung und Netzpumpe (bauseits)</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="fuss">Werkzeug zur Vorplanung nach Bosch-HIU-Methodik – ersetzt keine verbindliche '
                 'Rohrnetzberechnung · Entwickelt von Daniel Sommer · HC/SDE3-PSD</div>', unsafe_allow_html=True)

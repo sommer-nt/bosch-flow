@@ -173,7 +173,14 @@ class Bericht(FPDF):
                 self.set_xy(x + 2.5, y + 3.8)
                 self.set_font(self.schrift, "B", 9)
                 self.set_text_color(20, 30, 41)
-                self.cell(w - 6, 5, self.t(v))
+                groesse = 9
+                while groesse > 6.5 and self.get_string_width(self.t(v)) > w - 7:
+                    groesse -= 0.5
+                    self.set_font(self.schrift, "B", groesse)
+                text = self.t(v)
+                while self.get_string_width(text) > w - 7 and len(text) > 4:
+                    text = text[:-2] + "…"
+                self.cell(w - 6, 5, text)
             self.set_y(y + 11.5)
         self.set_text_color(0, 0, 0)
         self.set_auto_page_break(True, margin=14)
@@ -228,6 +235,13 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
                  ("Pufferspeicher" + (" (Σ getrennt)" if G["getrennt"] else " (Auswahl)"),
                   f"{RP.fmt(G['pufferVol'])} l" if G["getrennt"] else pp["text"]),
                  ("Gleichzeitigkeit (GZ)", RP.fmt(gz_ges, 1))])
+    h0 = HY.berechne(inp, straenge, meta)
+    d0 = din18015(A["weForZentrale"])
+    pdf.kacheln([("Netzpumpe – Förderhöhe", f"{RP.fmt(h0['bar'], 2)} bar ≈ {RP.fmt(h0['H'], 1)} m"),
+                 ("Netzpumpe – Volumenstrom", f"{RP.fmt(h0['V'], 2)} m³/h"),
+                 ("Strom am Netzanschluss (DIN 18015)",
+                  f"≈ {RP.fmt(d0['mit'] if A['zuheizerOn'] else d0['ohne'])} kW"),
+                 ("Rohrleitung VL + RL", f"{RP.fmt(h0['laenge'])} m")])
     HL = project_headline(R, inp)
     pdf.absatz(f"Strangfuß {'gesamt' if HL['projektweit'] else 'unten'}: {HL['dim']} bei {RP.fmt(HL['Vtot'], 2)} m³/h, "
                f"v = {RP.fmt(HL['v'], 2)} m/s. {RP.anlage_note(A)}", 8.5, GRAU)
@@ -267,16 +281,25 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
                     [[f"Abschnitt {a['strang']}", a["load"], f"Strang {a['strang']}", "Hauptstrang", a["dn"],
                       f"{RP.fmt(a['V'], 2)} m³/h", f"{RP.fmt(a['v'], 2)} m/s" + ("  ◆ maßgeblich" if a["kritisch"] else "")]
                      for a in T["abschnitte"]], fett_wenn=lambda z: "◆" in z[-1])
-        pdf.absatz(RP.hauptstrang_erklaerung(results, T), 8, GRAU)
-        pdf.kacheln([("Wohnungen gesamt", str(G["we"])),
-                     (f"Kessel-/FW-Leistung {'(Σ getrennte Anlagen)' if G['getrennt'] else '(gesamt)'}",
-                      f"{RP.fmt(G['kesselQ'])} kW"),
-                     (f"Pufferspeicher {'(Σ getrennte Anlagen)' if G['getrennt'] else '(gesamt)'}",
-                      f"{RP.fmt(G['pufferVol'])} l")])
-        pdf.absatz(RP.gesamt_note(G, len(results)), 8, GRAU)
+        pdf.absatz(RP.hauptstrang_erklaerung(results, T) + " " + RP.gesamt_note(G, len(results)), 8, GRAU)
+
+    # ------------------------------------------------------------ Anlagenschema + Tabellen (aktiver Strang)
+    titel = f" – Strang {aktiv + 1}" if len(results) > 1 else ""
+    pdf.abschnitt("Anlagenschema (Heizzentrale)" + titel, platz=115)
+    pdf.szene(SC.anlagenschema(R, HL), hoehe_max=105)
+    pdf.abschnitt("Auslegungs-Tabelle – maßgeblicher Etagenstrang" + titel, platz=60)
+    df = RP.strang_table(R, "H")
+    pdf.tabelle(list(df.columns), [[_z(v, c) for c, v in zip(df.columns, row)] for row in df.itertuples(index=False)],
+                [60, 18, 14, 26, 24, 26, 20, 22, 30])
+    pdf.absatz(f"Maßgeblicher (längster) Etagenstrang: von der äußersten Station (1 WE, kleinste Dimension) bis zum "
+               f"Steigstrang ({R['govN']} WE). WW-Volumenstrom je Station gedeckelt auf 1,3 m³/h.", 8, GRAU)
+    pdf.abschnitt("Wärmezentrale – Kessel & Pufferspeicher" + titel, platz=62)
+    pdf.tabelle(["Größe", "Wert", "Einheit", "Herleitung"], [list(r) for r in RP.anlage_rows(A)], [62, 30, 16, 165],
+                fett_wenn=lambda z: str(z[0]).startswith("→"))
+    pdf.absatz(RP.anlage_note(A), 8, GRAU)
 
     # ------------------------------------------------------------ Diagramme
-    pdf.abschnitt(f"Diagramme – Volumenstrom & Gleichzeitigkeit (Bezug {G['we']} Wohnungen)", neue_seite=True)
+    pdf.abschnitt(f"Diagramme – Volumenstrom & Gleichzeitigkeit (Bezug {G['we']} Wohnungen)", platz=78)
     y = pdf.get_y()
     bw = (pdf.w - 24 - 8) / 2
     h1 = in_pdf(pdf, SC.diagramm_volumenstrom(P, G["we"]), 12, y, bw)
@@ -286,26 +309,13 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
                "realistische, nicht überzogene Dimensionen. TU Dresden (ROUND(WE^-0,57·WE)) liegt bei vielen Wohnungen "
                "unter DIN 4708.", 8, GRAU)
 
-    # ------------------------------------------------------------ Anlagenschema + Tabellen (aktiver Strang)
-    titel = f" – Strang {aktiv + 1}" if len(results) > 1 else ""
-    pdf.abschnitt("Anlagenschema (Heizzentrale)" + titel, neue_seite=True)
-    pdf.szene(SC.anlagenschema(R, HL), hoehe_max=105)
-    pdf.abschnitt("Auslegungs-Tabelle – maßgeblicher Etagenstrang" + titel, platz=60)
-    df = RP.strang_table(R, "H")
-    pdf.tabelle(list(df.columns), [[_z(v, c) for c, v in zip(df.columns, row)] for row in df.itertuples(index=False)],
-                [60, 18, 14, 26, 24, 26, 20, 22, 30])
-    pdf.absatz(f"Maßgeblicher (längster) Etagenstrang: von der äußersten Station (1 WE, kleinste Dimension) bis zum "
-               f"Steigstrang ({R['govN']} WE). WW-Volumenstrom je Station gedeckelt auf 1,3 m³/h.", 8, GRAU)
-    pdf.abschnitt("Wärmezentrale – Kessel & Pufferspeicher" + titel, neue_seite=True)
-    pdf.tabelle(["Größe", "Wert", "Einheit", "Herleitung"], [list(r) for r in RP.anlage_rows(A)], [62, 30, 16, 165],
-                fett_wenn=lambda z: str(z[0]).startswith("→"))
-    pdf.absatz(RP.anlage_note(A), 8, GRAU)
-
     # ------------------------------------------------------------ Wohnungsstation & Stückliste (Katalog)
     g = KA.geraet(inp, meta)
-    pdf.abschnitt(f"Wohnungsstation & Stückliste – {KA.KATALOG}", neue_seite=True)
+    pdf.abschnitt(f"Wohnungsstation & Stückliste – {KA.KATALOG}", platz=125)
     y0 = pdf.get_y()
-    pdf.image(str(g["bild"]), x=pdf.l_margin, y=y0, h=48, keep_aspect_ratio=True, w=40)
+    pdf.set_fill_color(236, 240, 244)
+    pdf.rect(pdf.l_margin, y0, 40, 50, style="F", round_corners=True, corner_radius=3)
+    pdf.image(str(g["bild"]), x=pdf.l_margin + 3, y=y0 + 3, h=44, keep_aspect_ratio=True, w=34)
     pdf.set_left_margin(pdf.l_margin + 46)
     pdf.set_xy(pdf.l_margin, y0)
     pdf.set_font(pdf.schrift, "B", 13)
@@ -329,20 +339,18 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
         return "auf Anfrage" if v is None else f"{RP.fmt(v, 2)} €"
     summe = sum(z["summe"] or 0 for z in zeilen)
     pdf.tabelle(["Position", "Bezeichnung", "Bestell-Nr.", "Menge", "UVP", "Summe"],
-                [[z["pos"], z["text"], z["nr"], str(z["menge"]), eur(z["uvp"]), eur(z["summe"])] for z in zeilen]
+                [[z["pos"], z["text"], z["nr"], str(z["menge"]), *(("–", "bauseits") if z["nr"] == "bauseits" else (eur(z["uvp"]), eur(z["summe"])))] for z in zeilen]
                 + [["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", "", "", eur(summe)]],
                 [30, 130, 28, 16, 32, 37], fett_wenn=lambda z: z[0] == "Summe")
-    pdf.absatz(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer und Montage nicht enthalten. Netzpumpenmodul nach "
-               "Spitzen-Volumenstrom bei 0,8 bar Restförderhöhe; die Förderhöhe des Netzes ist gesondert zu prüfen.",
-               7.5, GRAU)
+    pdf.absatz(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer, Netzpumpe und Montage nicht enthalten.", 7.5, GRAU)
 
     # ------------------------------------------------------------ Druckverlust, Pumpe, Rohrmengen (Erweiterung)
     h = HY.berechne(inp, straenge, meta)
-    pdf.abschnitt("Druckverlust, Förderhöhe & Rohrmengen (Erweiterung über V54)", neue_seite=True)
-    pdf.kacheln([("Förderhöhe", f"{RP.fmt(h['bar'], 2)} bar ≈ {RP.fmt(h['H'], 1)} m"),
-                 ("Volumenstrom je Pumpe", f"{RP.fmt(h['V'], 2)} m³/h"),
-                 ("Netzpumpenmodul", h["nm"]["typ"] if h["nm"] else "individuell auslegen"),
-                 ("Rohr VL + RL", f"{RP.fmt(h['laenge'])} m · {RP.fmt(h['inhalt'])} l")])
+    pdf.abschnitt("Druckverlust, Förderhöhe & Rohrmengen (Erweiterung über V54)", platz=110)
+    pdf.kacheln([("Netzpumpe – erforderliche Förderhöhe", f"{RP.fmt(h['bar'], 2)} bar ≈ {RP.fmt(h['H'], 1)} m"),
+                 ("Netzpumpe – Volumenstrom" + (f" (je Anlage, {h['pumpen']}×)" if h["pumpen"] > 1 else ""),
+                  f"{RP.fmt(h['V'], 2)} m³/h"),
+                 ("Rohr VL + RL", f"{RP.fmt(h['laenge'])} m"), ("Wasserinhalt Netz", f"{RP.fmt(h['inhalt'])} l")])
     geo = h["geo"]
     pdf.absatz(f"Annahmen: Geschosshöhe {RP.fmt(geo['hG'], 1)} m · Steigstrang → erste Station {RP.fmt(geo['aAn'], 1)} m · "
                f"Stationsabstand {RP.fmt(geo['aSt'], 1)} m · Strangabstand {RP.fmt(geo['aStr'], 1)} m · Zentrale → erster "
@@ -350,7 +358,7 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
                f"{RP.fmt(geo['dpZen'])} mbar. Zusammensetzung: Rohrnetz VL + RL {RP.fmt(h['dpRohr'] / 100)} mbar + "
                f"Einzelwiderstände {RP.fmt(h['dpEinzel'] / 100)} mbar + Station {h['station']} {RP.fmt(h['dpStation'] / 100)} "
                f"mbar ({h['stationVL']}, Katalog) + Zentrale {RP.fmt(h['dpZentrale'] / 100)} mbar = "
-               f"{RP.fmt(h['dpGes'] / 100)} mbar. Vergleich: Netzpumpenmodule NM 3/6/10 mit 0,8 bar Restförderhöhe.", 8, GRAU)
+               f"{RP.fmt(h['dpGes'] / 100)} mbar. Die Netzpumpe ist bauseits für diesen Betriebspunkt auszulegen.", 8, GRAU)
     pdf.tabelle(["Ungünstigster Fließweg (einfach)", "WE", "Rohr", "V̇ [m³/h]", "v [m/s]", "L [m]", "R [Pa/m]",
                  "Δp [mbar]"],
                 [[z["name"], str(z["we"]), z["rohr"], RP.fmt(z["V"], 2), RP.fmt(z["v"], 2), RP.fmt(z["L"], 1),
@@ -381,7 +389,7 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
 
     # ------------------------------------------------------------ Variantenvergleich
     V = VA.vergleich(inp, straenge, float(meta.get("topoPos", 50)))
-    pdf.abschnitt("Variantenvergleich – dieselbe Planung mit anderen Eingaben", neue_seite=True)
+    pdf.abschnitt("Variantenvergleich – dieselbe Planung mit anderen Eingaben", platz=90)
     best = V["empfehlung"]
     if best["variante"].gruppe == "Planung":
         pdf.absatz("Ergebnis: Die aktuelle Planung ist unter den geprüften Varianten die beste.", 9, BOSCH_BLAU)

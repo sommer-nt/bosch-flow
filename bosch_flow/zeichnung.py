@@ -264,6 +264,9 @@ def in_pdf(pdf, s: Szene, x: float, y: float, w: float, h: float | None = None) 
             p2 = (X(e.x1) - L * math.cos(ang + 0.45), Y(e.y1) - L * math.sin(ang + 0.45))
             pdf.polygon([(X(e.x1), Y(e.y1)), p1, p2], style="F")
         elif isinstance(e, Icon):
+            farbe = (255, 255, 255) if e.invert else (0x1D, 0x1D, 0x1B)   # SVG-Pfade ohne eigene Füllung
+            pdf.set_fill_color(*farbe)
+            pdf.set_draw_color(*farbe)
             try:
                 pdf.image(str(ICONS / f"{e.name}.svg"), x=X(e.x0), y=Y(e.y0), w=(e.x1 - e.x0) * k,
                           h=(e.y1 - e.y0) * k, keep_aspect_ratio=True)

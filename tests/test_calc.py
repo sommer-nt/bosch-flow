@@ -158,14 +158,13 @@ def test_3d_modell(sc):
         fig = modell(res, meta["topoPos"], modus)
         erwartet = sum(len(r["vRows"]) + sum(c["l"] + (c["r"] if r["split"] == "both" else 0) for c in r["cfg"])
                        for r in res)
-        if len(res) > 1:
-            erwartet += len(topologie(res, meta["topoPos"])["abschnitte"])
+        erwartet += len(topologie(res, meta["topoPos"])["abschnitte"]) if len(res) > 1 else 1   # 1 = Zuleitung
         hover = fig.data[-1]
         assert len(hover.hovertext) == erwartet
         stationen = next(t for t in fig.data if t.name == "Wohnungsstation")
         assert len(stationen.x) == sum(r["totalWE"] for r in res)
     einzel = modell(res, 50, "v", dunkel=True, nur_strang=len(res) - 1)
-    assert len(einzel.data[-1].hovertext) == len(res[-1]["vRows"]) + sum(
+    assert len(einzel.data[-1].hovertext) == 1 + len(res[-1]["vRows"]) + sum(
         c["l"] + (c["r"] if res[-1]["split"] == "both" else 0) for c in res[-1]["cfg"])
 
 

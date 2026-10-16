@@ -141,8 +141,14 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
             flaechen.append(go.Mesh3d(x=[x_min, x_max, x_max, x_min],
                                       y=[-TIEFE, -TIEFE, TIEFE, TIEFE], z=[z] * 4, i=[0, 0], j=[1, 2], k=[2, 3],
                                       color=platte, opacity=1, hoverinfo="skip", showscale=False, flatshading=True))
+        # Geschossbeschriftung links am ersten Strang
+        if xr == xs[0]:
+            flaechen.append(go.Scatter3d(x=[x_min - 1.6] * floors, y=[0] * floors,
+                                         z=[f * ETAGE for f in range(1, floors + 1)], mode="text",
+                                         text=[etage_label(f) for f in range(1, floors + 1)],
+                                         textfont=dict(color=soft, size=11), hoverinfo="skip", showlegend=False))
         # Strangbeschriftung oben
-        stat_label = dict(x=[xr], y=[0], z=[floors * ETAGE + 1.6], text=[f"Strang {i + 1}"])
+        stat_label = dict(x=[xr], y=[0], z=[floors * ETAGE + 1.6], text=[f"<b>Strang {i + 1}</b> · {R['totalWE']} WE"])
         flaechen.append(go.Scatter3d(mode="text", textfont=dict(color=ink, size=13), hoverinfo="skip",
                                      showlegend=False, **stat_label))
 
@@ -161,20 +167,33 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
             r = seg(a["load"], P)
             rohr((p0, 0, 0), (p1, 0, 0), r, f"Hauptstrang · Abschnitt {a['strang']}"
                  + (" · ◆ maßgeblich" if a["kritisch"] else ""))
-        fig.add_trace(go.Scatter3d(x=[zx], y=[0], z=[-0.6], mode="markers",
-                                   marker=dict(size=14, symbol="square", color="#0a3b5c",
-                                               line=dict(color="#ffffff", width=2)),
+        fig.add_trace(go.Scatter3d(x=[zx], y=[0], z=[-1.5], mode="markers",
+                                   marker=dict(size=18, symbol="square", color="rgba(0,0,0,0)"),
                                    hovertext=[f"<b>Wärmezentrale</b> ({T['label']})<br>Σ {T['gesamtWE']} WE · "
                                               f"V̇ = {fmt(T['gesamt']['Vtot'], 2)} m³/h<br>Anschluss "
                                               f"<b>{T['gesamt']['dim']}</b> · v {fmt(T['gesamt']['v'], 2)} m/s"],
                                    hoverinfo="text", showlegend=False))
     else:
-        fig.add_trace(go.Scatter3d(x=[xs[0]], y=[0], z=[-0.6], mode="markers",
-                                   marker=dict(size=12, symbol="square", color="#0a3b5c"), hoverinfo="skip",
-                                   showlegend=False))
+        rf = results[nur_strang if nur_strang is not None else 0]["vRows"][0]
+        rohr((xs[0], 0, -0.4), (xs[0], 0, 0), rf, "Zuleitung Wärmezentrale → Strangfuß")
     zx_text = zx if nur_strang is None and len(results) > 1 else xs[0]
-    fig.add_trace(go.Scatter3d(x=[zx_text], y=[-TIEFE], z=[-3.4], mode="text", text=["Wärmezentrale"],
-                               textfont=dict(color=ink, size=12), hoverinfo="skip", showlegend=False))
+    # Wärmezentrale als Baukörper im Keller, darunter der Kellerboden
+    zb = "#2f6fa0" if dunkel else "#0a3b5c"
+    bx, by, bz = 2.2, 1.8, (-2.6, -0.4)
+    ex = [zx_text - bx, zx_text + bx, zx_text + bx, zx_text - bx] * 2
+    ey = [-by, -by, by, by] * 2
+    ez = [bz[0]] * 4 + [bz[1]] * 4
+    fig.add_trace(go.Mesh3d(x=ex, y=ey, z=ez, i=[0, 0, 4, 4, 0, 0, 1, 1, 2, 2, 3, 3], j=[1, 2, 5, 6, 1, 5, 2, 6, 3, 7, 0, 4],
+                            k=[2, 3, 6, 7, 5, 4, 6, 5, 7, 6, 4, 7], color=zb, opacity=1, flatshading=True,
+                            hoverinfo="skip", showscale=False, lighting=dict(ambient=0.75, diffuse=0.5)))
+    alle_x = [v for t in fig.data for v in (getattr(t, "x", None) or []) if v is not None]
+    k0, k1 = min(alle_x) - 2, max(alle_x) + 2
+    fig.add_trace(go.Mesh3d(x=[k0, k1, k1, k0], y=[-TIEFE - 1, -TIEFE - 1, TIEFE + 1, TIEFE + 1], z=[-2.65] * 4,
+                            i=[0, 0], j=[1, 2], k=[2, 3], color="rgba(120,140,160,0.18)" if dunkel else "rgba(16,24,40,0.07)",
+                            opacity=1, hoverinfo="skip", showscale=False, flatshading=True))
+    fig.add_trace(go.Scatter3d(x=[zx_text + bx + 0.6], y=[-by], z=[-1.5], mode="text", text=["<b>Wärmezentrale</b>"],
+                               textposition="middle right", textfont=dict(color=ink, size=12), hoverinfo="skip",
+                               showlegend=False))
     # Rohre: eine Spur je Farbe/Breite (schnell), Legende je Farbstufe einmal
     gezeigt = set()
     reihenfolge = [s[2] for s in STUFEN] if modus == "v" else [d[0] for d in DN_SERIES]
