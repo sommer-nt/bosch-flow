@@ -197,13 +197,20 @@ def hinweise(inp: Inputs, reihe: str, montage: str, hk: str, tech: dict) -> list
     return out
 
 
-def netzpumpe(v_m3h: float) -> dict | None:
-    """Kleinstes Netzpumpenmodul, das den Volumenstrom bei 0,8 bar Restförderhöhe schafft (None = zu groß)."""
-    return next((p for p in NETZPUMPEN if p["vmax"] >= v_m3h), None)
+def netzpumpe(v_m3h: float, dp_bar: float | None = None) -> dict | None:
+    """Kleinstes Netzpumpenmodul für den Volumenstrom (None = keines passt).
+    Ohne ``dp_bar`` gilt der Katalogpunkt bei 0,8 bar Restförderhöhe. Mit ``dp_bar`` (erforderliche Förderhöhe des
+    Netzes inkl. Station) muss der Punkt unter der Kennlinie liegen: bis 0,7 bar gilt der größere Volumenstrom,
+    bis 0,8 bar der kleinere, darüber passt keines der Module."""
+    if dp_bar is None:
+        return next((p for p in NETZPUMPEN if p["vmax"] >= v_m3h), None)
+    if dp_bar > RESTFOERDERHOEHE:
+        return None
+    return next((p for p in NETZPUMPEN if (p["vmax07"] if dp_bar <= 0.7 else p["vmax"]) >= v_m3h), None)
 
 
 def stueckliste(inp: Inputs, meta: dict, n_stationen: int, n_straenge: int, v_netz: float,
-                zentralen: int = 1) -> list[dict]:
+                zentralen: int = 1, dp_bar: float | None = None) -> list[dict]:
     """Material je Projekt aus dem Katalog (Stationen, Montage, Regelung, Zubehör, Netzpumpe, Inbetriebnahme)."""
     g = geraet(inp, meta)
     reihe, montage, hk = g["reihe"], g["montage"], g["heizkreis"]
@@ -236,14 +243,15 @@ def stueckliste(inp: Inputs, meta: dict, n_stationen: int, n_straenge: int, v_ne
         z("f7_mp_basis", n_stationen, "Montage")
     if reihe in ("flow7000", "hps", "fwm", "fwmhps") and float(inp.tvl) >= 70:
         z("verbruehschutz", n_stationen, "Zubehör")
-    pumpe = netzpumpe(v_netz / max(1, zentralen))
+    pumpe = netzpumpe(v_netz / max(1, zentralen), dp_bar)
     if pumpe:
         zeilen.append({"pos": "Netzpumpe", "text": f"Netzpumpenmodul {pumpe['typ']} ({pumpe['pumpe']}), bis "
                        f"{_de(pumpe['vmax'])} m³/h bei 0,8 bar", "nr": pumpe["bestellnr"],
                        "menge": zentralen, "uvp": pumpe["uvp"]})
     else:
-        zeilen.append({"pos": "Netzpumpe", "text": f"Volumenstrom {_de(v_netz / max(1, zentralen))} m³/h über NM 10 "
-                       "(15,1 m³/h) – Netzpumpe individuell auslegen", "nr": "–",
+        grund = (f"Förderhöhe {_de(dp_bar, 2)} bar über 0,8 bar Restförderhöhe" if dp_bar and dp_bar > RESTFOERDERHOEHE
+                 else f"Volumenstrom {_de(v_netz / max(1, zentralen))} m³/h über dem Bereich von NM 10")
+        zeilen.append({"pos": "Netzpumpe", "text": f"{grund} – Netzpumpe individuell auslegen", "nr": "–",
                        "menge": zentralen, "uvp": None})
     z("ibn_ab6" if n_stationen >= 6 else "ibn_1_5", n_stationen, "Dienstleistung")
     z("pauschale", 1, "Dienstleistung")
@@ -260,4 +268,5 @@ def projekt_stueckliste(inp: Inputs, straenge: list, meta: dict) -> list[dict]:
         zentralen, v = len(res), max(r["vRows"][0]["Vtot"] for r in res) * len(res)
     else:
         zentralen, v = 1, project_headline(res[0], inp)["Vtot"]
-    return stueckliste(inp, meta, G["we"], len(res), v, zentralen)
+    from .hydraulik import berechne
+    return stueckliste(inp, meta, G["we"], len(res), v, zentralen, berechne(inp, straenge, meta)["bar"])

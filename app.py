@@ -22,6 +22,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Bosch Flow – Netz- & Anlagenrechner", page_icon="🔥", layout="wide")
 
+from bosch_flow import hydraulik as HY  # noqa: E402
 from bosch_flow import katalog as KA  # noqa: E402
 from bosch_flow import plots, schemata  # noqa: E402
 from bosch_flow import report as RP  # noqa: E402
@@ -185,7 +186,8 @@ header[data-testid="stHeader"] {{background:transparent}}
 div[data-testid="stDialog"] div[role="dialog"] {{border-radius:20px}}
 /* gleiche Höhen je Reihe */
 .st-key-kachelklick_v, .st-key-kachelklick_dn, .st-key-kachelklick_kessel, .st-key-kachelklick_puffer {{min-height:150px}}
-.st-key-kachelklick_rohrnetz, .st-key-kachelklick_geraet, .st-key-kachelklick_stueck {{min-height:190px}}
+.st-key-kachelklick_rohrnetz, .st-key-kachelklick_geraet, .st-key-kachelklick_stueck,
+.st-key-kachelklick_pumpe, .st-key-kachelklick_strom, .st-key-kachelklick_rohr {{min-height:190px}}
 .st-key-kachelklick_geraet [data-testid="stImage"] img {{max-height:130px; object-fit:contain}}
 .st-key-panel_zu button {{border:0; background:transparent; min-height:32px; padding:4px 8px}}
 .st-key-panel [data-baseweb="tab-list"] {{gap:6px}}
@@ -260,7 +262,7 @@ else:
 # ====================================================================== Eingabe-Panel (rechts)
 def eingaben() -> None:
     meta = ss.meta
-    t_geb, t_sys, t_ausl, t_proj = st.tabs(["Gebäude", "System", "Auslegung", "Projekt"])
+    t_geb, t_sys, t_ausl, t_hyd, t_proj = st.tabs(["Gebäude", "System", "Auslegung", "Hydraulik", "Projekt"])
 
     # ---------------------------------------------------------------- Gebäude
     with t_geb:
@@ -430,6 +432,17 @@ def eingaben() -> None:
                                 key=k("heizDt"), help="Nur 4-Leiter: Herstellerpraxis (VDI 4645) 10 K.")
             setze(heizTueber=hT, heizDt=hD)
 
+    # ---------------------------------------------------------------- Hydraulik (Erweiterung)
+    with t_hyd:
+        st.caption("Leitungslängen und Zuschläge für Druckverlust, Förderhöhe und Rohrmengen – Erweiterung über den "
+                   "Rechenkern V54 hinaus.")
+        geo = HY.geometrie(meta)
+        spalten = st.columns(2)
+        for i, (key, (_v, titel, einheit, lo, hi, schritt)) in enumerate(HY.GEOMETRIE.items()):
+            meta[key] = float(spalten[i % 2].number_input(f"{titel} [{einheit}]", float(lo), float(hi), float(geo[key]),
+                                                          float(schritt), format="%.1f" if schritt < 1 else "%.0f",
+                                                          key=k(f"geo_{key}")))
+
     # ---------------------------------------------------------------- Projekt
     with t_proj:
         meta["projName"] = st.text_input("Projektname", meta["projName"], key=k("projName"),
@@ -467,6 +480,7 @@ name = (meta["projName"] or "bosch-flow-projekt").strip().replace(" ", "_")
 KZ = VA.kennzahlen(inp, straenge, meta["topoPos"])
 GERAET = KA.geraet(inp, meta)
 STUECK = KA.projekt_stueckliste(inp, straenge, meta)
+HYD = HY.berechne(inp, straenge, meta)
 jetzt = stand(inp, straenge, meta)
 
 
@@ -481,11 +495,13 @@ def pruefungen() -> list[tuple[str, str, str]]:
     else:
         out.append(("ok", "Geschwindigkeiten im Rahmen", f"alle {KZ['abschnitte']} Abschnitte ≤ {fmt(P['vmax'], 1)} m/s · "
                     f"max. {fmt(KZ['auslastung'] * 100)} %"))
-    pumpe = next((z for z in STUECK if z["pos"] == "Netzpumpe"), None)
-    if pumpe and pumpe["nr"] != "–":
-        out.append(("ok", "Netzpumpenmodul passt", pumpe["text"]))
-    elif pumpe:
-        out.append(("warn", "Netzpumpe individuell auslegen", pumpe["text"]))
+    if HYD["nm"]:
+        out.append(("ok", f"{HYD['nm']['typ']} passt", f"Förderhöhe {fmt(HYD['bar'], 2)} bar ≤ 0,8 bar bei "
+                    f"{fmt(HYD['V'], 1)} m³/h"))
+    else:
+        out.append(("warn", "Netzpumpenmodul reicht nicht",
+                    f"Förderhöhe {fmt(HYD['bar'], 2)} bar (davon Station {fmt(HYD['dpStation'] / 1e5, 2)} bar) bei "
+                    f"{fmt(HYD['V'], 1)} m³/h – über NM-Bereich (0,8 bar), Pumpe individuell auslegen"))
     if P["vlhkZuHoch"]:
         out.append(("err", "Heizkreis-VL zu hoch", f"{fmt(P['vlhk'])} °C über Netztemperatur {fmt(P['netzTemp'])} °C – "
                     f"max. {P['vlhkMax']} °C"))
@@ -743,6 +759,74 @@ def dialog_strom() -> None:
     schliessen()
 
 
+@st.dialog("Druckverlust, Pumpe & Rohrmengen", width="large")
+def dialog_hydraulik() -> None:
+    h = HY.berechne(ss.inp, ss.straenge, ss.meta)
+    st.caption("Erweiterung über den Rechenkern V54 hinaus: vereinfachtes Vorplanungsmodell mit den Längen aus dem "
+               "Reiter „Hydraulik“. Ersetzt keine Rohrnetzberechnung.")
+    a, b, c, d = st.columns(4)
+    a.metric("Förderhöhe", f"{fmt(h['bar'], 2)} bar", help=f"≈ {fmt(h['H'], 1)} m Wassersäule")
+    b.metric("Volumenstrom Pumpe", f"{fmt(h['V'], 2)} m³/h", help=f"{h['pumpen']} Netzpumpe(n)")
+    c.metric("Netzpumpenmodul", h["nm"]["typ"] if h["nm"] else "individuell")
+    d.metric("Rohrleitung VL + RL", f"{fmt(h['laenge'])} m", help=f"Wasserinhalt ≈ {fmt(h['inhalt'])} l")
+    teile = [("Rohrnetz VL + RL", h["dpRohr"], F["akzent"]), ("Einzelwiderstände", h["dpEinzel"], "#80b918"),
+             (f"Station {h['station']}", h["dpStation"], F["gelb"]), ("Wärmezentrale", h["dpZentrale"], "#9aa5b1")]
+    fig = go.Figure([go.Bar(y=["Förderhöhe"], x=[w / 1e5], name=t, orientation="h", marker=dict(color=f),
+                            text=f"{t}<br>{fmt(w / 1e5, 2)} bar" if w / h["dpGes"] > 0.12 else "",
+                            textposition="inside", insidetextanchor="middle",
+                            hovertemplate=f"{t}: {fmt(w / 1e5, 3)} bar<extra></extra>") for t, w, f in teile])
+    fig.add_vline(x=0.8, line=dict(color=F["rot"], width=2, dash="dash"),
+                  annotation_text="NM: 0,8 bar Restförderhöhe", annotation_position="top")
+    fig.update_layout(barmode="stack", height=170, margin=dict(l=10, r=20, t=40, b=30), showlegend=False,
+                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", separators=",.",
+                      font=dict(color=F["text"], size=12))
+    fig.update_xaxes(title="bar", gridcolor=F["linie"], range=[0, max(1.0, h["bar"] * 1.1)])
+    fig.update_yaxes(visible=False)
+    st.plotly_chart(fig, width="stretch", key="hy_bar", theme=None, config={"displayModeBar": False})
+    if not h["nm"]:
+        st.warning(f"Kein Netzpumpenmodul NM 3/6/10 reicht: {fmt(h['bar'], 2)} bar bei {fmt(h['V'], 1)} m³/h. Allein die "
+                   f"Station braucht {fmt(h['dpStation'] / 1e5, 2)} bar bei {h['stationVL']} – ein höherer "
+                   "Versorgungs-VL senkt den Stations-Druckverlust deutlich (Katalog-Kennlinie). Sonst Pumpe individuell "
+                   "auslegen.", icon=":material/warning:")
+    if h["vierLeiter"]:
+        st.info("4-Leiter: gerechnet ist das Trinkwasser-Netz. Das Heiznetz ist eine eigene Pumpengruppe und hier nicht "
+                "enthalten.", icon=":material/info:")
+    reiter = st.tabs(["Ungünstigster Fließweg", "Rohrmengen"])
+    with reiter[0]:
+        st.caption(f"Strang {h['kritisch'] + 1} · Weg Zentrale → letzte Station {fmt(h['wegLaenge'] / 2)} m (einfach). "
+                   "Druckverlust je Abschnitt im gewählten Rohr bei realer Geschwindigkeit.")
+        st.dataframe(pd.DataFrame([{"Abschnitt": z["name"], "WE": z["we"], "Rohr": z["rohr"], "Dimension": z["dim"],
+                                    "V̇ [m³/h]": z["V"], "v [m/s]": z["v"], "L [m]": z["L"], "R [Pa/m]": z["R"],
+                                    "Δp [mbar]": z["dp"] / 100} for z in h["pfad"]]), hide_index=True,
+                     width="stretch", column_config={
+                         "V̇ [m³/h]": st.column_config.NumberColumn(format="%.2f"),
+                         "v [m/s]": st.column_config.NumberColumn(format="%.2f"),
+                         "L [m]": st.column_config.NumberColumn(format="%.1f"),
+                         "R [Pa/m]": st.column_config.NumberColumn(format="%.0f"),
+                         "Δp [mbar]": st.column_config.NumberColumn(format="%.1f")})
+        st.caption(f"Summe Rohrnetz einfach {fmt(h['dpRohr'] / 200, 1)} mbar · VL + RL {fmt(h['dpRohr'] / 100, 1)} mbar · "
+                   f"+ {fmt(h['geo']['zuschlag'])} % Einzelwiderstände · + Station {fmt(h['dpStation'] / 100)} mbar "
+                   f"({h['stationVL']}) · + Zentrale {fmt(h['dpZentrale'] / 100)} mbar = {fmt(h['dpGes'] / 100)} mbar.")
+    with reiter[1]:
+        rm = h["rohrmengen"]
+        fig2 = go.Figure(go.Bar(x=[m["dim"] for m in rm], y=[m["L"] for m in rm], marker=dict(color=F["akzent"],
+                                cornerradius=6), text=[f"{fmt(m['L'])} m" for m in rm], textposition="outside",
+                                cliponaxis=False))
+        fig2.update_layout(height=280, margin=dict(l=64, r=10, t=24, b=30), paper_bgcolor="rgba(0,0,0,0)",
+                           plot_bgcolor="rgba(0,0,0,0)", font=dict(color=F["text"]), separators=",.")
+        fig2.update_yaxes(title="Länge VL + RL [m]", gridcolor=F["linie"], automargin=False)
+        st.plotly_chart(fig2, width="stretch", key="hy_mengen", theme=None, config={"displayModeBar": False})
+        st.dataframe(pd.DataFrame([{"Dimension": m["dim"], "Rohr": m["rohr"], "dᵢ [mm]": m["di"], "Länge VL + RL [m]":
+                                    m["L"], "Wasserinhalt [l]": m["inhalt"], "Einsatz": m["arten"]} for m in rm]),
+                     hide_index=True, width="stretch", column_config={
+                         "dᵢ [mm]": st.column_config.NumberColumn(format="%.1f"),
+                         "Länge VL + RL [m]": st.column_config.NumberColumn(format="%.0f"),
+                         "Wasserinhalt [l]": st.column_config.NumberColumn(format="%.0f")})
+        st.caption(f"Gesamt {fmt(h['laenge'])} m Rohr (Vor- und Rücklauf), Wasserinhalt ≈ {fmt(h['inhalt'])} l "
+                   f"({MATNAME[ss.inp.mat]}). Ohne Dämmung, Formstücke und Verschnitt.")
+    schliessen()
+
+
 @st.dialog("Prüfungen", width="medium")
 def dialog_pruefungen() -> None:
     for stufe, titel, text in PRUEF:
@@ -910,17 +994,8 @@ with haupt:
                 st.markdown(f'<span class="empf-tag">Besser · {fmt(best["wert"] * 100)} %</span><div class="empf-titel">'
                             f'{best["variante"].titel}</div>{pkt}', unsafe_allow_html=True)
 
-        dstrom = din18015(A["weForZentrale"])
-        mit_dle = A["zuheizerOn"]
-        with kachel("strom", "Strom · Gleichzeitigkeit DIN 18015", None, dialog_strom, "Kurve"):
-            st.markdown(f'<div class="k-wert">≈ {fmt(dstrom["mit"] if mit_dle else dstrom["ohne"])}<span>kW</span></div>'
-                        f'<div class="k-unter">am Netzanschluss · {dstrom["nWE"]} WE · '
-                        f'{"MIT elektr. WW (DLE)" if mit_dle else "ohne elektr. WW"}<br>'
-                        f'{"ohne DLE wären es" if mit_dle else "mit DLE wären es"} ≈ '
-                        f'{fmt(dstrom["ohne"] if mit_dle else dstrom["mit"])} kW</div>', unsafe_allow_html=True)
-
-    # ---------------------------------------------------------------- Reihe 3: Rohrnetz | Gerät | Stückliste
-    c1, c2, c3 = st.columns([1.35, 1, 1], gap="medium")
+    # ---------------------------------------------------------------- Reihe 3: Rohrnetz | Pumpe | Strom
+    c1, c4, c5 = st.columns([1.3, 1, 1], gap="medium")
     with c1:
         with kachel("rohrnetz", "Rohrnetz", "station", dialog_rohrnetz, "Schemata & Tabellen"):
             vmax = P["vmax"]
@@ -938,6 +1013,31 @@ with haupt:
             st.markdown(f'<div class="rn-kopf">{kopfzeile}</div>{"".join(zeilen)}{mehr}'
                         f'<div class="rn-kopf" style="margin-top:8px">Balken = Strangfuß v / v_max</div>',
                         unsafe_allow_html=True)
+    with c4:
+        farbe_p = F["gruen"] if HYD["nm"] else F["gelb"]
+        with kachel("pumpe", "Pumpe · Förderhöhe", "pumpe", dialog_hydraulik, "Druckverlust"):
+            st.markdown(f'<div class="k-wert">{fmt(HYD["bar"], 2)}<span>bar</span></div><div class="k-unter">'
+                        f'≈ {fmt(HYD["H"], 1)} m · {fmt(HYD["V"], 1)} m³/h<br><b style="color:{farbe_p}">'
+                        f'{HYD["nm"]["typ"] + " passt" if HYD["nm"] else "über NM-Bereich"}</b> · '
+                        f'{fmt(HYD["laenge"])} m Rohr</div>', unsafe_allow_html=True)
+    with c5:
+        dstrom = din18015(A["weForZentrale"])
+        mit_dle = A["zuheizerOn"]
+        with kachel("strom", "Strom · Gleichzeitigkeit DIN 18015", None, dialog_strom, "Kurve"):
+            st.markdown(f'<div class="k-wert">≈ {fmt(dstrom["mit"] if mit_dle else dstrom["ohne"])}<span>kW</span></div>'
+                        f'<div class="k-unter">am Netzanschluss · {dstrom["nWE"]} WE · '
+                        f'{"MIT elektr. WW (DLE)" if mit_dle else "ohne elektr. WW"}<br>'
+                        f'{"ohne DLE wären es" if mit_dle else "mit DLE wären es"} ≈ '
+                        f'{fmt(dstrom["ohne"] if mit_dle else dstrom["mit"])} kW</div>', unsafe_allow_html=True)
+
+    # ---------------------------------------------------------------- Reihe 4: Gerät | Stückliste | Rohrmengen
+    c2, c3, c6 = st.columns([1.3, 1, 1], gap="medium")
+    with c6:
+        with kachel("rohr", "Rohrmengen", None, dialog_hydraulik, "je Nennweite"):
+            dn_max = max(HYD["rohrmengen"], key=lambda m: m["L"])
+            st.markdown(f'<div class="k-wert">{fmt(HYD["laenge"])}<span>m</span></div><div class="k-unter">'
+                        f'Vor- und Rücklauf · {len(HYD["rohrmengen"])} Nennweiten<br>meist {dn_max["dim"]} '
+                        f'({fmt(dn_max["L"])} m) · Inhalt ≈ {fmt(HYD["inhalt"])} l</div>', unsafe_allow_html=True)
     with c2:
         with kachel("geraet", "Wohnungsstation", None, dialog_geraet, "Datenblatt"):
             stg = STATIONS[inp.station]["stages"][min(int(inp.wwstage), len(STATIONS[inp.station]["stages"]) - 1)]

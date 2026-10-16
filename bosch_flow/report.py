@@ -204,6 +204,20 @@ def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list) -> bytes
             start = len(R["hRows"]) + 4
             pd.DataFrame([["Steigstrang"]]).to_excel(xw, sheet_name=sh, index=False, header=False, startrow=start, startcol=col)
             strang_table(R, "V").to_excel(xw, sheet_name=sh, index=False, startrow=start + 1, startcol=col)
+        from .hydraulik import berechne
+        h = berechne(inp, straenge, meta)
+        pd.DataFrame([{"Abschnitt": z["name"], "WE": z["we"], "Rohr": z["rohr"], "Dimension": z["dim"],
+                       "V̇ [m³/h]": z["V"], "v [m/s]": z["v"], "L [m]": z["L"], "R [Pa/m]": z["R"],
+                       "Δp [mbar]": z["dp"] / 100} for z in h["pfad"]]).to_excel(
+            xw, sheet_name="Hydraulik", index=False, startrow=2)
+        pd.DataFrame([[f"Förderhöhe {h['bar']:.2f} bar · V̇ {h['V']:.2f} m³/h · Netzpumpenmodul "
+                       f"{h['nm']['typ'] if h['nm'] else 'individuell'} (Erweiterung über V54)"],
+                      ["Ungünstigster Fließweg (einfach):"]]).to_excel(xw, sheet_name="Hydraulik", index=False,
+                                                                        header=False)
+        start = len(h["pfad"]) + 5
+        pd.DataFrame([{"Dimension": m["dim"], "Rohr": m["rohr"], "di [mm]": m["di"], "Länge VL + RL [m]": m["L"],
+                       "Wasserinhalt [l]": m["inhalt"], "Einsatz": m["arten"]} for m in h["rohrmengen"]]).to_excel(
+            xw, sheet_name="Hydraulik", index=False, startrow=start)
         from .katalog import KATALOG, PREISHINWEIS, projekt_stueckliste
         zeilen = projekt_stueckliste(inp, straenge, meta)
         sl = pd.DataFrame([{"Position": z["pos"], "Bezeichnung": z["text"], "Bestell-Nr.": z["nr"], "Menge": z["menge"],

@@ -209,3 +209,36 @@ def test_katalog_geraete_und_stueckliste():
     assert g["typ"] == "F7002 45 MS" and g["vPrim"] == 1375 and g["dpPrim"] == 559
     assert KA.netzpumpe(9.9)["typ"] == "NM 3" and KA.netzpumpe(10)["typ"] == "NM 6"
     assert KA.netzpumpe(15.2) is None
+
+
+def test_hydraulik_druckverlust_und_rohrmengen():
+    """Erweiterung: R im realen Rohr, Längen aus der Geometrie, Summen und Pumpenwahl."""
+    from bosch_flow import hydraulik as HY
+    from bosch_flow import katalog as KA
+    # Stahl DN 25 (dᵢ 28,5 mm) bei 1 m/s: λ ≈ 0,0231 → R ≈ 404 Pa/m
+    assert HY.r_pa_m({"v": 1.0, "di": 28.5}) == pytest.approx(404, rel=0.02)
+    h = HY.berechne(Inputs(), [Strang.new()], {})
+    # 4 Etagen, je Seite 5 Stationen: Etagenleitungen 4·2·(3 + 4·5) + Steigstrang 4·3 + Zuleitung 8 = 204 m, VL + RL
+    assert h["laenge"] == pytest.approx(408)
+    assert h["dpGes"] == pytest.approx(h["dpRohr"] + h["dpEinzel"] + h["dpStation"] + h["dpZentrale"])
+    assert h["dpEinzel"] == pytest.approx(h["dpRohr"] * 0.30)
+    assert h["dpRohr"] == pytest.approx(2 * sum(s["dp"] for s in h["pfad"]))
+    assert h["dpStation"] == pytest.approx(70200)                       # F8001 35 bei 55 °C: 702 mbar (Katalog)
+    assert h["pfad"][-1]["we"] == 1                                      # endet an der letzten Station
+    lang = HY.berechne(Inputs(), [Strang.new()], {"aSt": 10, "zuschlag": 0, "dpZen": 0})
+    assert lang["laenge"] > h["laenge"] and lang["dpEinzel"] == 0 and lang["dpZentrale"] == 0
+    mehr = HY.berechne(Inputs(), [Strang.new(), Strang.new(6), Strang.new(3)], {"topoPos": 50})
+    assert any(s["art"] == "Hauptstrang" for s in mehr["pfad"]) and mehr["pumpen"] == 1
+    getrennt = HY.berechne(Inputs(zentral="getrennt"), [Strang.new(), Strang.new()], {})
+    assert getrennt["pumpen"] == 2 and getrennt["laenge"] == pytest.approx(2 * h["laenge"])
+    assert KA.netzpumpe(10, 0.9) is None
+    assert KA.netzpumpe(10, 0.75)["typ"] == "NM 6"
+    assert KA.netzpumpe(11, 0.6)["typ"] == "NM 3"
+
+
+def test_hydraulik_geometrie_im_projekt():
+    from bosch_flow.project import dumps, loads
+    meta = {"projName": "", "projLoc": "", "projPlanner": "", "projDate": "2026-10-16", "hG": 3.5, "aSt": 6.0,
+            "activeStrang": 0, "topoPos": 50.0}
+    _, _, meta2 = loads(dumps(Inputs(), [Strang.new()], meta))
+    assert meta2 == meta

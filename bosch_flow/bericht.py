@@ -14,6 +14,7 @@ from fpdf.fonts import FontFace
 
 from . import report as RP
 from . import schemata as SC
+from . import hydraulik as HY
 from . import katalog as KA
 from . import varianten as VA
 from .calc import Inputs, din18015, dle_table, gesamt_anlage, gz, project_headline, puffer_produkt, seg, topologie
@@ -333,6 +334,36 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
                 [30, 130, 28, 16, 32, 37], fett_wenn=lambda z: z[0] == "Summe")
     pdf.absatz(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer und Montage nicht enthalten. Netzpumpenmodul nach "
                "Spitzen-Volumenstrom bei 0,8 bar Restförderhöhe; die Förderhöhe des Netzes ist gesondert zu prüfen.",
+               7.5, GRAU)
+
+    # ------------------------------------------------------------ Druckverlust, Pumpe, Rohrmengen (Erweiterung)
+    h = HY.berechne(inp, straenge, meta)
+    pdf.abschnitt("Druckverlust, Förderhöhe & Rohrmengen (Erweiterung über V54)", neue_seite=True)
+    pdf.kacheln([("Förderhöhe", f"{RP.fmt(h['bar'], 2)} bar ≈ {RP.fmt(h['H'], 1)} m"),
+                 ("Volumenstrom je Pumpe", f"{RP.fmt(h['V'], 2)} m³/h"),
+                 ("Netzpumpenmodul", h["nm"]["typ"] if h["nm"] else "individuell auslegen"),
+                 ("Rohr VL + RL", f"{RP.fmt(h['laenge'])} m · {RP.fmt(h['inhalt'])} l")])
+    geo = h["geo"]
+    pdf.absatz(f"Annahmen: Geschosshöhe {RP.fmt(geo['hG'], 1)} m · Steigstrang → erste Station {RP.fmt(geo['aAn'], 1)} m · "
+               f"Stationsabstand {RP.fmt(geo['aSt'], 1)} m · Strangabstand {RP.fmt(geo['aStr'], 1)} m · Zentrale → erster "
+               f"Abzweig {RP.fmt(geo['aZen'], 1)} m · Einzelwiderstände +{RP.fmt(geo['zuschlag'])} % · Wärmezentrale "
+               f"{RP.fmt(geo['dpZen'])} mbar. Zusammensetzung: Rohrnetz VL + RL {RP.fmt(h['dpRohr'] / 100)} mbar + "
+               f"Einzelwiderstände {RP.fmt(h['dpEinzel'] / 100)} mbar + Station {h['station']} {RP.fmt(h['dpStation'] / 100)} "
+               f"mbar ({h['stationVL']}, Katalog) + Zentrale {RP.fmt(h['dpZentrale'] / 100)} mbar = "
+               f"{RP.fmt(h['dpGes'] / 100)} mbar. Vergleich: Netzpumpenmodule NM 3/6/10 mit 0,8 bar Restförderhöhe.", 8, GRAU)
+    pdf.tabelle(["Ungünstigster Fließweg (einfach)", "WE", "Rohr", "V̇ [m³/h]", "v [m/s]", "L [m]", "R [Pa/m]",
+                 "Δp [mbar]"],
+                [[z["name"], str(z["we"]), z["rohr"], RP.fmt(z["V"], 2), RP.fmt(z["v"], 2), RP.fmt(z["L"], 1),
+                  RP.fmt(z["R"]), RP.fmt(z["dp"] / 100, 1)] for z in h["pfad"]],
+                [92, 14, 30, 24, 22, 20, 24, 24])
+    pdf.tabelle(["Rohrmengen je Dimension", "Rohr", "dᵢ [mm]", "Länge VL + RL [m]", "Wasserinhalt [l]", "Einsatz"],
+                [[m["dim"], m["rohr"], RP.fmt(m["di"], 1), RP.fmt(m["L"]), RP.fmt(m["inhalt"]), m["arten"]]
+                 for m in h["rohrmengen"]]
+                + [["Summe", "", "", RP.fmt(h["laenge"]), RP.fmt(h["inhalt"]), ""]],
+                [44, 34, 24, 36, 34, 78], fett_wenn=lambda z: z[0] == "Summe")
+    pdf.absatz("Vereinfachtes Vorplanungsmodell (Darcy-Weisbach im gewählten Rohr, λ wie im HIU-Kern). Ersetzt keine "
+               "Rohrnetzberechnung mit realer Trassenführung." + (" 4-Leiter: gerechnet ist das Trinkwasser-Netz, das "
+                                                                   "Heiznetz ist nicht enthalten." if h["vierLeiter"] else ""),
                7.5, GRAU)
 
     if A["zuheizerOn"]:

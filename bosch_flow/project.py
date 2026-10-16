@@ -10,7 +10,9 @@ from .calc import Inputs, Strang
 
 APP_NAME = "Bosch Flow – Netz- & Anlagenrechner"
 SAVE_VERSION = 52  # wie index.html V54 (Dateiformat unverändert, + topoPos)
-META_KEYS = ("projName", "projLoc", "projPlanner", "projDate", "montage", "heizkreis")  # letzte zwei: Katalog-Ausführung
+META_KEYS = ("projName", "projLoc", "projPlanner", "projDate",
+             "montage", "heizkreis",                                     # Katalog-Ausführung
+             "hG", "aAn", "aSt", "aStr", "aZen", "zuschlag", "dpZen")     # Hydraulik-Geometrie
 
 
 def _convert(raw, default):
@@ -34,7 +36,8 @@ def from_html_state(state: dict) -> tuple[Inputs, list[Strang], dict]:
     inp = Inputs(**kwargs)
     straenge = [Strang(s.get("floors", 1), s.get("split", "both"), s.get("cfg", [])).normalized()
                 for s in state.get("straenge") or []] or [Strang.new()]
-    meta = {k: f.get(k, "") for k in META_KEYS}
+    meta = {k: f.get(k, "") for k in META_KEYS[:4]}
+    meta.update({k: f[k] for k in META_KEYS[4:] if f.get(k) not in (None, "")})   # Erweiterungen nur, wenn gesetzt
     meta["activeStrang"] = max(0, min(len(straenge) - 1, int(state.get("activeStrang") or 0)))
     # V54: Position der Wärmezentrale (top-level oder in fields; abwärtskompatibel)
     tp = state.get("topoPos", f.get("topoPos", 50))
@@ -49,7 +52,8 @@ def from_html_state(state: dict) -> tuple[Inputs, list[Strang], dict]:
 def to_html_state(inp: Inputs, straenge: list[Strang], meta: dict) -> dict:
     """Projekt -> JSON-Struktur, die auch die HTML-Version laden kann."""
     active = meta.get("activeStrang", 0)
-    flds = {k: meta.get(k, "") for k in META_KEYS}
+    flds = {k: meta.get(k, "") for k in META_KEYS[:4]}
+    flds.update({k: meta[k] for k in META_KEYS[4:] if meta.get(k) not in (None, "")})
     flds.update(inp.as_fields())
     flds["floors"] = str(straenge[active].floors)
     flds["split"] = straenge[active].split
