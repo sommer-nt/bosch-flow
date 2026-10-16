@@ -114,8 +114,11 @@ header[data-testid="stHeader"] {{background:transparent}}
 [class*="st-key-kachelklick"] [class*="st-key-klick_"] button {{width:100%; height:100%; opacity:0; cursor:pointer}}
 .k-kopf {{display:flex; align-items:center; justify-content:space-between; gap:8px}}
 .k-titel {{font-size:12.5px; font-weight:700; color:{F['leise']}; letter-spacing:.2px}}
-.k-mehr {{position:absolute; right:18px; bottom:12px; font-size:12px; font-weight:600; color:{F['akzent']}; opacity:0;
+.k-kopf {{position:relative}}
+.k-mehr {{position:absolute; right:44px; top:50%; transform:translateY(-50%); font-size:11.5px; font-weight:600;
+          color:{F['akzent']}; background:{F['kachel']}; padding-left:8px; opacity:0; white-space:nowrap;
           transition:opacity .18s}}
+.st-key-kachel_3d [data-testid="stHorizontalBlock"]:first-of-type {{margin-top:8px}}
 [class*="st-key-kachel"]:hover .k-mehr {{opacity:1}}
 .k-wert {{font-size:clamp(28px, 2.6vw, 40px); font-weight:800; color:{F['text']}; letter-spacing:-.5px;
          line-height:1.05; margin-top:6px}}
@@ -275,7 +278,7 @@ def zentrale_regler(schluessel: str) -> None:
 # ====================================================================== Eingabe-Panel (links)
 def eingaben() -> None:
     meta = ss.meta
-    t_geb, t_sys, t_ausl, t_hyd, t_proj = st.tabs(["Gebäude", "System", "Auslegung", "Hydraulik", "Projekt"])
+    t_geb, t_sys, t_ausl, t_proj = st.tabs(["Gebäude", "System", "Auslegung", "Projekt"])
 
     # ---------------------------------------------------------------- Gebäude
     with t_geb:
@@ -320,15 +323,17 @@ def eingaben() -> None:
                          help="Beidseitig = Stationen links und rechts vom Steigstrang. Einseitig = ein Strang je Etage.")
         if fl != s.floors or sp != s.split:
             cfg = [dict(x) for x in s.cfg[:fl]]
-            while len(cfg) < fl:
-                cfg.append({"l": 5, "r": 5})
+            oben = dict(cfg[-1]) if cfg else {"l": 5, "r": 5}
+            while len(cfg) < fl:                     # neue Etagen übernehmen die Belegung der obersten Etage
+                cfg.append(dict(oben))
             for x in cfg:
                 x["r"] = (x["r"] if s.split == "both" else x["l"]) if sp == "both" else 0
             s.floors, s.split, s.cfg = fl, sp, cfg
             ss.rev += 1
             st.rerun()
         a, b = st.columns([1, 1.4], vertical_alignment="bottom")
-        q = a.number_input("Stationen je Seite", 0, 16, 5, 1, key=k("quick"))
+        q = a.number_input("Stationen je Seite", 0, 16, int(ss.get("schnell", 5)), 1, key=k("quick"))
+        ss.schnell = int(q)
         if b.button("auf alle Etagen", width="stretch", icon=":material/done_all:"):
             s.cfg = [{"l": int(q), "r": int(q) if s.split == "both" else 0} for _x in range(s.floors)]
             ss.rev += 1
@@ -448,16 +453,26 @@ def eingaben() -> None:
                                 key=k("heizDt"), help="Nur 4-Leiter: Herstellerpraxis (VDI 4645) 10 K.")
             setze(heizTueber=hT, heizDt=hD)
 
-    # ---------------------------------------------------------------- Hydraulik (Erweiterung)
-    with t_hyd:
-        st.caption("Leitungslängen und Zuschläge für Druckverlust, Förderhöhe und Rohrmengen – Erweiterung über den "
-                   "Rechenkern V54 hinaus.")
-        geo = HY.geometrie(meta)
-        spalten = st.columns(2)
-        for i, (key, (_v, titel, einheit, lo, hi, schritt)) in enumerate(HY.GEOMETRIE.items()):
-            meta[key] = float(spalten[i % 2].number_input(f"{titel} [{einheit}]", float(lo), float(hi), float(geo[key]),
-                                                          float(schritt), format="%.1f" if schritt < 1 else "%.0f",
-                                                          key=k(f"geo_{key}")))
+        # ------------------------------------------------------------ Experteneinstellungen (Hydraulik)
+        geaendert = any(k_ in meta for k_ in HY.GEOMETRIE)
+        with st.expander("Experteneinstellungen" + (" · angepasst" if geaendert else ""), icon=":material/tune:"):
+            st.caption("Leitungslängen und Zuschläge für Druckverlust, Förderhöhe der Netzpumpe und Rohrmengen. "
+                       "Standardwerte passen für übliche Wohngebäude.")
+            geo = HY.geometrie(meta)
+            spalten = st.columns(2)
+            for i, (key, (vorgabe, titel, einheit, lo, hi, schritt)) in enumerate(HY.GEOMETRIE.items()):
+                wert = float(spalten[i % 2].number_input(f"{titel} [{einheit}]", float(lo), float(hi), float(geo[key]),
+                                                         float(schritt), format="%.1f" if schritt < 1 else "%.0f",
+                                                         key=k(f"geo_{key}")))
+                if wert != vorgabe:
+                    meta[key] = wert
+                else:
+                    meta.pop(key, None)
+            if geaendert and st.button("Standardwerte", icon=":material/restart_alt:", key="geo_standard"):
+                for key in HY.GEOMETRIE:
+                    meta.pop(key, None)
+                ss.rev += 1
+                st.rerun()
 
     # ---------------------------------------------------------------- Projekt
     with t_proj:
@@ -616,8 +631,8 @@ def kachel(key: str, titel: str, icon: str | None = None, klick=None, mehr: str 
     """Kachel-Container; mit ``klick`` ist die ganze Kachel ein Knopf, der den Detail-Dialog öffnet."""
     c = st.container(key=("kachelklick_" if klick else "kachel_") + key)
     ic = f'<div class="k-icon"><img src="{_svg(icon)}"></div>' if icon else ""
-    c.markdown(f'<div class="k-kopf"><span class="k-titel">{titel}</span>{ic}</div>'
-               + (f'<span class="k-mehr">{mehr} →</span>' if klick else ""), unsafe_allow_html=True)
+    c.markdown(f'<div class="k-kopf"><span class="k-titel">{titel}</span>'
+               + (f'<span class="k-mehr">{mehr} →</span>' if klick else "") + f'{ic}</div>', unsafe_allow_html=True)
     if klick:
         if c.button(titel, key=f"klick_{key}", help=f"{titel}: {mehr}"):
             klick()
@@ -778,8 +793,8 @@ def dialog_strom() -> None:
 @st.dialog("Druckverlust, Pumpe & Rohrmengen", width="large")
 def dialog_hydraulik() -> None:
     h = HY.berechne(ss.inp, ss.straenge, ss.meta)
-    st.caption("Erweiterung über den Rechenkern V54 hinaus: vereinfachtes Vorplanungsmodell mit den Längen aus dem "
-               "Reiter „Hydraulik“. Ersetzt keine Rohrnetzberechnung.")
+    st.caption("Erweiterung über den Rechenkern V54 hinaus: vereinfachtes Vorplanungsmodell mit "
+               "Standardlängen (anpassbar unter Auslegung → Experteneinstellungen). Ersetzt keine Rohrnetzberechnung.")
     a, b, c, d = st.columns(4)
     a.metric("Förderhöhe Netzpumpe", f"{fmt(h['bar'], 2)} bar", help="Erforderlich am ungünstigsten Fließweg")
     b.metric("Förderhöhe", f"{fmt(h['H'], 1)} m", help="Wassersäule")
@@ -983,17 +998,38 @@ with haupt:
     # ---------------------------------------------------------------- Reihe 2: 3D | Prüfungen + Empfehlung
     links, rechts = st.columns([1.85, 1], gap="medium")
     with links:
-        with kachel("3d", "3D-Gebäude · Rohrnetz live"):
-            fig3d = modell(results, meta["topoPos"], "v", DUNKEL, None, 470)
-            fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
-            st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
-                            config={"displayModeBar": False, "displaylogo": False})
-            if n > 1 and not G["getrennt"]:
+        with kachel("3d", "Gebäude · Rohrnetz live"):
+            optionen = ["3D", "2D Strang"] + (["2D Hauptstrang"] if n > 1 else [])
+            if ss.get("bildansicht") not in optionen:
+                ss.bildansicht = "3D"
+            a, b = st.columns([2.2, 1.6], vertical_alignment="center")
+            ansicht = a.segmented_control("Ansicht", optionen, key="bildansicht", label_visibility="collapsed") or "3D"
+            if ansicht == "2D Strang" and n > 1:
+                w = b.segmented_control("Strang", [f"S{i + 1}" for i in range(n)], default=f"S{meta['activeStrang'] + 1}",
+                                        key=f"bild_strang_{meta['activeStrang']}_{n}", label_visibility="collapsed")
+                if w and int(w[1:]) - 1 != meta["activeStrang"]:
+                    meta["activeStrang"] = int(w[1:]) - 1
+                    st.rerun()
+            if ansicht == "3D":
+                fig3d = modell(results, meta["topoPos"], "v", DUNKEL, None, 470)
+                fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
+                st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
+                                config={"displayModeBar": False, "displaylogo": False})
+                hilfe = "Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte"
+            elif ansicht == "2D Strang":
+                schema(schemata.netzschema(R, DUNKEL), "schema2d", max_hoehe=600, breite_px=640 if ss.panel else 900)
+                hilfe = (f"Strang {meta['activeStrang'] + 1}: Maus über Stationen und DN-Marken = Werte · "
+                         "grün = OK, orange = grenzwertig, rot = zu schnell")
+            else:
+                schema(schemata.topologie_szene(results, meta["topoPos"], True, DUNKEL), "topo2d",
+                       breite_px=640 if ss.panel else 900)
+                hilfe = f"Hauptstrang im Keller · Wärmezentrale {topo_label(meta['topoPos'])}"
+            if n > 1 and not G["getrennt"] and ansicht != "2D Strang":
                 zentrale_regler("topo_3d")
             a, b = st.columns([3, 1], vertical_alignment="center")
-            a.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte")
+            a.caption(hilfe)
             if b.button("Vollbild", icon=":material/open_in_full:", key="m3d_vb", width="stretch"):
-                dialog_3d()
+                dialog_3d() if ansicht == "3D" else dialog_rohrnetz()
     with rechts:
         with kachel("pruef", "Prüfungen", None, dialog_pruefungen, "Alle"):
             gesamt = ("Alles im grünen Bereich" if not (n_err or n_warn) else
@@ -1059,8 +1095,8 @@ with haupt:
         with kachel("geraet", "Wohnungsstation", None, dialog_geraet, "Gerätedaten"):
             stg = STATIONS[inp.station]["stages"][min(int(inp.wwstage), len(STATIONS[inp.station]["stages"]) - 1)]
             bild = base64.b64encode(GERAET["bild"].read_bytes()).decode()
-            st.markdown(f'<div style="display:flex;gap:16px;align-items:center;margin-top:6px">'
-                        f'<img src="data:image/png;base64,{bild}" style="height:118px;width:auto;object-fit:contain">'
+            st.markdown(f'<div style="display:flex;gap:16px;align-items:center;margin-top:14px">'
+                        f'<img src="data:image/png;base64,{bild}" style="height:104px;width:auto;object-fit:contain">'
                         f'<div><div class="g-typ">{GERAET["typ"]}</div><div class="g-sub">{G["we"]} Stationen · '
                         f'{stg["kw"]} kW · {stg["lmin"]} l/min<br>{KA.MONTAGE[GERAET["montage"]].split(" (")[0]} · '
                         f'{GERAET["heizkreis"]}</div></div></div>', unsafe_allow_html=True)

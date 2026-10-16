@@ -148,6 +148,7 @@ def als_plotly(s: Szene, papier: str = "rgba(0,0,0,0)", max_hoehe: int | None = 
               breite_px: int = 1000) -> go.Figure:
     """Szene -> Plotly-Figur (y nach unten, Seitenverhältnis fest)."""
     shapes, notes, images = [], [], []
+    skala = max(0.62, min(1.0, breite_px / s.breite))   # Schrift wie im Canvas mit der Zeichnung verkleinern
     for e in s.elemente:
         if isinstance(e, Linie):
             shapes.append(dict(type="line", x0=e.x0, y0=e.y0, x1=e.x1, y1=e.y1, layer="above",
@@ -174,7 +175,7 @@ def als_plotly(s: Szene, papier: str = "rgba(0,0,0,0)", max_hoehe: int | None = 
             t = e.text.replace("\n", "<br>")
             notes.append(dict(x=e.x, y=e.y, text=f"<b>{t}</b>" if e.fett else t, showarrow=False,
                               xanchor=_XANCHOR[e.anker], yanchor=_YANCHOR[e.vanker],
-                              font=dict(size=e.groesse, color=e.farbe),
+                              font=dict(size=max(6.0, e.groesse * skala), color=e.farbe),
                               bgcolor=e.hintergrund or "rgba(0,0,0,0)", borderpad=2 if e.hintergrund else 0))
         elif isinstance(e, Icon):
             images.append(dict(source=_icon_uri(e.name, e.invert), xref="x", yref="y", x=e.x0, y=e.y0,

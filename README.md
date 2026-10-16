@@ -33,11 +33,12 @@ Die App öffnet sich unter <http://localhost:8501>.
 - **Kachel-Dashboard:** Oben vier Kennzahlen (Volumenstrom, Anschluss, Erzeuger, Puffer, mit Trend zur letzten
   Änderung), darunter 3D-Gebäude, Prüfungen (Ampel), Variantenempfehlung, Strom-Gleichzeitigkeit nach DIN 18015-1,
   Rohrnetz, Netzpumpe (Betriebspunkt), Rohrmengen, Wohnungsstation und Stückliste. Die Position der Wärmezentrale
-  lässt sich im Reiter „Gebäude“ und direkt unter dem 3D-Modell verschieben.
+  lässt sich im Reiter „Gebäude“ und direkt unter dem 3D-Modell verschieben. Die Gebäudekachel schaltet zwischen
+  3D, 2D Strang (Netzschema wie in der HTML) und 2D Hauptstrang um.
   Ein Klick auf eine Kachel öffnet die Details (Schemata, Tabellen, Herleitungen, Diagramme).
-- **Eingaben:** Panel links mit den Reitern Gebäude · System · Auslegung · Hydraulik · Projekt, ein-/ausblendbar über
+- **Eingaben:** Panel links mit den Reitern Gebäude · System · Auslegung · Projekt, ein-/ausblendbar über
   „Eingaben“. PDF oben rechts, Speichern/Laden/Excel/Zurücksetzen im Menü „···“.
-- **Druckverlust, Pumpe & Rohrmengen (Erweiterung über V54):** Reiter „Hydraulik“ mit Geschosshöhe, Stations- und
+- **Druckverlust, Pumpe & Rohrmengen (Erweiterung über V54):** „Experteneinstellungen“ (unter Auslegung) mit Geschosshöhe, Stations- und
   Strangabständen, Zuschlag Einzelwiderstände und Ansatz Wärmezentrale. Daraus: Druckverlust je Abschnitt im gewählten
   Rohr (Darcy-Weisbach, λ wie im HIU-Kern), ungünstigster Fließweg, Förderhöhe inkl. Primär-Δp der Station laut
   Katalog als Betriebspunkt der (bauseits auszulegenden) Netzpumpe und Rohrmengen je Nennweite mit Wasserinhalt. Auch in PDF (eigene Seite), Excel (Blatt „Hydraulik“) und Stückliste.
