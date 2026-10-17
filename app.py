@@ -35,7 +35,7 @@ from bosch_flow.data import MATNAME, STATIONS, WAERMEQUELLEN  # noqa: E402
 from bosch_flow.modell3d import STUFEN, modell  # noqa: E402
 from bosch_flow.project import dumps, from_html_state, stand  # noqa: E402
 from bosch_flow.report import fmt  # noqa: E402
-from bosch_flow.zeichnung import als_plotly  # noqa: E402
+from bosch_flow.zeichnung import als_plotly, hell  # noqa: E402
 from browser import browser  # noqa: E402
 
 ss = st.session_state
@@ -84,7 +84,7 @@ F = dict(seite="#0b1016", kachel="#131b24", linie="rgba(255,255,255,.07)", text=
 def _svg(name: str) -> str:
     raw = (ICONS / f"{name}.svg").read_text(encoding="utf-8")
     if DUNKEL:
-        raw = raw.replace("#1D1D1B", "#e8eef4")
+        raw = hell(raw, "#e8eef4")
     return "data:image/svg+xml;base64," + base64.b64encode(raw.encode()).decode()
 
 

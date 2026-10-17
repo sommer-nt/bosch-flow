@@ -7,6 +7,7 @@ Vektorgrafik ausgegeben, damit beide exakt gleich aussehen.
 from __future__ import annotations
 
 import base64
+import re
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -129,8 +130,15 @@ class Szene:
 def _icon_uri(name: str, invert: bool) -> str:
     svg = (ICONS / f"{name}.svg").read_text(encoding="utf-8")
     if invert:
-        svg = svg.replace("#1D1D1B", "#E6EDF3").replace("#1d1d1b", "#e6edf3")
+        svg = hell(svg)
     return "data:image/svg+xml;base64," + base64.b64encode(svg.encode()).decode()
+
+
+def hell(svg: str, farbe: str = "#E6EDF3") -> str:
+    """Piktogramm für dunklen Hintergrund: dunkle Linien-/Füllfarbe tauschen und Pfaden ohne eigene Farbe
+    (Erzeuger, Puffer aus der HTML-Vorlage) über das Wurzelelement eine helle Grundfüllung geben."""
+    svg = svg.replace("#1D1D1B", farbe).replace("#1d1d1b", farbe.lower())
+    return re.sub(r"<svg\b", f'<svg fill="{farbe}"', svg, count=1)
 
 
 def _rund(x0, y0, x1, y1, r) -> str:
