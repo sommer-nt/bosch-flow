@@ -69,7 +69,21 @@ Die App öffnet sich unter <http://localhost:8501>.
   im Menü „···“ (Standard: aus; Dateiname dann mit „_intern“).
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
 
-## Streamlit Cloud
+## Eigener Server: flow.sommer-nt.de
+
+Wie klima/climate: `Dockerfile` + `deploy/docker-compose.yml` (Container auf 127.0.0.1:8504) hinter nginx mit
+certbot. Schritt für Schritt: **[deploy/ANLEITUNG.md](deploy/ANLEITUNG.md)** – Kurzform auf dem Server:
+
+```bash
+git clone -b claude/lucid-archimedes-j2yw8g https://github.com/sommer-nt/bosch-flow.git   # privat: Token als Passwort
+cd bosch-flow/deploy && cp .env.beispiel .env && nano .env    # APP_PASSWORT setzen
+docker compose -p flow up -d --build
+sudo cp nginx-flow.sommer-nt.de.conf /etc/nginx/sites-available/flow.sommer-nt.de
+sudo ln -s /etc/nginx/sites-available/flow.sommer-nt.de /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx && sudo certbot --nginx -d flow.sommer-nt.de
+```
+
+## Streamlit Cloud (Alternative)
 
 1. [share.streamlit.io](https://share.streamlit.io) mit dem GitHub-Konto anmelden → **Create app** →
    „Deploy a public app from GitHub“.
