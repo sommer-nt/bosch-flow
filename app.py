@@ -273,17 +273,19 @@ if msg := ss.pop("meldung", None):
 
 
 # ====================================================================== Kopfleiste
-kopf = st.columns([3.2, 3.4, 1.15, 1.25, 0.62, 0.5], vertical_alignment="center")
+kopf = st.columns([2.5, 1.15, 1.25, 1.05, 0.95, 0.5, 3.0, 0.5], vertical_alignment="center")
 kopf[0].markdown('<div class="marke">BOSCH <span>Flow</span><small>Netz- &amp; Anlagenrechner für '
                  'Wohnungsstationen</small></div>', unsafe_allow_html=True)
-kopf_status = kopf[1].container()
-if kopf[2].button("Eingaben", icon=":material/tune:", width="stretch",
+if kopf[1].button("Eingaben", icon=":material/tune:", width="stretch",
                   type="secondary" if ss.panel else "primary", help="Eingabe-Panel ein-/ausblenden"):
     ss.panel = not ss.panel
     st.rerun()
-kopf_pdf = kopf[3].empty()
-kopf_menue = kopf[4].empty()
-kopf_thema = kopf[5].container()
+kopf_speichern = kopf[2].empty()
+kopf_laden = kopf[3].empty()
+kopf_pdf = kopf[4].empty()
+kopf_menue = kopf[5].empty()
+kopf_status = kopf[6].container()
+kopf_thema = kopf[7].container()
 st.write("")
 
 if ss.panel:
@@ -587,7 +589,7 @@ farbe_status = F["rot"] if n_err else F["gelb"] if n_warn else F["gruen"]
 text_status = (f"{n_err} Fehler" if n_err else f"{n_warn} Hinweis{'e' if n_warn > 1 else ''}" if n_warn
                else "Auslegung OK")
 with kopf_status:
-    a, b = st.columns([1.5, 1], vertical_alignment="center")
+    b, a = st.columns([1, 1.5], vertical_alignment="center")
     a.markdown(f'<div class="kopf-info"><b>{meta["projName"] or "Neues Projekt"}</b><br>'
                f'<span title="Jede Eingabe wird automatisch im Browser gesichert.">↻ automatisch gesichert '
                f'{ss.get("zwischen") or datetime.now().strftime("%H:%M")}</span></div>', unsafe_allow_html=True)
@@ -611,14 +613,17 @@ def _pdf() -> bytes:
 
 kopf_pdf.download_button("PDF", _pdf, file_name=f"Bosch_Flow_{name}.pdf", mime="application/pdf", type="primary",
                          width="stretch", icon=":material/picture_as_pdf:", help="Planung als PDF-Bericht exportieren")
-with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Speichern, Laden, Excel, Zurücksetzen"):
-    st.download_button("Projekt speichern (.json)", dumps(inp, straenge, meta), file_name=f"{name}.json",
-                       mime="application/json", width="stretch", icon=":material/save:")
+kopf_speichern.download_button("Speichern", dumps(inp, straenge, meta), file_name=f"{name}.json",
+                               mime="application/json", width="stretch", icon=":material/save:",
+                               help="Projekt als .json-Datei speichern (später über „Laden“ wieder öffnen)")
+with kopf_laden.popover("Laden", icon=":material/folder_open:", width="stretch",
+                        help="Gespeichertes Projekt (.json) öffnen"):
     datei = st.file_uploader("Projekt laden (.json)", type=["json"], key="upload")
     if datei is not None and ss.get("geladen_id") != datei.file_id:
         ss.geladen_id = datei.file_id
         if laden(datei.getvalue(), f"Projekt „{datei.name}“ geladen."):
             st.rerun()
+with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Zwischenspeichern, Excel, Zurücksetzen"):
     if st.button("Zwischenspeichern", icon=":material/backup:", width="stretch",
                  help="Sichert sofort im Browser (automatisch passiert das bei jeder Eingabe)."):
         ss.zwischen = datetime.now().strftime("%H:%M:%S")

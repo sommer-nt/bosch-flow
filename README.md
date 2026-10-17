@@ -37,7 +37,7 @@ Die App öffnet sich unter <http://localhost:8501>.
   3D, 2D Strang (Netzschema wie in der HTML) und 2D Hauptstrang um.
   Ein Klick auf eine Kachel öffnet die Details (Schemata, Tabellen, Herleitungen, Diagramme).
 - **Eingaben:** Panel links mit den Reitern Gebäude · System · Auslegung · Projekt, ein-/ausblendbar über
-  „Eingaben“. PDF oben rechts, Speichern/Laden/Excel/Zurücksetzen im Menü „···“.
+  „Eingaben“. Speichern, Laden und PDF direkt in der Kopfleiste, Zwischenspeichern/Excel/Zurücksetzen im Menü „···“.
 - **Druckverlust, Pumpe & Rohrmengen (Erweiterung über V54):** „Experteneinstellungen“ (unter Auslegung) mit Geschosshöhe, Stations- und
   Strangabständen, Zuschlag Einzelwiderstände und Ansatz Wärmezentrale. Daraus: Druckverlust je Abschnitt im gewählten
   Rohr (Darcy-Weisbach, λ wie im HIU-Kern), ungünstigster Fließweg, Förderhöhe inkl. Primär-Δp der Station laut
