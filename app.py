@@ -113,7 +113,12 @@ header[data-testid="stHeader"] {{background:transparent}}
 [class*="st-key-kachelklick"]:hover {{box-shadow:{F['schatten2']}}}
 [class*="st-key-kachelklick"]:hover {{transform:translateY(-2px); cursor:pointer}}
 [class*="st-key-kachelklick"] [class*="st-key-klick_"] {{position:absolute; inset:0; z-index:4; margin:0}}
-[class*="st-key-kachelklick"] [class*="st-key-klick_"] button {{width:100%; height:100%; opacity:0; cursor:pointer}}
+[class*="st-key-kachelklick"] [class*="st-key-klick_"] {{width:100% !important; height:100% !important; z-index:50 !important}}
+[class*="st-key-kachelklick"] > div:not([class*="st-key-klick_"]) {{pointer-events:none}}
+[class*="st-key-kachelklick"] [class*="st-key-klick_"] div, [class*="st-key-kachelklick"] [class*="st-key-klick_"] span,
+[class*="st-key-kachelklick"] [class*="st-key-klick_"] button {{
+        width:100% !important; height:100% !important; max-width:none !important; min-height:0 !important}}
+[class*="st-key-kachelklick"] [class*="st-key-klick_"] button {{opacity:0; cursor:pointer}}
 .k-kopf {{display:flex; align-items:center; justify-content:space-between; gap:8px}}
 .k-titel {{font-size:12.5px; font-weight:700; color:{F['leise']}; letter-spacing:.2px}}
 .k-kopf {{position:relative}}
@@ -663,6 +668,14 @@ def kachel(key: str, titel: str, icon: str | None = None, klick=None, mehr: str 
     return c
 
 
+@st.cache_data(max_entries=24, show_spinner=False)
+def modell_cache(projekt: str, pos: float, modus: str, dunkel: bool, nur: int | None, hoehe: int, quelle: str,
+                 pumpe_info: str) -> go.Figure:
+    """3D-Figur nur neu bauen, wenn sich Projekt oder Darstellung ändern (Klicks auf Kacheln bleiben schnell)."""
+    i, s_, _m = from_html_state(json.loads(projekt))
+    return modell(compute_all(i, s_), pos, modus, dunkel, nur, hoehe, quelle, pumpe_info)
+
+
 def ausl_farbe(q: float) -> str:
     return next((f for g, f, _ in STUFEN if q <= g), STUFEN[-1][1])
 
@@ -784,8 +797,9 @@ def dialog_3d() -> None:
                                      key="m3d_umfang", label_visibility="collapsed") or "Ganzes Projekt"
         nur = ss.meta["activeStrang"] if umfang == "Aktueller Strang" else None
     h = HY.berechne(ss.inp, ss.straenge, ss.meta)
-    fig = modell(res, ss.meta["topoPos"], "dn" if farbe == "Nennweite" else "v", DUNKEL, nur, 720,
-                 ss.inp.waermequelle, f"Betriebspunkt V̇ {fmt(h['V'], 2)} m³/h · {fmt(h['bar'], 2)} bar (≈ {fmt(h['H'], 1)} m)")
+    fig = modell_cache(stand(ss.inp, ss.straenge, ss.meta), ss.meta["topoPos"], "dn" if farbe == "Nennweite" else "v",
+                       DUNKEL, nur, 720, ss.inp.waermequelle,
+                       f"Betriebspunkt V̇ {fmt(h['V'], 2)} m³/h · {fmt(h['bar'], 2)} bar (≈ {fmt(h['H'], 1)} m)")
     st.plotly_chart(fig, width="stretch", key="m3d_voll", theme=None,
                     config={"displaylogo": False, "toImageButtonOptions": {"format": "png", "scale": 2}})
     st.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte · Legende anklicken = Stufe ein/aus")
@@ -1037,8 +1051,9 @@ with haupt:
                     meta["activeStrang"] = int(w[1:]) - 1
                     st.rerun()
             if ansicht == "3D":
-                fig3d = modell(results, meta["topoPos"], "v", DUNKEL, None, 470, inp.waermequelle,
-                               f"Betriebspunkt V̇ {fmt(HYD['V'], 2)} m³/h · {fmt(HYD['bar'], 2)} bar (≈ {fmt(HYD['H'], 1)} m)")
+                fig3d = modell_cache(jetzt, meta["topoPos"], "v", DUNKEL, None, 470, inp.waermequelle,
+                                     f"Betriebspunkt V̇ {fmt(HYD['V'], 2)} m³/h · {fmt(HYD['bar'], 2)} bar "
+                                     f"(≈ {fmt(HYD['H'], 1)} m)")
                 fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
                 st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
                                 config={"displayModeBar": False, "displaylogo": False})
