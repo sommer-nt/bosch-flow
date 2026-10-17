@@ -73,10 +73,12 @@ except Exception:  # noqa: BLE001
 # Farb-Token (hell / dunkel)
 F = dict(seite="#0b1016", kachel="#131b24", linie="rgba(255,255,255,.07)", text="#e8eef4", leise="#8fa1b3",
          akzent="#4fa3e0", akzent_bg="rgba(79,163,224,.12)", schatten="0 1px 2px rgba(0,0,0,.4)",
-         schatten2="0 10px 30px rgba(0,0,0,.45)", gruen="#3ecf6e", gelb="#f2c14e", rot="#ff5a6a") if DUNKEL else \
+         schatten2="0 10px 30px rgba(0,0,0,.45)", gruen="#3ecf6e", gelb="#f2c14e", rot="#ff5a6a",
+         feld="#0d131a", feldrand="rgba(255,255,255,.30)", fokus="rgba(79,163,224,.35)") if DUNKEL else \
     dict(seite="#f3f5f8", kachel="#ffffff", linie="rgba(16,24,40,.07)", text="#101828", leise="#667085",
          akzent=BLAU, akzent_bg="rgba(0,86,145,.08)", schatten="0 1px 2px rgba(16,24,40,.05)",
-         schatten2="0 12px 32px rgba(16,24,40,.10)", gruen="#12b76a", gelb="#f79009", rot="#e5484d")
+         schatten2="0 12px 32px rgba(16,24,40,.10)", gruen="#12b76a", gelb="#f79009", rot="#e5484d",
+         feld="#ffffff", feldrand="#9aa6b2", fokus="rgba(0,86,145,.22)")
 
 
 def _svg(name: str) -> str:
@@ -161,6 +163,28 @@ header[data-testid="stHeader"] {{background:transparent}}
 .g-zeile {{display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid {F['linie']};
           color:{F['text']}}}
 .g-zeile span {{color:{F['leise']}}}
+/* Eingabefelder: klare Rahmen, aktives Feld mit Fokus-Ring */
+[data-testid="stNumberInputContainer"], [data-testid="stTextInputRootElement"], [data-testid="stDateInputField"],
+.react-aria-ComboBox > div[role="group"], [data-testid="stTextArea"] textarea {{
+        background:{F['feld']} !important; border:1.5px solid {F['feldrand']} !important; border-radius:10px !important;
+        transition:border-color .12s, box-shadow .12s}}
+[data-testid="stNumberInputContainer"] input, [data-testid="stTextInputRootElement"] input,
+.react-aria-ComboBox input {{color:{F['text']} !important; font-weight:600}}
+[data-testid="stNumberInputContainer"] button {{background:transparent !important; color:{F['text']} !important;
+        border-left:1px solid {F['linie']} !important; border-radius:0 !important}}
+[data-testid="stNumberInputContainer"] button:hover {{background:{F['akzent_bg']} !important; color:{F['akzent']} !important}}
+[data-testid="stNumberInputContainer"]:hover, [data-testid="stTextInputRootElement"]:hover,
+[data-testid="stDateInputField"]:hover, .react-aria-ComboBox > div[role="group"]:hover {{border-color:{F['leise']} !important}}
+[data-testid="stNumberInputContainer"]:focus-within, [data-testid="stTextInputRootElement"]:focus-within,
+[data-testid="stDateInputField"]:focus-within, .react-aria-ComboBox > div[role="group"]:focus-within {{
+        border-color:{F['akzent']} !important; box-shadow:0 0 0 3px {F['fokus']} !important}}
+[data-testid="stWidgetLabel"] p {{font-weight:650 !important; color:{F['text']} !important; font-size:13px !important}}
+/* Reiter im Panel: aktiver Reiter deutlich */
+.st-key-panel [role="tablist"] {{border-bottom:2px solid {F['feldrand']}}}
+.st-key-panel [role="tab"] p {{font-weight:600; font-size:14px}}
+.st-key-panel [role="tab"][aria-selected="true"] p {{color:{F['akzent']}; font-weight:800}}
+/* Etagenliste: Zeilen als Bänder */
+.etage {{font-size:13.5px !important; font-weight:800 !important}}
 /* Eingabe-Panel */
 .st-key-panel {{background:{F['kachel']}; border:1px solid {F['linie']}; border-radius:20px; padding:16px 16px 10px;
                box-shadow:{F['schatten2']}; position:sticky; top:3.2rem; max-height:calc(100vh - 4rem);
