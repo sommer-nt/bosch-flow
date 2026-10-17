@@ -603,16 +603,21 @@ with kopf_status:
 _inp, _str, _meta = inp, [Strang(s.floors, s.split, [dict(c) for c in s.cfg]) for s in straenge], dict(meta)
 
 
+PREISE = ss.setdefault("preise_export", False)       # Preise sind intern – im Export standardmäßig ausgeblendet
+
+
 def _pdf() -> bytes:
     cache = ss.setdefault("pdf_cache", {})
-    if jetzt not in cache:
+    schluessel = (jetzt, PREISE)
+    if schluessel not in cache:
         cache.clear()
-        cache[jetzt] = pdf_bericht(_inp, _str, _meta, compute_all(_inp, _str))
-    return cache[jetzt]
+        cache[schluessel] = pdf_bericht(_inp, _str, _meta, compute_all(_inp, _str), preise=PREISE)
+    return cache[schluessel]
 
 
-kopf_pdf.download_button("PDF", _pdf, file_name=f"Bosch_Flow_{name}.pdf", mime="application/pdf", type="primary",
-                         width="stretch", icon=":material/picture_as_pdf:", help="Planung als PDF-Bericht exportieren")
+kopf_pdf.download_button("PDF", _pdf, file_name=f"Bosch_Flow_{name}{'_intern' if PREISE else ''}.pdf", mime="application/pdf", type="primary",
+                         width="stretch", icon=":material/picture_as_pdf:",
+                         help="Planung als PDF-Bericht exportieren – " + ("mit Preisen (intern)" if PREISE else "ohne Preise"))
 kopf_speichern.download_button("Speichern", dumps(inp, straenge, meta), file_name=f"{name}.json",
                                mime="application/json", width="stretch", icon=":material/save:",
                                help="Projekt als .json-Datei speichern (später über „Laden“ wieder öffnen)")
@@ -623,12 +628,14 @@ with kopf_laden.popover("Laden", icon=":material/folder_open:", width="stretch",
         ss.geladen_id = datei.file_id
         if laden(datei.getvalue(), f"Projekt „{datei.name}“ geladen."):
             st.rerun()
-with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Zwischenspeichern, Excel, Zurücksetzen"):
+with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Preise, Zwischenspeichern, Excel, Zurücksetzen"):
+    st.toggle("Preise im Export (intern)", key="preise_export",
+              help="Aus: PDF und Excel ohne UVP und Summen – zur Weitergabe. Ein: mit Preisen, nur für uns zur Übersicht.")
     if st.button("Zwischenspeichern", icon=":material/backup:", width="stretch",
                  help="Sichert sofort im Browser (automatisch passiert das bei jeder Eingabe)."):
         ss.zwischen = datetime.now().strftime("%H:%M:%S")
         st.toast(f"Zwischenstand im Browser gesichert ({ss.zwischen}).", icon="💾")
-    st.download_button("Excel-Export", RP.excel_bytes(inp, meta, results, straenge), file_name=f"Bosch_Flow_{name}.xlsx",
+    st.download_button("Excel-Export", RP.excel_bytes(inp, meta, results, straenge, PREISE), file_name=f"Bosch_Flow_{name}{'_intern' if PREISE else ''}.xlsx",
                        width="stretch", icon=":material/table_view:",
                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     st.divider()
@@ -673,12 +680,19 @@ def kachel(key: str, titel: str, icon: str | None = None, klick=None, mehr: str 
     return c
 
 
+def huelle_setzen(quelle: str) -> None:
+    """Haushülle in Kachel und Vollbild gemeinsam schalten (bleibt auch beim Wechsel auf 2D erhalten)."""
+    ss.huelle_an = ss[quelle]
+    if quelle != "huelle_w":
+        ss.huelle_w = ss[quelle]
+
+
 @st.cache_data(max_entries=24, show_spinner=False)
 def modell_cache(projekt: str, pos: float, modus: str, dunkel: bool, nur: int | None, hoehe: int, quelle: str,
-                 pumpe_info: str) -> go.Figure:
+                 pumpe_info: str, huelle: bool = True) -> go.Figure:
     """3D-Figur nur neu bauen, wenn sich Projekt oder Darstellung ändern (Klicks auf Kacheln bleiben schnell)."""
     i, s_, _m = from_html_state(json.loads(projekt))
-    return modell(compute_all(i, s_), pos, modus, dunkel, nur, hoehe, quelle, pumpe_info)
+    return modell(compute_all(i, s_), pos, modus, dunkel, nur, hoehe, quelle, pumpe_info, huelle)
 
 
 def ausl_farbe(q: float) -> str:
@@ -792,7 +806,9 @@ def dialog_zentrale() -> None:
 
 @st.dialog("3D-Gebäudemodell", width="large")
 def dialog_3d() -> None:
-    a, b = st.columns(2)
+    a, b, c = st.columns([1, 1, 0.6], vertical_alignment="center")
+    huelle = c.toggle("Haushülle", value=ss.get("huelle_an", True), key="m3d_huelle", on_change=huelle_setzen,
+                      args=("m3d_huelle",))
     farbe = a.segmented_control("Färbung", ["Geschwindigkeit", "Nennweite"], default="Geschwindigkeit",
                                 key="m3d_farbe", label_visibility="collapsed") or "Geschwindigkeit"
     res = compute_all(ss.inp, ss.straenge)
@@ -804,7 +820,7 @@ def dialog_3d() -> None:
     h = HY.berechne(ss.inp, ss.straenge, ss.meta)
     fig = modell_cache(stand(ss.inp, ss.straenge, ss.meta), ss.meta["topoPos"], "dn" if farbe == "Nennweite" else "v",
                        DUNKEL, nur, 720, ss.inp.waermequelle,
-                       f"Betriebspunkt V̇ {fmt(h['V'], 2)} m³/h · {fmt(h['bar'], 2)} bar (≈ {fmt(h['H'], 1)} m)")
+                       f"Betriebspunkt V̇ {fmt(h['V'], 2)} m³/h · {fmt(h['bar'], 2)} bar (≈ {fmt(h['H'], 1)} m)", huelle)
     st.plotly_chart(fig, width="stretch", key="m3d_voll", theme=None,
                     config={"displaylogo": False, "toImageButtonOptions": {"format": "png", "scale": 2}})
     st.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte · Legende anklicken = Stufe ein/aus")
@@ -1056,9 +1072,11 @@ with haupt:
                     meta["activeStrang"] = int(w[1:]) - 1
                     st.rerun()
             if ansicht == "3D":
+                b.toggle("Haushülle", value=ss.get("huelle_an", True), key="huelle_w", on_change=huelle_setzen,
+                         args=("huelle_w",))
                 fig3d = modell_cache(jetzt, meta["topoPos"], "v", DUNKEL, None, 470, inp.waermequelle,
                                      f"Betriebspunkt V̇ {fmt(HYD['V'], 2)} m³/h · {fmt(HYD['bar'], 2)} bar "
-                                     f"(≈ {fmt(HYD['H'], 1)} m)")
+                                     f"(≈ {fmt(HYD['H'], 1)} m)", ss.get("huelle_an", True))
                 fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
                 st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
                                 config={"displayModeBar": False, "displaylogo": False})

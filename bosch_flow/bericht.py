@@ -210,7 +210,8 @@ def parameter_liste(inp: Inputs, R: dict, n_str: int) -> list[tuple[str, str]]:
             ("Anzahl Stränge", f"{n_str} · Zentrale {'gemeinsam' if inp.zentral == 'gemeinsam' else 'getrennt'}")]
 
 
-def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaetigt_am: str = "") -> bytes:
+def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaetigt_am: str = "",
+                preise: bool = True) -> bytes:
     """Kompletter Auslegungsbericht als PDF (Bytes)."""
     aktiv = min(meta.get("activeStrang", 0), len(results) - 1)
     R = results[aktiv]
@@ -320,7 +321,7 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
     pdf.set_xy(pdf.l_margin, y0)
     pdf.set_font(pdf.schrift, "B", 13)
     pdf.set_text_color(*BOSCH_BLAU)
-    pdf.cell(0, 7, pdf.t(f"{g['typ']}  ·  Bestell-Nr. {g['bestellnr']}  ·  UVP {RP.fmt(g['uvp'])} €"),
+    pdf.cell(0, 7, pdf.t(f"{g['typ']}  ·  Bestell-Nr. {g['bestellnr']}" + (f"  ·  UVP {RP.fmt(g['uvp'])} €" if preise else "")),
              new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(0, 0, 0)
     pdf.parameter([("Montage / Heizkreis", f"{KA.MONTAGE[g['montage']]} · {g['heizkreis']}"),
@@ -338,11 +339,16 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
     def eur(v):
         return "auf Anfrage" if v is None else f"{RP.fmt(v, 2)} €"
     summe = sum(z["summe"] or 0 for z in zeilen)
-    pdf.tabelle(["Position", "Bezeichnung", "Bestell-Nr.", "Menge", "UVP", "Summe"],
-                [[z["pos"], z["text"], z["nr"], str(z["menge"]), *(("–", "bauseits") if z["nr"] == "bauseits" else (eur(z["uvp"]), eur(z["summe"])))] for z in zeilen]
-                + [["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", "", "", eur(summe)]],
-                [30, 130, 28, 16, 32, 37], fett_wenn=lambda z: z[0] == "Summe")
-    pdf.absatz(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer, Netzpumpe und Montage nicht enthalten.", 7.5, GRAU)
+    if preise:
+        pdf.tabelle(["Position", "Bezeichnung", "Bestell-Nr.", "Menge", "UVP", "Summe"],
+                    [[z["pos"], z["text"], z["nr"], str(z["menge"]), *(("–", "bauseits") if z["nr"] == "bauseits" else (eur(z["uvp"]), eur(z["summe"])))] for z in zeilen]
+                    + [["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", "", "", eur(summe)]],
+                    [30, 130, 28, 16, 32, 37], fett_wenn=lambda z: z[0] == "Summe")
+        pdf.absatz(KA.PREISHINWEIS + " Rohrleitungen, Erzeuger, Puffer, Netzpumpe und Montage nicht enthalten.", 7.5, GRAU)
+    else:
+        pdf.tabelle(["Position", "Bezeichnung", "Bestell-Nr.", "Menge"],
+                    [[z["pos"], z["text"], z["nr"], str(z["menge"])] for z in zeilen], [34, 177, 40, 22])
+        pdf.absatz("Rohrleitungen, Erzeuger, Puffer, Netzpumpe und Montage nicht enthalten.", 7.5, GRAU)
 
     # ------------------------------------------------------------ Druckverlust, Pumpe, Rohrmengen (Erweiterung)
     h = HY.berechne(inp, straenge, meta)

@@ -53,6 +53,7 @@ Die App öffnet sich unter <http://localhost:8501>.
 - **3D-Gebäudemodell:** Das ganze Rohrnetz als drehbares Raummodell – Keller mit Hauptstrang und Wärmezentrale,
   Steigrohre, Etagenleitungen und Stationen. Rohrdicke = Nennweite, Farbe = Ausnutzung von v_max oder Nennweite;
   jedes Rohrstück zeigt beim Überfahren seine Werte. Ganzes Projekt oder nur der aktuelle Strang, auch im Vollbild.
+  Schalter „Haushülle“: durchscheinende Hauswände mit Fenstern je Station, Satteldach und Keller um die Stränge.
   Im Keller steht die Wärmezentrale als Modell: Erzeuger je nach Wärmequelle (Brennwertkessel, Wärmepumpe mit
   Ventilator, Fernwärme-Übergabestation), Pufferspeicher in Anzahl und Größe der Auswahl, Netzpumpe und
   Verrohrung bis zum Hauptstrang – beim Überfahren mit Leistung, Litern und Pumpen-Betriebspunkt.
@@ -64,6 +65,8 @@ Die App öffnet sich unter <http://localhost:8501>.
   Katalogdaten am gewählten Vorlauf (Primär-Volumenstrom, Primär-Druckverlust, Mindest-/Höchstvorlauf) samt
   Katalog-Hinweisen. Die Stückliste (App, PDF, Excel) enthält Stationen, Montage- und Regelungszubehör,
   thermischen Bypass, Netzpumpe als Betriebspunkt (bauseits) und Inbetriebnahme. Der Rechenkern V54 bleibt unverändert.
+  Preise sind intern: In der App immer sichtbar, in PDF und Excel nur mit dem Schalter „Preise im Export (intern)“
+  im Menü „···“ (Standard: aus; Dateiname dann mit „_intern“).
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.
 
 ## Streamlit Cloud

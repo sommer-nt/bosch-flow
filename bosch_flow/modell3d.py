@@ -104,6 +104,47 @@ def _zylinder(cx: float, cm: float, a0: float, a1: float, r: float, farbe: str, 
                      hoverinfo="skip", showscale=False, lighting=LICHT)
 
 
+def _flaeche(ecken: list, farbe: str, deckkraft: float) -> go.Mesh3d:
+    """Ebenes Vieleck (Ecken im Umlauf) als Dreiecksfächer."""
+    x, y, z = zip(*ecken)
+    n = len(ecken)
+    return go.Mesh3d(x=x, y=y, z=z, i=[0] * (n - 2), j=list(range(1, n - 1)), k=list(range(2, n)), color=farbe,
+                     opacity=deckkraft, flatshading=True, hoverinfo="skip", showscale=False, lighting=LICHT)
+
+
+def _haus(x0: float, x1: float, y0: float, y1: float, zg: float, zt: float, fenster: list, dunkel: bool,
+          kanten: dict, rahmen: dict) -> list:
+    """Durchscheinende Haushülle: Wände (zg…zt), Satteldach (First entlang x) und Fenster an der Vorderseite.
+    Die Vorderwand (y0, zur Kamera) ist nur als Umriss mit Fenstern gezeichnet („Puppenhaus-Schnitt“): Flächen liegen
+    in WebGL im Pick-Puffer und würden sonst die Hover-Werte der Rohre dahinter verdecken.
+    ``fenster``: (x, z_boden) je Fenster; Kanten und Fensterrahmen werden in ``kanten``/``rahmen`` gesammelt."""
+    wand = "#9fb3c8" if dunkel else "#c9b9a0"
+    dach = "#c0644d" if dunkel else "#a8452f"
+    first = zt + min(3.2, 0.32 * (y1 - y0))
+    ue = 0.4                                                     # Dachüberstand
+    teile = [_flaeche([(x0, y1, zg), (x1, y1, zg), (x1, y1, zt), (x0, y1, zt)], wand, 0.10),
+             _flaeche([(x0, y0, zg), (x0, y1, zg), (x0, y1, zt), (x0, (y0 + y1) / 2, first), (x0, y0, zt)], wand, 0.10),
+             _flaeche([(x1, y0, zg), (x1, y1, zg), (x1, y1, zt), (x1, (y0 + y1) / 2, first), (x1, y0, zt)], wand, 0.10),
+             _flaeche([(x0 - ue, y0 - ue, zt - 0.25), (x1 + ue, y0 - ue, zt - 0.25), (x1 + ue, (y0 + y1) / 2, first),
+                       (x0 - ue, (y0 + y1) / 2, first)], dach, 0.42),
+             _flaeche([(x0 - ue, y1 + ue, zt - 0.25), (x1 + ue, y1 + ue, zt - 0.25), (x1 + ue, (y0 + y1) / 2, first),
+                       (x0 - ue, (y0 + y1) / 2, first)], dach, 0.42)]
+    def linie(*pkte, ziel=kanten):
+        for p in pkte:
+            ziel["x"].append(p[0]), ziel["y"].append(p[1]), ziel["z"].append(p[2])
+        ziel["x"].append(None), ziel["y"].append(None), ziel["z"].append(None)
+    ym = (y0 + y1) / 2
+    for y in (y0, y1):
+        linie((x0, y, zg), (x1, y, zg), (x1, y, zt), (x0, y, zt), (x0, y, zg))
+    for x in (x0, x1):
+        linie((x, y0, zt), (x, ym, first), (x, y1, zt))
+    linie((x0 - ue, ym, first), (x1 + ue, ym, first))
+    for fx, fz in fenster:
+        linie((fx - 0.6, y0, fz + 0.9), (fx + 0.6, y0, fz + 0.9), (fx + 0.6, y0, fz + 2.2), (fx - 0.6, y0, fz + 2.2),
+              (fx - 0.6, y0, fz + 0.9), ziel=rahmen)
+    return teile
+
+
 def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: str | None,
                     massstab: float = 1.0) -> tuple[list, dict]:
     """Erzeuger, Pufferspeicher und Netzpumpe im Keller, verrohrt bis zum Hauptstrang bei x = ax.
@@ -171,9 +212,10 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
 
 
 def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = False, nur_strang: int | None = None,
-           hoehe: int = 680, quelle: str = "kessel", pumpe_info: str | None = None) -> go.Figure:
+           hoehe: int = 680, quelle: str = "kessel", pumpe_info: str | None = None, huelle: bool = False) -> go.Figure:
     """3D-Figur. ``modus``: "v" = Farbe nach Geschwindigkeit, "dn" = nach Nennweite.
-    ``nur_strang``: Index eines einzelnen Strangs (ohne Hauptstrang) oder None für das ganze Projekt."""
+    ``nur_strang``: Index eines einzelnen Strangs (ohne Hauptstrang) oder None für das ganze Projekt.
+    ``huelle``: durchscheinende Haushülle (Wände, Fenster, Satteldach, Keller) um die Stränge."""
     P = results[0]["P"]
     vmax = P["vmax"]
     ink = "#e6edf3" if dunkel else "#12181f"
@@ -197,6 +239,7 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
     infos = {"x": [], "y": [], "z": [], "t": []}
     stat = {"x": [], "y": [], "z": [], "t": []}
     flaechen = []
+    haeuser = []               # je Strang: x_min, x_max, Geschosse, Fenster
 
     def rohr(p0, p1, r, titel):
         farbe, name = _farbe(r, vmax, modus)
@@ -238,6 +281,8 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
         # Geschossplatten (transparent) je Strang
         x_min = xr - (GANG + max(n_l - 1, 0) * STATION) - 1.2
         x_max = xr + ((GANG + max(n_r - 1, 0) * STATION) + 1.2 if n_r else 1.2)
+        haeuser.append((x_min, x_max, floors, [(sx, sz) for sx, sz in zip(stat["x"], stat["z"])
+                                               if x_min <= sx <= x_max]))
         for f in range(1, floors + 1):
             z = f * ETAGE - 0.25
             flaechen.append(go.Mesh3d(x=[x_min, x_max, x_max, x_min],
@@ -250,7 +295,7 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
                                          text=[etage_label(f) for f in range(1, floors + 1)],
                                          textfont=dict(color=soft, size=11), hoverinfo="skip", showlegend=False))
         # Strangbeschriftung oben
-        stat_label = dict(x=[xr], y=[0], z=[floors * ETAGE + 1.6], text=[f"<b>Strang {i + 1}</b> · {R['totalWE']} WE"])
+        stat_label = dict(x=[xr], y=[0], z=[(floors + 1) * ETAGE + 3.0 if huelle else floors * ETAGE + 1.6], text=[f"<b>Strang {i + 1}</b> · {R['totalWE']} WE"])
         flaechen.append(go.Scatter3d(mode="text", textfont=dict(color=ink, size=13), hoverinfo="skip",
                                      showlegend=False, **stat_label))
 
@@ -292,6 +337,33 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
     fig.add_trace(go.Mesh3d(x=[k0, k1, k1, k0], y=[min(-TIEFE - 1.5, zh["ym"] * 1.6)] * 2 + [TIEFE + 1] * 2, z=[zh["boden"] - 0.02] * 4,
                             i=[0, 0], j=[1, 2], k=[2, 3], color="rgba(120,140,160,0.18)" if dunkel else "rgba(16,24,40,0.07)",
                             opacity=1, hoverinfo="skip", showscale=False, flatshading=True))
+    if huelle:
+        zg = ETAGE - 0.25                                      # Oberkante Gelände = Fußboden EG
+        kanten, rahmen = {"x": [], "y": [], "z": []}, {"x": [], "y": [], "z": []}
+        for x_min, x_max, floors, fenster in haeuser:
+            for t in _haus(x_min - 0.3, x_max + 0.3, -TIEFE, TIEFE, zg, (floors + 1) * ETAGE - 0.25,
+                           [(fx, fz - 0.25) for fx, fz in fenster], dunkel, kanten, rahmen):
+                fig.add_trace(t)
+        # Keller unter allen Strängen, umschließt Hauptstrang und Wärmezentrale (Vorderseite offen, s. _haus)
+        ky0, ky1 = min(-TIEFE - 1.5, zh["ym"] * 1.6), TIEFE + 1
+        keller = "#7d8fa3" if dunkel else "#8c99a6"
+        for ecken in ([(k0, ky1, zh["boden"]), (k1, ky1, zh["boden"]), (k1, ky1, zg), (k0, ky1, zg)],
+                      [(k0, ky0, zh["boden"]), (k0, ky1, zh["boden"]), (k0, ky1, zg), (k0, ky0, zg)],
+                      [(k1, ky0, zh["boden"]), (k1, ky1, zh["boden"]), (k1, ky1, zg), (k1, ky0, zg)]):
+            fig.add_trace(_flaeche(ecken, keller, 0.07))
+        for y in (ky0, ky1):
+            kanten["x"] += [k0, k1, None]
+            kanten["y"] += [y, y, None]
+            kanten["z"] += [zg, zg, None]
+        kanten["x"] += [k0, k0, k1, k1, None]                   # offene Kellervorderseite als Umriss
+        kanten["y"] += [ky0] * 4 + [None]
+        kanten["z"] += [zg, zh["boden"], zh["boden"], zg, None]
+        fig.add_trace(go.Scatter3d(mode="lines", hoverinfo="skip", showlegend=False,
+                                   line=dict(color="rgba(200,215,230,0.30)" if dunkel else "rgba(90,70,50,0.40)",
+                                             width=2), **kanten))
+        fig.add_trace(go.Scatter3d(mode="lines", hoverinfo="skip", showlegend=False,
+                                   line=dict(color="rgba(200,215,230,0.22)" if dunkel else "rgba(90,70,50,0.25)",
+                                             width=1.5), **rahmen))
     fig.add_trace(go.Scatter3d(x=[zh["links"] - 0.4], y=[zh["ym"]], z=[zh["boden"] / 2], mode="text",
                                text=["<b>Wärmezentrale</b>"],
                                textposition="middle left", textfont=dict(color=ink, size=12), hoverinfo="skip",
@@ -310,6 +382,9 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
                                            line=dict(color="#005691" if not dunkel else "#4fa3e0", width=2))))
     fig.add_trace(go.Scatter3d(x=infos["x"], y=infos["y"], z=infos["z"], mode="markers", hovertext=infos["t"],
                                hoverinfo="text", showlegend=False, marker=dict(size=7, color="rgba(0,0,0,0)")))
+    seiten = _seiten(fig)
+    # mit Dach bei hohen, kompakten Gebäuden etwas weiter weg, damit der First nicht abgeschnitten wird
+    zoom = 1 + 0.32 * min(1.0, max(0.0, (seiten["z"] / seiten["x"] - 0.45) / 0.55)) if huelle else 1.0
     achse = dict(visible=False, showbackground=False, showgrid=False, zeroline=False, showspikes=False)
     fig.update_layout(
         height=hoehe, margin=dict(l=0, r=0, t=10, b=0), paper_bgcolor="rgba(0,0,0,0)",
@@ -318,8 +393,8 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
                     title=dict(text="Ausnutzung v / v_max: " if modus == "v" else "Nennweite: ",
                                font=dict(color=soft, size=11)), itemclick="toggleothers", bgcolor="rgba(0,0,0,0)"),
         hoverlabel=dict(bgcolor="#ffffff", bordercolor="#005691", font=dict(color="#12181f", size=12)),
-        scene=dict(xaxis=achse, yaxis=achse, zaxis=achse, aspectmode="manual", aspectratio=_seiten(fig),
+        scene=dict(xaxis=achse, yaxis=achse, zaxis=achse, aspectmode="manual", aspectratio=seiten,
                    bgcolor="rgba(0,0,0,0)", dragmode="turntable",
-                   camera=dict(eye=dict(x=0.3, y=-1.35, z=0.4), center=dict(x=0, y=0, z=-0.1),
+                   camera=dict(eye=dict(x=0.3 * zoom, y=-1.35 * zoom, z=0.4 * zoom), center=dict(x=0, y=0, z=0.0 if huelle else -0.1),
                                up=dict(x=0, y=0, z=1))))
     return fig

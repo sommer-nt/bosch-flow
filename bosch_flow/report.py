@@ -182,7 +182,7 @@ def inputs_table(inp: Inputs, meta: dict) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["Eingabe", "Wert"])
 
 
-def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list) -> bytes:
+def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list, preise: bool = True) -> bytes:
     """Excel-Mappe: Eingaben, Wärmezentrale, je Strang Etagen- & Steigstrang, Etagenbelegung."""
     buf = io.BytesIO()
     with pd.ExcelWriter(buf, engine="openpyxl") as xw:
@@ -224,8 +224,10 @@ def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list) -> bytes
                             "UVP €": z["uvp"], "Summe €": z["summe"]} for z in zeilen])
         sl.loc[len(sl)] = ["Summe", "Katalogpositionen (UVP, ohne MwSt.)", "", None, None,
                            float(sum(z["summe"] or 0 for z in zeilen))]
+        if not preise:
+            sl = sl.iloc[:-1].drop(columns=["UVP €", "Summe €"])
         sl.to_excel(xw, sheet_name="Stückliste", index=False, startrow=1)
-        pd.DataFrame([[f"{KATALOG} – {PREISHINWEIS}"]]).to_excel(xw, sheet_name="Stückliste", index=False, header=False)
+        pd.DataFrame([[f"{KATALOG} – {PREISHINWEIS}" if preise else KATALOG]]).to_excel(xw, sheet_name="Stückliste", index=False, header=False)
         for ws in xw.book.worksheets:
             for column in ws.columns:
                 width = max(len(str(c.value)) if c.value is not None else 0 for c in column)

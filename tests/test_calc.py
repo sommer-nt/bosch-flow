@@ -147,6 +147,38 @@ def test_pdf_bericht(sc):
     assert pdf.startswith(b"%PDF") and len(pdf) > 20000
 
 
+def test_export_ohne_preise():
+    """Ohne Preise enthalten PDF und Excel keine UVP und keine Summen (Weitergabe nach außen)."""
+    import io
+    import shutil
+    import subprocess
+
+    import openpyxl
+    from bosch_flow.bericht import pdf_bericht
+    from bosch_flow.report import excel_bytes
+    inp, straenge, meta = build(SCENARIOS[0])
+    res = compute_all(inp, straenge)
+    for preise in (True, False):
+        mappe = openpyxl.load_workbook(io.BytesIO(excel_bytes(inp, meta, res, straenge, preise)))
+        text = " ".join(str(c.value) for zeile in mappe["Stückliste"].iter_rows() for c in zeile if c.value is not None)
+        assert ("UVP" in text) == preise
+        if shutil.which("pdftotext"):
+            pdf = pdf_bericht(inp, straenge, meta, res, preise=preise)
+            text = subprocess.run(["pdftotext", "-", "-"], input=pdf, capture_output=True).stdout.decode()
+            assert ("UVP" in text) == preise and ("€" in text) == preise
+
+
+def test_3d_haushuelle():
+    """Die Haushülle ergänzt nur Flächen und Linien – Rohre, Stationen und Hover-Punkte bleiben gleich."""
+    from bosch_flow.modell3d import modell
+    inp, straenge, meta = build(SCENARIOS[0])
+    res = compute_all(inp, straenge)
+    ohne, mit = modell(res, 50), modell(res, 50, huelle=True)
+    assert len(mit.data) > len(ohne.data)
+    assert list(mit.data[-1].hovertext) == list(ohne.data[-1].hovertext)
+    assert all(t.hoverinfo == "skip" for t in mit.data if t.type == "mesh3d")
+
+
 @pytest.mark.parametrize("sc", SCENARIOS, ids=[s["name"] for s in SCENARIOS])
 def test_3d_modell(sc):
     """Jedes Rohrstück (Steigstrang, Etagenleitungen, Hauptstrang) hat genau einen Hover-Punkt mit seinen Daten."""
