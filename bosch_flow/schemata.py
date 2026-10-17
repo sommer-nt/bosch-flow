@@ -175,130 +175,129 @@ def topologie_szene(results: list, pos: float = 50, gross: bool = False, dunkel:
 
 
 # ====================================================================== Anlagenschema (Heizzentrale)
-def _pumpe(s: Szene, x, y, r, F):
-    g = r * 2.3
-    s.add(Icon("pumpe", x - g / 2, y - g / 2, x + g / 2, y + g / 2, F["icon_invert"]))
+QUELLE_NAME = {"kessel": "Brennwertkessel", "fernwaerme": "Fernwärme-Übergabe", "wp": "Wärmepumpe"}
 
 
-def _badge(s: Szene, x, y, txt, col, caption, F):
-    w = 18 + len(txt) * 6.2
-    s.text(x, y - 18, caption, 8.5, F["soft"])
-    s.rechteck(x - w / 2, y - 9, x + w / 2, y + 9, fuell=col, radius=9)
-    s.text(x, y, f"● {txt}", 10, "#ffffff", fett=True)
+def _karte(s: Szene, x0, y0, x1, y1, F):
+    s.rechteck(x0, y0, x1, y1, fuell=F["card"], rand=F["cardline"], breite=1.2, radius=12, unten=True)
 
 
-def anlagenschema(R: dict, headline: dict, dunkel: bool = False) -> Szene:
+def _komponente(s: Szene, cx, cy, w, h, icon, titel, wert, unter, F, ib=52):
+    """Einheitliche Karte: Icon oben, Titel, Kennwert, Unterzeile – Raster für alle Bauteile."""
+    _karte(s, cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2, F)
+    y0 = cy - (ib + 80) / 2 - 14                        # Inhalt senkrecht mittig, auch in hohen Karten
+    s.add(Icon(icon, cx - ib / 2, y0 + 14, cx + ib / 2, y0 + 14 + ib, F["icon_invert"]))
+    s.text(cx, y0 + ib + 30, titel, 11, F["ink"], fett=True)
+    s.text(cx, y0 + ib + 50, wert, 14, F["accent"], fett=True)
+    if unter:
+        s.text(cx, y0 + ib + 68, unter, 9, F["soft"])
+
+
+def _leitung(s: Szene, x0, x1, y, farbe, F, oben: str = "", unten: str = "", pfeil: bool = True):
+    """Vorlauf (Farbe, mit Pfeil) über Rücklauf (blau); Beschriftung mittig über bzw. unter dem Leitungspaar."""
+    yv, yr = y - 6, y + 6
+    if pfeil:
+        s.add(Pfeil(x0, yv, x1, yv, farbe, 3))
+    else:
+        s.linie(x0, yv, x1, yv, farbe, 3)
+    s.linie(x0, yr, x1, yr, F["rl"], 3)
+    if oben:
+        s.text((x0 + x1) / 2, yv - 9, oben, 9.5, farbe, fett=True, vanker="bottom")
+    if unten:
+        s.text((x0 + x1) / 2, yr + 9, unten, 9, F["soft"], vanker="top")
+
+
+def anlagenschema(R: dict, headline: dict, dunkel: bool = False, quelle: str = "") -> Szene:
+    """Heizzentrale als aufgeräumtes Schema: Erzeuger → Puffer → Netzpumpe → Wohnungsstationen.
+    2-Leiter: ein Leitungspaar; 4-Leiter: je ein Strang für Heizung (rot) und Trinkwasser (gold)."""
     F = farben(dunkel)
     A, st = R["anlage"], R["st"]
     four = A["four"]
     W = 1000
-    H = 430 if four else 350
-    s = Szene(W, H)
-    inv = F["icon_invert"]
-    X_ERZ, X_PUF, X_PMP, X_STA = 100, 305, 470, W - 165
     n_we = A["weForZentrale"]
-    mid = 140 if not four else 190
-    ib = 80
-    # Erzeuger
-    s.add(Icon("erzeuger", X_ERZ - ib / 2, mid - ib / 2, X_ERZ + ib / 2, mid + ib / 2, inv))
-    s.text(X_ERZ, mid + ib / 2 + 16, "Wärmeerzeuger", 12, F["ink"], fett=True)
-    s.text(X_ERZ, mid + ib / 2 + 31, "Kessel / FW / WP", 10, F["soft"])
-    s.text(X_ERZ, mid + ib / 2 + 50, f"{fmt(A['kesselQ'])} kW", 15, F["accent"], fett=True)
-    net_end = X_STA - 150
+    zapf = fmt(A["zapfLmin"], 1).removesuffix(",0")
+    name = "Flow 7000 (F7002 HPS)" if A["zuheizerOn"] else st["name"]
+    # Raster: Spalten-Mitten und Kartenmaße
+    X_ERZ, X_PUF, X_PMP = 95, 330, 520
+    KW, KH = 150, 180                                   # Erzeuger-/Pufferkarte
+    SX0, SX1 = 700, W - 30                              # Stationskarte
     if not four:
         pp = puffer_produkt(A["pufferVol"])
-        s.add(Icon("puffer", X_PUF - ib / 2, mid - ib / 2 - 6, X_PUF + ib / 2, mid + ib / 2 + 6, inv))
-        _badge(s, X_PUF, mid - 66, f"{fmt(A['vlKeller'])} °C", F["vl"], "Versorgungs-VL", F)
-        s.text(X_PUF, mid + ib / 2 + 16, "Bereitschaftspuffer", 12, F["ink"], fett=True)
-        s.text(X_PUF, mid + ib / 2 + 33, f"{fmt(A['pufferVol'])} l", 13, F["accent"], fett=True)
-        s.text(X_PUF, mid + ib / 2 + 49, f"Auswahl {pp['text']}" if pp["liter"] else "nächste Normgröße", 9, F["soft"])
-        _pumpe(s, X_PMP, mid, 22, F)
-        s.text(X_PMP, mid + ib / 2 + 16, "Netzpumpe", 12, F["ink"], fett=True)
-        yv, yr = mid - 6, mid + 6
-        for x0, x1 in ((X_ERZ + 44, X_PUF - 44), (X_PUF + 44, X_PMP - 24), (X_PMP + 24, net_end)):
-            s.add(Pfeil(x0, yv, x1, yv, F["vl"], 3))
-            s.linie(x1, yr, x0, yr, F["rl"], 3)
-        s.text(X_PMP + 34, yv - 14, "Versorgungsnetz · Vorlauf", 10.5, F["vl"], fett=True, anker="start")
-        s.text((X_PMP + net_end) / 2 + 10, yr + 18, "Rücklauf", 10.5, F["rl"], fett=True)
-        s.text((X_PMP + net_end) / 2 + 10, mid - 34,
-               f"{headline['dim']} · {fmt(headline['Vtot'], 2)} m³/h · v {fmt(headline['v'], 2)} m/s", 10, F["ink"],
-               fett=True)
-        _badge(s, net_end - 30, mid + 40, f"{fmt(A['netzTemp'])} °C", F["vl"], "an Station", F)
+        reihen = [dict(y=125, farbe=F["vl"], titel="Bereitschaftspuffer", vol=A["pufferVol"], prod=pp,
+                       pumpe=headline["Vtot"], temp=f"VL {fmt(A['vlKeller'])} °C",
+                       netz=f"{headline['dim']} · {fmt(headline['Vtot'], 2)} m³/h",
+                       netz2=f"v {fmt(headline['v'], 2)} m/s · an Station {fmt(A['netzTemp'])} °C")]
+        H, top, bot = 265, 35, 215
     else:
-        ww, hz = puffer_produkt(A["wwPufferVol"]), puffer_produkt(A["heizPufferVol"])
-        for yy, titel, vol, prod, pump, netz, col in (
-                (mid - 85, "Puffer Heizung", A["heizPufferVol"], hz, A["heizPumpV"], "Heizungsnetz · Vorlauf", F["vl"]),
-                (mid + 85, "Puffer Trinkwasser", A["wwPufferVol"], ww, A["wwPumpV"], "Trinkwassernetz · Vorlauf", F["gold"])):
-            s.add(Icon("puffer", X_PUF - 30, yy - 34, X_PUF + 30, yy + 34, inv))
-            s.text(X_PUF, yy - 44, titel, 10.5, F["ink"], fett=True)
-            s.text(X_PUF, yy + 46, f"{fmt(vol)} l · Auswahl {prod['text']}", 9, F["soft"])
-            _pumpe(s, X_PMP, yy, 18, F)
-            s.text(X_PMP, yy - 30, "Netzpumpe " + ("Heizung" if "Heiz" in titel else "Trinkwasser"), 9.5, F["ink"],
-                   fett=True)
-            s.text(X_PMP, yy + 32, f"{fmt(pump, 1)} m³/h", 9, F["soft"])
-            for x0, x1 in ((X_ERZ + 44, X_PUF - 32), (X_PUF + 32, X_PMP - 20), (X_PMP + 20, net_end)):
-                s.add(Pfeil(x0, yy - 5, x1, yy - 5, col, 3))
-                s.linie(x1, yy + 5, x0, yy + 5, F["rl"], 3)
-            s.text((X_PMP + net_end) / 2 + 10, yy - 16, netz, 10, col, fett=True)
-        _badge(s, X_PUF + 70, mid + 85 - 50, f"{fmt(A['vlKeller'])} °C", F["gold"], "TWW VL Keller", F)
-    # Station
-    bx0, bx1 = X_STA - 140, X_STA + 140
-    by0, by1 = (mid - 75, mid + 85) if not four else (mid - 135, mid + 135)
-    s.rechteck(bx0, by0, bx1, by1, fuell=F["panel"], rand=F["cardline"], breite=1.4, radius=10, unten=True)
-    s.text(X_STA, by0 - 14, f"{n_we}× Wohnungsstation", 12.5, F["ink"], fett=True)
-    name = "Flow 7000 (F7002 HPS)" if A["zuheizerOn"] else st["name"]
-    s.text(X_STA, by0 + 16, f"{name} · {fmt(A['stationKW'])} kW bis {fmt(A['zapfLmin'], 1).removesuffix(',0')} l/min",
-           9.5, F["soft"])
-    s.text(X_STA, by0 + 30, st["mode"], 9.5, F["soft"])
+        reihen = [dict(y=120, farbe=F["vl"], titel="Puffer Heizung", vol=A["heizPufferVol"],
+                       prod=puffer_produkt(A["heizPufferVol"]), pumpe=A["heizPumpV"], temp="",
+                       netz="Heizungsnetz", netz2=""),
+                  dict(y=330, farbe=F["gold"], titel="Puffer Trinkwasser", vol=A["wwPufferVol"],
+                       prod=puffer_produkt(A["wwPufferVol"]), pumpe=A["wwPumpV"], temp=f"TWW-VL {fmt(A['vlKeller'])} °C",
+                       netz="Trinkwassernetz", netz2="")]
+        H, top, bot = 470, 30, 420
+    s = Szene(W, H)
+    # Erzeuger: eine Karte, über alle Reihen
+    ym = (reihen[0]["y"] + reihen[-1]["y"]) / 2
+    eh = reihen[-1]["y"] - reihen[0]["y"] + KH         # bündig mit den Pufferkarten
+    _komponente(s, X_ERZ, ym, KW, eh, "erzeuger", QUELLE_NAME.get(quelle, "Wärmeerzeuger"),
+                f"{fmt(A['kesselQ'])} kW", "Erzeugerleistung", F)
+    s.info(X_ERZ, ym, f"<b>Wärmeerzeuger</b><br>Kessel-/FW-Leistung <b>{fmt(A['kesselQ'])} kW</b><br>"
+                      f"Q theoretisch {fmt(A['Qtheor'], 1)} kW · GZ {fmt(A['gz'], 1)}<br>Totzeit {fmt(A['tTot'])} min · "
+                      f"Wiederaufheizzeit {fmt(A['tWied'])} min")
+    for r in reihen:
+        y = r["y"]
+        _komponente(s, X_PUF, y, KW, KH, "puffer", r["titel"], f"{fmt(r['vol'])} l",
+                    f"Auswahl {r['prod']['text']}" if r["prod"]["liter"] else "nächste Normgröße", F)
+        s.info(X_PUF, y, f"<b>{r['titel']}</b><br>berechnet {fmt(r['vol'])} l<br>Auswahl <b>{r['prod']['text']}</b>")
+        # Netzpumpe auf dem Vorlauf
+        g = 40
+        s.add(Icon("pumpe", X_PMP - g / 2, y - 6 - g / 2, X_PMP + g / 2, y - 6 + g / 2, F["icon_invert"]))
+        s.text(X_PMP, y + 34, "Netzpumpe", 10.5, F["ink"], fett=True, vanker="top")
+        s.text(X_PMP, y + 50, f"{fmt(r['pumpe'], 2)} m³/h", 9, F["soft"], vanker="top")
+        s.info(X_PMP, y, f"<b>Netzpumpe</b><br>V̇ = {fmt(r['pumpe'], 2)} m³/h")
+        # Leitungen: Erzeuger → Puffer → Pumpe → Stationen
+        _leitung(s, X_ERZ + KW / 2, X_PUF - KW / 2, y, r["farbe"], F)
+        _leitung(s, X_PUF + KW / 2, X_PMP - g / 2 - 2, y, r["farbe"], F, oben=r["temp"], pfeil=False)
+        _leitung(s, X_PMP + g / 2 + 2, SX0, y, r["farbe"], F, oben=r["netz"], unten=r["netz2"])
+    # Wohnungsstationen
+    _karte(s, SX0, top, SX1, bot, F)
+    sx = (SX0 + SX1) / 2
+    s.text(sx, top + 22, f"{n_we}× Wohnungsstation", 12.5, F["ink"], fett=True)
+    s.text(sx, top + 40, f"{name} · {st['mode']}", 9, F["soft"])
+    ib = 50
     if not four:
-        hx, tx, iy = X_STA - 65, X_STA + 65, by0 + 46
+        kreise = [(sx - 72, reihen[0]["y"] - 14, "heizkreis", "Heizkreis", f"≤ {st['maxHeatKW']} kW"),
+                  (sx + 72, reihen[0]["y"] - 14, "trinkwasser", "Trinkwasser", f"{fmt(A['stationKW'])} kW · {zapf} l/min")]
     else:
-        hx, tx, iy = X_STA, X_STA, None
-    if not four:
-        s.add(Icon("heizkreis", hx - 28, iy, hx + 28, iy + 56, inv))
-        s.text(hx, iy + 70, "Heizkreis", 10, F["ink"], fett=True)
-        s.text(hx, iy + 84, f"≤ {st['maxHeatKW']} kW", 8.5, F["soft"])
-        s.add(Icon("trinkwasser", tx - 28, iy, tx + 28, iy + 56, inv))
-        s.text(tx, iy + 70, "Trinkwasser", 10, F["ink"], fett=True)
-        s.text(tx, iy + 84, f"{fmt(A['stationKW'])} kW · {fmt(A['zapfLmin'], 1).removesuffix(',0')} l/min", 8.5, F["soft"])
-    else:
-        s.add(Icon("heizkreis", X_STA - 28, mid - 110, X_STA + 28, mid - 54, inv))
-        s.text(X_STA, mid - 40, "Heizkreis", 10, F["ink"], fett=True)
-        s.add(Icon("trinkwasser", X_STA - 28, mid + 30, X_STA + 28, mid + 86, inv))
-        s.text(X_STA, mid + 100, "Trinkwasser", 10, F["ink"], fett=True)
+        kreise = [(sx, reihen[0]["y"] - 4, "heizkreis", "Heizkreis", f"≤ {st['maxHeatKW']} kW"),
+                  (sx, reihen[1]["y"] - 4, "trinkwasser", "Trinkwasser", f"{fmt(A['stationKW'])} kW · {zapf} l/min")]
+    for cx, cy, icon, titel, unter in kreise:
+        s.add(Icon(icon, cx - ib / 2, cy - ib / 2, cx + ib / 2, cy + ib / 2, F["icon_invert"]))
+        s.text(cx, cy + ib / 2 + 14, titel, 10.5, F["ink"], fett=True)
+        s.text(cx, cy + ib / 2 + 29, unter, 9, F["soft"])
     if A["zuheizerOn"]:
-        s.rechteck(X_STA - 95, by1 - 26, X_STA + 95, by1 - 8, fuell=F["gold"], radius=9)
-        s.text(X_STA, by1 - 17, f"⚡ DLE {fmt(A['zuheizerMaxKW'])} kW · Stufe {fmt(A['dleStufe'])} °C", 9.5, "#ffffff",
+        s.rechteck(sx - 100, bot - 30, sx + 100, bot - 10, fuell=F["gold"], radius=10)
+        s.text(sx, bot - 20, f"DLE {fmt(A['zuheizerMaxKW'])} kW · Stufe {fmt(A['dleStufe'])} °C", 9.5, "#ffffff",
                fett=True)
-    # Infos beim Überfahren
-    s.info(X_ERZ, mid, f"<b>Wärmeerzeuger</b><br>Kessel-/FW-Leistung <b>{fmt(A['kesselQ'])} kW</b><br>"
-                       f"Q theoretisch {fmt(A['Qtheor'], 1)} kW · GZ {fmt(A['gz'], 1)}<br>Totzeit {fmt(A['tTot'])} min · "
-                       f"Wiederaufheizzeit {fmt(A['tWied'])} min")
-    if not four:
-        s.info(X_PUF, mid, f"<b>Bereitschaftspuffer</b><br>berechnet {fmt(A['pufferVol'])} l<br>Auswahl "
-                           f"<b>{puffer_produkt(A['pufferVol'])['text']}</b><br>Versorgungs-VL {fmt(A['vlKeller'])} °C")
-        s.info(X_PMP, mid, f"<b>Netzpumpe</b><br>V̇ = {fmt(headline['Vtot'], 2)} m³/h<br>Anschluss {headline['dim']} · "
-                           f"v {fmt(headline['v'], 2)} m/s")
-    s.info(X_STA, (by0 + by1) / 2, f"<b>{n_we}× {name}</b><br>{st['mode']}<br>Heizung ≤ {st['maxHeatKW']} kW · "
-                                    f"WW {fmt(A['stationKW'])} kW / {fmt(A['zapfLmin'], 1)} l/min @ {fmt(A['zapfTemp'])} °C"
-                                    f"<br>Netztemperatur an Station {fmt(A['netzTemp'])} °C")
-    # Hinweisbox
-    y0 = H - 54
-    s.rechteck(60, y0, W - 60, y0 + 44, fuell=F["panel"], rand=F["cardline"], radius=6)
-    if four:
-        sys_txt = ("4-Leiter-System: Heizung und Trinkwasser hydraulisch getrennt – je eigener Puffer, eigene "
-                   "Netzpumpe und eigenes Leitungspaar.")
-        leg = "Rot = Heizungsvorlauf · Gold = Trinkwasservorlauf · Blau = Rücklauf"
-    else:
-        sys_txt = ("2-Leiter-System: Heizung UND Trinkwasser werden über EIN Leitungspaar (Vor-/Rücklauf) zur "
-                   "Station geführt.")
-        leg = "Rot = Vorlauf (warm) · Blau = Rücklauf · Gold = Warmwasser-Zapfung an der Station"
-    s.text(75, y0 + 15, sys_txt, 11, F["ink"], fett=True, anker="start")
-    s.text(75, y0 + 31, leg, 10, F["soft"], anker="start")
+    s.info(sx, (top + bot) / 2, f"<b>{n_we}× {name}</b><br>{st['mode']}<br>Heizung ≤ {st['maxHeatKW']} kW · "
+                                f"WW {fmt(A['stationKW'])} kW / {fmt(A['zapfLmin'], 1)} l/min @ {fmt(A['zapfTemp'])} °C"
+                                f"<br>Netztemperatur an Station {fmt(A['netzTemp'])} °C")
+    # Legende: eine ruhige Zeile
+    yl = H - 22
+    eintraege = ([(F["vl"], "Heizungsvorlauf"), (F["gold"], "Trinkwasservorlauf"), (F["rl"], "Rücklauf")] if four
+                 else [(F["vl"], "Vorlauf"), (F["rl"], "Rücklauf")])
+    x = 20
+    for farbe, txt in eintraege:
+        s.linie(x, yl, x + 22, yl, farbe, 3)
+        s.text(x + 28, yl, txt, 9.5, F["soft"], anker="start")
+        x += 40 + len(txt) * 5.6
+    s.text(W - 30, yl, "4-Leiter-System · Heizung und Trinkwasser getrennt" if four
+           else "2-Leiter-System · Heizung und Trinkwasser über ein Leitungspaar", 9.5, F["soft"], anker="end")
     return s
 
 
-# ====================================================================== Liniendiagramm (für das PDF)
+# ====================================================================== Diagramme
 def diagramm(reihen: list, ylab: str, xlab: str = "kumulierte Wohneinheiten", W: float = 560,
              H: float = 300) -> Szene:
     """reihen: [(name, farbe, gestrichelt, [(x, y), ...]), ...]"""

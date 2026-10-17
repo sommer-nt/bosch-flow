@@ -287,7 +287,7 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
     # ------------------------------------------------------------ Anlagenschema + Tabellen (aktiver Strang)
     titel = f" – Strang {aktiv + 1}" if len(results) > 1 else ""
     pdf.abschnitt("Anlagenschema (Heizzentrale)" + titel, platz=115)
-    pdf.szene(SC.anlagenschema(R, HL), hoehe_max=105)
+    pdf.szene(SC.anlagenschema(R, HL, quelle=inp.waermequelle), hoehe_max=105)
     pdf.abschnitt("Auslegungs-Tabelle – maßgeblicher Etagenstrang" + titel, platz=60)
     df = RP.strang_table(R, "H")
     pdf.tabelle(list(df.columns), [[_z(v, c) for c, v in zip(df.columns, row)] for row in df.itertuples(index=False)],

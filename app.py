@@ -784,7 +784,7 @@ def dialog_zentrale() -> None:
     res = compute_all(ss.inp, ss.straenge)
     r = res[ss.meta["activeStrang"]]
     a_ = r["anlage"]
-    schema(schemata.anlagenschema(r, project_headline(r, ss.inp), DUNKEL), "d_anlage", breite_px=1150)
+    schema(schemata.anlagenschema(r, project_headline(r, ss.inp), DUNKEL, ss.inp.waermequelle), "d_anlage", breite_px=1150)
     st.dataframe(pd.DataFrame(RP.anlage_rows(a_), columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
         lambda z: [f"font-weight:700;color:{F['akzent']}" if z["Größe"].startswith("→") else ""] * len(z), axis=1),
         hide_index=True, width="stretch",
