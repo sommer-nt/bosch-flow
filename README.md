@@ -71,9 +71,15 @@ Die App öffnet sich unter <http://localhost:8501>.
 
 ## Streamlit Cloud
 
-Repository `sommer-nt/bosch-flow`, Branch wählen, Main file `app.py`. `requirements.txt` und `packages.txt`
-(Schrift für Umlaute im PDF) werden automatisch installiert. Optional unter **Settings → Secrets** ein Passwort
-setzen (Vorlage: `.streamlit/secrets.toml.beispiel`):
+1. [share.streamlit.io](https://share.streamlit.io) mit dem GitHub-Konto anmelden → **Create app** →
+   „Deploy a public app from GitHub“.
+2. Repository `sommer-nt/bosch-flow`, Branch (`main` bzw. der Arbeitsbranch), Main file `app.py`.
+3. Unter **Advanced settings** Python 3.11 oder 3.12 wählen und das Passwort als Secret eintragen (s. u.).
+4. **Deploy** – `requirements.txt` (getestet mit Streamlit 1.64 und 1.66) und `packages.txt` (Schrift für Umlaute
+   im PDF) werden automatisch installiert. Jeder Push auf den Branch aktualisiert die App von selbst.
+
+Preise sind intern: Apps aus privaten Repositories sind nur für eingeladene Personen sichtbar (**Share** → E-Mails
+eintragen); zusätzlich schützt das Passwort (Vorlage: `.streamlit/secrets.toml.beispiel`):
 
 ```toml
 APP_PASSWORT = "..."
