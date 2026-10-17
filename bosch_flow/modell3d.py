@@ -10,9 +10,11 @@ Alle Werte kommen aus dem Rechenkern; jedes Rohrstück zeigt beim Überfahren se
 """
 from __future__ import annotations
 
+import math
+
 import plotly.graph_objects as go
 
-from .calc import DN_SERIES, etage_label, seg, topologie
+from .calc import DN_SERIES, etage_label, puffer_produkt, seg, topologie
 from .report import fmt
 
 ETAGE = 3.0          # m Geschosshöhe (Darstellung)
@@ -68,8 +70,108 @@ def _seiten(fig: go.Figure) -> dict:
     return dict(x=dx / m, y=dy / m, z=dz / m)
 
 
+LICHT = dict(ambient=0.7, diffuse=0.6, specular=0.3, roughness=0.5, fresnel=0.1)
+PUFFER_MASS = {500: (0.33, 1.65), 750: (0.40, 1.8), 1000: (0.45, 1.95), 1500: (0.55, 2.1)}   # Radius, Höhe (Darstellung)
+QUELLEN = {"kessel": "Brennwertkessel", "fernwaerme": "Fernwärme-Übergabestation", "wp": "Wärmepumpe"}
+
+
+def _quader(x0, x1, y0, y1, z0, z1, farbe: str) -> go.Mesh3d:
+    return go.Mesh3d(x=[x0, x1, x1, x0] * 2, y=[y0, y0, y1, y1] * 2, z=[z0] * 4 + [z1] * 4,
+                     i=[0, 0, 4, 4, 0, 0, 1, 1, 2, 2, 3, 3], j=[1, 2, 5, 6, 1, 5, 2, 6, 3, 7, 0, 4],
+                     k=[2, 3, 6, 7, 5, 4, 6, 5, 7, 6, 4, 7], color=farbe, opacity=1, flatshading=True,
+                     hoverinfo="skip", showscale=False, lighting=LICHT)
+
+
+def _zylinder(cx: float, cm: float, a0: float, a1: float, r: float, farbe: str, achse: str = "z",
+              n: int = 32) -> go.Mesh3d:
+    """Zylinder mit Deckeln. achse "z": Mittelpunkt (cx, cm), Höhe a0…a1 in z; achse "y": Mitte (cx, z=cm), a0…a1 in y."""
+    pts = []
+    for t in (a0, a1):
+        for q in range(n):
+            w = 2 * math.pi * q / n
+            u, v = r * math.cos(w), r * math.sin(w)
+            pts.append((cx + u, cm + v, t) if achse == "z" else (cx + u, t, cm + v))
+    c0 = len(pts)
+    pts += [(cx, cm, a0), (cx, cm, a1)] if achse == "z" else [(cx, a0, cm), (cx, a1, cm)]
+    ii, jj, kk = [], [], []
+    for q in range(n):
+        a, b = q, (q + 1) % n
+        ii += [a, a, c0, c0 + 1]
+        jj += [b, b + n, b, a + n]
+        kk += [b + n, a + n, a, b + n]
+    x, y, z = zip(*pts)
+    return go.Mesh3d(x=x, y=y, z=z, i=ii, j=jj, k=kk, color=farbe, opacity=1, flatshading=False,
+                     hoverinfo="skip", showscale=False, lighting=LICHT)
+
+
+def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: str | None,
+                    massstab: float = 1.0) -> tuple[list, dict]:
+    """Erzeuger, Pufferspeicher und Netzpumpe im Keller, verrohrt bis zum Hauptstrang bei x = ax.
+    ``massstab`` vergrößert die Zentrale bei großen Gebäuden (um x = ax, y = 0, z = 0), damit sie erkennbar bleibt."""
+    teile, hover = [], {"x": [], "y": [], "z": [], "t": []}
+    boden, ym = -2.6, -2.7                         # Kellerboden, Aufstellreihe vor dem Hauptstrang
+    pp = puffer_produkt(A["pufferVol"])
+    combo = sorted(pp["combo"], reverse=True)[:4]
+    # Netzpumpe direkt an der Steigleitung zum Hauptstrang, links davon Puffer, ganz links der Erzeuger
+    px = ax - 0.9
+    x = px - 0.9
+    puffer = []
+    for liter in combo:
+        r, h = PUFFER_MASS.get(liter, (0.5, 2.0))
+        x -= r
+        puffer.append((x, r, h, liter))
+        x -= r + 0.45
+    breite, tiefe = 1.3, 1.0
+    hoch = {"kessel": 1.9, "fernwaerme": 1.5, "wp": 1.35}.get(quelle, 1.9)
+    gx = x - breite / 2
+    x0, x1, y0, y1 = gx - breite / 2, gx + breite / 2, ym - tiefe / 2, ym + tiefe / 2
+    if quelle == "wp":
+        teile.append(_quader(x0, x1, y0, y1, boden, boden + hoch, "#c3ccd4" if dunkel else "#dfe4e9"))
+        teile.append(_zylinder(gx, boden + hoch * 0.52, y0 - 0.06, y0 + 0.02, 0.42, "#2b3036", achse="y"))
+        teile.append(_zylinder(gx, boden + hoch * 0.52, y0 - 0.08, y0 - 0.05, 0.12, "#8a96a3", achse="y"))
+    elif quelle == "fernwaerme":
+        teile.append(_quader(x0, x1, y0, y1, boden, boden + hoch, "#e6ebf0" if dunkel else "#f4f6f8"))
+        teile.append(_quader(x0, x1, y0 - 0.02, y0, boden + hoch - 0.28, boden + hoch - 0.16, "#005691"))
+        teile.append(_quader(gx - 0.3, gx + 0.3, y0 - 0.03, y0, boden + hoch - 0.75, boden + hoch - 0.45, "#2b3036"))
+    else:
+        teile.append(_quader(x0, x1, y0, y1, boden, boden + hoch, "#4a525c" if dunkel else "#2f353c"))
+        teile.append(_quader(x0, x1, y0 - 0.02, y0, boden + hoch - 0.3, boden + hoch - 0.18, "#e20015"))
+        teile.append(_quader(gx - 0.25, gx + 0.25, y0 - 0.03, y0, boden + hoch - 0.7, boden + hoch - 0.45, "#cfe3f2"))
+    hover["x"].append(gx), hover["y"].append(ym), hover["z"].append(boden + hoch / 2)
+    hover["t"].append(f"<b>Wärmeerzeuger</b> · {QUELLEN.get(quelle, 'Wärmeerzeuger')}<br>{fmt(A['kesselQ'])} kW")
+    for cx, r, h, liter in puffer:
+        teile.append(_zylinder(cx, ym, boden, boden + h, r, "#aab5c0" if dunkel else "#d9dfe5"))
+        teile.append(_zylinder(cx, ym, boden + h, boden + h + 0.06, r * 0.98, "#8996a3" if dunkel else "#b9c3cc"))
+        hover["x"].append(cx), hover["y"].append(ym), hover["z"].append(boden + h / 2)
+        hover["t"].append(f"<b>Pufferspeicher</b> {liter} l<br>Auswahl {pp['text']} · Bedarf {fmt(A['pufferVol'])} l")
+    # Netzpumpe: Pumpengehäuse (Zylinder) + Motor
+    teile.append(_zylinder(px, -1.25, ym - 0.22, ym + 0.22, 0.24, "#005691", achse="y"))
+    teile.append(_zylinder(px, -1.25, ym - 0.5, ym - 0.22, 0.16, "#1b2733" if not dunkel else "#9fb0c0", achse="y"))
+    hover["x"].append(px), hover["y"].append(ym), hover["z"].append(-1.25)
+    hover["t"].append("<b>Netzpumpe</b>" + (f"<br>{pumpe_info}" if pumpe_info else ""))
+    # Verrohrung: Vorlauf (rot) oben, Rücklauf (blau) darunter – vom Erzeuger über Puffer und Pumpe zum Hauptstrang
+    oben_e = boden + hoch
+    vl = dict(x=[gx, gx] + [c for c, *_ in puffer] + [px, ax, ax, ax],
+              y=[ym, ym] + [ym] * len(puffer) + [ym, ym, ym, 0], z=[oben_e, -0.45] + [-0.45] * len(puffer)
+              + [-0.45, -0.45, 0, 0])
+    rl = dict(x=[gx + 0.3, gx + 0.3, ax + 0.35, ax + 0.35], y=[ym + 0.3] * 3 + [0.0],
+              z=[boden + 0.3, -0.85, -0.85, -0.3])
+    teile.append(go.Scatter3d(mode="lines", line=dict(color="#e20015", width=7), hoverinfo="skip", showlegend=False,
+                              **vl))
+    teile.append(go.Scatter3d(mode="lines", line=dict(color="#005691" if not dunkel else "#4fa3e0", width=7),
+                              hoverinfo="skip", showlegend=False, **rl))
+    teile.append(go.Scatter3d(x=[px, px], y=[ym, ym], z=[-1.0, -0.45], mode="lines", hoverinfo="skip",
+                              line=dict(color="#e20015", width=7), showlegend=False))
+    m = massstab
+    for t in teile:
+        t.update(x=[ax + (v - ax) * m for v in t.x], y=[v * m for v in t.y], z=[v * m for v in t.z])
+    hover.update(x=[ax + (v - ax) * m for v in hover["x"]], y=[v * m for v in hover["y"]],
+                 z=[v * m for v in hover["z"]])
+    return teile, hover | {"links": ax + (x0 - ax) * m, "boden": boden * m, "ym": ym * m}
+
+
 def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = False, nur_strang: int | None = None,
-           hoehe: int = 680) -> go.Figure:
+           hoehe: int = 680, quelle: str = "kessel", pumpe_info: str | None = None) -> go.Figure:
     """3D-Figur. ``modus``: "v" = Farbe nach Geschwindigkeit, "dn" = nach Nennweite.
     ``nur_strang``: Index eines einzelnen Strangs (ohne Hauptstrang) oder None für das ganze Projekt."""
     P = results[0]["P"]
@@ -177,22 +279,22 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
         rf = results[nur_strang if nur_strang is not None else 0]["vRows"][0]
         rohr((xs[0], 0, -0.4), (xs[0], 0, 0), rf, "Zuleitung Wärmezentrale → Strangfuß")
     zx_text = zx if nur_strang is None and len(results) > 1 else xs[0]
-    # Wärmezentrale als Baukörper im Keller, darunter der Kellerboden
-    zb = "#2f6fa0" if dunkel else "#0a3b5c"
-    bx, by, bz = 2.2, 1.8, (-2.6, -0.4)
-    ex = [zx_text - bx, zx_text + bx, zx_text + bx, zx_text - bx] * 2
-    ey = [-by, -by, by, by] * 2
-    ez = [bz[0]] * 4 + [bz[1]] * 4
-    fig.add_trace(go.Mesh3d(x=ex, y=ey, z=ez, i=[0, 0, 4, 4, 0, 0, 1, 1, 2, 2, 3, 3], j=[1, 2, 5, 6, 1, 5, 2, 6, 3, 7, 0, 4],
-                            k=[2, 3, 6, 7, 5, 4, 6, 5, 7, 6, 4, 7], color=zb, opacity=1, flatshading=True,
-                            hoverinfo="skip", showscale=False, lighting=dict(ambient=0.75, diffuse=0.5)))
+    # Wärmezentrale: Erzeuger, Pufferspeicher, Netzpumpe mit Verrohrung; darunter der Kellerboden
+    A = results[nur_strang if nur_strang is not None else 0]["anlage"]
+    spann = (max(xs) - min(xs)) + 2 * (GANG + 4 * STATION)
+    teile, zh = _waermezentrale(zx_text, A, quelle, dunkel, pumpe_info, max(1.0, min(2.0, spann / 34)))
+    for t in teile:
+        fig.add_trace(t)
+    fig.add_trace(go.Scatter3d(x=zh["x"], y=zh["y"], z=zh["z"], mode="markers", hovertext=zh["t"], hoverinfo="text",
+                               showlegend=False, marker=dict(size=16, color="rgba(0,0,0,0)")))
     alle_x = [v for t in fig.data for v in (getattr(t, "x", None) or []) if v is not None]
     k0, k1 = min(alle_x) - 2, max(alle_x) + 2
-    fig.add_trace(go.Mesh3d(x=[k0, k1, k1, k0], y=[-TIEFE - 1, -TIEFE - 1, TIEFE + 1, TIEFE + 1], z=[-2.65] * 4,
+    fig.add_trace(go.Mesh3d(x=[k0, k1, k1, k0], y=[min(-TIEFE - 1.5, zh["ym"] * 1.6)] * 2 + [TIEFE + 1] * 2, z=[zh["boden"] - 0.02] * 4,
                             i=[0, 0], j=[1, 2], k=[2, 3], color="rgba(120,140,160,0.18)" if dunkel else "rgba(16,24,40,0.07)",
                             opacity=1, hoverinfo="skip", showscale=False, flatshading=True))
-    fig.add_trace(go.Scatter3d(x=[zx_text + bx + 0.6], y=[-by], z=[-1.5], mode="text", text=["<b>Wärmezentrale</b>"],
-                               textposition="middle right", textfont=dict(color=ink, size=12), hoverinfo="skip",
+    fig.add_trace(go.Scatter3d(x=[zh["links"] - 0.4], y=[zh["ym"]], z=[zh["boden"] / 2], mode="text",
+                               text=["<b>Wärmezentrale</b>"],
+                               textposition="middle left", textfont=dict(color=ink, size=12), hoverinfo="skip",
                                showlegend=False))
     # Rohre: eine Spur je Farbe/Breite (schnell), Legende je Farbstufe einmal
     gezeigt = set()

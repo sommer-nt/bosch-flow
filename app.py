@@ -759,7 +759,9 @@ def dialog_3d() -> None:
         umfang = b.segmented_control("Umfang", ["Ganzes Projekt", "Aktueller Strang"], default="Ganzes Projekt",
                                      key="m3d_umfang", label_visibility="collapsed") or "Ganzes Projekt"
         nur = ss.meta["activeStrang"] if umfang == "Aktueller Strang" else None
-    fig = modell(res, ss.meta["topoPos"], "dn" if farbe == "Nennweite" else "v", DUNKEL, nur, 720)
+    h = HY.berechne(ss.inp, ss.straenge, ss.meta)
+    fig = modell(res, ss.meta["topoPos"], "dn" if farbe == "Nennweite" else "v", DUNKEL, nur, 720,
+                 ss.inp.waermequelle, f"Betriebspunkt V̇ {fmt(h['V'], 2)} m³/h · {fmt(h['bar'], 2)} bar (≈ {fmt(h['H'], 1)} m)")
     st.plotly_chart(fig, width="stretch", key="m3d_voll", theme=None,
                     config={"displaylogo": False, "toImageButtonOptions": {"format": "png", "scale": 2}})
     st.caption("Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte · Legende anklicken = Stufe ein/aus")
@@ -1011,7 +1013,8 @@ with haupt:
                     meta["activeStrang"] = int(w[1:]) - 1
                     st.rerun()
             if ansicht == "3D":
-                fig3d = modell(results, meta["topoPos"], "v", DUNKEL, None, 470)
+                fig3d = modell(results, meta["topoPos"], "v", DUNKEL, None, 470, inp.waermequelle,
+                               f"Betriebspunkt V̇ {fmt(HYD['V'], 2)} m³/h · {fmt(HYD['bar'], 2)} bar (≈ {fmt(HYD['H'], 1)} m)")
                 fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
                 st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
                                 config={"displayModeBar": False, "displaylogo": False})
