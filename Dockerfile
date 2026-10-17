@@ -16,6 +16,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
+# Startseite: kein weißer Blitz im Dunkelmodus, Titel und Angaben fürs iPhone
+RUN python tools/index_patch.py
 RUN useradd --create-home --uid 1000 app && chown -R app /app
 USER app
 

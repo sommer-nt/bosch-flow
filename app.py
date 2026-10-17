@@ -9,6 +9,7 @@ PDF- und Excel-Export.
 from __future__ import annotations
 
 import base64
+import hashlib
 import hmac
 import json
 import os
@@ -55,15 +56,13 @@ def _secret(name: str) -> str | None:
 
 
 _passwort = _secret("APP_PASSWORT")
-if _passwort and not ss.get("angemeldet"):
-    st.markdown("### 🔒 BOSCH Flow · Netz- & Anlagenrechner")
-    eingabe = st.text_input("Passwort", type="password")
-    if eingabe:
-        if hmac.compare_digest(eingabe, _passwort):
-            ss.angemeldet = True
-            st.rerun()
-        st.error("Passwort falsch.")
-    st.stop()
+# Prüfwert der Anmeldung: wird im Browser gemerkt (nicht das Passwort), ändert sich mit dem Passwort
+_pruefwert = hmac.new(_passwort.encode(), b"bosch-flow-anmeldung-v1", hashlib.sha256).hexdigest() if _passwort else None
+try:
+    _ua = st.context.headers.get("User-Agent", "") or ""
+except Exception:  # noqa: BLE001
+    _ua = ""
+MOBIL = any(t in _ua for t in ("iPhone", "iPod", "Android", "Mobile"))
 
 try:
     DUNKEL = st.context.theme.type == "dark"
@@ -224,8 +223,84 @@ div[data-testid="stDialog"] div[role="dialog"] {{border-radius:20px}}
 .st-key-kachelklick_geraet [data-testid="stImage"] img {{max-height:130px; object-fit:contain}}
 .st-key-panel_zu button {{border:0; background:transparent; min-height:32px; padding:4px 8px}}
 .st-key-panel [data-baseweb="tab-list"] {{gap:6px}}
+/* Anmeldung */
+.st-key-login {{max-width:420px; margin:min(14vh, 120px) auto 0; background:{F['kachel']}; border:1px solid {F['linie']};
+               border-radius:24px; padding:34px 30px 22px; box-shadow:{F['schatten2']}}}
+.login-marke {{font-weight:800; font-size:34px; color:#e20015; letter-spacing:.2px; line-height:1}}
+.login-marke span {{color:{F['text']}}}
+.login-unter {{font-size:14px; color:{F['leise']}; margin:8px 0 18px}}
+.login-fuss {{font-size:12px; color:{F['leise']}; text-align:center; margin-top:4px}}
+.st-key-login_thema {{position:fixed; top:16px; right:18px; z-index:1000; width:auto !important}}
+/* Handy (iPhone & Co.) */
+@media (max-width: 640px) {{
+  header[data-testid="stHeader"] {{display:none}}
+  .block-container {{padding:1.4rem .8rem 1rem !important}}
+  .st-key-login {{margin-top:9vh; padding:28px 20px 18px}}
+  /* Kopfleiste: Marke + Farbschalter, darunter die Aktionen als Symbolknöpfe, darunter der Status */
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] {{flex-wrap:wrap !important; row-gap:10px !important;
+       column-gap:8px !important}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{min-width:0 !important;
+       width:auto !important; flex:1 1 0 !important}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(1) {{
+       flex:1 1 calc(100% - 60px) !important; order:0}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(8) {{
+       flex:0 0 44px !important; order:1}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(n+2):nth-child(-n+6) {{
+       order:2; flex:1 1 calc(20% - 8px) !important; min-width:calc(20% - 8px) !important}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(7) {{
+       flex:1 1 100% !important; order:3}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(n+2):nth-child(-n+6)
+       button [data-testid="stMarkdownContainer"] {{display:none}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(n+2):nth-child(-n+6)
+       button {{padding-left:4px !important; padding-right:4px !important; min-height:44px}}
+  .st-key-kopf [data-testid="stColumn"]:nth-child(7) [data-testid="stHorizontalBlock"] {{flex-wrap:nowrap !important;
+       gap:10px !important}}
+  .st-key-kopf [data-testid="stColumn"]:nth-child(7) [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
+       min-width:0 !important; width:auto !important; flex:1 1 0 !important}}
+  .marke {{font-size:21px}}
+  /* Kennzahlen zwei je Zeile */
+  .st-key-kpireihe > div > [data-testid="stHorizontalBlock"] {{flex-wrap:wrap !important; gap:10px !important}}
+  .st-key-kpireihe > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
+       flex:1 1 calc(50% - 5px) !important; min-width:calc(50% - 5px) !important; width:calc(50% - 5px) !important}}
+  [class*="st-key-kachelklick"] {{min-height:0 !important}}
+  [class*="st-key-kachel"] {{border-radius:16px}}
+  .k-wert {{font-size:30px}}
+  .k-mehr {{display:none}}
+  input, textarea {{font-size:16px !important}}   /* iOS zoomt sonst beim Antippen in jedes Feld */
+  /* Eingabe-Panel als normaler Abschnitt (nicht schwebend) */
+  .st-key-panel {{position:static; max-height:none; overflow:visible; animation:none}}
+  .st-key-panelkopf [data-testid="stHorizontalBlock"] {{flex-wrap:nowrap !important}}
+  .st-key-panelkopf [data-testid="stColumn"] {{min-width:0 !important; width:auto !important}}
+  div[data-testid="stDialog"] div[role="dialog"] {{border-radius:16px}}
+}}
 </style>
 <div class="superband"></div>""", unsafe_allow_html=True)
+
+
+# ====================================================================== Anmeldung (nur mit APP_PASSWORT)
+if _passwort and not ss.get("angemeldet"):
+    with st.container(key="login_thema"):
+        b_ = browser(None, DUNKEL, abmelden=bool(ss.get("abgemeldet")))
+    gemerkt = (b_ or {}).get("anmeldung")
+    if gemerkt and not ss.get("abgemeldet") and hmac.compare_digest(gemerkt, _pruefwert):
+        ss.angemeldet = True                      # Gerät ist schon angemeldet (z. B. nach dem Farbwechsel)
+        st.rerun()
+    with st.container(key="login"):
+        st.markdown('<div class="login-marke">BOSCH <span>Flow</span></div>'
+                    '<div class="login-unter">Netz- &amp; Anlagenrechner für Wohnungsstationen</div>',
+                    unsafe_allow_html=True)
+        with st.form("anmelden", border=False):
+            eingabe = st.text_input("Passwort", type="password", placeholder="Passwort eingeben")
+            los = st.form_submit_button("Anmelden", type="primary", width="stretch", icon=":material/login:")
+        if los:
+            if eingabe and hmac.compare_digest(eingabe, _passwort):
+                ss.angemeldet = True
+                ss.pop("abgemeldet", None)
+                st.rerun()
+            st.error("Passwort falsch.")
+        st.markdown('<div class="login-fuss">Dieses Gerät bleibt angemeldet, bis du dich im Menü ··· abmeldest.</div>',
+                    unsafe_allow_html=True)
+    st.stop()
 
 
 # ====================================================================== Projektzustand
@@ -267,13 +342,13 @@ def setze(**felder) -> None:
 if "inp" not in ss:
     neues_projekt()
 if "panel" not in ss:
-    ss.panel = True
+    ss.panel = not MOBIL                  # auf dem Handy zuerst die Ergebnisse, Eingaben per Knopf
 if msg := ss.pop("meldung", None):
     st.toast(msg[1], icon="✅" if msg[0] == "success" else "⚠️")
 
 
 # ====================================================================== Kopfleiste
-kopf = st.columns([2.5, 1.15, 1.25, 1.05, 0.95, 0.5, 3.0, 0.5], vertical_alignment="center")
+kopf = st.container(key="kopf").columns([2.5, 1.15, 1.25, 1.05, 0.95, 0.5, 3.0, 0.5], vertical_alignment="center")
 kopf[0].markdown('<div class="marke">BOSCH <span>Flow</span><small>Netz- &amp; Anlagenrechner für '
                  'Wohnungsstationen</small></div>', unsafe_allow_html=True)
 if kopf[1].button("Eingaben", icon=":material/tune:", width="stretch",
@@ -523,7 +598,7 @@ def eingaben() -> None:
 if panel_spalte is not None:
     with panel_spalte:
         with st.container(key="panel"):
-            a, b = st.columns([4, 1], vertical_alignment="center")
+            a, b = st.container(key="panelkopf").columns([4, 1], vertical_alignment="center")
             a.markdown('<div class="p-titel">Eingaben</div>', unsafe_allow_html=True)
             if b.button("", icon=":material/close:", key="panel_zu", help="Panel schließen"):
                 ss.panel = False
@@ -639,6 +714,11 @@ with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help=
                        width="stretch", icon=":material/table_view:",
                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     st.divider()
+    if _passwort and st.button("Abmelden", icon=":material/logout:", width="stretch",
+                               help="Dieses Gerät abmelden – beim nächsten Öffnen wird wieder das Passwort abgefragt"):
+        ss.angemeldet = False
+        ss.abgemeldet = True
+        st.rerun()
     if st.button("Alles zurücksetzen", icon=":material/restart_alt:", width="stretch"):
         neues_projekt()
         ss.meldung = ("success", "Alle Eingaben zurückgesetzt.")
@@ -1068,7 +1148,7 @@ def delta(key: str, d: int = 0) -> str:
 with haupt:
     # ---------------------------------------------------------------- Reihe 1: Kennzahlen
     pp = puffer_produkt(kpi["puffer"])
-    kach = st.columns(4, gap="medium")
+    kach = st.container(key="kpireihe").columns(4, gap="medium")
     with kach[0]:
         with kachel("v", "Volumenstrom", "pumpe", dialog_volumenstrom, "Diagramme"):
             st.markdown(f'<div class="k-wert">{fmt(HL["Vtot"], 2)}<span>m³/h</span></div><div class="k-unter">'
@@ -1110,9 +1190,13 @@ with haupt:
                                      f"Betriebspunkt V̇ {fmt(HYD['V'], 2)} m³/h · {fmt(HYD['bar'], 2)} bar "
                                      f"(≈ {fmt(HYD['H'], 1)} m)", ss.get("huelle_an", True))
                 fig3d.update_layout(legend=dict(title=None, font=dict(size=10)))
+                if MOBIL:                         # schmaler Bildschirm: Kamera weiter weg, sonst ist das Haus angeschnitten
+                    eye = fig3d.layout.scene.camera.eye
+                    fig3d.update_layout(height=400, scene_camera_eye=dict(x=eye.x * 1.35, y=eye.y * 1.35, z=eye.z * 1.35))
                 st.plotly_chart(fig3d, width="stretch", key="m3d", theme=None,
                                 config={"displayModeBar": False, "displaylogo": False})
-                hilfe = "Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte"
+                hilfe = ("Wischen = drehen · zwei Finger = zoomen · Rohr antippen = Werte" if MOBIL else
+                         "Ziehen = drehen · Mausrad = zoomen · Maus über ein Rohr = Werte")
             elif ansicht == "2D Strang":
                 schema(schemata.netzschema(R, DUNKEL), "schema2d", max_hoehe=600, breite_px=640 if ss.panel else 900)
                 hilfe = (f"Strang {meta['activeStrang'] + 1}: Maus über Stationen und DN-Marken = Werte · "
@@ -1210,7 +1294,9 @@ with haupt:
 
 # ====================================================================== Auto-Sicherung + Hell/Dunkel (Browser)
 with kopf_thema:
-    gespeichert = browser(dumps(ss.inp, ss.straenge, ss.meta) if ss.get("sicherung_gelesen") else None, DUNKEL)
+    _b = browser(dumps(ss.inp, ss.straenge, ss.meta) if ss.get("sicherung_gelesen") else None, DUNKEL,
+                 anmeldung=_pruefwert)
+gespeichert = (_b or {}).get("gespeichert")
 if gespeichert is not None and not ss.get("sicherung_gelesen"):
     ss.sicherung_gelesen = True
     if gespeichert and not ss.get("veraendert"):

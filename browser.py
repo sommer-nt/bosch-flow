@@ -4,7 +4,9 @@ Eine kleine Streamlit-Komponente (components v2), die im Browser des Nutzers lä
 - liest beim Öffnen die letzte Sicherung und gibt sie an Python (``gespeichert``),
 - schreibt bei jeder Änderung den aktuellen Projektstand in den localStorage,
 - schaltet das Farbschema um (Streamlit-Theme) und lädt die Seite neu – die Sicherung stellt das Projekt
-  danach sofort wieder her.
+  danach sofort wieder her,
+- merkt sich die Anmeldung (Prüfwert, nicht das Passwort), damit der Neuladen beim Farbwechsel oder ein späterer
+  Besuch nicht erneut nach dem Passwort fragt; „Abmelden“ löscht den Prüfwert.
 Die Daten bleiben im Browser des Nutzers und gehen nicht an den Server.
 """
 from __future__ import annotations
@@ -12,6 +14,7 @@ from __future__ import annotations
 import streamlit as st
 
 SPEICHER_KEY = "bosch_flow_streamlit_v54"
+ANMELDE_KEY = "bosch_flow_anmeldung"
 
 HTML = '<button class="theme" type="button" title="Hell / Dunkel umschalten" aria-label="Farbschema umschalten">☾</button>'
 CSS = """
@@ -24,12 +27,14 @@ JS = """
 export default function (component) {
   const { data, setStateValue, parentElement } = component;
   const KEY = "%KEY%";
+  const LOGIN = "%LOGIN%";
   const THEME = `stActiveTheme-${window.location.pathname}-v2`;
   const btn = parentElement.querySelector(".theme");
   if (!parentElement.__init) {
     parentElement.__init = true;
-    let v = "";
-    try { v = window.localStorage.getItem(KEY) || ""; } catch (e) {}
+    let v = "", a = "";
+    try { v = window.localStorage.getItem(KEY) || ""; a = window.localStorage.getItem(LOGIN) || ""; } catch (e) {}
+    setStateValue("anmeldung", a);
     setStateValue("gespeichert", v);
     btn.addEventListener("click", () => {
       const dunkel = btn.dataset.dunkel === "1";
@@ -42,9 +47,13 @@ export default function (component) {
     btn.textContent = data.dunkel ? "☀" : "☾";
     btn.title = data.dunkel ? "Hell darstellen" : "Dunkel darstellen";
     if (data.speichern) { try { window.localStorage.setItem(KEY, data.speichern); } catch (e) {} }
+    try {
+      if (data.abmelden) window.localStorage.removeItem(LOGIN);
+      else if (data.anmeldung) window.localStorage.setItem(LOGIN, data.anmeldung);
+    } catch (e) {}
   }
 }
-""".replace("%KEY%", SPEICHER_KEY)
+""".replace("%KEY%", SPEICHER_KEY).replace("%LOGIN%", ANMELDE_KEY)
 
 _REG: dict = {}
 
@@ -58,12 +67,16 @@ def _komponente():
     return _REG["render"]
 
 
-def browser(speichern: str | None, dunkel: bool) -> str | None:
-    """Komponente einbinden. ``speichern``: Projektstand für die Auto-Sicherung (None = noch nicht sichern).
-    Gibt beim ersten Lauf die gespeicherte Sicherung zurück ("" = keine), danach dauerhaft denselben Wert."""
+def browser(speichern: str | None, dunkel: bool, anmeldung: str | None = None, abmelden: bool = False) -> dict | None:
+    """Komponente einbinden. ``speichern``: Projektstand für die Auto-Sicherung (None = noch nicht sichern);
+    ``anmeldung``: Prüfwert der Anmeldung zum Merken; ``abmelden``: gemerkten Prüfwert löschen.
+    Gibt {"gespeichert", "anmeldung"} zurück – beim ersten Lauf noch None, danach die Werte aus dem localStorage
+    ("" = keine). None, wenn die Komponenten-API fehlt."""
     try:
-        erg = _komponente()(key="bf_browser", data={"speichern": speichern, "dunkel": dunkel},
-                            on_gespeichert_change=lambda: None)
+        erg = _komponente()(key="bf_browser", on_gespeichert_change=lambda: None, on_anmeldung_change=lambda: None,
+                            data={"speichern": speichern, "dunkel": dunkel, "anmeldung": anmeldung,
+                                  "abmelden": abmelden})
     except Exception:  # noqa: BLE001 – ohne Komponenten-API läuft die App ohne Auto-Sicherung weiter
         return None
-    return erg.get("gespeichert") if hasattr(erg, "get") else getattr(erg, "gespeichert", None)
+    wert = (lambda n: erg.get(n)) if hasattr(erg, "get") else (lambda n: getattr(erg, n, None))
+    return {"gespeichert": wert("gespeichert"), "anmeldung": wert("anmeldung")}
