@@ -75,7 +75,7 @@ Wie klima/climate: `Dockerfile` + `deploy/docker-compose.yml` (Container auf 127
 certbot. Schritt für Schritt: **[deploy/ANLEITUNG.md](deploy/ANLEITUNG.md)** – Kurzform auf dem Server:
 
 ```bash
-git clone -b claude/lucid-archimedes-j2yw8g https://github.com/sommer-nt/bosch-flow.git   # privat: Token als Passwort
+git clone -b claude/lucid-archimedes-j2yw8g git@github-flow:sommer-nt/bosch-flow.git   # Deploy Key, s. Anleitung
 cd bosch-flow/deploy && cp .env.beispiel .env && nano .env    # APP_PASSWORT setzen
 docker compose -p flow up -d --build
 sudo cp nginx-flow.sommer-nt.de.conf /etc/nginx/sites-available/flow.sommer-nt.de

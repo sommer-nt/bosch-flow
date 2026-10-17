@@ -8,21 +8,36 @@ Prüfen: `dig +short flow.sommer-nt.de` zeigt die Server-IP.
 
 **2. Code holen und starten**
 
-Das Repository ist **privat**: Git fragt nach Benutzername und Passwort. Als Passwort ein GitHub-Token
-verwenden (GitHub → Settings → Developer settings → Personal access tokens → Fine-grained,
-Repository `bosch-flow`, Berechtigung „Contents: Read-only“).
+Das Repository ist **privat**. Der Server liest es über einen **Deploy Key** (SSH-Schlüssel nur für dieses Repo,
+nur lesen, ohne Passwort; GitHub-Passwörter funktionieren für Git nicht):
 
 ```bash
+ssh-keygen -t ed25519 -f ~/.ssh/bosch_flow -N "" -C "webmin bosch-flow"
+cat ~/.ssh/bosch_flow.pub          # Zeile kopieren
+```
+
+GitHub → `sommer-nt/bosch-flow` → **Settings → Deploy keys → Add deploy key**: Zeile einfügen,
+„Allow write access“ **nicht** anhaken. Dann auf dem Server:
+
+```bash
+cat >> ~/.ssh/config <<'EOT'
+Host github-flow
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/bosch_flow
+    IdentitiesOnly yes
+EOT
+chmod 600 ~/.ssh/config
+
 cd ~
-git clone -b claude/lucid-archimedes-j2yw8g https://github.com/sommer-nt/bosch-flow.git
+git clone -b claude/lucid-archimedes-j2yw8g git@github-flow:sommer-nt/bosch-flow.git
 cd bosch-flow/deploy
 cp .env.beispiel .env && nano .env          # Passwort setzen, APP_PORT=8504
 docker compose -p flow up -d --build
 curl http://127.0.0.1:8504/_stcore/health   # → ok
 ```
 
-Damit Git das Token nicht bei jedem `git pull` erneut abfragt:
-`git config credential.helper store` (einmalig im Ordner `~/bosch-flow`, vor dem nächsten `git pull`).
+Fingerabdruck von github.com beim ersten Verbinden: `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU` → `yes`.
 
 **3. nginx und HTTPS**
 ```bash
