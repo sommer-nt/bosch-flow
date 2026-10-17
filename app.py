@@ -779,16 +779,30 @@ def dialog_volumenstrom() -> None:
     schliessen()
 
 
-@st.dialog("Wärmezentrale", width="large")
+def _anlage_tabelle(zeilen: list) -> None:
+    st.dataframe(pd.DataFrame(zeilen, columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
+        lambda z: [f"font-weight:700;color:{F['akzent']}" if z["Größe"].startswith("→") else ""] * len(z), axis=1),
+        hide_index=True, width="stretch",
+        column_config={"Herleitung": st.column_config.TextColumn(width="large")})
+
+
+def _ist_puffer_zeile(z: tuple) -> bool:
+    return "Puffer" in z[0] or "Wärmemenge" in z[0]
+
+
+@st.dialog("Wärmeerzeuger", width="large")
 def dialog_zentrale() -> None:
     res = compute_all(ss.inp, ss.straenge)
     r = res[ss.meta["activeStrang"]]
     a_ = r["anlage"]
+    m = st.columns(4)
+    m[0].metric("Erzeugerleistung", f"{fmt(a_['kesselQ'])} kW")
+    m[1].metric("Wärmequelle", schemata.QUELLE_NAME.get(ss.inp.waermequelle, "–"),
+                help=WAERMEQUELLEN[ss.inp.waermequelle]["name"])
+    m[2].metric("Q theoretisch", f"{fmt(a_['Qtheor'], 1)} kW")
+    m[3].metric("Gleichzeitigkeit", fmt(a_["gz"], 1), help=f"bei {a_['weForZentrale']} Wohnungen")
     schema(schemata.anlagenschema(r, project_headline(r, ss.inp), DUNKEL, ss.inp.waermequelle), "d_anlage", breite_px=1150)
-    st.dataframe(pd.DataFrame(RP.anlage_rows(a_), columns=["Größe", "Wert", "Einheit", "Herleitung"]).style.apply(
-        lambda z: [f"font-weight:700;color:{F['akzent']}" if z["Größe"].startswith("→") else ""] * len(z), axis=1),
-        hide_index=True, width="stretch",
-        column_config={"Herleitung": st.column_config.TextColumn(width="large")})
+    _anlage_tabelle([z for z in RP.anlage_rows(a_) if not _ist_puffer_zeile(z)])
     st.caption(RP.anlage_note(a_).replace("**", ""))
     if a_["zuheizerOn"]:
         st.markdown("##### DLE-Auslegungshilfe")
@@ -798,9 +812,27 @@ def dialog_zentrale() -> None:
                      hide_index=True, width="stretch")
         zst, ztext = RP.dle_fazit(a_)
         {"none": st.info, "ok": st.success, "over": st.error}[zst](ztext)
-        st.caption("Stromseitige Gleichzeitigkeit (DIN 18015-1): eigene Kachel „Strom“ auf dem Dashboard.")
     with st.expander("Systemprinzip aus dem Katalog", icon=":material/image:"):
         st.image(str(KA.BILDER / "systemprinzip.jpg"), width="stretch")
+    schliessen()
+
+
+@st.dialog("Pufferspeicher", width="large")
+def dialog_puffer() -> None:
+    res = compute_all(ss.inp, ss.straenge)
+    a_ = res[ss.meta["activeStrang"]]["anlage"]
+    gesamt = a_["heizPufferVol"] + a_["wwPufferVol"] if a_["four"] else a_["pufferVol"]
+    auswahl = (puffer_produkt(a_["heizPufferVol"])["liter"] + puffer_produkt(a_["wwPufferVol"])["liter"] if a_["four"]
+               else puffer_produkt(a_["pufferVol"])["liter"])
+    m = st.columns(4)
+    m[0].metric("Bedarf", f"{fmt(gesamt)} l")
+    m[1].metric("Gewählt (Bosch)", f"{fmt(auswahl)} l")
+    m[2].metric("Entnommene Wärme", f"{fmt(a_['Qentn'])} kWh", help=f"während der {fmt(a_['tSpitz'])}-min-Spitze")
+    m[3].metric("Totzeit", f"{fmt(a_['tTot'])} min")
+    schema(schemata.puffer_szene(a_, DUNKEL), "d_puffer", breite_px=1150)
+    _anlage_tabelle([z for z in RP.anlage_rows(a_) if _ist_puffer_zeile(z)])
+    st.caption("Puffer-Reihe 500 / 750 / 1000 / 1500 l – gewählt wird die Kombination mit dem kleinsten Überschuss. "
+               "Der Füllstand zeigt, welcher Anteil des gewählten Volumens rechnerisch gebraucht wird.")
     schliessen()
 
 
@@ -1047,12 +1079,12 @@ with haupt:
             st.markdown(f'<div class="k-wert">{HL["dim"]}</div><div class="k-unter">v = {fmt(HL["v"], 2)} m/s · '
                         f'{MATNAME[inp.mat].split(" ")[0]}</div>', unsafe_allow_html=True)
     with kach[2]:
-        with kachel("kessel", "Erzeuger", "erzeuger", dialog_zentrale, "Wärmezentrale"):
+        with kachel("kessel", "Erzeuger", "erzeuger", dialog_zentrale, "Erzeuger"):
             st.markdown(f'<div class="k-wert">{fmt(kpi["kessel"])}<span>kW</span></div><div class="k-unter">'
                         f'{WAERMEQUELLEN[inp.waermequelle]["name"].split(" (")[0]} {delta("kessel")}</div>',
                         unsafe_allow_html=True)
     with kach[3]:
-        with kachel("puffer", "Pufferspeicher", "puffer", dialog_zentrale, "Wärmezentrale"):
+        with kachel("puffer", "Pufferspeicher", "puffer", dialog_puffer, "Speicher"):
             st.markdown(f'<div class="k-wert">{fmt(kpi["puffer"])}<span>l</span></div><div class="k-unter">'
                         f'Auswahl {pp["text"]} {delta("puffer")}</div>', unsafe_allow_html=True)
 

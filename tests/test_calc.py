@@ -273,3 +273,15 @@ def test_hydraulik_geometrie_im_projekt():
             "activeStrang": 0, "topoPos": 50.0}
     _, _, meta2 = loads(dumps(Inputs(), [Strang.new()], meta))
     assert meta2 == meta
+
+
+@pytest.mark.parametrize("name", ["standard", "vierleiter"])
+def test_puffer_szene(name):
+    """Pufferbild: je gewähltem Bosch-Puffer ein Behälter mit Hover-Info (4-Leiter: Heizung + Trinkwasser)."""
+    from bosch_flow import schemata as SC
+    from bosch_flow.calc import puffer_produkt
+    sc = next(s for s in SCENARIOS if s["name"] == name)
+    inp, straenge, _ = build(sc)
+    A = compute_all(inp, straenge)[0]["anlage"]
+    vols = [A["heizPufferVol"], A["wwPufferVol"]] if A["four"] else [A["pufferVol"]]
+    assert len(SC.puffer_szene(A).hover) == sum(len(puffer_produkt(v)["combo"]) for v in vols)

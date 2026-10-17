@@ -175,7 +175,7 @@ def topologie_szene(results: list, pos: float = 50, gross: bool = False, dunkel:
 
 
 # ====================================================================== Anlagenschema (Heizzentrale)
-QUELLE_NAME = {"kessel": "Brennwertkessel", "fernwaerme": "Fernwärme-Übergabe", "wp": "Wärmepumpe"}
+QUELLE_NAME = {"kessel": "Brennwertkessel", "fernwaerme": "Fernwärme", "wp": "Wärmepumpe"}
 
 
 def _karte(s: Szene, x0, y0, x1, y1, F):
@@ -294,6 +294,52 @@ def anlagenschema(R: dict, headline: dict, dunkel: bool = False, quelle: str = "
         x += 40 + len(txt) * 5.6
     s.text(W - 30, yl, "4-Leiter-System · Heizung und Trinkwasser getrennt" if four
            else "2-Leiter-System · Heizung und Trinkwasser über ein Leitungspaar", 9.5, F["soft"], anker="end")
+    return s
+
+
+# ====================================================================== Pufferspeicher
+PUFFER_FORM = {500: (60, 150), 750: (72, 165), 1000: (82, 180), 1500: (100, 195)}   # Breite, Höhe (px)
+
+
+def puffer_szene(A: dict, dunkel: bool = False) -> Szene:
+    """Gewählte Bosch-Puffer als Behälter nebeneinander; der Füllstand zeigt den berechneten Bedarf
+    im Verhältnis zum gewählten Volumen (2-Leiter: Bereitschaftspuffer, 4-Leiter: Heizung und Trinkwasser)."""
+    F = farben(dunkel)
+    gruppen = ([("Puffer Heizung", A["heizPufferVol"], F["vl"]), ("Puffer Trinkwasser", A["wwPufferVol"], F["gold"])]
+               if A["four"] else [("Bereitschaftspuffer", A["pufferVol"], F["accent"])])
+    W, H = 1000, 330
+    s = Szene(W, H)
+    boden = 260
+    breite_gr = W / len(gruppen)
+    for g, (titel, bedarf, farbe) in enumerate(gruppen):
+        pp = puffer_produkt(bedarf)
+        combo = sorted(pp["combo"], reverse=True)
+        anteil = min(1.0, bedarf / pp["liter"]) if pp["liter"] else 0
+        cx = breite_gr * (g + 0.5)
+        s.text(cx, 24, titel, 12.5, F["ink"], fett=True)
+        s.text(cx, 44, f"Bedarf {fmt(bedarf)} l · Auswahl {pp['text']} = {fmt(pp['liter'])} l · "
+                       f"Reserve {fmt(pp['liter'] - bedarf)} l", 9.5, F["soft"])
+        formen = [PUFFER_FORM.get(l, (90, 190)) for l in combo]
+        luecke = 26
+        gesamt = sum(w for w, _ in formen) + luecke * (len(formen) - 1)
+        skala = min(1.0, (breite_gr - 60) / gesamt) if gesamt else 1
+        x = cx - gesamt * skala / 2
+        for liter, (w, h) in zip(combo, formen):
+            w, h = w * skala, h * min(1.0, skala * 1.4)
+            x0, x1, y0 = x, x + w, boden - h
+            # Behälter: Mantel, Füllstand, Deckel
+            s.rechteck(x0, y0, x1, boden, fuell=F["panel"], rand=F["cardline"], breite=1.5, radius=w / 5,
+                       unten=True)
+            hf = (h - 10) * anteil
+            if hf > 2:
+                s.rechteck(x0 + 5, boden - 5 - hf, x1 - 5, boden - 5, fuell=farbe, radius=min(w / 7, hf / 2),
+                           unten=True)
+                s.linie(x0 - 6, boden - 5 - hf, x1 + 6, boden - 5 - hf, farbe, 1.5, "dot")
+            s.text((x0 + x1) / 2, boden + 16, f"{liter} l", 11, F["ink"], fett=True)
+            s.info((x0 + x1) / 2, (y0 + boden) / 2, f"<b>Bosch-Puffer {liter} l</b><br>{titel}<br>"
+                                                     f"Füllung nach Bedarf {fmt(anteil * 100)} %")
+            x = x1 + luecke * skala
+        s.text(cx, boden + 40, f"{fmt(anteil * 100)} % des gewählten Volumens werden gebraucht", 9.5, farbe, fett=True)
     return s
 
 
