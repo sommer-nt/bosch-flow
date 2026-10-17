@@ -663,7 +663,7 @@ def kachel(key: str, titel: str, icon: str | None = None, klick=None, mehr: str 
     c.markdown(f'<div class="k-kopf"><span class="k-titel">{titel}</span>'
                + (f'<span class="k-mehr">{mehr} →</span>' if klick else "") + f'{ic}</div>', unsafe_allow_html=True)
     if klick:
-        if c.button(titel, key=f"klick_{key}", help=f"{titel}: {mehr}"):
+        if c.button(titel, key=f"klick_{key}"):
             klick()
     return c
 
