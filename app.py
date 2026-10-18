@@ -223,6 +223,7 @@ div[data-testid="stDialog"] div[role="dialog"] {{border-radius:20px}}
 .st-key-kachelklick_geraet [data-testid="stImage"] img {{max-height:130px; object-fit:contain}}
 .st-key-panel_zu button {{border:0; background:transparent; min-height:32px; padding:4px 8px}}
 .st-key-panel [data-baseweb="tab-list"] {{gap:6px}}
+.wisch-hinweis {{display:none}}
 /* Anmeldung */
 .st-key-login {{max-width:420px; margin:min(14vh, 120px) auto 0; background:{F['kachel']}; border:1px solid {F['linie']};
                border-radius:24px; padding:34px 30px 22px; box-shadow:{F['schatten2']}}}
@@ -266,7 +267,11 @@ div[data-testid="stDialog"] div[role="dialog"] {{border-radius:20px}}
   [class*="st-key-kachel"] {{border-radius:16px}}
   .k-wert {{font-size:30px}}
   .k-mehr {{display:none}}
-  input, textarea {{font-size:16px !important}}   /* iOS zoomt sonst beim Antippen in jedes Feld */
+  input, textarea {{font-size:16px !important}}
+  /* breite Schemata: lesbar groß, seitlich wischen */
+  [class*="st-key-wisch_"] {{overflow-x:auto !important; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+       scrollbar-width:thin; display:block !important}}
+  .wisch-hinweis {{text-align:center; font-size:12px; color:{F['leise']}; margin-top:-6px}}   /* iOS zoomt sonst beim Antippen in jedes Feld */
   /* Eingabe-Panel als normaler Abschnitt (nicht schwebend) */
   .st-key-panel {{position:static; max-height:none; overflow:visible; animation:none}}
   .st-key-panelkopf [data-testid="stHorizontalBlock"] {{flex-wrap:nowrap !important}}
@@ -731,6 +736,20 @@ def schema(szene, key: str, max_hoehe: int | None = None, breite_px: int = 1000,
            "modeBarButtonsToRemove": ["zoom2d", "pan2d", "select2d", "lasso2d", "zoomIn2d", "zoomOut2d",
                                       "autoScale2d", "resetScale2d"],
            "toImageButtonOptions": {"format": "png", "scale": 2, "filename": key}}
+    if MOBIL:
+        # Handy: nicht auf Bildschirmbreite stauchen (Schrift überlagert sich sonst), sondern lesbar groß zeichnen
+        # und seitlich wischen. Statisch, damit Plotly das Wischen nicht abfängt.
+        ziel = min(szene.breite, max(760, int(szene.breite * 0.8)))
+        fig = als_plotly(szene, breite_px=ziel)
+        w = int(szene.breite * min(1.0, ziel / szene.breite))
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", autosize=False, width=w)
+        st.markdown(f'<style>.st-key-wisch_{key} > [data-testid="stElementContainer"] {{width:{w}px !important; '
+                    f'min-width:{w}px !important; max-width:none !important}}</style>', unsafe_allow_html=True)
+        with st.container(key=f"wisch_{key}"):
+            st.plotly_chart(fig, width="content", key=key, theme=None,
+                            config={"staticPlot": True, "displayModeBar": False})
+        st.markdown('<div class="wisch-hinweis">← seitlich wischen →</div>', unsafe_allow_html=True)
+        return
     fig = als_plotly(szene, max_hoehe=max_hoehe, breite_px=breite_px)
     fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
     st.plotly_chart(fig, width="stretch", config=cfg, key=key, theme=None)
