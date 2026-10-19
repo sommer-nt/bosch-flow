@@ -193,6 +193,20 @@ def _komponente(s: Szene, cx, cy, w, h, icon, titel, wert, unter, F, ib=52):
         s.text(cx, y0 + ib + 68, unter, 9, F["soft"])
 
 
+def _temperatur(s: Szene, cx, y_karte, temp, farbe, beschriftung, F):
+    """Temperatur-Plakette über einem Puffer (wie in der HTML-Version): farbige Pille mit Thermometer-Punkt,
+    Zeiger nach unten auf die Karte, Beschriftung darüber."""
+    txt = f"{fmt(temp)} °C"
+    w, h = 30 + len(txt) * 7.2, 22
+    y0 = y_karte - 34
+    s.add(Pfeil(cx, y0 + h - 2, cx, y_karte - 1, farbe, 2.5))
+    s.rechteck(cx - w / 2, y0, cx + w / 2, y0 + h, fuell=farbe, radius=11)
+    s.kreis(cx - w / 2 + 12, y0 + h / 2, 4, fuell="#ffffff")
+    s.text(cx - w / 2 + 21, y0 + h / 2, txt, 11.5, "#ffffff", fett=True, anker="start")
+    if beschriftung:
+        s.text(cx, y0 - 9, beschriftung, 9, F["soft"])
+
+
 def _leitung(s: Szene, x0, x1, y, farbe, F, oben: str = "", unten: str = "", pfeil: bool = True):
     """Vorlauf (Farbe, mit Pfeil) über Rücklauf (blau); Beschriftung mittig über bzw. unter dem Leitungspaar."""
     yv, yr = y - 6, y + 6
@@ -223,19 +237,21 @@ def anlagenschema(R: dict, headline: dict, dunkel: bool = False, quelle: str = "
     SX0, SX1 = 700, W - 30                              # Stationskarte
     if not four:
         pp = puffer_produkt(A["pufferVol"])
-        reihen = [dict(y=125, farbe=F["vl"], titel="Bereitschaftspuffer", vol=A["pufferVol"], prod=pp,
-                       pumpe=headline["Vtot"], temp=f"VL {fmt(A['vlKeller'])} °C",
+        reihen = [dict(y=175, farbe=F["vl"], titel="Bereitschaftspuffer", vol=A["pufferVol"], prod=pp,
+                       pumpe=headline["Vtot"], temp=A["vlKeller"], temp_txt="Versorgungs-VL",
                        netz=f"{headline['dim']} · {fmt(headline['Vtot'], 2)} m³/h",
                        netz2=f"v {fmt(headline['v'], 2)} m/s · an Station {fmt(A['netzTemp'])} °C")]
-        H, top, bot = 265, 35, 215
+        H, top, bot = 315, 85, 265
     else:
-        reihen = [dict(y=120, farbe=F["vl"], titel="Puffer Heizung", vol=A["heizPufferVol"],
-                       prod=puffer_produkt(A["heizPufferVol"]), pumpe=A["heizPumpV"], temp="",
+        reihen = [dict(y=170, farbe=F["vl"], titel="Puffer Heizung", vol=A["heizPufferVol"],
+                       prod=puffer_produkt(A["heizPufferVol"]), pumpe=A["heizPumpV"], temp=R["P"]["vlhk"],
+                       temp_txt="Heizungs-VL",
                        netz="Heizungsnetz", netz2=""),
-                  dict(y=330, farbe=F["gold"], titel="Puffer Trinkwasser", vol=A["wwPufferVol"],
-                       prod=puffer_produkt(A["wwPufferVol"]), pumpe=A["wwPumpV"], temp=f"TWW-VL {fmt(A['vlKeller'])} °C",
+                  dict(y=420, farbe=F["gold"], titel="Puffer Trinkwasser", vol=A["wwPufferVol"],
+                       prod=puffer_produkt(A["wwPufferVol"]), pumpe=A["wwPumpV"], temp=A["vlKeller"],
+                       temp_txt="TWW-VL Keller",
                        netz="Trinkwassernetz", netz2="")]
-        H, top, bot = 470, 30, 420
+        H, top, bot = 560, 80, 510
     s = Szene(W, H)
     # Erzeuger: eine Karte, über alle Reihen
     ym = (reihen[0]["y"] + reihen[-1]["y"]) / 2
@@ -249,7 +265,9 @@ def anlagenschema(R: dict, headline: dict, dunkel: bool = False, quelle: str = "
         y = r["y"]
         _komponente(s, X_PUF, y, KW, KH, "puffer", r["titel"], f"{fmt(r['vol'])} l",
                     f"Auswahl {r['prod']['text']}" if r["prod"]["liter"] else "nächste Normgröße", F)
-        s.info(X_PUF, y, f"<b>{r['titel']}</b><br>berechnet {fmt(r['vol'])} l<br>Auswahl <b>{r['prod']['text']}</b>")
+        _temperatur(s, X_PUF, y - KH / 2, r["temp"], r["farbe"], r["temp_txt"], F)
+        s.info(X_PUF, y, f"<b>{r['titel']}</b><br>berechnet {fmt(r['vol'])} l<br>Auswahl <b>{r['prod']['text']}</b>"
+                         f"<br>{r['temp_txt']} {fmt(r['temp'])} °C")
         # Netzpumpe auf dem Vorlauf
         g = 40
         s.add(Icon("pumpe", X_PMP - g / 2, y - 6 - g / 2, X_PMP + g / 2, y - 6 + g / 2, F["icon_invert"]))
@@ -258,7 +276,7 @@ def anlagenschema(R: dict, headline: dict, dunkel: bool = False, quelle: str = "
         s.info(X_PMP, y, f"<b>Netzpumpe</b><br>V̇ = {fmt(r['pumpe'], 2)} m³/h")
         # Leitungen: Erzeuger → Puffer → Pumpe → Stationen
         _leitung(s, X_ERZ + KW / 2, X_PUF - KW / 2, y, r["farbe"], F)
-        _leitung(s, X_PUF + KW / 2, X_PMP - g / 2 - 2, y, r["farbe"], F, oben=r["temp"], pfeil=False)
+        _leitung(s, X_PUF + KW / 2, X_PMP - g / 2 - 2, y, r["farbe"], F, pfeil=False)
         _leitung(s, X_PMP + g / 2 + 2, SX0, y, r["farbe"], F, oben=r["netz"], unten=r["netz2"])
     # Wohnungsstationen
     _karte(s, SX0, top, SX1, bot, F)

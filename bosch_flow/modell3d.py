@@ -114,7 +114,7 @@ def _flaeche(ecken: list, farbe: str, deckkraft: float) -> go.Mesh3d:
 
 def _haus(x0: float, x1: float, y0: float, y1: float, zg: float, zt: float, fenster: list, dunkel: bool,
           kanten: dict, rahmen: dict) -> list:
-    """Durchscheinende Haushülle: Wände (zg…zt), Satteldach (First entlang x) und Fenster an der Vorderseite.
+    """Durchscheinende Gebäudehülle: Wände (zg…zt), Satteldach (First entlang x) und Fenster an der Vorderseite.
     Die Vorderwand (y0, zur Kamera) ist nur als Umriss mit Fenstern gezeichnet („Puppenhaus-Schnitt“): Flächen liegen
     in WebGL im Pick-Puffer und würden sonst die Hover-Werte der Rohre dahinter verdecken.
     ``fenster``: (x, z_boden) je Fenster; Kanten und Fensterrahmen werden in ``kanten``/``rahmen`` gesammelt."""
@@ -215,7 +215,7 @@ def modell(results: list, pos: float = 50, modus: str = "v", dunkel: bool = Fals
            hoehe: int = 680, quelle: str = "kessel", pumpe_info: str | None = None, huelle: bool = False) -> go.Figure:
     """3D-Figur. ``modus``: "v" = Farbe nach Geschwindigkeit, "dn" = nach Nennweite.
     ``nur_strang``: Index eines einzelnen Strangs (ohne Hauptstrang) oder None für das ganze Projekt.
-    ``huelle``: durchscheinende Haushülle (Wände, Fenster, Satteldach, Keller) um die Stränge."""
+    ``huelle``: durchscheinende Gebäudehülle (Wände, Fenster, Satteldach, Keller) um die Stränge."""
     P = results[0]["P"]
     vmax = P["vmax"]
     ink = "#e6edf3" if dunkel else "#12181f"

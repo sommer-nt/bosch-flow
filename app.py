@@ -780,7 +780,7 @@ def kachel(key: str, titel: str, icon: str | None = None, klick=None, mehr: str 
 
 
 def huelle_setzen(quelle: str) -> None:
-    """Haushülle in Kachel und Vollbild gemeinsam schalten (bleibt auch beim Wechsel auf 2D erhalten)."""
+    """Gebäudehülle in Kachel und Vollbild gemeinsam schalten (bleibt auch beim Wechsel auf 2D erhalten)."""
     ss.huelle_an = ss[quelle]
     if quelle != "huelle_w":
         ss.huelle_w = ss[quelle]
@@ -938,7 +938,7 @@ def dialog_puffer() -> None:
 @st.dialog("3D-Gebäudemodell", width="large")
 def dialog_3d() -> None:
     a, b, c = st.columns([1, 1, 0.6], vertical_alignment="center")
-    huelle = c.toggle("Haushülle", value=ss.get("huelle_an", True), key="m3d_huelle", on_change=huelle_setzen,
+    huelle = c.toggle("Gebäudehülle", value=ss.get("huelle_an", True), key="m3d_huelle", on_change=huelle_setzen,
                       args=("m3d_huelle",))
     farbe = a.segmented_control("Färbung", ["Geschwindigkeit", "Nennweite"], default="Geschwindigkeit",
                                 key="m3d_farbe", label_visibility="collapsed") or "Geschwindigkeit"
@@ -1203,7 +1203,7 @@ with haupt:
                     meta["activeStrang"] = int(w[1:]) - 1
                     st.rerun()
             if ansicht == "3D":
-                b.toggle("Haushülle", value=ss.get("huelle_an", True), key="huelle_w", on_change=huelle_setzen,
+                b.toggle("Gebäudehülle", value=ss.get("huelle_an", True), key="huelle_w", on_change=huelle_setzen,
                          args=("huelle_w",))
                 fig3d = modell_cache(jetzt, meta["topoPos"], "v", DUNKEL, None, 470, inp.waermequelle,
                                      f"Betriebspunkt V̇ {fmt(HYD['V'], 2)} m³/h · {fmt(HYD['bar'], 2)} bar "
