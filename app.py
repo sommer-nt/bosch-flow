@@ -56,8 +56,23 @@ def _secret(name: str) -> str | None:
 
 
 _passwort = _secret("APP_PASSWORT")
-# Prüfwert der Anmeldung: wird im Browser gemerkt (nicht das Passwort), ändert sich mit dem Passwort
-_pruefwert = hmac.new(_passwort.encode(), b"bosch-flow-anmeldung-v1", hashlib.sha256).hexdigest() if _passwort else None
+ANMELDUNG_STUNDEN = 12      # so lange gilt die gemerkte Anmeldung höchstens (zusätzlich endet sie mit dem Tab)
+
+
+def _pruefwert(zeit: int) -> str:
+    """Prüfwert der Anmeldung (nicht das Passwort): Zeitpunkt + HMAC – ungültig nach Passwortwechsel oder Ablauf."""
+    return f"{zeit}." + hmac.new(_passwort.encode(), f"bosch-flow-anmeldung-v2|{zeit}".encode(),
+                                 hashlib.sha256).hexdigest()
+
+
+def _pruefwert_gueltig(wert: str) -> bool:
+    try:
+        zeit = int(wert.split(".", 1)[0])
+    except (ValueError, AttributeError):
+        return False
+    alter = datetime.now().timestamp() - zeit
+    return 0 <= alter <= ANMELDUNG_STUNDEN * 3600 and hmac.compare_digest(wert, _pruefwert(zeit))
+
 try:
     _ua = st.context.headers.get("User-Agent", "") or ""
 except Exception:  # noqa: BLE001
@@ -287,8 +302,9 @@ if _passwort and not ss.get("angemeldet"):
     with st.container(key="login_thema"):
         b_ = browser(None, DUNKEL, abmelden=bool(ss.get("abgemeldet")))
     gemerkt = (b_ or {}).get("anmeldung")
-    if gemerkt and not ss.get("abgemeldet") and hmac.compare_digest(gemerkt, _pruefwert):
-        ss.angemeldet = True                      # Gerät ist schon angemeldet (z. B. nach dem Farbwechsel)
+    if gemerkt and not ss.get("abgemeldet") and _pruefwert_gueltig(gemerkt):
+        ss.angemeldet = True                      # Tab ist schon angemeldet (z. B. Neuladen beim Farbwechsel)
+        ss.anmeldung = gemerkt
         st.rerun()
     with st.container(key="login"):
         st.markdown('<div class="login-marke">BOSCH <span>Flow</span></div>'
@@ -300,10 +316,11 @@ if _passwort and not ss.get("angemeldet"):
         if los:
             if eingabe and hmac.compare_digest(eingabe, _passwort):
                 ss.angemeldet = True
+                ss.anmeldung = _pruefwert(int(datetime.now().timestamp()))
                 ss.pop("abgemeldet", None)
                 st.rerun()
             st.error("Passwort falsch.")
-        st.markdown('<div class="login-fuss">Dieses Gerät bleibt angemeldet, bis du dich im Menü ··· abmeldest.</div>',
+        st.markdown('<div class="login-fuss">Die Anmeldung gilt, bis der Browser geschlossen wird (höchstens 12 Stunden).</div>',
                     unsafe_allow_html=True)
     st.stop()
 
@@ -720,7 +737,7 @@ with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help=
                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     st.divider()
     if _passwort and st.button("Abmelden", icon=":material/logout:", width="stretch",
-                               help="Dieses Gerät abmelden – beim nächsten Öffnen wird wieder das Passwort abgefragt"):
+                               help="Sofort abmelden – danach wird wieder das Passwort abgefragt"):
         ss.angemeldet = False
         ss.abgemeldet = True
         st.rerun()
@@ -1314,7 +1331,7 @@ with haupt:
 # ====================================================================== Auto-Sicherung + Hell/Dunkel (Browser)
 with kopf_thema:
     _b = browser(dumps(ss.inp, ss.straenge, ss.meta) if ss.get("sicherung_gelesen") else None, DUNKEL,
-                 anmeldung=_pruefwert)
+                 anmeldung=ss.get("anmeldung"))
 gespeichert = (_b or {}).get("gespeichert")
 if gespeichert is not None and not ss.get("sicherung_gelesen"):
     ss.sicherung_gelesen = True

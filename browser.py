@@ -5,8 +5,9 @@ Eine kleine Streamlit-Komponente (components v2), die im Browser des Nutzers lä
 - schreibt bei jeder Änderung den aktuellen Projektstand in den localStorage,
 - schaltet das Farbschema um (Streamlit-Theme) und lädt die Seite neu – die Sicherung stellt das Projekt
   danach sofort wieder her,
-- merkt sich die Anmeldung (Prüfwert, nicht das Passwort), damit der Neuladen beim Farbwechsel oder ein späterer
-  Besuch nicht erneut nach dem Passwort fragt; „Abmelden“ löscht den Prüfwert.
+- merkt sich die Anmeldung (Prüfwert, nicht das Passwort) nur für diesen Tab (sessionStorage): Der Neuladen beim
+  Farbwechsel fragt nicht erneut nach dem Passwort, nach dem Schließen von Tab bzw. Browser schon; „Abmelden“
+  löscht den Prüfwert.
 Die Daten bleiben im Browser des Nutzers und gehen nicht an den Server.
 """
 from __future__ import annotations
@@ -33,7 +34,8 @@ export default function (component) {
   if (!parentElement.__init) {
     parentElement.__init = true;
     let v = "", a = "";
-    try { v = window.localStorage.getItem(KEY) || ""; a = window.localStorage.getItem(LOGIN) || ""; } catch (e) {}
+    try { v = window.localStorage.getItem(KEY) || ""; } catch (e) {}
+    try { window.localStorage.removeItem(LOGIN); a = window.sessionStorage.getItem(LOGIN) || ""; } catch (e) {}
     setStateValue("anmeldung", a);
     setStateValue("gespeichert", v);
     btn.addEventListener("click", () => {
@@ -48,8 +50,8 @@ export default function (component) {
     btn.title = data.dunkel ? "Hell darstellen" : "Dunkel darstellen";
     if (data.speichern) { try { window.localStorage.setItem(KEY, data.speichern); } catch (e) {} }
     try {
-      if (data.abmelden) window.localStorage.removeItem(LOGIN);
-      else if (data.anmeldung) window.localStorage.setItem(LOGIN, data.anmeldung);
+      if (data.abmelden) window.sessionStorage.removeItem(LOGIN);
+      else if (data.anmeldung) window.sessionStorage.setItem(LOGIN, data.anmeldung);
     } catch (e) {}
   }
 }
@@ -70,7 +72,7 @@ def _komponente():
 def browser(speichern: str | None, dunkel: bool, anmeldung: str | None = None, abmelden: bool = False) -> dict | None:
     """Komponente einbinden. ``speichern``: Projektstand für die Auto-Sicherung (None = noch nicht sichern);
     ``anmeldung``: Prüfwert der Anmeldung zum Merken; ``abmelden``: gemerkten Prüfwert löschen.
-    Gibt {"gespeichert", "anmeldung"} zurück – beim ersten Lauf noch None, danach die Werte aus dem localStorage
+    Gibt {"gespeichert", "anmeldung"} zurück – beim ersten Lauf noch None, danach die Werte aus dem Browser
     ("" = keine). None, wenn die Komponenten-API fehlt."""
     try:
         erg = _komponente()(key="bf_browser", on_gespeichert_change=lambda: None, on_anmeldung_change=lambda: None,
