@@ -153,9 +153,8 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
     boden, ym = -2.6, -2.7                         # Kellerboden, Aufstellreihe vor dem Hauptstrang
     pp = puffer_produkt(A["pufferVol"])
     combo = sorted(pp["combo"], reverse=True)[:4]
-    # Netzpumpe direkt an der Steigleitung zum Hauptstrang, links davon Puffer, ganz links der Erzeuger
-    px = ax - 0.9
-    x = px - 0.9
+    # Puffer rechts neben dem Hauptstrang-Anschluss nach links aufreihen, ganz links der Erzeuger
+    x = ax - 0.9
     puffer = []
     for liter in combo:
         r, h = PUFFER_MASS.get(liter, (0.5, 2.0))
@@ -176,7 +175,6 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
         teile.append(_quader(gx - 0.3, gx + 0.3, y0 - 0.03, y0, boden + hoch - 0.75, boden + hoch - 0.45, "#2b3036"))
     else:
         teile.append(_quader(x0, x1, y0, y1, boden, boden + hoch, "#4a525c" if dunkel else "#2f353c"))
-        teile.append(_quader(x0, x1, y0 - 0.02, y0, boden + hoch - 0.3, boden + hoch - 0.18, "#e20015"))
         teile.append(_quader(gx - 0.25, gx + 0.25, y0 - 0.03, y0, boden + hoch - 0.7, boden + hoch - 0.45, "#cfe3f2"))
     hover["x"].append(gx), hover["y"].append(ym), hover["z"].append(boden + hoch / 2)
     hover["t"].append(f"<b>Wärmeerzeuger</b> · {QUELLEN.get(quelle, 'Wärmeerzeuger')}<br>{fmt(A['kesselQ'])} kW")
@@ -185,27 +183,39 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
         teile.append(_zylinder(cx, ym, boden + h, boden + h + 0.06, r * 0.98, "#8996a3" if dunkel else "#b9c3cc"))
         hover["x"].append(cx), hover["y"].append(ym), hover["z"].append(boden + h / 2)
         hover["t"].append(f"<b>Pufferspeicher</b> {liter} l<br>Auswahl {pp['text']} · Bedarf {fmt(A['pufferVol'])} l")
-    # Netzpumpe: Pumpengehäuse (Zylinder) + Motor
-    teile.append(_zylinder(px, -1.25, ym - 0.22, ym + 0.22, 0.24, "#005691", achse="y"))
-    teile.append(_zylinder(px, -1.25, ym - 0.5, ym - 0.22, 0.16, "#1b2733" if not dunkel else "#9fb0c0", achse="y"))
-    hover["x"].append(px), hover["y"].append(ym), hover["z"].append(-1.25)
-    hover["t"].append("<b>Netzpumpe</b>" + (f"<br>{pumpe_info}" if pumpe_info else ""))
-    # Verrohrung: Vorlauf (rot) oben, Rücklauf (blau) darunter – vom Erzeuger über Puffer und Pumpe zum Hauptstrang
-    oben_e = boden + hoch
-    vl = dict(x=[gx, gx] + [c for c, *_ in puffer] + [px, ax, ax, ax],
-              y=[ym, ym] + [ym] * len(puffer) + [ym, ym, ym, 0], z=[oben_e, -0.45] + [-0.45] * len(puffer)
-              + [-0.45, -0.45, 0, 0])
-    rl = dict(x=[gx + 0.3, gx + 0.3, ax + 0.35, ax + 0.35], y=[ym + 0.3] * 3 + [0.0],
-              z=[boden + 0.3, -0.85, -0.85, -0.3])
-    teile.append(go.Scatter3d(mode="lines", line=dict(color="#e20015", width=7), hoverinfo="skip", showlegend=False,
-                              **vl))
-    teile.append(go.Scatter3d(mode="lines", line=dict(color="#005691" if not dunkel else "#4fa3e0", width=7),
-                              hoverinfo="skip", showlegend=False, **rl))
-    teile.append(go.Scatter3d(x=[px, px], y=[ym, ym], z=[-1.0, -0.45], mode="lines", hoverinfo="skip",
-                              line=dict(color="#e20015", width=7), showlegend=False))
+    # Verrohrung (Vorlauf rot, Rücklauf blau), beide docken am Hauptstrang (x = ax, y = 0, z = 0) an:
+    # Vorlauf: Erzeuger oben → Sammler über den Puffern (je ein Abgang oben in den Puffer) → zum Hauptstrang.
+    # Rücklauf: Hauptstrang → Netzpumpe → Sammler am Boden hinter der Reihe (je ein Abgang unten in den Puffer)
+    # → Erzeuger.
+    z_vl, z_rl, y_rl = -0.3, boden + 0.3, ym + 0.8
+    xv, xr = ax - 0.15, ax + 0.15
+    vl_farbe, rl_farbe = "#e20015", ("#4fa3e0" if dunkel else "#005691")
+    vl = [(gx, ym, boden + hoch), (gx, ym, z_vl), (xv, ym, z_vl), (xv, 0, z_vl), (xv, 0, 0)]
+    vl_ab = [[(cx, ym, z_vl), (cx, ym, boden + h + 0.06)] for cx, r, h, _ in puffer]
+    rl = [(xr, 0, 0), (xr, 0, z_rl), (xr, y_rl, z_rl), (gx, y_rl, z_rl), (gx, y0 + tiefe, z_rl)]
+    rl_ab = [[(cx, y_rl, z_rl), (cx, ym + r * 0.7, z_rl)] for cx, r, h, _ in puffer]
+
+    def strecke(zuege, farbe):
+        xs_, ys_, zs_ = [], [], []
+        for zug in zuege:
+            for p in zug:
+                xs_.append(p[0]), ys_.append(p[1]), zs_.append(p[2])
+            xs_.append(None), ys_.append(None), zs_.append(None)
+        return go.Scatter3d(x=xs_, y=ys_, z=zs_, mode="lines", line=dict(color=farbe, width=7), hoverinfo="skip",
+                            showlegend=False)
+    teile.append(strecke([vl] + vl_ab, vl_farbe))
+    teile.append(strecke([rl] + rl_ab, rl_farbe))
+    # Netzpumpe im Rücklauf (Achse entlang der Leitung zum Hauptstrang) mit Motor
+    py = y_rl / 2
+    teile.append(_zylinder(xr, z_rl, py - 0.26, py + 0.26, 0.26, "#005691", achse="y"))          # Pumpengehäuse
+    teile.append(_zylinder(xr, py, z_rl + 0.2, z_rl + 0.62, 0.19, "#1b2733" if not dunkel else "#9fb0c0"))  # Motor
+    teile.append(_zylinder(xr, py, z_rl + 0.62, z_rl + 0.68, 0.12, "#005691"))                   # Klemmkasten
+    hover["x"].append(xr), hover["y"].append(py), hover["z"].append(z_rl)
+    hover["t"].append("<b>Netzpumpe</b> (Rücklauf)" + (f"<br>{pumpe_info}" if pumpe_info else ""))
     m = massstab
     for t in teile:
-        t.update(x=[ax + (v - ax) * m for v in t.x], y=[v * m for v in t.y], z=[v * m for v in t.z])
+        t.update(x=[None if v is None else ax + (v - ax) * m for v in t.x],
+                 y=[None if v is None else v * m for v in t.y], z=[None if v is None else v * m for v in t.z])
     hover.update(x=[ax + (v - ax) * m for v in hover["x"]], y=[v * m for v in hover["y"]],
                  z=[v * m for v in hover["z"]])
     return teile, hover | {"links": ax + (x0 - ax) * m, "boden": boden * m, "ym": ym * m}
