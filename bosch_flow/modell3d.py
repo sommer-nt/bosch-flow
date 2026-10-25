@@ -184,7 +184,7 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
         hover["x"].append(cx), hover["y"].append(ym), hover["z"].append(boden + h / 2)
         hover["t"].append(f"<b>Pufferspeicher</b> {liter} l<br>Auswahl {pp['text']} · Bedarf {fmt(A['pufferVol'])} l")
     # Verrohrung wie im Bosch-Systemprinzip: Erzeuger → Puffer (Vorlauf oben, Rücklauf unten); vom Puffer führen
-    # Vorlauf (rot) und Rücklauf (blau) senkrecht durch die Netzpumpen-Gruppe (Pumpe im Vorlauf) zum Hauptstrang
+    # Vorlauf (rot) und Rücklauf (blau) senkrecht durch die Netzpumpen-Gruppe (Pumpe im Rücklauf) zum Hauptstrang
     # (x = ax, y = 0, z = 0).
     z_vl, z_unten, z_rl, y_rl = -0.3, boden + 0.45, boden + 0.25, ym + 0.8
     xv, xr = ax - 0.22, ax + 0.22
@@ -208,19 +208,18 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
                             showlegend=False)
     teile.append(strecke([vl] + vl_ab, vl_farbe))
     teile.append(strecke([rl] + rl_ab, rl_farbe))
-    # Netzpumpen-Gruppe: Montageplatte hinter beiden Steigleitungen, Pumpe im Vorlauf (Gehäuse auf der Leitung,
+    # Netzpumpen-Gruppe: Isolierschale hinter beiden Steigleitungen, Pumpe im Rücklauf (Gehäuse auf der Leitung,
     # Motor nach vorn), Absperrkugelhähne oben und unten in beiden Leitungen
     zp0, zp1 = -2.05, -0.55
     zp = (zp0 + zp1) / 2
     teile.append(_quader(ax - 0.5, ax + 0.5, 0.12, 0.3, zp0, zp1, "#2f353c" if not dunkel else "#56626e"))  # Isolierschale
-    teile.append(_zylinder(xv, 0, zp - 0.26, zp + 0.26, 0.23, "#005691"))                             # Pumpengehäuse
-    teile.append(_zylinder(xv, zp, -0.6, -0.2, 0.2, "#d5dbe1" if not dunkel else "#9fb0c0", achse="y"))  # Motor
-    teile.append(_zylinder(xv, zp, -0.66, -0.6, 0.13, "#e20015", achse="y"))                         # Motordeckel
+    teile.append(_zylinder(xr, 0, zp - 0.26, zp + 0.26, 0.23, "#005691"))                             # Pumpengehäuse
+    teile.append(_zylinder(xr, zp, -0.6, -0.2, 0.2, "#d5dbe1" if not dunkel else "#9fb0c0", achse="y"))  # Motor
     for x_, farbe in ((xv, vl_farbe), (xr, rl_farbe)):
         for z_ in (zp0 + 0.16, zp1 - 0.16):
             teile.append(_zylinder(x_, 0, z_ - 0.07, z_ + 0.07, 0.1, farbe))                          # Kugelhahn
-    hover["x"].append(ax), hover["y"].append(0), hover["z"].append(zp)
-    hover["t"].append("<b>Netzpumpen-Gruppe</b> · Pumpe im Vorlauf" + (f"<br>{pumpe_info}" if pumpe_info else ""))
+    hover["x"].append(xr), hover["y"].append(0), hover["z"].append(zp)
+    hover["t"].append("<b>Netzpumpen-Gruppe</b> · Pumpe im Rücklauf" + (f"<br>{pumpe_info}" if pumpe_info else ""))
     m = massstab
     for t in teile:
         t.update(x=[None if v is None else ax + (v - ax) * m for v in t.x],
