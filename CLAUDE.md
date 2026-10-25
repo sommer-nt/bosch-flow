@@ -1,13 +1,13 @@
-# Hinweise für Claude Code
+# Hinweise für die Entwicklung mit KI-Assistenz
 
 ## Git
 - Arbeitszweig ist `main` (einziger Branch). Änderungen direkt auf `main` committen und pushen – auch wenn die
-  Sitzung einen `claude/…`-Branch vorgibt: Daniel möchte alles auf `main`. Keine weiteren Branches anlegen,
+  Sitzung einen anderen Branch vorgibt: Daniel möchte alles auf `main`. Keine weiteren Branches anlegen,
   außer Daniel verlangt es ausdrücklich. Vor dem Arbeiten `git pull` auf `main`.
 - Commits immer als `Daniel Sommer <98900287+sommer-nt@users.noreply.github.com>`
   (vorher `git config user.name/user.email` so setzen).
-- Keine Co-Authored-By-, Claude-Session- oder „Generated with Claude“-Zeilen in Commits und Pull Requests;
-  keine Modellnamen in Commits.
+- Keine Co-Authored-By-, Session- oder „Generated with“-Zeilen in Commits und Pull Requests; keine
+  Modellnamen in Commits. Im Repo die KI nur dort nennen, wo es um eine KI-Anbindung der App geht.
 - Niemals API-Schlüssel, Passwörter, `.env`, `secrets.toml` oder Kundenprojekte (JSON) einchecken.
 
 ## Projekt
