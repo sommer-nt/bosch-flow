@@ -30,7 +30,7 @@ EOT
 chmod 600 ~/.ssh/config
 
 cd ~
-git clone -b claude/lucid-archimedes-j2yw8g git@github-flow:sommer-nt/bosch-flow.git
+git clone git@github-flow:sommer-nt/bosch-flow.git
 cd bosch-flow/deploy
 cp .env.beispiel .env && nano .env          # Passwort setzen, APP_PORT=8504
 docker compose -p flow up -d --build
