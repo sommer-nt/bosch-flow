@@ -187,7 +187,7 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
     # Vorlauf (rot) und Rücklauf (blau) senkrecht durch die Netzpumpen-Gruppe (Pumpe im Rücklauf) zum Hauptstrang
     # (x = ax, y = 0, z = 0).
     z_vl, z_unten, z_rl, y_rl = -0.3, boden + 0.45, boden + 0.25, ym + 0.8
-    xv, xr = ax - 0.22, ax + 0.22
+    xv, xr = ax - 0.16, ax + 0.16
     vl_farbe, rl_farbe = "#e20015", ("#4fa3e0" if dunkel else "#005691")
     # Vorlauf: Erzeuger oben → Sammler über den Puffern (Abgänge oben in die Puffer) → am Ende der Reihe hinunter,
     # unter der Pumpengruppe hindurch und senkrecht durch die Gruppe hinauf zum Hauptstrang
@@ -210,14 +210,14 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
     teile.append(strecke([rl] + rl_ab, rl_farbe))
     # Netzpumpen-Gruppe: Isolierschale hinter beiden Steigleitungen, Pumpe im Rücklauf (Gehäuse auf der Leitung,
     # Motor nach vorn), Absperrkugelhähne oben und unten in beiden Leitungen
-    zp0, zp1 = -2.05, -0.55
+    zp0, zp1 = -1.3, -0.4                                   # kompakt, oben unter dem Hauptstrang
     zp = (zp0 + zp1) / 2
-    teile.append(_quader(ax - 0.5, ax + 0.5, 0.12, 0.3, zp0, zp1, "#2f353c" if not dunkel else "#56626e"))  # Isolierschale
-    teile.append(_zylinder(xr, 0, zp - 0.26, zp + 0.26, 0.23, "#005691"))                             # Pumpengehäuse
-    teile.append(_zylinder(xr, zp, -0.6, -0.2, 0.2, "#d5dbe1" if not dunkel else "#9fb0c0", achse="y"))  # Motor
+    teile.append(_quader(ax - 0.34, ax + 0.34, 0.1, 0.22, zp0, zp1, "#2f353c" if not dunkel else "#56626e"))  # Isolierschale
+    teile.append(_zylinder(xr, 0, zp - 0.17, zp + 0.17, 0.15, "#005691"))                             # Pumpengehäuse
+    teile.append(_zylinder(xr, zp, -0.4, -0.13, 0.13, "#d5dbe1" if not dunkel else "#9fb0c0", achse="y"))  # Motor
     for x_, farbe in ((xv, vl_farbe), (xr, rl_farbe)):
-        for z_ in (zp0 + 0.16, zp1 - 0.16):
-            teile.append(_zylinder(x_, 0, z_ - 0.07, z_ + 0.07, 0.1, farbe))                          # Kugelhahn
+        for z_ in (zp0 + 0.1, zp1 - 0.1):
+            teile.append(_zylinder(x_, 0, z_ - 0.045, z_ + 0.045, 0.065, farbe))                      # Kugelhahn
     hover["x"].append(xr), hover["y"].append(0), hover["z"].append(zp)
     hover["t"].append("<b>Netzpumpen-Gruppe</b> · Pumpe im Rücklauf" + (f"<br>{pumpe_info}" if pumpe_info else ""))
     m = massstab
