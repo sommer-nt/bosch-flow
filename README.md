@@ -71,7 +71,7 @@ Die App öffnet sich unter <http://localhost:8501>.
 
 ## Eigener Server: flow.sommer-nt.de
 
-Wie klima/climate: `Dockerfile` + `deploy/docker-compose.yml` (Container auf 127.0.0.1:8504) hinter nginx mit
+`Dockerfile` + `deploy/docker-compose.yml` (Container auf 127.0.0.1:8504) hinter nginx mit
 certbot. Schritt für Schritt: **[deploy/ANLEITUNG.md](deploy/ANLEITUNG.md)** – Kurzform auf dem Server:
 
 ```bash
@@ -81,22 +81,6 @@ docker compose -p flow up -d --build
 sudo cp nginx-flow.sommer-nt.de.conf /etc/nginx/sites-available/flow.sommer-nt.de
 sudo ln -s /etc/nginx/sites-available/flow.sommer-nt.de /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx && sudo certbot --nginx -d flow.sommer-nt.de
-```
-
-## Streamlit Cloud (Alternative)
-
-1. [share.streamlit.io](https://share.streamlit.io) mit dem GitHub-Konto anmelden → **Create app** →
-   „Deploy a public app from GitHub“.
-2. Repository `sommer-nt/bosch-flow`, Branch (`main` bzw. der Arbeitsbranch), Main file `app.py`.
-3. Unter **Advanced settings** Python 3.11 oder 3.12 wählen und das Passwort als Secret eintragen (s. u.).
-4. **Deploy** – `requirements.txt` (getestet mit Streamlit 1.64 und 1.66) und `packages.txt` (Schrift für Umlaute
-   im PDF) werden automatisch installiert. Jeder Push auf den Branch aktualisiert die App von selbst.
-
-Preise sind intern: Apps aus privaten Repositories sind nur für eingeladene Personen sichtbar (**Share** → E-Mails
-eintragen); zusätzlich schützt das Passwort (Vorlage: `.streamlit/secrets.toml.beispiel`):
-
-```toml
-APP_PASSWORT = "..."
 ```
 
 ## Aufbau

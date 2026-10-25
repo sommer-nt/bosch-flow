@@ -1,6 +1,6 @@
 # Betrieb auf eigenem Server: flow.sommer-nt.de
 
-Wie klima/climate: Die App läuft als Docker-Container und ist nur lokal auf **127.0.0.1:8504**
+Die App läuft als Docker-Container und ist nur lokal auf **127.0.0.1:8504**
 erreichbar. nginx leitet `flow.sommer-nt.de` dorthin, certbot holt das HTTPS-Zertifikat.
 
 **1. DNS:** CNAME `flow` → `danisox.ddns.net` (wie `climate`).
@@ -61,7 +61,8 @@ die Seite weiß.
 | Status | `docker compose -p flow ps` |
 | Stoppen | `docker compose -p flow down` |
 
-Das Projekt `-p flow` trennt den Container von klima/climate – deren Container bleiben unberührt.
+Das Projekt `-p flow` trennt den Container von den übrigen Apps auf dem Server (z. B. `climate`) – deren Container
+bleiben unberührt.
 
 ## Fehlersuche
 

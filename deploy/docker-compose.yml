@@ -1,4 +1,4 @@
-# BOSCH Flow auf dem vorhandenen nginx-Server (wie klima/climate).
+# BOSCH Flow auf dem eigenen Server hinter nginx (flow.sommer-nt.de).
 # Die App lauscht nur lokal auf 127.0.0.1:${APP_PORT:-8504}; nginx leitet flow.sommer-nt.de dorthin.
 # Start:  cd deploy && docker compose -p flow up -d --build
 services:

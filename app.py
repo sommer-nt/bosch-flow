@@ -46,7 +46,7 @@ ICONS = Path(__file__).parent / "bosch_flow" / "daten" / "icons"
 
 # ====================================================================== Zugang (optional)
 def _secret(name: str) -> str | None:
-    """Umgebungsvariable oder Streamlit-Secret (Streamlit Cloud: Settings → Secrets)."""
+    """Umgebungsvariable oder Streamlit-Secret (lokal: .streamlit/secrets.toml)."""
     if os.environ.get(name, "").strip():
         return os.environ[name].strip()
     try:
