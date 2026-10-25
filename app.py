@@ -163,9 +163,9 @@ header[data-testid="stHeader"] {{background:transparent}}
 .dot.info {{background:{F['akzent']}; box-shadow:0 0 0 4px {F['akzent_bg']}}}
 .gesamt {{font-size:20px; font-weight:800; color:{F['text']}; margin:4px 0 2px}}
 /* Empfehlung */
-.empf-tag {{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
+.empf-tag {{display:inline-block; margin-top:12px; line-height:1.5; font-size:11px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
            color:{F['gruen']}; background:rgba(18,183,106,.12); border-radius:999px; padding:2px 10px}}
-.empf-titel {{font-size:22px; font-weight:800; color:{F['text']}; margin:8px 0 2px; line-height:1.15}}
+.empf-titel {{font-size:22px; font-weight:800; color:{F['text']}; margin:10px 0 4px; line-height:1.2}}
 .empf-pkt {{font-size:13px; color:{F['leise']}; margin:2px 0}}
 /* Rohrnetz-Balken */
 .rn {{display:grid; grid-template-columns:42px 1fr 64px 70px; align-items:center; gap:10px; font-size:13px;
@@ -178,6 +178,10 @@ header[data-testid="stHeader"] {{background:transparent}}
 .rn-kopf {{font-size:12px; color:{F['leise']}; margin:2px 0 6px}}
 /* Gerät */
 .g-typ {{font-size:20px; font-weight:800; color:{F['text']}; line-height:1.15}}
+.gk-zeile {{display:flex; gap:18px; align-items:center; margin:14px 0 8px}}
+.gk-zeile img {{height:104px; width:84px; object-fit:contain; flex:0 0 auto}}
+.g-text {{flex:1 1 auto; min-width:0}}
+.g-text .g-sub {{margin-bottom:0; line-height:1.55}}
 .g-sub {{font-size:12.5px; color:{F['leise']}; margin:3px 0 8px}}
 .g-zeile {{display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px solid {F['linie']};
           color:{F['text']}}}
@@ -273,7 +277,11 @@ div[data-testid="stDialog"] div[role="dialog"] {{border-radius:20px}}
        gap:10px !important}}
   .st-key-kopf [data-testid="stColumn"]:nth-child(7) [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
        min-width:0 !important; width:auto !important; flex:1 1 0 !important}}
-  .marke {{font-size:21px}}
+  .marke {{font-size:21px; margin-bottom:8px}}
+  .st-key-kopf > div > [data-testid="stHorizontalBlock"] {{row-gap:16px !important}}
+  .gk-zeile {{gap:14px; margin:10px 0 10px}}
+  .gk-zeile img {{height:88px; width:70px}}
+  .g-typ {{font-size:18px}}
   /* Kennzahlen zwei je Zeile */
   .st-key-kpireihe > div > [data-testid="stHorizontalBlock"] {{flex-wrap:wrap !important; gap:10px !important}}
   .st-key-kpireihe > div > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
@@ -1312,9 +1320,8 @@ with haupt:
         with kachel("geraet", "Wohnungsstation", None, dialog_geraet, "Gerätedaten"):
             stg = STATIONS[inp.station]["stages"][min(int(inp.wwstage), len(STATIONS[inp.station]["stages"]) - 1)]
             bild = base64.b64encode(GERAET["bild"].read_bytes()).decode()
-            st.markdown(f'<div style="display:flex;gap:16px;align-items:center;margin-top:14px">'
-                        f'<img src="data:image/png;base64,{bild}" style="height:104px;width:auto;object-fit:contain">'
-                        f'<div><div class="g-typ">{GERAET["typ"]}</div><div class="g-sub">{G["we"]} Stationen · '
+            st.markdown(f'<div class="gk-zeile"><img src="data:image/png;base64,{bild}" alt="{GERAET["typ"]}">'
+                        f'<div class="g-text"><div class="g-typ">{GERAET["typ"]}</div><div class="g-sub">{G["we"]} Stationen · '
                         f'{stg["kw"]} kW · {stg["lmin"]} l/min<br>{KA.MONTAGE[GERAET["montage"]].split(" (")[0]} · '
                         f'{GERAET["heizkreis"]}</div></div></div>', unsafe_allow_html=True)
     with c3:

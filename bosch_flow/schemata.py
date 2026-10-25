@@ -268,13 +268,13 @@ def anlagenschema(R: dict, headline: dict, dunkel: bool = False, quelle: str = "
         _temperatur(s, X_PUF, y - KH / 2, r["temp"], r["farbe"], r["temp_txt"], F)
         s.info(X_PUF, y, f"<b>{r['titel']}</b><br>berechnet {fmt(r['vol'])} l<br>Auswahl <b>{r['prod']['text']}</b>"
                          f"<br>{r['temp_txt']} {fmt(r['temp'])} °C")
-        # Netzpumpe im Rücklauf; der Vorlauf läuft über der Pumpe durch
+        # Netzpumpe im Vorlauf (wie im Bosch-Systemprinzip); der Rücklauf läuft unter der Pumpe durch
         g = 26
-        s.add(Icon("pumpe", X_PMP - g / 2, y + 8 - g / 2, X_PMP + g / 2, y + 8 + g / 2, F["icon_invert"]))
-        s.linie(X_PMP - g / 2 - 4, y - 8, X_PMP + g / 2 + 10, y - 8, r["farbe"], 3)
-        s.text(X_PMP, y + 28, "Netzpumpe", 10.5, F["ink"], fett=True, vanker="top")
-        s.text(X_PMP, y + 44, f"Rücklauf · {fmt(r['pumpe'], 2)} m³/h", 9, F["soft"], vanker="top")
-        s.info(X_PMP, y + 8, f"<b>Netzpumpe</b> (Rücklauf)<br>V̇ = {fmt(r['pumpe'], 2)} m³/h")
+        s.add(Icon("pumpe", X_PMP - g / 2, y - 8 - g / 2, X_PMP + g / 2, y - 8 + g / 2, F["icon_invert"]))
+        s.linie(X_PMP - g / 2 - 4, y + 8, X_PMP + g / 2 + 10, y + 8, F["rl"], 3)
+        s.text(X_PMP, y + 26, "Netzpumpe", 10.5, F["ink"], fett=True, vanker="top")
+        s.text(X_PMP, y + 42, f"Vorlauf · {fmt(r['pumpe'], 2)} m³/h", 9, F["soft"], vanker="top")
+        s.info(X_PMP, y - 8, f"<b>Netzpumpe</b> (Vorlauf)<br>V̇ = {fmt(r['pumpe'], 2)} m³/h")
         # Leitungen: Erzeuger → Puffer → Pumpe → Stationen
         _leitung(s, X_ERZ + KW / 2, X_PUF - KW / 2, y, r["farbe"], F)
         _leitung(s, X_PUF + KW / 2, X_PMP - g / 2 - 2, y, r["farbe"], F, pfeil=False)

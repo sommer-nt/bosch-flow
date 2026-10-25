@@ -1,11 +1,12 @@
 """Streamlit-Startseite (static/index.html) im Container anpassen – wird im Dockerfile ausgeführt.
 
 Bis Streamlit geladen ist, zeigt der Browser nur diese Seite: ohne Anpassung ist sie weiß, auch im Dunkelmodus.
-Ergänzt werden Hintergrundfarbe passend zum gewählten Farbschema (localStorage) bzw. zum System, Theme-Farbe für die
+Ergänzt werden Viewport ohne iOS-Auto-Zoom, Hintergrundfarbe passend zum gewählten Farbschema (localStorage) bzw. zum System, Theme-Farbe für die
 Browserleiste, Titel und Angaben für „Zum Home-Bildschirm“ auf dem iPhone. Mehrfaches Ausführen ist unschädlich.
 """
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -30,6 +31,14 @@ def patch(datei: Path) -> bool:
     if MARKE in html:
         return False
     html = html.replace("<title>Streamlit</title>", "<title>Bosch Flow</title>", 1)
+    # iOS zoomt beim Antippen eines Felds in die Seite und bleibt vergrößert (Kacheln rechts abgeschnitten);
+    # maximum-scale verhindert das Auto-Zoomen, Aufziehen mit zwei Fingern bleibt auf dem iPhone möglich.
+    html, n = re.subn(r'name="viewport"\s+content="[^"]*"',
+                      'name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, '
+                      'viewport-fit=cover"', html, count=1)
+    if not n:                                  # andere Streamlit-Version: eigenen Viewport ergänzen
+        html = html.replace("</head>", '<meta name="viewport" content="width=device-width, initial-scale=1, '
+                                        'maximum-scale=1, viewport-fit=cover"></head>', 1)
     datei.write_text(html.replace("</head>", KOPF + "</head>", 1), encoding="utf-8")
     return True
 

@@ -183,15 +183,18 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
         teile.append(_zylinder(cx, ym, boden + h, boden + h + 0.06, r * 0.98, "#8996a3" if dunkel else "#b9c3cc"))
         hover["x"].append(cx), hover["y"].append(ym), hover["z"].append(boden + h / 2)
         hover["t"].append(f"<b>Pufferspeicher</b> {liter} l<br>Auswahl {pp['text']} · Bedarf {fmt(A['pufferVol'])} l")
-    # Verrohrung (Vorlauf rot, Rücklauf blau), beide docken am Hauptstrang (x = ax, y = 0, z = 0) an:
-    # Vorlauf: Erzeuger oben → Sammler über den Puffern (je ein Abgang oben in den Puffer) → zum Hauptstrang.
-    # Rücklauf: Hauptstrang → Netzpumpe → Sammler am Boden hinter der Reihe (je ein Abgang unten in den Puffer)
-    # → Erzeuger.
-    z_vl, z_rl, y_rl = -0.3, boden + 0.3, ym + 0.8
-    xv, xr = ax - 0.15, ax + 0.15
+    # Verrohrung wie im Bosch-Systemprinzip: Erzeuger → Puffer (Vorlauf oben, Rücklauf unten); vom Puffer führen
+    # Vorlauf (rot) und Rücklauf (blau) senkrecht durch die Netzpumpen-Gruppe (Pumpe im Vorlauf) zum Hauptstrang
+    # (x = ax, y = 0, z = 0).
+    z_vl, z_unten, z_rl, y_rl = -0.3, boden + 0.45, boden + 0.25, ym + 0.8
+    xv, xr = ax - 0.22, ax + 0.22
     vl_farbe, rl_farbe = "#e20015", ("#4fa3e0" if dunkel else "#005691")
-    vl = [(gx, ym, boden + hoch), (gx, ym, z_vl), (xv, ym, z_vl), (xv, 0, z_vl), (xv, 0, 0)]
+    # Vorlauf: Erzeuger oben → Sammler über den Puffern (Abgänge oben in die Puffer) → am Ende der Reihe hinunter,
+    # unter der Pumpengruppe hindurch und senkrecht durch die Gruppe hinauf zum Hauptstrang
+    vl = [(gx, ym, boden + hoch), (gx, ym, z_vl), (xv, ym, z_vl), (xv, ym, z_unten), (xv, 0, z_unten), (xv, 0, 0)]
     vl_ab = [[(cx, ym, z_vl), (cx, ym, boden + h + 0.06)] for cx, r, h, _ in puffer]
+    # Rücklauf: Hauptstrang → senkrecht durch die Gruppe hinunter → Bodensammler hinter der Reihe (Abgänge unten in
+    # die Puffer) → Erzeuger
     rl = [(xr, 0, 0), (xr, 0, z_rl), (xr, y_rl, z_rl), (gx, y_rl, z_rl), (gx, y0 + tiefe, z_rl)]
     rl_ab = [[(cx, y_rl, z_rl), (cx, ym + r * 0.7, z_rl)] for cx, r, h, _ in puffer]
 
@@ -205,13 +208,19 @@ def _waermezentrale(ax: float, A: dict, quelle: str, dunkel: bool, pumpe_info: s
                             showlegend=False)
     teile.append(strecke([vl] + vl_ab, vl_farbe))
     teile.append(strecke([rl] + rl_ab, rl_farbe))
-    # Netzpumpe im Rücklauf (Achse entlang der Leitung zum Hauptstrang) mit Motor
-    py = y_rl / 2
-    teile.append(_zylinder(xr, z_rl, py - 0.26, py + 0.26, 0.26, "#005691", achse="y"))          # Pumpengehäuse
-    teile.append(_zylinder(xr, py, z_rl + 0.2, z_rl + 0.62, 0.19, "#1b2733" if not dunkel else "#9fb0c0"))  # Motor
-    teile.append(_zylinder(xr, py, z_rl + 0.62, z_rl + 0.68, 0.12, "#005691"))                   # Klemmkasten
-    hover["x"].append(xr), hover["y"].append(py), hover["z"].append(z_rl)
-    hover["t"].append("<b>Netzpumpe</b> (Rücklauf)" + (f"<br>{pumpe_info}" if pumpe_info else ""))
+    # Netzpumpen-Gruppe: Montageplatte hinter beiden Steigleitungen, Pumpe im Vorlauf (Gehäuse auf der Leitung,
+    # Motor nach vorn), Absperrkugelhähne oben und unten in beiden Leitungen
+    zp0, zp1 = -2.05, -0.55
+    zp = (zp0 + zp1) / 2
+    teile.append(_quader(ax - 0.5, ax + 0.5, 0.12, 0.3, zp0, zp1, "#2f353c" if not dunkel else "#56626e"))  # Isolierschale
+    teile.append(_zylinder(xv, 0, zp - 0.26, zp + 0.26, 0.23, "#005691"))                             # Pumpengehäuse
+    teile.append(_zylinder(xv, zp, -0.6, -0.2, 0.2, "#d5dbe1" if not dunkel else "#9fb0c0", achse="y"))  # Motor
+    teile.append(_zylinder(xv, zp, -0.66, -0.6, 0.13, "#e20015", achse="y"))                         # Motordeckel
+    for x_, farbe in ((xv, vl_farbe), (xr, rl_farbe)):
+        for z_ in (zp0 + 0.16, zp1 - 0.16):
+            teile.append(_zylinder(x_, 0, z_ - 0.07, z_ + 0.07, 0.1, farbe))                          # Kugelhahn
+    hover["x"].append(ax), hover["y"].append(0), hover["z"].append(zp)
+    hover["t"].append("<b>Netzpumpen-Gruppe</b> · Pumpe im Vorlauf" + (f"<br>{pumpe_info}" if pumpe_info else ""))
     m = massstab
     for t in teile:
         t.update(x=[None if v is None else ax + (v - ax) * m for v in t.x],
