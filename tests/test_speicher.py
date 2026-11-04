@@ -114,7 +114,7 @@ def test_ergaenzungskatalog():
     """Ergänzungskatalog 07/2026: neue BP ...-7 aus der Matrix mit Daten, neue W ...-6 mit Liefertermin."""
     bp = SP.speicher_nach_id("bp-500-7-erz-1")
     assert bp["katalog"]["stand"] == "07/2026" and bp["katalog"]["preis"] == 2754.0
-    assert bp["eheizer"]["quelle"] == "katalog" and any(SP.heizer_fuer_speicher(bp["id"]).values())
+    assert bp["eheizer"]["quelle"] == "spies" and any(SP.heizer_fuer_speicher(bp["id"]).values())
     w6 = SP.speicher_nach_id(SP.suche("8732990136")[0])
     assert w6["katalog"]["neu"] and w6["katalog"]["verfuegbar_ab"] == "09/2026"
     assert D["heizer"]["led:7735502657"]["preis"] == 560.68           # neuester Preis
@@ -133,7 +133,17 @@ def test_rueckmeldung_spies():
     """WP 290/370 EP 1C = Nachfolger WH 290/370 LP 1 B; Daten vom Vorgänger; -7 mit Hinweis zur Planererfahrung."""
     wp290 = SP.speicher_nach_id("wp-290-ep-1c")
     assert wp290["vorgaenger"] == ["wh-290-lp-1-b"]
-    assert wp290["katalog"]["von_vorgaenger"] == "WH 290 LP 1 B" and wp290["katalog"]["preis"] is None
+    assert wp290["katalog"]["aus_im"] and wp290["katalog"]["preis"] is None
+    assert wp290["name_im"] == "WP 290-2 KLP 1" and wp290["ttnr"] == ["8732973069", "8732973067"]
+    assert wp290["katalog"]["kern"]["hoehe_mm"] == "1299"
     assert wp290["katalog"]["kombi"] == {} and SP.bilder(wp290)
     assert any(SP.heizer_fuer_speicher("wp-290-ep-1c").values())
     assert "Planererfahrung" in SP.speicher_nach_id("bp-500-7-erz-1")["hinweis_matrix"]
+
+
+def test_eheizer_bp7_und_pf_solar():
+    hz = SP.heizer_fuer_speicher("bp-500-7-erz-1")
+    assert len(hz["led"]) == 5 and len(hz["cthk"]) == 6                 # CTHK 636 nicht für 500 l
+    assert len(SP.heizer_fuer_speicher("bp-750-7-erz-1")["cthk"]) == 7
+    assert SP.speicher_nach_id("bp-500-7-erz-1")["eheizer"]["tiefe_muffe_mm"] == 580
+    assert not SP.suche("PF 500 solar")

@@ -1,0 +1,35 @@
+{
+ "quelle": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)",
+ "regeln": [
+  {
+   "muster": "^BP (500|750|1000)-7 (EM|EMR|ERZ)\\b",
+   "tiefe_muffe_mm": {
+    "500": 580,
+    "750": 750,
+    "1000": 780
+   },
+   "heizer": {
+    "led:7735502657": "ja",
+    "led:7735502658": "ja",
+    "led:7735502659": "ja",
+    "led:7735502660": "ja",
+    "led:7735502661": "ja",
+    "cthk:8738212205": "ja",
+    "cthk:8738212206": "ja",
+    "cthk:8738212204": "ja",
+    "cthk:8738212207": "ja",
+    "cthk:8738212208": "ja",
+    "cthk:8738212209": "ja",
+    "cthk:8738212210": {
+     "500": "nein",
+     "750": "ja",
+     "1000": "ja"
+    }
+   },
+   "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l."
+  }
+ ],
+ "abweichungen": [
+  "Folie nennt für den E-Heater 2 kW (7735502657) 230 mm Einbaulänge – E-Heizer-Liste und Katalog: Mindesteinbautiefe 320 mm."
+ ]
+}

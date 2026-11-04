@@ -1337,6 +1337,26 @@
    },
    "notiz": {},
    "id": "bp-500-7-em-1",
+   "eheizer": {
+    "heizer": {
+     "led:7735502657": "ja",
+     "led:7735502658": "ja",
+     "led:7735502659": "ja",
+     "led:7735502660": "ja",
+     "led:7735502661": "ja",
+     "cthk:8738212205": "ja",
+     "cthk:8738212206": "ja",
+     "cthk:8738212204": "ja",
+     "cthk:8738212207": "ja",
+     "cthk:8738212208": "ja",
+     "cthk:8738212209": "ja",
+     "cthk:8738212210": "nein"
+    },
+    "tiefe_muffe_mm": 580,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
    "katalog": {
     "typ": "BP 500-7 EM 1",
     "familie": "BP 500/750/1000-7 EM 1",
@@ -1625,6 +1645,26 @@
    },
    "notiz": {},
    "id": "bp-750-7-em-1",
+   "eheizer": {
+    "heizer": {
+     "led:7735502657": "ja",
+     "led:7735502658": "ja",
+     "led:7735502659": "ja",
+     "led:7735502660": "ja",
+     "led:7735502661": "ja",
+     "cthk:8738212205": "ja",
+     "cthk:8738212206": "ja",
+     "cthk:8738212204": "ja",
+     "cthk:8738212207": "ja",
+     "cthk:8738212208": "ja",
+     "cthk:8738212209": "ja",
+     "cthk:8738212210": "ja"
+    },
+    "tiefe_muffe_mm": 750,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
    "katalog": {
     "typ": "BP 750-7 EM 1",
     "familie": "BP 500/750/1000-7 EM 1",
@@ -1919,6 +1959,26 @@
    },
    "notiz": {},
    "id": "bp-1000-7-em-1",
+   "eheizer": {
+    "heizer": {
+     "led:7735502657": "ja",
+     "led:7735502658": "ja",
+     "led:7735502659": "ja",
+     "led:7735502660": "ja",
+     "led:7735502661": "ja",
+     "cthk:8738212205": "ja",
+     "cthk:8738212206": "ja",
+     "cthk:8738212204": "ja",
+     "cthk:8738212207": "ja",
+     "cthk:8738212208": "ja",
+     "cthk:8738212209": "ja",
+     "cthk:8738212210": "ja"
+    },
+    "tiefe_muffe_mm": 780,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
    "katalog": {
     "typ": "BP 1000-7 EM 1",
     "familie": "BP 500/750/1000-7 EM 1",
@@ -2235,10 +2295,12 @@
      "cthk:8738212207": "ja",
      "cthk:8738212208": "ja",
      "cthk:8738212209": "ja",
-     "cthk:8738212210": "ja"
+     "cthk:8738212210": "nein"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "tiefe_muffe_mm": 580,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
    "katalog": {
     "typ": "BP 500-7 EMR 1",
@@ -2683,8 +2745,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "tiefe_muffe_mm": 750,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
    "katalog": {
     "typ": "BP 750-7 EMR 1",
@@ -3145,8 +3209,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "tiefe_muffe_mm": 780,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
    "katalog": {
     "typ": "BP 1000-7 EMR 1",
@@ -4121,10 +4187,12 @@
      "cthk:8738212207": "ja",
      "cthk:8738212208": "ja",
      "cthk:8738212209": "ja",
-     "cthk:8738212210": "ja"
+     "cthk:8738212210": "nein"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "tiefe_muffe_mm": 580,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
    "katalog": {
     "typ": "BP 500-7 ERZ 1",
@@ -4593,8 +4661,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "tiefe_muffe_mm": 750,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
    "katalog": {
     "typ": "BP 750-7 ERZ 1",
@@ -5081,8 +5151,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "tiefe_muffe_mm": 780,
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
    "katalog": {
     "typ": "BP 1000-7 ERZ 1",
@@ -10068,12 +10140,15 @@
   },
   {
    "name": "WP 290 EP 1C",
-   "ttnr": [],
+   "ttnr": [
+    "8732973069",
+    "8732973067"
+   ],
    "ttnr_hinweis": "",
    "kategorie": "ww",
    "info": "Emaille",
    "alt": false,
-   "im": "",
+   "im": "https://bosch-de-de.boschhc-documents.com/download/pdf/file/6721110844",
    "matrix": true,
    "kombi": {
     "G": "+",
@@ -10116,249 +10191,6 @@
    },
    "notiz": {},
    "id": "wp-290-ep-1c",
-   "vorgaenger": [
-    "wh-290-lp-1-b"
-   ],
-   "katalog": {
-    "typ": "WH 290 LP 1 B",
-    "familie": "Stora WH 290/370/400/450 LP 1 B",
-    "seite": "12063",
-    "preis": null,
-    "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
-    "stand": "03/2026",
-    "neu": false,
-    "verfuegbar_ab": "",
-    "text": "bestellen. •Zirkulationsanschluss Wärmepumpenspeicher",
-    "beschreibung": [
-     "Produktbeschreibung •Warmwasserspeicher Stora WH .. LP 1 B mit emailliertem Stahlbehälter •Verkleidung silber •Abgestimmt auf Junkers-/Bosch- Wärmepumpen",
-     "Ausstattung •Höhenverstellbare Stellfüße •Glattrohrwärmetauscher •Tauchhülse für Temperaturfühler, Schutzanode, Thermometer •Reinigungsflansch •Zirkulationsanschluss",
-     "Hinweis •Der erforderlicher Temperaturfühler NTC ist bei Wärmepumpen Compress CS...AW im Lieferumfang enthalten. Bei anderen Bosch Wärmepumpen bitte separat einen Temperaturfühler NTC bestellen."
-    ],
-    "bilder": [
-     "kat-wh-290-370-400-450-lp-1-b"
-    ],
-    "kern": {
-     "volumen_l": "276,8",
-     "hoehe_mm": "1294",
-     "durchmesser_mm": "700",
-     "kippmass_mm": "1475",
-     "gewicht_kg": "128"
-    },
-    "werte": [
-     {
-      "label": "A",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "25"
-     },
-     {
-      "label": "B",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "55"
-     },
-     {
-      "label": "C",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "220"
-     },
-     {
-      "label": "D",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "544"
-     },
-     {
-      "label": "E",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "644"
-     },
-     {
-      "label": "F",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "784"
-     },
-     {
-      "label": "G",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "829"
-     },
-     {
-      "label": "H",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1226"
-     },
-     {
-      "label": "I",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1294"
-     },
-     {
-      "label": "J",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "400"
-     },
-     {
-      "label": "K",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "700"
-     },
-     {
-      "label": "L",
-      "kz": "",
-      "einheit": "kg",
-      "wert": "137"
-     },
-     {
-      "label": "M",
-      "kz": "",
-      "einheit": "kg",
-      "wert": "414"
-     },
-     {
-      "label": "Energieeffizienzklasse",
-      "kz": "",
-      "einheit": "",
-      "wert": "B"
-     },
-     {
-      "label": "Energieeffizienzklassen-Spektrum",
-      "kz": "",
-      "einheit": "",
-      "wert": "A+ -> F"
-     },
-     {
-      "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
-      "wert": "67,0"
-     },
-     {
-      "label": "Speichervolumen",
-      "kz": "",
-      "einheit": "l",
-      "wert": "276,8"
-     },
-     {
-      "label": "Farbe",
-      "kz": "",
-      "einheit": "",
-      "wert": "silber"
-     },
-     {
-      "label": "Nutzinhalt",
-      "kz": "",
-      "einheit": "l",
-      "wert": "277"
-     },
-     {
-      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C kW",
-      "kz": "",
-      "einheit": "",
-      "wert": "11"
-     },
-     {
-      "label": "Wärmetauscherfläche",
-      "kz": "",
-      "einheit": "m²",
-      "wert": "3,2"
-     },
-     {
-      "label": "Max. Dauerleistung bei tV=60°C, tSP=45°C",
-      "kz": "",
-      "einheit": "l/h",
-      "wert": "216"
-     },
-     {
-      "label": "Berücksichtigte Umlaufwassermenge",
-      "kz": "",
-      "einheit": "l/h",
-      "wert": "1000"
-     },
-     {
-      "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
-      "einheit": "",
-      "wert": "2,3"
-     },
-     {
-      "label": "Min. Aufheizzeit von tK=10°C auf tSP=57°C mit",
-      "kz": "",
-      "einheit": "min",
-      "wert": "116"
-     },
-     {
-      "label": "Kalt- und Warmwasseranschluss",
-      "kz": "",
-      "einheit": "Zoll",
-      "wert": "1"
-     },
-     {
-      "label": "Vorlauf/Rücklauf Heizung",
-      "kz": "",
-      "einheit": "Zoll",
-      "wert": "1,25"
-     },
-     {
-      "label": "Zirkulation",
-      "kz": "",
-      "einheit": "Zoll",
-      "wert": "3/4"
-     },
-     {
-      "label": "Zulässiger Betriebsdruck, Heizung",
-      "kz": "",
-      "einheit": "bar",
-      "wert": "16"
-     },
-     {
-      "label": "Zulässiger Betriebsdruck, Warmwasser",
-      "kz": "",
-      "einheit": "bar",
-      "wert": "10"
-     },
-     {
-      "label": "Höhe",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1294"
-     },
-     {
-      "label": "Durchmesser",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "700"
-     },
-     {
-      "label": "Kippmaß",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1475"
-     },
-     {
-      "label": "Nettogewicht",
-      "kz": "",
-      "einheit": "kg",
-      "wert": "128"
-     }
-    ],
-    "konflikte": [],
-    "kombi": {},
-    "hinweise": [
-     "1) (-) Abweichend bei Wasser-Wasser-Betrieb"
-    ],
-    "zubehoer": [],
-    "von_vorgaenger": "WH 290 LP 1 B",
-    "von_vorgaenger_hinweis": "laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch"
-   },
    "eheizer": {
     "produktfamilie": "Monovalente TW-Speicher Wärmepumpe",
     "heizer": {
@@ -10376,16 +10208,232 @@
     "tiefe_handloch_mm": 460,
     "handlochdeckel_ttnr": "7719002112",
     "quelle": "vorgaenger"
-   }
+   },
+   "vorgaenger": [
+    "wh-290-lp-1-b"
+   ],
+   "katalog": {
+    "typ": "WP 290-2 KLP 1",
+    "familie": "Stora WP 290-450-2 KLP 1",
+    "seite": "32/66",
+    "preis": null,
+    "quelle": "Installationsanleitung 6721110844 (2025/06)",
+    "stand": "06/2025",
+    "neu": false,
+    "verfuegbar_ab": "",
+    "text": "",
+    "beschreibung": [
+     "Lieferumfang: emaillierter Speicherbehälter, Magnesiumanode, Thermometer, Hartschaum-Wärmedämmung, Verkleidung PVC-Folie mit Weichschaumunterlage und Reißverschluss, abnehmbarer Speicherflansch (Prüföffnung Ø 110 mm).",
+     "Speicher für Heizgeräte mit Anschluss für Speichertemperaturfühler; Speicherladeleistung des Heizgeräts auf die max. Speicherladeleistung begrenzen."
+    ],
+    "bilder": [
+     "im-6721110844-wp-klp"
+    ],
+    "kern": {
+     "volumen_l": "273,6",
+     "hoehe_mm": "1299",
+     "breite_mm": "750",
+     "gewicht_kg": "137",
+     "kippmass_mm": "1494"
+    },
+    "werte": [
+     {
+      "label": "Speichervolumen (ErP)",
+      "kz": "",
+      "einheit": "l",
+      "wert": "273,6"
+     },
+     {
+      "label": "Nutzinhalt",
+      "kz": "",
+      "einheit": "l",
+      "wert": "277"
+     },
+     {
+      "label": "Warmhalteverlust",
+      "kz": "",
+      "einheit": "W",
+      "wert": "57,6"
+     },
+     {
+      "label": "Energieeffizienzklasse",
+      "kz": "",
+      "einheit": "",
+      "wert": "B"
+     },
+     {
+      "label": "Windungen Wärmetauscher",
+      "kz": "",
+      "einheit": "",
+      "wert": "2 x 12"
+     },
+     {
+      "label": "Heizwasserinhalt",
+      "kz": "",
+      "einheit": "l",
+      "wert": "22,0"
+     },
+     {
+      "label": "Heizfläche",
+      "kz": "",
+      "einheit": "m²",
+      "wert": "3,2"
+     },
+     {
+      "label": "Max. Speicherladeleistung",
+      "kz": "",
+      "einheit": "kW",
+      "wert": "11"
+     },
+     {
+      "label": "Max. Dauerleistung (60 °C VL / 45 °C)",
+      "kz": "",
+      "einheit": "l/h",
+      "wert": "216"
+     },
+     {
+      "label": "Leistungskennzahl NL (60 °C VL)",
+      "kz": "",
+      "einheit": "",
+      "wert": "2,3"
+     },
+     {
+      "label": "Max. Temperatur Heizwasser",
+      "kz": "",
+      "einheit": "°C",
+      "wert": "110"
+     },
+     {
+      "label": "Max. Betriebsdruck Wärmetauscher",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "10"
+     },
+     {
+      "label": "Max. Betriebsdruck Wasser",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "10"
+     },
+     {
+      "label": "Max. Durchflussmenge",
+      "kz": "",
+      "einheit": "l/min",
+      "wert": "15"
+     },
+     {
+      "label": "Sicherheitsventil mind.",
+      "kz": "",
+      "einheit": "DN",
+      "wert": "20"
+     },
+     {
+      "label": "Abstand Kaltwasseranschluss",
+      "kz": "A",
+      "einheit": "mm",
+      "wert": "25"
+     },
+     {
+      "label": "Kaltwassereintritt (R 1)",
+      "kz": "B",
+      "einheit": "mm",
+      "wert": "55"
+     },
+     {
+      "label": "Speicherrücklauf (Rp 1 1/4)",
+      "kz": "C",
+      "einheit": "mm",
+      "wert": "220"
+     },
+     {
+      "label": "Zirkulationsanschluss (Rp 3/4)",
+      "kz": "D",
+      "einheit": "mm",
+      "wert": "544"
+     },
+     {
+      "label": "Tauchhülse Speichertemperaturfühler (Sonderanwendung)",
+      "kz": "E",
+      "einheit": "mm",
+      "wert": "644"
+     },
+     {
+      "label": "Speichervorlauf (Rp 1 1/4)",
+      "kz": "F",
+      "einheit": "mm",
+      "wert": "785"
+     },
+     {
+      "label": "Tauchhülse Speichertemperaturfühler",
+      "kz": "G",
+      "einheit": "mm",
+      "wert": "829"
+     },
+     {
+      "label": "Warmwasseraustritt (R 1)",
+      "kz": "H",
+      "einheit": "mm",
+      "wert": "1229"
+     },
+     {
+      "label": "Höhe",
+      "kz": "I",
+      "einheit": "mm",
+      "wert": "1299"
+     },
+     {
+      "label": "Abstand nach oben (Wartung)",
+      "kz": "J",
+      "einheit": "mm",
+      "wert": "400"
+     },
+     {
+      "label": "Breite / Tiefe",
+      "kz": "K",
+      "einheit": "mm",
+      "wert": "750"
+     },
+     {
+      "label": "Kippmaß",
+      "kz": "L",
+      "einheit": "mm",
+      "wert": "1494"
+     },
+     {
+      "label": "Nettogewicht",
+      "kz": "M",
+      "einheit": "kg",
+      "wert": "137"
+     },
+     {
+      "label": "Gewicht gefüllt",
+      "kz": "N",
+      "einheit": "kg",
+      "wert": "414"
+     }
+    ],
+    "konflikte": [],
+    "kombi": {},
+    "hinweise": [
+     "Zwei Artikelnummern je Größe: Standard und „IPPC“ (laut IM, Tab. 8). WP 290-2 KLP 1 „IPPC“: 276,8 l statt 273,6 l.",
+     "Für WP 400/450-2 KLP 1 nennt die IM die Artikelnummern 8735100643/44 – im Katalog sind das WH 400/450 LP 1 B."
+    ],
+    "zubehoer": [],
+    "aus_im": true
+   },
+   "name_im": "WP 290-2 KLP 1"
   },
   {
    "name": "WP 370 EP 1C",
-   "ttnr": [],
-   "ttnr_hinweis": "(WH 370)",
+   "ttnr": [
+    "8732991274",
+    "8732991273"
+   ],
+   "ttnr_hinweis": "",
    "kategorie": "ww",
    "info": "Emaille",
    "alt": false,
-   "im": "",
+   "im": "https://bosch-de-de.boschhc-documents.com/download/pdf/file/6721110844",
    "matrix": true,
    "kombi": {
     "G": "+",
@@ -10428,249 +10476,6 @@
    },
    "notiz": {},
    "id": "wp-370-ep-1c",
-   "vorgaenger": [
-    "wh-370-lp-1-b"
-   ],
-   "katalog": {
-    "typ": "WH 370 LP 1 B",
-    "familie": "Stora WH 290/370/400/450 LP 1 B",
-    "seite": "12063",
-    "preis": null,
-    "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
-    "stand": "03/2026",
-    "neu": false,
-    "verfuegbar_ab": "",
-    "text": "Wärmepumpenspeicher",
-    "beschreibung": [
-     "Produktbeschreibung •Warmwasserspeicher Stora WH .. LP 1 B mit emailliertem Stahlbehälter •Verkleidung silber •Abgestimmt auf Junkers-/Bosch- Wärmepumpen",
-     "Ausstattung •Höhenverstellbare Stellfüße •Glattrohrwärmetauscher •Tauchhülse für Temperaturfühler, Schutzanode, Thermometer •Reinigungsflansch •Zirkulationsanschluss",
-     "Hinweis •Der erforderlicher Temperaturfühler NTC ist bei Wärmepumpen Compress CS...AW im Lieferumfang enthalten. Bei anderen Bosch Wärmepumpen bitte separat einen Temperaturfühler NTC bestellen."
-    ],
-    "bilder": [
-     "kat-wh-290-370-400-450-lp-1-b"
-    ],
-    "kern": {
-     "volumen_l": "350,6",
-     "hoehe_mm": "1591",
-     "durchmesser_mm": "750",
-     "kippmass_mm": "1750",
-     "gewicht_kg": "174"
-    },
-    "werte": [
-     {
-      "label": "A",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "25"
-     },
-     {
-      "label": "B",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "55"
-     },
-     {
-      "label": "C",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "220"
-     },
-     {
-      "label": "D",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "665"
-     },
-     {
-      "label": "E",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "791"
-     },
-     {
-      "label": "F",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "964"
-     },
-     {
-      "label": "G",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1009"
-     },
-     {
-      "label": "H",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1523"
-     },
-     {
-      "label": "I",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1591"
-     },
-     {
-      "label": "J",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "400"
-     },
-     {
-      "label": "K",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "750"
-     },
-     {
-      "label": "L",
-      "kz": "",
-      "einheit": "kg",
-      "wert": "145"
-     },
-     {
-      "label": "M",
-      "kz": "",
-      "einheit": "kg",
-      "wert": "497"
-     },
-     {
-      "label": "Energieeffizienzklasse",
-      "kz": "",
-      "einheit": "",
-      "wert": "B"
-     },
-     {
-      "label": "Energieeffizienzklassen-Spektrum",
-      "kz": "",
-      "einheit": "",
-      "wert": "A+ -> F"
-     },
-     {
-      "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
-      "wert": "63,0"
-     },
-     {
-      "label": "Speichervolumen",
-      "kz": "",
-      "einheit": "l",
-      "wert": "350,6"
-     },
-     {
-      "label": "Farbe",
-      "kz": "",
-      "einheit": "",
-      "wert": "silber"
-     },
-     {
-      "label": "Nutzinhalt",
-      "kz": "",
-      "einheit": "l",
-      "wert": "352"
-     },
-     {
-      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C kW",
-      "kz": "",
-      "einheit": "",
-      "wert": "14"
-     },
-     {
-      "label": "Wärmetauscherfläche",
-      "kz": "",
-      "einheit": "m²",
-      "wert": "4,2"
-     },
-     {
-      "label": "Max. Dauerleistung bei tV=60°C, tSP=45°C",
-      "kz": "",
-      "einheit": "l/h",
-      "wert": "320"
-     },
-     {
-      "label": "Berücksichtigte Umlaufwassermenge",
-      "kz": "",
-      "einheit": "l/h",
-      "wert": "1500"
-     },
-     {
-      "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
-      "einheit": "",
-      "wert": "3"
-     },
-     {
-      "label": "Min. Aufheizzeit von tK=10°C auf tSP=57°C mit",
-      "kz": "",
-      "einheit": "min",
-      "wert": "128"
-     },
-     {
-      "label": "Kalt- und Warmwasseranschluss",
-      "kz": "",
-      "einheit": "Zoll",
-      "wert": "1"
-     },
-     {
-      "label": "Vorlauf/Rücklauf Heizung",
-      "kz": "",
-      "einheit": "Zoll",
-      "wert": "1,25"
-     },
-     {
-      "label": "Zirkulation",
-      "kz": "",
-      "einheit": "Zoll",
-      "wert": "3/4"
-     },
-     {
-      "label": "Zulässiger Betriebsdruck, Heizung",
-      "kz": "",
-      "einheit": "bar",
-      "wert": "16"
-     },
-     {
-      "label": "Zulässiger Betriebsdruck, Warmwasser",
-      "kz": "",
-      "einheit": "bar",
-      "wert": "10"
-     },
-     {
-      "label": "Höhe",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1591"
-     },
-     {
-      "label": "Durchmesser",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "750"
-     },
-     {
-      "label": "Kippmaß",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1750"
-     },
-     {
-      "label": "Nettogewicht",
-      "kz": "",
-      "einheit": "kg",
-      "wert": "174"
-     }
-    ],
-    "konflikte": [],
-    "kombi": {},
-    "hinweise": [
-     "1) (-) Abweichend bei Wasser-Wasser-Betrieb"
-    ],
-    "zubehoer": [],
-    "von_vorgaenger": "WH 370 LP 1 B",
-    "von_vorgaenger_hinweis": "laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch"
-   },
    "eheizer": {
     "produktfamilie": "Monovalente TW-Speicher Wärmepumpe",
     "heizer": {
@@ -10688,7 +10493,220 @@
     "tiefe_handloch_mm": 460,
     "handlochdeckel_ttnr": "7719002112",
     "quelle": "vorgaenger"
-   }
+   },
+   "vorgaenger": [
+    "wh-370-lp-1-b"
+   ],
+   "katalog": {
+    "typ": "WP 370-2 KLP 1",
+    "familie": "Stora WP 290-450-2 KLP 1",
+    "seite": "32/66",
+    "preis": null,
+    "quelle": "Installationsanleitung 6721110844 (2025/06)",
+    "stand": "06/2025",
+    "neu": false,
+    "verfuegbar_ab": "",
+    "text": "",
+    "beschreibung": [
+     "Lieferumfang: emaillierter Speicherbehälter, Magnesiumanode, Thermometer, Hartschaum-Wärmedämmung, Verkleidung PVC-Folie mit Weichschaumunterlage und Reißverschluss, abnehmbarer Speicherflansch (Prüföffnung Ø 110 mm).",
+     "Speicher für Heizgeräte mit Anschluss für Speichertemperaturfühler; Speicherladeleistung des Heizgeräts auf die max. Speicherladeleistung begrenzen."
+    ],
+    "bilder": [
+     "im-6721110844-wp-klp"
+    ],
+    "kern": {
+     "volumen_l": "350,6",
+     "hoehe_mm": "1595",
+     "breite_mm": "750",
+     "gewicht_kg": "145",
+     "kippmass_mm": "1748"
+    },
+    "werte": [
+     {
+      "label": "Speichervolumen (ErP)",
+      "kz": "",
+      "einheit": "l",
+      "wert": "350,6"
+     },
+     {
+      "label": "Nutzinhalt",
+      "kz": "",
+      "einheit": "l",
+      "wert": "351"
+     },
+     {
+      "label": "Warmhalteverlust",
+      "kz": "",
+      "einheit": "W",
+      "wert": "63,0"
+     },
+     {
+      "label": "Energieeffizienzklasse",
+      "kz": "",
+      "einheit": "",
+      "wert": "B"
+     },
+     {
+      "label": "Windungen Wärmetauscher",
+      "kz": "",
+      "einheit": "",
+      "wert": "2 x 16"
+     },
+     {
+      "label": "Heizwasserinhalt",
+      "kz": "",
+      "einheit": "l",
+      "wert": "29,0"
+     },
+     {
+      "label": "Heizfläche",
+      "kz": "",
+      "einheit": "m²",
+      "wert": "4,2"
+     },
+     {
+      "label": "Max. Speicherladeleistung",
+      "kz": "",
+      "einheit": "kW",
+      "wert": "14"
+     },
+     {
+      "label": "Max. Dauerleistung (60 °C VL / 45 °C)",
+      "kz": "",
+      "einheit": "l/h",
+      "wert": "320"
+     },
+     {
+      "label": "Leistungskennzahl NL (60 °C VL)",
+      "kz": "",
+      "einheit": "",
+      "wert": "3,0"
+     },
+     {
+      "label": "Max. Temperatur Heizwasser",
+      "kz": "",
+      "einheit": "°C",
+      "wert": "110"
+     },
+     {
+      "label": "Max. Betriebsdruck Wärmetauscher",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "10"
+     },
+     {
+      "label": "Max. Betriebsdruck Wasser",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "10"
+     },
+     {
+      "label": "Max. Durchflussmenge",
+      "kz": "",
+      "einheit": "l/min",
+      "wert": "18"
+     },
+     {
+      "label": "Sicherheitsventil mind.",
+      "kz": "",
+      "einheit": "DN",
+      "wert": "20"
+     },
+     {
+      "label": "Abstand Kaltwasseranschluss",
+      "kz": "A",
+      "einheit": "mm",
+      "wert": "25"
+     },
+     {
+      "label": "Kaltwassereintritt (R 1)",
+      "kz": "B",
+      "einheit": "mm",
+      "wert": "55"
+     },
+     {
+      "label": "Speicherrücklauf (Rp 1 1/4)",
+      "kz": "C",
+      "einheit": "mm",
+      "wert": "220"
+     },
+     {
+      "label": "Zirkulationsanschluss (Rp 3/4)",
+      "kz": "D",
+      "einheit": "mm",
+      "wert": "665"
+     },
+     {
+      "label": "Tauchhülse Speichertemperaturfühler (Sonderanwendung)",
+      "kz": "E",
+      "einheit": "mm",
+      "wert": "791"
+     },
+     {
+      "label": "Speichervorlauf (Rp 1 1/4)",
+      "kz": "F",
+      "einheit": "mm",
+      "wert": "964"
+     },
+     {
+      "label": "Tauchhülse Speichertemperaturfühler",
+      "kz": "G",
+      "einheit": "mm",
+      "wert": "1009"
+     },
+     {
+      "label": "Warmwasseraustritt (R 1)",
+      "kz": "H",
+      "einheit": "mm",
+      "wert": "1526"
+     },
+     {
+      "label": "Höhe",
+      "kz": "I",
+      "einheit": "mm",
+      "wert": "1595"
+     },
+     {
+      "label": "Abstand nach oben (Wartung)",
+      "kz": "J",
+      "einheit": "mm",
+      "wert": "400"
+     },
+     {
+      "label": "Breite / Tiefe",
+      "kz": "K",
+      "einheit": "mm",
+      "wert": "750"
+     },
+     {
+      "label": "Kippmaß",
+      "kz": "L",
+      "einheit": "mm",
+      "wert": "1748"
+     },
+     {
+      "label": "Nettogewicht",
+      "kz": "M",
+      "einheit": "kg",
+      "wert": "145"
+     },
+     {
+      "label": "Gewicht gefüllt",
+      "kz": "N",
+      "einheit": "kg",
+      "wert": "497"
+     }
+    ],
+    "konflikte": [],
+    "kombi": {},
+    "hinweise": [
+     "Zwei Artikelnummern je Größe: Standard und „IPPC“ (laut IM, Tab. 8). WP 290-2 KLP 1 „IPPC“: 276,8 l statt 273,6 l.",
+     "Für WP 400/450-2 KLP 1 nennt die IM die Artikelnummern 8735100643/44 – im Katalog sind das WH 400/450 LP 1 B."
+    ],
+    "zubehoer": [],
+    "aus_im": true
+   },
+   "name_im": "WP 370-2 KLP 1"
   },
   {
    "name": "WH 400 LP 1 B",
@@ -10699,7 +10717,7 @@
    "kategorie": "ww",
    "info": "Emaille",
    "alt": false,
-   "im": "",
+   "im": "https://bosch-de-de.boschhc-documents.com/download/pdf/file/6721110844",
    "matrix": true,
    "kombi": {
     "G": "+",
@@ -11104,7 +11122,8 @@
       "preis": 611.0
      }
     ]
-   }
+   },
+   "name_im": "WP 400-2 KLP 1"
   },
   {
    "name": "WH 450 LP 1 B",
@@ -11115,7 +11134,7 @@
    "kategorie": "ww",
    "info": "Emaille",
    "alt": false,
-   "im": "",
+   "im": "https://bosch-de-de.boschhc-documents.com/download/pdf/file/6721110844",
    "matrix": true,
    "kombi": {
     "G": "+",
@@ -11518,7 +11537,8 @@
       "preis": 611.0
      }
     ]
-   }
+   },
+   "name_im": "WP 450-2 KLP 1"
   },
   {
    "name": "HR 200",
@@ -22112,108 +22132,6 @@
      }
     ]
    }
-  },
-  {
-   "name": "PF 500 solar",
-   "ttnr": [
-    "8718543774"
-   ],
-   "ttnr_hinweis": "",
-   "kategorie": "kombi",
-   "info": "",
-   "alt": false,
-   "im": "",
-   "matrix": false,
-   "kombi": {},
-   "notiz": {},
-   "eheizer": {
-    "produktfamilie": "Bivalente Kombispeicher",
-    "heizer": {
-     "led:7735502657": "ja",
-     "led:7735502658": "ja",
-     "led:7735502659": "ja",
-     "led:7735502660": "ja",
-     "led:7735502661": "ja",
-     "cthk:8738212205": "ja",
-     "cthk:8738212206": "ja",
-     "cthk:8738212204": "ja",
-     "cthk:8738212207": "ja",
-     "cthk:8738212208": "ja",
-     "cthk:8738212209": "ja",
-     "cthk:8738212210": "ja"
-    },
-    "hinweis": "",
-    "tiefe_muffe_mm": 680
-   },
-   "id": "pf-500-solar"
-  },
-  {
-   "name": "PF 800 solar",
-   "ttnr": [
-    "8718543775"
-   ],
-   "ttnr_hinweis": "",
-   "kategorie": "kombi",
-   "info": "",
-   "alt": false,
-   "im": "",
-   "matrix": false,
-   "kombi": {},
-   "notiz": {},
-   "eheizer": {
-    "produktfamilie": "Bivalente Kombispeicher",
-    "heizer": {
-     "led:7735502657": "ja",
-     "led:7735502658": "ja",
-     "led:7735502659": "ja",
-     "led:7735502660": "ja",
-     "led:7735502661": "ja",
-     "cthk:8738212205": "ja",
-     "cthk:8738212206": "ja",
-     "cthk:8738212204": "ja",
-     "cthk:8738212207": "ja",
-     "cthk:8738212208": "ja",
-     "cthk:8738212209": "ja",
-     "cthk:8738212210": "ja"
-    },
-    "hinweis": "",
-    "tiefe_muffe_mm": 930
-   },
-   "id": "pf-800-solar"
-  },
-  {
-   "name": "PF 1000 solar",
-   "ttnr": [
-    "8718543776"
-   ],
-   "ttnr_hinweis": "",
-   "kategorie": "kombi",
-   "info": "",
-   "alt": false,
-   "im": "",
-   "matrix": false,
-   "kombi": {},
-   "notiz": {},
-   "eheizer": {
-    "produktfamilie": "Bivalente Kombispeicher",
-    "heizer": {
-     "led:7735502657": "ja",
-     "led:7735502658": "ja",
-     "led:7735502659": "ja",
-     "led:7735502660": "ja",
-     "led:7735502661": "ja",
-     "cthk:8738212205": "ja",
-     "cthk:8738212206": "ja",
-     "cthk:8738212204": "ja",
-     "cthk:8738212207": "ja",
-     "cthk:8738212208": "ja",
-     "cthk:8738212209": "ja",
-     "cthk:8738212210": "ja"
-    },
-    "hinweis": "",
-    "tiefe_muffe_mm": 930
-   },
-   "id": "pf-1000-solar"
   },
   {
    "name": "W 300-5 SP1 C",
@@ -36108,9 +36026,12 @@
    ]
   }
  ],
- "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
  "hinweise_freigabe": [
   "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
   "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
- ]
+ ],
+ "hinweise_eheizer_ergaenzung": [
+  "Folie nennt für den E-Heater 2 kW (7735502657) 230 mm Einbaulänge – E-Heizer-Liste und Katalog: Mindesteinbautiefe 320 mm."
+ ],
+ "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
 }

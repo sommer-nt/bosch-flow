@@ -80,6 +80,7 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
                     f'<div style="color:{F["leise"]};font-size:13px">{E(_ttnr_text(s))} · {E(" · ".join(meta))}'
                     + (f' · in der E-Heizer-Liste: {E(eh["name_heizerliste"])}' if eh.get("name_heizerliste") else "")
                     + (f' · in der Matrix: {E(s["name_excel"])}' if s.get("name_excel") else "")
+                    + (f' · laut IM: {E(s["name_im"])}' if s.get("name_im") and s["name_im"] != s["name"] else "")
                     + '</div>', unsafe_allow_html=True)
         with k2:
             b1, b2 = st.columns(2)
@@ -123,7 +124,7 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
             st.info(f"📦 In {len(pk)} Katalog-Paketen enthalten: "
                     + " · ".join(f"{p['wp']} ({SP.preis_text(p['preis'])})" for p in pk))
         for h in kat.get("hinweise", []):
-            st.info(f"Katalog: {h}")
+            st.info(f"{'IM' if kat.get('aus_im') else 'Katalog'}: {h}")
         kern = kat.get("kern") or {}
         if kern or kat.get("preis"):
             felder = [("UVP", SP.preis_text(kat.get("preis")))] + [
@@ -184,7 +185,8 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
 
         st.markdown("**Passende E-Heizer**")
         if eh.get("hinweis"):
-            st.warning(eh["hinweis"])
+            text = eh["hinweis"] + (f" (Quelle: {eh['herkunft']})" if eh.get("herkunft") else "")
+            (st.info if eh.get("quelle") == "spies" else st.warning)(text)
         if not eh:
             st.caption("Für diesen Speicher sind keine E-Heizer hinterlegt.")
             _katalog_details(s, d, kat)
@@ -207,6 +209,7 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
                         name = ("" if h["modell"] == "E-Heater" else h["modell"] + " · ") + \
                             f'{str(h["leistung_kw"]).replace(".0", "").replace(".", ",")} kW / {h["spannung"]}'
                         st.markdown(f'{E(name)}' + (f' <b style="color:{F["gelb"]}">nur HZG</b>' if e["status"] == "hzg" else "")
+                                    + (f' <b style="color:{F["rot"]}">zu lang?</b>' if e["id"] in eh.get("zu_lang", []) else "")
                                     + f'<br><span style="font-size:12px;color:{F["leise"]}">TTNr {h["ttnr"]} · '
                                       f'≥ {h["einbautiefe_mm"]} mm'
                                     + (f' · {SP.preis_text(h["preis"])}' if h.get("preis") else "") + '</span>',
@@ -223,7 +226,8 @@ def _katalog_details(s: dict, d: dict, kat: dict) -> None:
             st.dataframe([{"Wärmepumpe": SP.wp_nach_id(a["id"], d)["name"], "Matrix": a["matrix"],
                            "Katalog": a["katalog"]} for a in abw], hide_index=True, width="stretch")
     if kat.get("werte"):
-        with st.expander(f"Technische Daten laut Katalog ({len(kat['werte'])})"):
+        with st.expander(f"Technische Daten laut {'Installationsanleitung' if kat.get('aus_im') else 'Katalog'} "
+                         f"({len(kat['werte'])})"):
             st.dataframe([{"Größe": w["label"], "": w["kz"], "Einheit": w["einheit"], "Wert": w["wert"]}
                           for w in kat["werte"]], hide_index=True, width="stretch")
     if kat.get("zubehoer"):

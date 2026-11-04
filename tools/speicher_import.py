@@ -464,6 +464,8 @@ HINWEISE_FREIGABE = [
 
 def nachbearbeiten(daten: dict) -> None:
     """Namen nach Katalog, Tippfehler, Nachfolger (-7) und WP-Pakete."""
+    # PF solar: laut Matthias Spies nicht betrachten (nicht mehr im Programm)
+    daten["speicher"] = [s for s in daten["speicher"] if not re.match(r"^PF \d+ solar", s.get("name_excel") or s["name"])]
     sp = daten["speicher"]
     for s in sp:
         s["info"] = TIPPFEHLER_EXCEL.get(s.get("info", ""), s.get("info", ""))
@@ -496,6 +498,51 @@ def nachbearbeiten(daten: dict) -> None:
             if not s.get("eheizer") and alt.get("eheizer"):
                 s["eheizer"] = {**alt["eheizer"], "quelle": "vorgaenger",
                                 "hinweis": f"E-Heizer vom Vorgänger {alt['name']} übernommen ({NAHEZU_GLEICH})."}
+    # Daten aus Installationsanleitungen (bosch_flow/daten/speicher_im.json)
+    im_pfad = DATEN.parent / "speicher_im.json"
+    if im_pfad.exists():
+        im = json.loads(im_pfad.read_text(encoding="utf-8"))
+        nach_typ = {p_["typ"]: p_ for p_ in im["produkte"]}
+        for s in sp:
+            s.pop("name_im", None)
+            ziel = im["matrix_alias"].get(s.get("name_excel") or s["name"])
+            treffer = nach_typ.get(ziel) if ziel else next(
+                (p_ for p_ in im["produkte"] if p_["ttnr"] in s["ttnr"] or p_["ttnr_ippc"] in s["ttnr"]), None)
+            if not treffer:
+                continue
+            s["name_im"] = treffer["typ"]
+            s["im"] = s.get("im") or im["link"]
+            if ziel:      # Matrix-Speicher ohne Katalogdaten: Daten, Maßbild und TTNr aus der IM
+                s["ttnr"], s["ttnr_hinweis"] = [treffer["ttnr"], treffer["ttnr_ippc"]], ""
+                s["katalog"] = {"typ": treffer["typ"], "familie": im["titel"], "seite": im["seite"], "preis": None,
+                                "quelle": im["quelle"], "stand": im["stand"], "neu": False, "verfuegbar_ab": "",
+                                "text": "", "beschreibung": im["beschreibung"], "bilder": [im["bild"]],
+                                "kern": treffer["kern"], "werte": treffer["werte"], "konflikte": [], "kombi": {},
+                                "hinweise": im["hinweise"], "zubehoer": [], "aus_im": True}
+    # E-Heizer-Ergänzungen von Matthias Spies (bosch_flow/daten/speicher_eheizer_ergaenzung.json)
+    eh_pfad = DATEN.parent / "speicher_eheizer_ergaenzung.json"
+    if eh_pfad.exists():
+        eh = json.loads(eh_pfad.read_text(encoding="utf-8"))
+        for regel in eh["regeln"]:
+            for s in sp:
+                m = re.match(regel["muster"], s["name"])
+                if not m:
+                    continue
+                vol = m.group(1)
+                s["eheizer"] = {"heizer": {h: (st if isinstance(st, str) else st.get(vol, "nein"))
+                                           for h, st in regel["heizer"].items()},
+                                "tiefe_muffe_mm": regel["tiefe_muffe_mm"][vol], "quelle": "spies",
+                                "hinweis": regel["hinweis"], "herkunft": eh["quelle"]}
+        daten["hinweise_eheizer_ergaenzung"] = eh.get("abweichungen", [])
+    # Plausibilität: freigegebener Heizer länger als die max. Eintauchtiefe?
+    for s in sp:
+        e = s.get("eheizer") or {}
+        e.pop("zu_lang", None)
+        for hid, st in e.get("heizer", {}).items():
+            h = daten["heizer"].get(hid)
+            grenze = e.get("tiefe_handloch_mm") if h and h["typ"] == "led_hd" else e.get("tiefe_muffe_mm")
+            if st in ("ja", "hzg") and h and h["typ"] in ("led", "led_hd", "cthk") and grenze and h["einbautiefe_mm"] > grenze:
+                e.setdefault("zu_lang", []).append(hid)
     daten["hinweise_freigabe"] = HINWEISE_FREIGABE
     for s in sp:
         s.pop("hinweis_matrix", None)
