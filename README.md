@@ -130,6 +130,31 @@ Die Tests prüfen alle Zwischen- und Endwerte (Volumenströme, Dimensionen, Gesc
 Kessel, Puffer, DLE-Tabelle, Herleitungstexte) gegen die HTML-Version. Wenn `index.html` geändert wird,
 die Referenzwerte mit `python tools/make_golden.py` neu erzeugen und die Abweichungen prüfen.
 
+## Speicherauswahl Wärmepumpe
+
+Zweites Werkzeug auf Basis der Speichermatrix (Excel): **Wärmepumpe wählen → alle zugelassenen Speicher**
+(Puffer, WW, WW bivalent, Kombi) → Klick auf einen Speicher zeigt TTNr, Hinweise zur Kombination, Link zur
+Installationsanleitung, die freigegebenen Wärmepumpen und die **passenden E-Heizer samt TTNr** (E-Heater LED,
+E-Heater LED + Handlochdeckel, Flanschheizung FLH, CTHK). Alternativ Suche über Speichername oder TTNr – dabei
+auch Speicher für Gas-/Ölgeräte (nur E-Heizer-Daten).
+
+| | |
+|---|---|
+| HTML | `speicher.html` – läuft offline, Daten und Bilder eingebettet |
+| Streamlit | Menü „···“ → „Speicherauswahl WP“ bzw. `…/?tool=speicher` |
+| Daten | `bosch_flow/daten/speicher.json` |
+
+Neue Excel-Version übernehmen (aktualisiert JSON **und** HTML):
+
+```bash
+python tools/speicher_import.py Speichermatrix_TT.MM.JJJJ.xlsx
+```
+
+Erweiterungen ohne Codeänderung:
+- **Maßbilder:** `bosch_flow/daten/speicher/bilder/<TTNr>.png`
+- **Stammdaten (SAP):** `bosch_flow/daten/speicher_stammdaten.csv` (Semikolon, eine Zeile je TTNr: Volumen,
+  Maße, Kippmaß, Gewicht, Anschlüsse …), danach `python tools/speicher_import.py` ausführen.
+
 ---
 
 Werkzeug zur Vorplanung – ersetzt keine verbindliche Rohrnetzberechnung. Prüfung obliegt Planer, Installateur

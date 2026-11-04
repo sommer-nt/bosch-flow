@@ -1,0 +1,87 @@
+"""Speicherauswahl: Datenbasis, Auswahl-Logik und Gleichlauf mit speicher.html."""
+import json
+import re
+import shutil
+import subprocess
+from pathlib import Path
+
+import pytest
+
+from bosch_flow import speicher as SP
+
+WURZEL = Path(__file__).resolve().parent.parent
+HTML = (WURZEL / "speicher.html").read_text(encoding="utf-8")
+D = SP.laden()
+
+
+def namen(gruppen, kat):
+    return [SP.speicher_nach_id(e["id"])["name"] for e in gruppen[kat]]
+
+
+def test_html_enthaelt_aktuelle_daten():
+    m = re.search(r"const DATEN = (.*?);\nconst BILDER", HTML, re.S)
+    assert m, "Datenblock in speicher.html fehlt – tools/speicher_import.py ausführen"
+    assert json.loads(m.group(1)) == D, "speicher.html ist nicht aktuell – tools/speicher_import.py ausführen"
+
+
+def test_bewertung():
+    assert SP.bewertung("+") == ("ja", "")
+    assert SP.bewertung("-") == ("nein", "")
+    assert SP.bewertung("") == ("", "")
+    assert SP.bewertung("++")[1] == "zwei Speichereinheiten"
+    assert SP.bewertung("(-)*")[0] == "bedingt"
+    assert SP.bewertung("+ /(-)*") == ("bedingt", "möglich, " + SP.WW_HINWEIS)
+
+
+def test_beispiel_cs6800i_7():
+    """Wie im Mockup: CS58/6800i AW 7 OR-S → u. a. WPS 390-1 und BPU 300-C."""
+    wp = next(w for w in D["wp"] if w["familie"].startswith("CS58/6800i") and w["groesse"] == "7 OR-S")
+    g = SP.speicher_fuer_wp(wp["id"])
+    assert {"BST 50 Ehp 50", "BH 120-5 1 A"} <= set(namen(g, "puffer"))
+    assert {"WP 290 EP 1C", "HR 200", "HR 300", "WP 300 P 1 B"} <= set(namen(g, "ww"))
+    assert namen(g, "biv") == ["WPS 390-1 EP 1 C"]
+    assert set(namen(g, "kombi")) == {"BPU 300-C", "BPU 400-C"}
+    assert "WP 300 P 1 B" not in namen(SP.speicher_fuer_wp(wp["id"], alte=False), "ww")
+
+
+def test_heizer_wps390():
+    s = SP.speicher_nach_id(SP.suche("8732921683")[0])
+    hz = SP.heizer_fuer_speicher(s["id"])
+    assert [D["heizer"][e["id"]]["ttnr"] for e in hz["led"]] == [
+        "7735502657", "7735502658", "7735502659", "7735502660", "7735502661"]
+    assert len(hz["flh"]) == 4 and not hz["led_hd"] and not hz["cthk"]
+    assert s["im"].startswith("https://")
+
+
+def test_heizer_zusammengefuehrt_bpu():
+    """BPU steht im Trinkwasser- und im Pufferblock: CTHK und „nur Heizungsunterstützung“ beide vorhanden."""
+    hz = SP.heizer_fuer_speicher("bpu-300-c")
+    assert {e["status"] for e in hz["led"]} == {"hzg"}
+    assert len(hz["cthk"]) == 4
+
+
+def test_suche_name_und_ttnr():
+    assert SP.suche("bpu 300") == ["bpu-300-c"]
+    assert "w-200-5-ep-1-c" in SP.suche("W 200-5")          # Gasspeicher nur aus der E-Heizer-Liste
+    assert SP.suche("WP 300 KP 1 B") == ["wp-300-p-1-b"]     # Name aus der E-Heizer-Liste
+
+
+@pytest.mark.skipif(not shutil.which("node"), reason="Node.js nicht installiert")
+def test_html_logik_gleich_python():
+    logik = re.search(r'<script id="logik">(.*?)</script>', HTML, re.S).group(1)
+    js = logik + f"""
+const d = {json.dumps(D)};
+const out = {{wp: {{}}, sp: {{}}, hz: {{}}, suche: {{}}}};
+for (const w of d.wp) out.wp[w.id] = [speicherFuerWp(d, w.id), speicherFuerWp(d, w.id, false, false)];
+for (const s of d.speicher) {{ out.sp[s.id] = wpsFuerSpeicher(d, s.id); out.hz[s.id] = heizerFuerSpeicher(d, s.id); }}
+for (const q of ["bpu", "7735", "WP 300", "x"]) out.suche[q] = suche(d, q);
+process.stdout.write(JSON.stringify(out));
+"""
+    erg = json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout)
+    for w in D["wp"]:
+        assert erg["wp"][w["id"]] == [SP.speicher_fuer_wp(w["id"]), SP.speicher_fuer_wp(w["id"], False, False)]
+    for s in D["speicher"]:
+        assert erg["sp"][s["id"]] == SP.wps_fuer_speicher(s["id"])
+        assert erg["hz"][s["id"]] == SP.heizer_fuer_speicher(s["id"])
+    for q, ids in erg["suche"].items():
+        assert ids == SP.suche(q)
