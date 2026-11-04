@@ -566,6 +566,7 @@ def nachbearbeiten(daten: dict) -> None:
                     s["notiz"][w["id"]] = text
                     s.setdefault("notiz_baureihe", []).append(w["id"])
     daten["erklaerungen"] = ERKLAERUNGEN
+    daten["erklaerung_einleitung"] = "Die Kommentare „4-Punkt-Anbindung“ und „Pendelpuffer“ in der Matrix beschreiben, wie der Pufferspeicher hydraulisch eingebunden wird:"
     daten["hinweise_freigabe"] = HINWEISE_FREIGABE
     for s in sp:
         s.pop("hinweis_matrix", None)
