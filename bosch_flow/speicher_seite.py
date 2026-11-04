@@ -39,7 +39,7 @@ def _tags(s: dict, e: dict | None, F: dict) -> str:
     if e and e.get("quelle") == "katalog":
         t.append(f'<b style="color:{F["akzent"]}" title="in der Matrix nicht geprüft (= nicht freigegeben) – Freigabe nur laut Katalog">nur Katalog</b>')
     if e and e["notiz"]:
-        t.append(f'<span style="color:{F["gelb"]}">ⓘ {E(e["notiz"])}</span>')
+        t.append(f'<span style="cursor:help" title="Hinweis: {E(e["notiz"])}">ⓘ</span>')
     preis = SP.preis_text((s.get("katalog") or {}).get("preis"))
     return " · ".join([E(_ttnr_text(s))] + ([f"<b>{E(preis)}</b>"] if preis else [])
                       + [x if x.startswith("<") else E(x) for x in t])
@@ -106,7 +106,7 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
             elif zusatz:
                 st.info(f"Mit {wp['name']}: {zusatz}")
             if s["notiz"].get(wp_id):
-                st.warning(f"ⓘ {s['notiz'][wp_id]}")
+                st.info(f"ⓘ Hinweis zur Kombination: {s['notiz'][wp_id]}")
         if s.get("hinweis_matrix"):
             st.info(s["hinweis_matrix"])
         if kat.get("von_vorgaenger"):
