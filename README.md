@@ -150,6 +150,17 @@ Neue Excel-Version übernehmen (aktualisiert JSON **und** HTML):
 python tools/speicher_import.py Speichermatrix_TT.MM.JJJJ.xlsx
 ```
 
+Bosch-Gesamtkatalog (Kapitel Speicher, PDF) einlesen – Preise (UVP), Maße, Anschlusshöhen, technische Daten,
+Zubehör, Fußnoten, Maßzeichnungen und die WP-Kombinationstabellen des Katalogs:
+
+```bash
+python tools/katalog_import.py Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf
+python tools/speicher_import.py
+```
+
+Die Katalog-Freigaben ergänzen die Matrix („nur Katalog“, abschaltbar); widersprechen sich Matrix und Katalog,
+zeigt die Detailansicht beide Angaben.
+
 Erweiterungen ohne Codeänderung:
 - **Maßbilder:** `bosch_flow/daten/speicher/bilder/<TTNr>.png`
 - **Stammdaten (SAP):** `bosch_flow/daten/speicher_stammdaten.csv` (Semikolon, eine Zeile je TTNr: Volumen,

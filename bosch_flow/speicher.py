@@ -70,29 +70,56 @@ def speicher_nach_id(sid: str, d: dict | None = None) -> dict | None:
     return next((s for s in d["speicher"] if s["id"] == sid), None)
 
 
-def speicher_fuer_wp(wp_id: str, alte: bool = True, bedingte: bool = True, d: dict | None = None) -> dict:
-    """Alle zugelassenen Speicher einer WP, gruppiert nach Kategorie (Reihenfolge wie in der Matrix)."""
+def speicher_fuer_wp(wp_id: str, alte: bool = True, bedingte: bool = True, katalog: bool = False,
+                     d: dict | None = None) -> dict:
+    """Alle zugelassenen Speicher einer WP, gruppiert nach Kategorie (Reihenfolge wie in der Matrix).
+
+    katalog=True ergänzt Speicher, die laut Gesamtkatalog freigegeben sind, in der Matrix aber fehlen (quelle "katalog").
+    """
     d = d or laden()
     erg = {k: [] for k in d["kategorien"]}
     for s in d["speicher"]:
-        if not s.get("matrix") or (s.get("alt") and not alte):
+        if s.get("alt") and not alte:
             continue
-        status, zusatz = bewertung(s["kombi"].get(wp_id, ""))
+        code, quelle = s["kombi"].get(wp_id, ""), "matrix"
+        if not code and katalog:
+            code, quelle = ((s.get("katalog") or {}).get("kombi") or {}).get(wp_id, ""), "katalog"
+        status, zusatz = bewertung(code)
         if status == "ja" or (status == "bedingt" and bedingte):
-            erg[s["kategorie"]].append({"id": s["id"], "status": status, "zusatz": zusatz,
-                                        "code": s["kombi"].get(wp_id, ""), "notiz": s["notiz"].get(wp_id, "")})
+            erg[s["kategorie"]].append({"id": s["id"], "status": status, "zusatz": zusatz, "code": code,
+                                        "notiz": s["notiz"].get(wp_id, ""), "quelle": quelle})
     return erg
 
 
 def wps_fuer_speicher(sid: str, d: dict | None = None) -> list[dict]:
-    """Umkehrung: mit welchen WP ist der Speicher freigegeben?"""
+    """Umkehrung: mit welchen WP ist der Speicher freigegeben? (Matrix, ergänzt um Katalog-Freigaben)"""
     d = d or laden()
     s = speicher_nach_id(sid, d)
     erg = []
+    if not s:
+        return erg
+    kat = (s.get("katalog") or {}).get("kombi") or {}
     for w in d["wp"]:
-        status, zusatz = bewertung(s["kombi"].get(w["id"], "")) if s else ("", "")
+        code, quelle = s["kombi"].get(w["id"], ""), "matrix"
+        if not code:
+            code, quelle = kat.get(w["id"], ""), "katalog"
+        status, zusatz = bewertung(code)
         if status in ("ja", "bedingt"):
-            erg.append({"id": w["id"], "status": status, "zusatz": zusatz, "notiz": s["notiz"].get(w["id"], "")})
+            erg.append({"id": w["id"], "status": status, "zusatz": zusatz, "notiz": s["notiz"].get(w["id"], ""),
+                        "quelle": quelle})
+    return erg
+
+
+def abweichungen(sid: str, d: dict | None = None) -> list[dict]:
+    """Matrix und Gesamtkatalog widersprechen sich (beide haben einen Eintrag, Bewertung unterschiedlich)."""
+    d = d or laden()
+    s = speicher_nach_id(sid, d)
+    kat = ((s or {}).get("katalog") or {}).get("kombi") or {}
+    erg = []
+    for w in d["wp"]:
+        m, k = s["kombi"].get(w["id"], "") if s else "", kat.get(w["id"], "")
+        if m and k and bewertung(m)[0] != bewertung(k)[0]:
+            erg.append({"id": w["id"], "matrix": m, "katalog": k})
     return erg
 
 
@@ -126,11 +153,17 @@ def doku_link(s: dict) -> str:
     return DOKU_SUCHE.format(q=re.sub(r"\s+", "+", q))
 
 
-def bild(s: dict) -> Path | None:
-    """Maßbild aus bosch_flow/daten/speicher/bilder/<TTNr>.* (falls vorhanden)."""
+def bilder(s: dict) -> list[Path]:
+    """Maßbilder: eigene Datei <TTNr>.* (falls abgelegt) vor den Zeichnungen aus dem Gesamtkatalog."""
     if not BILDER.exists():
-        return None
-    for t in s.get("ttnr", []) + [s["id"]]:
-        for p in BILDER.glob(f"{t}.*"):
-            return p
-    return None
+        return []
+    eigene = [p for t in s.get("ttnr", []) + [s["id"]] for p in sorted(BILDER.glob(f"{t}.*"))]
+    return eigene[:1] + [BILDER / f"{b}.png" for b in (s.get("katalog") or {}).get("bilder", [])
+                         if (BILDER / f"{b}.png").exists()]
+
+
+def preis_text(wert) -> str:
+    """UVP wie im Katalog: 3.073,00 €."""
+    if wert is None:
+        return ""
+    return f"{wert:,.2f} €".replace(",", "X").replace(".", ",").replace("X", ".")

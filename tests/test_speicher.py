@@ -72,16 +72,38 @@ def test_html_logik_gleich_python():
     js = logik + f"""
 const d = {json.dumps(D)};
 const out = {{wp: {{}}, sp: {{}}, hz: {{}}, suche: {{}}}};
-for (const w of d.wp) out.wp[w.id] = [speicherFuerWp(d, w.id), speicherFuerWp(d, w.id, false, false)];
-for (const s of d.speicher) {{ out.sp[s.id] = wpsFuerSpeicher(d, s.id); out.hz[s.id] = heizerFuerSpeicher(d, s.id); }}
+for (const w of d.wp) out.wp[w.id] = [speicherFuerWp(d, w.id), speicherFuerWp(d, w.id, false, false),
+                                      speicherFuerWp(d, w.id, true, true, true)];
+for (const s of d.speicher) {{ out.sp[s.id] = [wpsFuerSpeicher(d, s.id), abweichungen(d, s.id)];
+                              out.hz[s.id] = heizerFuerSpeicher(d, s.id); }}
 for (const q of ["bpu", "7735", "WP 300", "x"]) out.suche[q] = suche(d, q);
 process.stdout.write(JSON.stringify(out));
 """
-    erg = json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout)
+    erg = json.loads(subprocess.run(["node", "-"], input=js, capture_output=True, text=True, check=True).stdout)
     for w in D["wp"]:
-        assert erg["wp"][w["id"]] == [SP.speicher_fuer_wp(w["id"]), SP.speicher_fuer_wp(w["id"], False, False)]
+        assert erg["wp"][w["id"]] == [SP.speicher_fuer_wp(w["id"]), SP.speicher_fuer_wp(w["id"], False, False),
+                                      SP.speicher_fuer_wp(w["id"], True, True, True)]
     for s in D["speicher"]:
-        assert erg["sp"][s["id"]] == SP.wps_fuer_speicher(s["id"])
+        assert erg["sp"][s["id"]] == [SP.wps_fuer_speicher(s["id"]), SP.abweichungen(s["id"])]
         assert erg["hz"][s["id"]] == SP.heizer_fuer_speicher(s["id"])
     for q, ids in erg["suche"].items():
         assert ids == SP.suche(q)
+
+
+def test_katalog_eingebunden():
+    s = SP.speicher_nach_id("wps-390-1-ep-1-c")
+    k = s["katalog"]
+    assert k["preis"] == 3073.0 and k["kern"]["volumen_l"] == "343,0" and k["kern"]["hoehe_mm"] == "1594"
+    assert k["bilder"] and all(b.exists() for b in SP.bilder(s))
+    assert any(z["ttnr"] == "8738212214" for z in k["zubehoer"])          # FLH 25 M
+    # Katalog ergänzt Freigaben, die in der Matrix fehlen (CS3800iAW ↔ WPS 390)
+    wp = next(w["id"] for w in D["wp"] if w["name"] == "CS3800iAW 4 O-S")
+    assert "wps-390-1-ep-1-c" not in [e["id"] for e in SP.speicher_fuer_wp(wp)["biv"]]
+    assert {"id": "wps-390-1-ep-1-c", "quelle": "katalog"}.items() <= next(
+        e for e in SP.speicher_fuer_wp(wp, katalog=True)["biv"] if e["id"] == "wps-390-1-ep-1-c").items()
+    assert D["heizer"]["led:7735502657"]["preis"] == 547.0
+
+
+def test_abweichung_matrix_katalog():
+    lw13 = next(w["id"] for w in D["wp"] if w["familie"].startswith("CS 7801i") and str(w["groesse"]) == "13")
+    assert {"id": lw13, "matrix": "+", "katalog": "-"} in SP.abweichungen("bh-120-5-1-a")

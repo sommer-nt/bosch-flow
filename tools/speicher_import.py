@@ -279,6 +279,140 @@ def stammdaten_laden(pfad: Path) -> dict[str, dict]:
     return daten
 
 
+# ---------------------------------------------------------------------------------------------- Katalog
+KATALOG = DATEN.parent / "speicher_katalog.json"
+KERN = [("volumen_l", ("Speichervolumen", "Speicherinhalt gesamt", "Nenninhalt", "Nutzinhalt", "Inhalt")),
+        ("hoehe_mm", ("Höhe", "Höhe mit Isolierung", "Höhe inkl. Isolierung")),
+        ("durchmesser_mm", ("Durchmesser, mit Wärmedämmung", "Durchmesser mit Isolierung", "Durchmesser",
+                            "Durchmesser inkl. Isolierung")),
+        ("kippmass_mm", ("Kippmaß", "Kipphöhe")),
+        ("gewicht_kg", ("Nettogewicht", "Gewicht (leer)", "Gewicht leer", "Leergewicht", "Gewicht"))]
+
+
+def wp_zuordnen(gruppe: str, label: str, wps: list[dict]) -> list[str]:
+    """WP-Bezeichnung aus dem Katalog („AW 7 OR-S (CS6800i AW 12 E/MB)“) → Spalten-IDs der Matrix."""
+    t = re.sub(r"\d\)|\*", "", f"{label}").replace("…", "...")
+    g = re.sub(r"\d\)|\*", "", gruppe)
+    nach = {(w["familie"], str(w["groesse"]).strip()): w["id"] for w in wps}
+
+    def fam(teil: str) -> str:
+        return next((w["familie"] for w in wps if teil in w["familie"].replace(" ", "")), "")
+
+    m = re.search(r"CS8800iAW (\d+)", t)
+    if m:
+        return [nach.get((fam("CS8800iAW"), f"{m.group(1)} O-T"))]
+    m = re.search(r"^AW (\d+) OR-([ST])", t)
+    if m and re.search(r"[56]800", g + t):
+        return [nach.get((fam("CS58/6800i"), f"{m.group(1)} OR-{m.group(2)}"))]
+    m = re.search(r"CS3800iAW (\d+) O-([ST])", t)
+    if m:
+        return [nach.get((fam("CS3800iAW"), f"{m.group(1)} O-{m.group(2)}"))]
+    m = re.search(r"CS ?7\.\.\.i ?AW (\d+) ORE", t)
+    if m:
+        return [nach.get((fam("CS7...iAW".replace("...", "…")), m.group(1)))]
+    m = re.search(r"CS5001 ?AW (\d+)", t)
+    if m:
+        return [nach.get((fam("CS5001AW"), m.group(1)))]
+    m = re.search(r"CS5000 ?AW (\d+)", t)
+    if m:
+        return [nach.get((fam("CS5000AW"), "22 O" if m.group(1) == "22" else "38 OR"))]
+    m = re.search(r"CS780[01]i ?L?W (\d+)", t)
+    if m:     # Matrix führt 13/17, der Katalog 12/16
+        groesse = {"12": "13", "16": "17"}.get(m.group(1), m.group(1))
+        return [nach.get((fam("CS7801iLW"), groesse))]
+    m = re.search(r"(?:STM/)?STE (\d+)-1", t)
+    if m:
+        return [nach.get((fam("STM/STE"), f"{m.group(1)}-1"))]
+    m = re.search(r"^T (\d+)-2", t)
+    if m:
+        return [nach.get(("T", f"T {m.group(1)}-2"))]
+    return []
+
+
+def katalog_code(code: str) -> str:
+    """Fußnotenzeichen entfernen, „(-)“-Fußnote als „(-)*“ wie in der Matrix."""
+    c = re.sub(r"\s+", "", code)
+    c = re.sub(r"(\(-\))\d\)", r"\1*", c)
+    c = re.sub(r"\d\)$", "", c).rstrip("*") if "(-)" not in c else c
+    return c
+
+
+def _kategorie_katalog(titel: str, name: str) -> str:
+    n = name.upper()
+    if re.match(r"^(CST|BPU|SP )", n):
+        return "kombi"
+    if re.match(r"^(B|BH|BS|BSH|BP|BST|BTHC|BBS)\s?\d", n):
+        return "puffer"
+    if re.match(r"^(WS|WPS)\s?\d", n):
+        return "biv"
+    return "ww"
+
+
+def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
+    """Katalogdaten (tools/katalog_import.py) je TTNr an die Speicher hängen; fehlende Speicher ergänzen."""
+    daten["speicher"] = [s for s in daten["speicher"] if not s.get("nur_katalog")]
+    for s in daten["speicher"]:
+        s.pop("katalog", None)
+    daten.pop("katalog_quelle", None)
+    if not pfad.exists():
+        return
+    kat = json.loads(pfad.read_text(encoding="utf-8"))
+    daten["katalog_quelle"] = kat["quelle"]
+    nach_ttnr = {t: s for s in daten["speicher"] for t in s["ttnr"]}
+    preise = {}
+    for fam in kat["familien"]:
+        for z in fam["zubehoer"]:
+            preise.setdefault(z["ttnr"], z["preis"])
+    for h in daten["heizer"].values():
+        h["preis"] = preise.get(h["ttnr"])
+    for fam in kat["familien"]:
+        for p in fam["produkte"]:
+            werte, konflikte, kombi = [], [], {}
+            for tab in fam["tabellen"]:
+                spalten = [sp["name"] for sp in tab["spalten"] if p["ttnr"] in sp["ttnr"]]
+                if not spalten:
+                    continue
+                # CS7801i vor CS7800i (die Matrix führt die 7801i-Reihe)
+                for z in sorted(tab["zeilen"], key=lambda z: "7800i" in z["label"].replace(" ", "")):
+                    v = z["werte"].get(spalten[0])
+                    if v is None:
+                        continue
+                    if tab["art"] == "kombination":
+                        for wid in wp_zuordnen(z["gruppe"], z["label"], daten["wp"]):
+                            if wid:
+                                kombi.setdefault(wid, katalog_code(v))
+                        continue
+                    if v in ("-", "–"):
+                        continue
+                    alt = next((w for w in werte if (w["label"], w["einheit"]) == (z["label"], z["einheit"])
+                                and (w["kz"] == z["kz"] or not (w["kz"] and z["kz"]))), None)
+                    if alt and alt["wert"] == v:
+                        continue
+                    if alt and any(z["label"] in namen for _, namen in KERN):
+                        konflikte.append(f'{z["label"]}: {alt["wert"]} bzw. {v} {z["einheit"]}'.strip())
+                        continue
+                    werte.append({"label": z["label"], "kz": z["kz"], "einheit": z["einheit"], "wert": v})
+            kern = {}
+            for feld, namen in KERN:
+                for n in namen:
+                    w = next((w for w in werte if w["label"] == n and w["wert"]), None)
+                    if w:
+                        kern[feld] = w["wert"]
+                        break
+            info = {"typ": p["typ"], "familie": fam["titel"], "seite": fam["seite"], "preis": p["preis"],
+                    "text": p["text"], "beschreibung": fam["beschreibung"], "bilder": fam.get("bilder", []), "kern": kern,
+                    "werte": werte, "konflikte": konflikte, "kombi": kombi, "hinweise": fam["hinweise"],
+                    "zubehoer": [{k: z[k] for k in ("typ", "text", "ttnr", "preis")} for z in fam["zubehoer"]]}
+            s = nach_ttnr.get(p["ttnr"])
+            if not s:
+                s = {"id": re.sub(r"[^a-z0-9]+", "-", p["typ"].lower()).strip("-"), "name": p["typ"],
+                     "ttnr": [p["ttnr"]], "ttnr_hinweis": "", "kategorie": _kategorie_katalog(fam["titel"], p["typ"]),
+                     "info": "", "alt": False, "im": "", "matrix": False, "nur_katalog": True, "kombi": {}, "notiz": {}}
+                daten["speicher"].append(s)
+                nach_ttnr[p["ttnr"]] = s
+            s["katalog"] = info
+
+
 def baue(xlsx: Path, stammdaten: Path) -> dict:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -348,6 +482,8 @@ def main() -> None:
                     s["daten"] = sd[t]
                     break
         DATEN.write_text(json.dumps(daten, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    katalog_einbinden(daten)
+    DATEN.write_text(json.dumps(daten, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     html_einbetten(daten)
     n_wp, n_sp = len(daten["wp"]), len(daten["speicher"])
     print(f"{n_wp} Wärmepumpen, {n_sp} Speicher, {len(daten['heizer'])} E-Heizer → {DATEN.name}, {HTML.name}")
