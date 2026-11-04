@@ -307,12 +307,15 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
     s = SP.speicher_nach_id(ss.get("sp_wahl") or "", d)
     if s:
         _detail(s, d, F, wp_id, mobil)
-    if d.get("erklaerungen"):
-        with st.expander("Hydraulische Einbindung von Pufferspeichern (4-Punkt / Pendelpuffer)"):
-            st.markdown(d.get("erklaerung_einleitung", ""))
-            for t in d["erklaerungen"].values():
+    if wp_id and d.get("erklaerungen"):
+        # nur die Begriffe, die bei der gewählten WP vorkommen – mit den betroffenen Speichern
+        alle = [e for v in roh.values() for e in v]
+        for k, t in d["erklaerungen"].items():
+            namen = [SP.speicher_nach_id(e["id"], d)["name"] for e in alle if k in e.get("notiz", "")]
+            if namen:
                 kopf, _, rest = t.partition(": ")
-                st.markdown(f"**{kopf}:** {rest}")
+                with st.expander(f"{kopf} – gilt hier für {len(namen)} Speicher"):
+                    st.markdown(f"{rest}  \n**Gilt hier für:** {', '.join(namen)}")
     st.caption("Legende Matrix: + freigegeben · ++ zwei Speichereinheiten · (-)* abweichend bei Wasser-Wasser-Betrieb · "
                "leer = nicht geprüft und nicht freigegeben  \n"
                + "  \n".join(d["hinweise_matrix"] + d.get("hinweise_freigabe", [])) + f"  \nQuellen: {d['quelle']}"
