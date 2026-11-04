@@ -535,13 +535,15 @@ def nachbearbeiten(daten: dict) -> None:
             s.pop("name_im", None)
             ziel = im["matrix_alias"].get(s.get("name_excel") or s["name"])
             treffer = nach_typ.get(ziel) if ziel else next(
-                (p_ for p_ in im["produkte"] if p_["ttnr"] in s["ttnr"] or p_["ttnr_ippc"] in s["ttnr"]), None)
+                (p_ for p_ in im["produkte"] if p_["ttnr"] in s["ttnr"]), None)
             if not treffer:
                 continue
             s["name_im"] = treffer["typ"]
             s["im"] = s.get("im") or im["link"]
             if ziel:      # Matrix-Speicher ohne Katalogdaten: Daten, Maßbild und TTNr aus der IM
-                s["ttnr"], s["ttnr_hinweis"] = [treffer["ttnr"], treffer["ttnr_ippc"]], ""
+                s["ttnr"], s["ttnr_hinweis"] = [treffer["ttnr"]], ""
+                if im.get("name_aus_im"):          # laut Matthias Spies ist der IM-Name korrekt
+                    s["name_excel"], s["name"] = s.get("name_excel") or s["name"], treffer["typ"]
                 s["katalog"] = {"typ": treffer["typ"], "familie": im["titel"], "seite": im["seite"], "preis": None,
                                 "quelle": im["quelle"], "stand": im["stand"], "neu": False, "verfuegbar_ab": "",
                                 "text": "", "beschreibung": im["beschreibung"], "bilder": [im["bild"]],
@@ -559,8 +561,11 @@ def nachbearbeiten(daten: dict) -> None:
                 vol = m.group(1)
                 s["eheizer"] = {"heizer": {h: (st if isinstance(st, str) else st.get(vol, "nein"))
                                            for h, st in regel["heizer"].items()},
-                                "tiefe_muffe_mm": regel["tiefe_muffe_mm"][vol], "quelle": "spies",
-                                "hinweis": regel["hinweis"], "herkunft": eh["quelle"]}
+                                "quelle": "spies", "hinweis": regel["hinweis"], "herkunft": eh["quelle"]}
+                if regel.get("tiefe_muffe_mm"):
+                    s["eheizer"]["tiefe_muffe_mm"] = regel["tiefe_muffe_mm"][vol]
+                if regel.get("handlochdeckel_ttnr"):
+                    s["eheizer"]["handlochdeckel_ttnr"] = regel["handlochdeckel_ttnr"]
         daten["hinweise_eheizer_ergaenzung"] = eh.get("abweichungen", [])
     # Plausibilität: freigegebener Heizer länger als die max. Eintauchtiefe?
     for s in sp:

@@ -1460,10 +1460,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "nein"
     },
-    "tiefe_muffe_mm": 580,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 580
    },
    "vergleich": {
     "Volumen": "462,0",
@@ -1784,10 +1784,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "tiefe_muffe_mm": 750,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 750
    },
    "vergleich": {
     "Volumen": "752,8",
@@ -2114,10 +2114,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "tiefe_muffe_mm": 780,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 780
    },
    "vergleich": {
     "Volumen": "920,5",
@@ -2453,10 +2453,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "nein"
     },
-    "tiefe_muffe_mm": 580,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 580
    },
    "vergleich": {
     "Volumen": "462,0",
@@ -2914,10 +2914,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "tiefe_muffe_mm": 750,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 750
    },
    "vergleich": {
     "Volumen": "751,0",
@@ -3391,10 +3391,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "tiefe_muffe_mm": 780,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 780
    },
    "vergleich": {
     "Volumen": "921,0",
@@ -3870,10 +3870,12 @@
      "cthk:8738212207": "ja",
      "cthk:8738212208": "ja",
      "cthk:8738212209": "ja",
-     "cthk:8738212210": "ja"
+     "cthk:8738212210": "nein"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 580
    },
    "vergleich": {
     "Volumen": "451,0",
@@ -3888,7 +3890,8 @@
     "Warmhalteverlust": "74,8",
     "Energieeffizienzklasse": "B",
     "UVP": "2.825,00",
-    "E-Heizer": "12",
+    "max. Eintauchtiefe E-Muffe": "580",
+    "E-Heizer": "11",
     "Freigegeben für": "8"
    },
    "katalog": {
@@ -4397,10 +4400,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "nein"
     },
-    "tiefe_muffe_mm": 580,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 580
    },
    "vergleich": {
     "Volumen": "462,0",
@@ -4885,10 +4888,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "tiefe_muffe_mm": 750,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 750
    },
    "vergleich": {
     "Volumen": "752,0",
@@ -5391,10 +5394,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "tiefe_muffe_mm": 780,
     "quelle": "spies",
-    "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
-    "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 780
    },
    "vergleich": {
     "Volumen": "922,0",
@@ -5903,8 +5906,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 750
    },
    "vergleich": {
     "Volumen": "734,6",
@@ -5919,6 +5924,7 @@
     "Warmhalteverlust": "83,0",
     "Energieeffizienzklasse": "B",
     "UVP": "3.539,00",
+    "max. Eintauchtiefe E-Muffe": "750",
     "E-Heizer": "12",
     "Freigegeben für": "14"
    },
@@ -6461,8 +6467,10 @@
      "cthk:8738212209": "ja",
      "cthk:8738212210": "ja"
     },
-    "quelle": "katalog",
-    "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+    "quelle": "spies",
+    "hinweis": "Max. Einbaulänge Generation -7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
+    "herkunft": "Folien „Update Puffer- und Warmwasserspeicher“ (Matthias Spies, 11/2026)",
+    "tiefe_muffe_mm": 780
    },
    "vergleich": {
     "Volumen": "905,2",
@@ -6477,6 +6485,7 @@
     "Warmhalteverlust": "95,0",
     "Energieeffizienzklasse": "B",
     "UVP": "4.111,00",
+    "max. Eintauchtiefe E-Muffe": "780",
     "E-Heizer": "12",
     "Freigegeben für": "15"
    },
@@ -10571,10 +10580,9 @@
    "name_excel": "BTHC 1000 1"
   },
   {
-   "name": "WP 290 EP 1C",
+   "name": "WP 290-2 KLP 1",
    "ttnr": [
-    "8732973069",
-    "8732973067"
+    "8732973069"
    ],
    "ttnr_hinweis": "",
    "kategorie": "ww",
@@ -10857,20 +10865,17 @@
     ],
     "konflikte": [],
     "kombi": {},
-    "hinweise": [
-     "Zwei Artikelnummern je Größe: Standard und „IPPC“ (laut IM, Tab. 8). WP 290-2 KLP 1 „IPPC“: 276,8 l statt 273,6 l.",
-     "Für WP 400/450-2 KLP 1 nennt die IM die Artikelnummern 8735100643/44 – im Katalog sind das WH 400/450 LP 1 B."
-    ],
+    "hinweise": [],
     "zubehoer": [],
     "aus_im": true
    },
-   "name_im": "WP 290-2 KLP 1"
+   "name_im": "WP 290-2 KLP 1",
+   "name_excel": "WP 290 EP 1C"
   },
   {
-   "name": "WP 370 EP 1C",
+   "name": "WP 370-2 KLP 1",
    "ttnr": [
-    "8732991274",
-    "8732991273"
+    "8732991274"
    ],
    "ttnr_hinweis": "",
    "kategorie": "ww",
@@ -11153,14 +11158,12 @@
     ],
     "konflikte": [],
     "kombi": {},
-    "hinweise": [
-     "Zwei Artikelnummern je Größe: Standard und „IPPC“ (laut IM, Tab. 8). WP 290-2 KLP 1 „IPPC“: 276,8 l statt 273,6 l.",
-     "Für WP 400/450-2 KLP 1 nennt die IM die Artikelnummern 8735100643/44 – im Katalog sind das WH 400/450 LP 1 B."
-    ],
+    "hinweise": [],
     "zubehoer": [],
     "aus_im": true
    },
-   "name_im": "WP 370-2 KLP 1"
+   "name_im": "WP 370-2 KLP 1",
+   "name_excel": "WP 370 EP 1C"
   },
   {
    "name": "WH 400 LP 1 B",
@@ -11171,7 +11174,7 @@
    "kategorie": "ww",
    "info": "Emaille",
    "alt": false,
-   "im": "https://bosch-de-de.boschhc-documents.com/download/pdf/file/6721110844",
+   "im": "",
    "matrix": true,
    "kombi": {
     "G": "+",
@@ -11591,8 +11594,7 @@
       "preis": 611.0
      }
     ]
-   },
-   "name_im": "WP 400-2 KLP 1"
+   }
   },
   {
    "name": "WH 450 LP 1 B",
@@ -11603,7 +11605,7 @@
    "kategorie": "ww",
    "info": "Emaille",
    "alt": false,
-   "im": "https://bosch-de-de.boschhc-documents.com/download/pdf/file/6721110844",
+   "im": "",
    "matrix": true,
    "kombi": {
     "G": "+",
@@ -12021,8 +12023,7 @@
       "preis": 611.0
      }
     ]
-   },
-   "name_im": "WP 450-2 KLP 1"
+   }
   },
   {
    "name": "HR 200",
@@ -18399,7 +18400,8 @@
   "Zur Erhaltung des Korrosionsschutzes ist nur der Einbau von isolierten E-Heizstäben zugelassen."
  ],
  "hinweise_eheizer_ergaenzung": [
-  "Folie nennt für den E-Heater 2 kW (7735502657) 230 mm Einbaulänge – E-Heizer-Liste und Katalog: Mindesteinbautiefe 320 mm."
+  "Folie nennt für den E-Heater 2 kW (7735502657) 230 mm Einbaulänge – laut Matthias Spies vermutlich Zahlendreher, es gelten 320 mm.",
+  "FLH 25 M: Einbaulänge laut Katalog 370 mm, laut Internet 360 mm – wird von Matthias Spies geprüft."
  ],
  "erklaerungen": {
   "4-Punkt": "4-Punkt-Anbindung (Trennpuffer): Der Puffer hat vier Anschlüsse, zwei für den Wärmepumpenkreis (Vor- und Rücklauf) und zwei für den Heizkreis. Er entkoppelt beide Kreise hydraulisch, ähnlich wie eine hydraulische Weiche. Jeder Kreis braucht dann eine eigene Pumpe.",
@@ -18411,6 +18413,76 @@
   "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
  ],
  "nur_wp_speicher": true,
+ "vergleich_felder": [
+  {
+   "titel": "Volumen",
+   "einheit": "l"
+  },
+  {
+   "titel": "Höhe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Durchmesser",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Breite / Tiefe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Kippmaß",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Einbringmaß",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Min. Raumhöhe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Gewicht leer",
+   "einheit": "kg"
+  },
+  {
+   "titel": "Wärmetauscherfläche",
+   "einheit": "m²"
+  },
+  {
+   "titel": "Leistungskennzahl NL",
+   "einheit": ""
+  },
+  {
+   "titel": "Warmhalteverlust",
+   "einheit": "W"
+  },
+  {
+   "titel": "Energieeffizienzklasse",
+   "einheit": ""
+  },
+  {
+   "titel": "UVP",
+   "einheit": "€"
+  },
+  {
+   "titel": "max. Eintauchtiefe E-Muffe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "max. Eintauchtiefe Handloch",
+   "einheit": "mm"
+  },
+  {
+   "titel": "E-Heizer",
+   "einheit": "Varianten"
+  },
+  {
+   "titel": "Freigegeben für",
+   "einheit": "WP"
+  }
+ ],
  "pakete": [
   {
    "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
@@ -18676,76 +18748,6 @@
     "hr-300",
     "bst-50-ehp-50"
    ]
-  }
- ],
- "vergleich_felder": [
-  {
-   "titel": "Volumen",
-   "einheit": "l"
-  },
-  {
-   "titel": "Höhe",
-   "einheit": "mm"
-  },
-  {
-   "titel": "Durchmesser",
-   "einheit": "mm"
-  },
-  {
-   "titel": "Breite / Tiefe",
-   "einheit": "mm"
-  },
-  {
-   "titel": "Kippmaß",
-   "einheit": "mm"
-  },
-  {
-   "titel": "Einbringmaß",
-   "einheit": "mm"
-  },
-  {
-   "titel": "Min. Raumhöhe",
-   "einheit": "mm"
-  },
-  {
-   "titel": "Gewicht leer",
-   "einheit": "kg"
-  },
-  {
-   "titel": "Wärmetauscherfläche",
-   "einheit": "m²"
-  },
-  {
-   "titel": "Leistungskennzahl NL",
-   "einheit": ""
-  },
-  {
-   "titel": "Warmhalteverlust",
-   "einheit": "W"
-  },
-  {
-   "titel": "Energieeffizienzklasse",
-   "einheit": ""
-  },
-  {
-   "titel": "UVP",
-   "einheit": "€"
-  },
-  {
-   "titel": "max. Eintauchtiefe E-Muffe",
-   "einheit": "mm"
-  },
-  {
-   "titel": "max. Eintauchtiefe Handloch",
-   "einheit": "mm"
-  },
-  {
-   "titel": "E-Heizer",
-   "einheit": "Varianten"
-  },
-  {
-   "titel": "Freigegeben für",
-   "einheit": "WP"
   }
  ],
  "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"

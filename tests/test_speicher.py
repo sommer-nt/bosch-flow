@@ -38,7 +38,7 @@ def test_beispiel_cs6800i_7():
     wp = next(w for w in D["wp"] if w["familie"].startswith("CS58/6800i") and w["groesse"] == "7 OR-S")
     g = SP.speicher_fuer_wp(wp["id"])
     assert {"BST 50 Ehp", "BH 120-5 1 A"} <= set(namen(g, "puffer"))
-    assert {"WP 290 EP 1C", "HR 200", "HR 300", "WP 300 KP 1 B"} <= set(namen(g, "ww"))
+    assert {"WP 290-2 KLP 1", "HR 200", "HR 300", "WP 300 KP 1 B"} <= set(namen(g, "ww"))
     assert namen(g, "biv") == ["WPS 390-1 EP 1 C"]
     assert set(namen(g, "kombi")) == {"BPU 300-C", "BPU 400-C"}
     assert "WP 300 KP 1 B" not in namen(SP.speicher_fuer_wp(wp["id"], alte=False), "ww")
@@ -133,7 +133,7 @@ def test_rueckmeldung_spies():
     wp290 = SP.speicher_nach_id("wp-290-ep-1c")
     assert "vorgaenger" not in wp290                                 # WH 290 LP 1 B ist kein Matrix-Speicher
     assert wp290["katalog"]["aus_im"] and wp290["katalog"]["preis"] is None
-    assert wp290["name_im"] == "WP 290-2 KLP 1" and wp290["ttnr"] == ["8732973069", "8732973067"]
+    assert wp290["name"] == "WP 290-2 KLP 1" and wp290["name_excel"] == "WP 290 EP 1C" and wp290["ttnr"] == ["8732973069"]
     assert wp290["katalog"]["kern"]["hoehe_mm"] == "1299"
     assert wp290["katalog"]["kombi"] == {} and SP.bilder(wp290)
     assert any(SP.heizer_fuer_speicher("wp-290-ep-1c").values())
@@ -167,3 +167,11 @@ def test_vergleichswerte():
     v = SP.speicher_nach_id("wps-390-1-ep-1-c")["vergleich"]
     assert v["Volumen"] == "343,0" and v["Höhe"] == "1594" and v["UVP"] == "3.073,00"
     assert all("vergleich" in s for s in D["speicher"])
+
+
+def test_rueckmeldung_spies_2():
+    assert SP.speicher_nach_id("wp-370-ep-1c")["ttnr"] == ["8732991274"]
+    for sid in ("bps500-7-er", "bps-750-7-erz-1", "bps-1000-7-erz-1"):
+        assert SP.speicher_nach_id(sid)["eheizer"]["quelle"] == "spies"
+    assert len(SP.heizer_fuer_speicher("bps500-7-er")["cthk"]) == 6         # CTHK 636 nicht für 500 l
+    assert SP.speicher_nach_id("bps-750-7-erz-1")["eheizer"]["tiefe_muffe_mm"] == 750
