@@ -440,6 +440,55 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
                             "Einbautiefe und Muffe am Speicher prüfen."}
 
 
+
+# ---------------------------------------------------------------------------------------------- Nachbearbeitung
+TIPPFEHLER_EXCEL = {"je anch Verwendung": "je nach Verwendung"}
+
+# Neue Speichergeneration (-7): Vorgänger → Nachfolger. Zuordnung über die im Katalog wortgleichen
+# Produktbeschreibungen (z. B. BH …-6 ERZ und BP …-7 ERZ: „Schichtladeeinheit mit 2 Rücklaufanschlüssen,
+# Diffusorstab … 1 Trennblech“).
+NACHFOLGER = [(r"^BH (\d+)-6 ERZ", "BP {}-7 ERZ 1"), (r"^BSH (\d+)-6 ERZ", "BPS {}-7 ERZ 1"),
+              (r"^B (\d+)-6 ER\b", "BP {}-7 EMR 1"), (r"^BS (500)-6 ER\b", "BPS {}-7 ER 1"),
+              (r"^BH (\d+)-6 (?:PN6 )?1 B", "BP {}-7 EM 1")]
+
+
+def nachbearbeiten(daten: dict) -> None:
+    """Namen nach Katalog, Tippfehler, Nachfolger (-7) und WP-Pakete."""
+    sp = daten["speicher"]
+    for s in sp:
+        s["info"] = TIPPFEHLER_EXCEL.get(s.get("info", ""), s.get("info", ""))
+        s["name"] = s.pop("name_excel", s["name"])      # wiederholbar: Ausgangsname aus der Excel
+        k = s.get("katalog")
+        # offizieller Name aus der Bestelltabelle, wenn die Excel nur anders schreibt (gleiche TTNr)
+        if k and len(s["ttnr"]) == 1 and normname(k["typ"]) != normname(s["name"]):
+            s["name_excel"], s["name"] = s["name"], k["typ"]
+    nach_name = {normname(s["name"]): s for s in sp}
+    for s in sp:
+        s.pop("nachfolger", None)
+        s.pop("vorgaenger", None)
+    for s in sp:
+        for muster, ziel in NACHFOLGER:
+            m = re.match(muster, s.get("name_excel") or s["name"])
+            neu = m and nach_name.get(normname(ziel.format(m.group(1))))
+            if neu:
+                s["nachfolger"] = neu["id"]
+                neu.setdefault("vorgaenger", []).append(s["id"])
+                break
+    # WP-Pakete aus dem Katalog
+    daten["pakete"] = []
+    if KATALOG.exists():
+        for pk in json.loads(KATALOG.read_text(encoding="utf-8")).get("pakete", []):
+            wp = re.sub(r"O[A-Z]-([ST])$", r"O-\1", pk["wp"])
+            wids = [w for w in wp_zuordnen("", wp, daten["wp"]) if w]
+            sids = []
+            for name in pk["speicher"]:
+                n = normname(name)
+                treffer = [s["id"] for s in sp if normname(s["name"]) == n] or \
+                          [s["id"] for s in sp if normname(s["name"]).startswith(n) and not s.get("alt")]
+                if treffer:
+                    sids.append(treffer[0])
+            daten["pakete"].append({**pk, "wp_ids": wids, "speicher_ids": sids})
+
 def baue(xlsx: Path, stammdaten: Path) -> dict:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -510,6 +559,7 @@ def main() -> None:
                     break
         DATEN.write_text(json.dumps(daten, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     katalog_einbinden(daten)
+    nachbearbeiten(daten)
     DATEN.write_text(json.dumps(daten, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     html_einbetten(daten)
     n_wp, n_sp = len(daten["wp"]), len(daten["speicher"])

@@ -25,6 +25,8 @@ def _tags(s: dict, e: dict | None, F: dict) -> str:
         t.append(s["info"])
     if s.get("alt"):
         t.append(f'<b style="color:{F["rot"]}">Alt</b>')
+    if s.get("nachfolger"):
+        t.append(f'<span style="color:{F["akzent"]}">→ {E(SP.speicher_nach_id(s["nachfolger"])["name"])}</span>')
     kat = s.get("katalog") or {}
     if kat.get("neu"):
         t.append(f'<b style="color:{F["gruen"]}">NEU</b>')
@@ -77,6 +79,7 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
         k1.markdown(f'<div style="font-size:24px;font-weight:800;color:{F["text"]}">{E(s["name"])}</div>'
                     f'<div style="color:{F["leise"]};font-size:13px">{E(_ttnr_text(s))} · {E(" · ".join(meta))}'
                     + (f' · in der E-Heizer-Liste: {E(eh["name_heizerliste"])}' if eh.get("name_heizerliste") else "")
+                    + (f' · in der Matrix: {E(s["name_excel"])}' if s.get("name_excel") else "")
                     + '</div>', unsafe_allow_html=True)
         with k2:
             b1, b2 = st.columns(2)
@@ -90,8 +93,10 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
             m, k = s["kombi"].get(wp_id, ""), (kat.get("kombi") or {}).get(wp_id, "")
             status, zusatz = SP.bewertung(m or k)
             wp = SP.wp_nach_id(wp_id, d)
-            if not m and k:
-                st.info(f"Nicht in der Matrix – mit {wp['name']} laut Gesamtkatalog freigegeben („{k}“).")
+            if not m and k and status == "nein":
+                st.warning(f"Nicht in der Matrix – mit {wp['name']} laut Katalog nicht freigegeben („{k}“).")
+            elif not m and k:
+                st.info(f"Nicht in der Matrix – mit {wp['name']} laut Katalog freigegeben („{k}“).")
             elif m and k and SP.bewertung(k)[0] != status:
                 st.warning(f"⚠ Gesamtkatalog weicht ab: mit {wp['name']} „{k}“, Matrix „{m}“.")
             if status == "bedingt":
@@ -100,6 +105,18 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
                 st.info(f"Mit {wp['name']}: {zusatz}")
             if s["notiz"].get(wp_id):
                 st.warning(f"ⓘ {s['notiz'][wp_id]}")
+        if s.get("nachfolger"):
+            neu = SP.speicher_nach_id(s["nachfolger"], d)
+            if st.button(f"Neue Speichergeneration: {neu['name']}", key=f"sp_nf_{s['id']}", icon=":material/upgrade:"):
+                ss_ = st.session_state
+                ss_.sp_wahl = neu["id"]
+                st.rerun()
+        if s.get("vorgaenger"):
+            st.info("Neue Generation, ersetzt " + ", ".join(SP.speicher_nach_id(i, d)["name"] for i in s["vorgaenger"]))
+        pk = SP.pakete(sid=s["id"], d=d)
+        if pk:
+            st.info(f"📦 In {len(pk)} Katalog-Paketen enthalten: "
+                    + " · ".join(f"{p['wp']} ({SP.preis_text(p['preis'])})" for p in pk))
         for h in kat.get("hinweise", []):
             st.info(f"Katalog: {h}")
         kern = kat.get("kern") or {}
@@ -248,6 +265,11 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
         roh = SP.speicher_fuer_wp(wp_id, alte, bedingte, katalog, d)
         gruppen = {k: [(SP.speicher_nach_id(e["id"], d), e) for e in v] for k, v in roh.items()}
         n = sum(len(v) for v in gruppen.values())
+        pk = SP.pakete(wp_id, d=d)
+        if pk:
+            st.info("📦 **Pakete im Katalog:** " + " · ".join(
+                f"{' + '.join(SP.speicher_nach_id(i, d)['name'] for i in p['speicher_ids'])} ({p['wp']}, Paket {p['ttnr']}, "
+                f"{SP.preis_text(p['preis'])})" for p in pk))
         st.markdown(f"#### Zugelassene Speicher für {SP.wp_nach_id(wp_id, d)['name']} "
                     f"<span style='font-size:13px;color:{F['leise']}'>{n} Speicher · Klick zeigt Details</span>",
                     unsafe_allow_html=True)

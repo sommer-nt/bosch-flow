@@ -37,11 +37,11 @@ def test_beispiel_cs6800i_7():
     """Wie im Mockup: CS58/6800i AW 7 OR-S → u. a. WPS 390-1 und BPU 300-C."""
     wp = next(w for w in D["wp"] if w["familie"].startswith("CS58/6800i") and w["groesse"] == "7 OR-S")
     g = SP.speicher_fuer_wp(wp["id"])
-    assert {"BST 50 Ehp 50", "BH 120-5 1 A"} <= set(namen(g, "puffer"))
-    assert {"WP 290 EP 1C", "HR 200", "HR 300", "WP 300 P 1 B"} <= set(namen(g, "ww"))
+    assert {"BST 50 Ehp", "BH 120-5 1 A"} <= set(namen(g, "puffer"))
+    assert {"WP 290 EP 1C", "HR 200", "HR 300", "WP 300 KP 1 B"} <= set(namen(g, "ww"))
     assert namen(g, "biv") == ["WPS 390-1 EP 1 C"]
     assert set(namen(g, "kombi")) == {"BPU 300-C", "BPU 400-C"}
-    assert "WP 300 P 1 B" not in namen(SP.speicher_fuer_wp(wp["id"], alte=False), "ww")
+    assert "WP 300 KP 1 B" not in namen(SP.speicher_fuer_wp(wp["id"], alte=False), "ww")
 
 
 def test_heizer_wps390():
@@ -77,6 +77,7 @@ for (const w of d.wp) out.wp[w.id] = [speicherFuerWp(d, w.id), speicherFuerWp(d,
 for (const s of d.speicher) {{ out.sp[s.id] = [wpsFuerSpeicher(d, s.id), abweichungen(d, s.id)];
                               out.hz[s.id] = heizerFuerSpeicher(d, s.id); }}
 for (const q of ["bpu", "7735", "WP 300", "x"]) out.suche[q] = suche(d, q);
+out.pk = d.wp.map(w => pakete(d, w.id)).concat(d.speicher.map(s => pakete(d, null, s.id)));
 process.stdout.write(JSON.stringify(out));
 """
     erg = json.loads(subprocess.run(["node", "-"], input=js, capture_output=True, text=True, check=True).stdout)
@@ -86,6 +87,7 @@ process.stdout.write(JSON.stringify(out));
     for s in D["speicher"]:
         assert erg["sp"][s["id"]] == [SP.wps_fuer_speicher(s["id"]), SP.abweichungen(s["id"])]
         assert erg["hz"][s["id"]] == SP.heizer_fuer_speicher(s["id"])
+    assert erg["pk"] == [SP.pakete(w["id"]) for w in D["wp"]] + [SP.pakete(sid=s["id"]) for s in D["speicher"]]
     for q, ids in erg["suche"].items():
         assert ids == SP.suche(q)
 
@@ -116,3 +118,12 @@ def test_ergaenzungskatalog():
     w6 = SP.speicher_nach_id(SP.suche("8732990136")[0])
     assert w6["katalog"]["neu"] and w6["katalog"]["verfuegbar_ab"] == "09/2026"
     assert D["heizer"]["led:7735502657"]["preis"] == 560.68           # neuester Preis
+
+
+def test_nachfolger_namen_pakete():
+    assert SP.speicher_nach_id("bh-500-6-erz-1-b")["nachfolger"] == "bp-500-7-erz-1"
+    assert SP.speicher_nach_id("bp-500-7-erz-1")["vorgaenger"] == ["bh-500-6-erz-1-b"]
+    bps = SP.speicher_nach_id("bps500-7-er")
+    assert bps["name"] == "BPS 500-7 ER 1" and bps["name_excel"] == "BPS500-7 ER" and bps["info"] == "je nach Verwendung"
+    cs3800_4 = next(w["id"] for w in D["wp"] if w["name"] == "CS3800iAW 4 O-S")
+    assert {"bpu-400-c"} <= {i for p in SP.pakete(cs3800_4) for i in p["speicher_ids"]}

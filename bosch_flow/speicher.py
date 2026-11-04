@@ -123,6 +123,13 @@ def abweichungen(sid: str, d: dict | None = None) -> list[dict]:
     return erg
 
 
+def pakete(wp_id: str | None = None, sid: str | None = None, d: dict | None = None) -> list[dict]:
+    """WP-Pakete aus dem Katalog, gefiltert nach Wärmepumpe und/oder Speicher."""
+    d = d or laden()
+    return [p for p in d.get("pakete", []) if (not wp_id or wp_id in p["wp_ids"])
+            and (not sid or sid in p["speicher_ids"])]
+
+
 def heizer_fuer_speicher(sid: str, d: dict | None = None) -> dict:
     """Passende E-Heizer je Bauart: {typ: [{id, status}]} – status ja | hzg (nur Heizungsunterstützung)."""
     d = d or laden()

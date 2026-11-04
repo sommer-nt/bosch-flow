@@ -7,6 +7,10 @@
   {
    "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
    "stand": "07/2026"
+  },
+  {
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "stand": "07/2026"
   }
  ],
  "familien": [
@@ -13486,7 +13490,7 @@
        }
       },
       {
-       "label": "Maximale Betriebtemperatur Heizwasser",
+       "label": "Maximale Betriebstemperatur Heizwasser",
        "kz": "",
        "einheit": "°C",
        "gruppe": "",
@@ -20015,7 +20019,7 @@
        }
       },
       {
-       "label": "Höhe mit Wärmdämmung",
+       "label": "Höhe mit Wärmedämmung",
        "kz": "",
        "einheit": "mm",
        "gruppe": "Bereitschaftsteil (10°C zu 60°C)",
@@ -20026,7 +20030,7 @@
        }
       },
       {
-       "label": "Durchmesser mit Wärmdämmung",
+       "label": "Durchmesser mit Wärmedämmung",
        "kz": "",
        "einheit": "mm",
        "gruppe": "Bereitschaftsteil (10°C zu 60°C)",
@@ -23769,6 +23773,9 @@
    "neu": true,
    "bilder": [
     "kat-w-500-750-1000-6-kpx-1"
+   ],
+   "auch_in": [
+    "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
    ]
   },
   {
@@ -24316,6 +24323,9 @@
    "neu": false,
    "bilder": [
     "kat-bp-500-750-1000-7-em-1"
+   ],
+   "auch_in": [
+    "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
    ]
   },
   {
@@ -24989,6 +24999,9 @@
    "neu": false,
    "bilder": [
     "kat-bp-500-750-1000-7-emr-1"
+   ],
+   "auch_in": [
+    "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
    ]
   },
   {
@@ -25662,7 +25675,7 @@
    "hinweise": [],
    "beschreibung": [
     "Produktbeschreibung •Universeller Pufferspeicher mit effizienter, temperatursensibler Schichtladeeinheit mit 2 Rücklaufanschlüssen, Diffusorstab zur beruhigten Beladung und 1 Trennblech zur Vermeidung der Durchmischung der Temperaturzonen •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm",
-    "silbernem Folienmantel •ab 750 l: Verkleidungsdeckel, abnehmbaren 90 mm PU-Viertelschalen und 20 mm silbernem Folienmantel Ausstattung •Sensorleiste für Anlegefühler ‚(750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\"",
+    "silbernem Folienmantel •ab 750 l: Verkleidungsdeckel, abnehmbaren 90 mm PU-Viertelschalen und 20 mm silbernem Folienmantel Ausstattung •Sensorleiste für Anlegefühler (750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\"",
     "•Anschlüsse 750-1000l: H1-H13 mit G1 1/2\" •Stellfüße im Lieferumfang enthalten Hinweis •Bitte separat bestellen, nicht im Lieferumfang von BP 500-7 EM 1 enthalten: Temperaturfühler NTC, Speicheranschluss-Set ASU"
    ],
    "bild": "kat-bp-500-750-1000-7-erz-1",
@@ -25672,6 +25685,9 @@
    "neu": false,
    "bilder": [
     "kat-bp-500-750-1000-7-erz-1"
+   ],
+   "auch_in": [
+    "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
    ]
   },
   {
@@ -26285,7 +26301,7 @@
    ],
    "hinweise": [],
    "beschreibung": [
-    "Produktbeschreibung •Universell einsetzbarer Pufferspeicher mit Solarwärmetauscher und effizienter, temperatursensibler Schichtladeeinheit mit 2 Rücklaufanschlüssen •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm silbernem Folienmantell",
+    "Produktbeschreibung •Universell einsetzbarer Pufferspeicher mit Solarwärmetauscher und effizienter, temperatursensibler Schichtladeeinheit mit 2 Rücklaufanschlüssen •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm silbernem Folienmantel",
     "•Einfach kaskadierbar mit Kaskadensets (Zubehör) Ausstattung •Sensorleiste für Anlegefühler (750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\" •Anschlüsse Solar: R1\"",
     "•Stellfüße im Lieferumfang enthalten Hinweis •Bitte separat bestellen, nicht im Lieferumfang von BPS 500-7 ER 1 enthalten: erforderlicher Temperaturfühler NTC, Speicheranschluss-Set ASU"
    ],
@@ -26296,6 +26312,9 @@
    "neu": true,
    "bilder": [
     "kat-bps-500-7-er-1"
+   ],
+   "auch_in": [
+    "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
    ]
   },
   {
@@ -27018,7 +27037,182 @@
    "neu": false,
    "bilder": [
     "kat-bps-750-1000-7-erz-1"
+   ],
+   "auch_in": [
+    "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
    ]
+  }
+ ],
+ "pakete": [
+  {
+   "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 4 OM-S",
+   "speicher": [
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625566",
+   "preis": 11168.63,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "50"
+  },
+  {
+   "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 6 OM-S",
+   "speicher": [
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625567",
+   "preis": 11648.03,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "50"
+  },
+  {
+   "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 7 OM-S",
+   "speicher": [
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625568",
+   "preis": 12127.43,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "50"
+  },
+  {
+   "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 10 OM-T",
+   "speicher": [
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625569",
+   "preis": 14716.19,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "50"
+  },
+  {
+   "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 13 OM-T",
+   "speicher": [
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625570",
+   "preis": 16154.39,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "50"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 4 OE-S",
+   "speicher": [
+    "BPU 400"
+   ],
+   "ttnr": "7739625576",
+   "preis": 11837.2,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "52"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 6 OE-S",
+   "speicher": [
+    "BPU 400"
+   ],
+   "ttnr": "7739625577",
+   "preis": 12316.6,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "52"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 7 OE-S",
+   "speicher": [
+    "BPU 400"
+   ],
+   "ttnr": "7739625578",
+   "preis": 12796.0,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "52"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 10 OE-T",
+   "speicher": [
+    "BPU 400"
+   ],
+   "ttnr": "7739625579",
+   "preis": 15384.76,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "52"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 13 OE-T",
+   "speicher": [
+    "BPU 400"
+   ],
+   "ttnr": "7739625580",
+   "preis": 16822.96,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "52"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 4 OE-S",
+   "speicher": [
+    "HR 300",
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625581",
+   "preis": 11139.2,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "54"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 6 OE-S",
+   "speicher": [
+    "HR 300",
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625582",
+   "preis": 11618.6,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "54"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 7 OE-S",
+   "speicher": [
+    "HR 300",
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625583",
+   "preis": 12098.0,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "54"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 10 OE-T",
+   "speicher": [
+    "HR 300",
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625584",
+   "preis": 14686.76,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "54"
+  },
+  {
+   "titel": "CS3800iAW Pakete für monoenergetischen Betrieb und 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
+   "wp": "CS3800iAW 13 OE-T",
+   "speicher": [
+    "HR 300",
+    "BST 50 Ehp"
+   ],
+   "ttnr": "7739625585",
+   "preis": 16124.96,
+   "quelle": "BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+   "seite": "54"
   }
  ]
 }

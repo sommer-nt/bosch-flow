@@ -154,12 +154,15 @@ Bosch-Gesamtkatalog (Kapitel Speicher, PDF) einlesen – Preise (UVP), Maße, An
 Zubehör, Fußnoten, Maßzeichnungen und die WP-Kombinationstabellen des Katalogs:
 
 ```bash
-python tools/katalog_import.py Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf
+python tools/katalog_import.py Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf \
+    EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf
 python tools/speicher_import.py
 ```
 
 Mehrere Kataloge (Gesamt- und Ergänzungskatalog) in zeitlicher Reihenfolge angeben: neuere Angaben und Preise haben
-Vorrang, „NEU“ und „Verfügbar ab“ werden übernommen. Die Katalog-Freigaben ergänzen die Matrix („nur Katalog“, abschaltbar); widersprechen sich Matrix und Katalog,
+Vorrang, „NEU“ und „Verfügbar ab“ werden übernommen. Aus Katalogen mit anderen Produkten (Elektrosortiment) werden nur
+Speicherfamilien und WP-Pakete übernommen; unveränderte Wiederholungen nur einmal. Namen folgen der Bestelltabelle
+(abweichende Excel-Namen bleiben sichtbar), die neue Generation -7 ist mit ihren Vorgängern -6 verknüpft. Die Katalog-Freigaben ergänzen die Matrix („nur Katalog“, abschaltbar); widersprechen sich Matrix und Katalog,
 zeigt die Detailansicht beide Angaben.
 
 Erweiterungen ohne Codeänderung:

@@ -35,9 +35,16 @@ SYMBOL = re.compile(r"^[+\-–()/ *\d)]+$")
 KOPF_Y, FUSS_Y = 45, 790        # Seitenkopf (Titel) und -fuß (Seitenzahl) ausblenden
 
 
+# Offensichtliche Tippfehler im Katalogtext (für die Anzeige korrigiert, im Abgleich gemeldet)
+TIPPFEHLER = {"Folienmantell": "Folienmantel", "Ernergieverbrauch": "Energieverbrauch",
+              "Magensiumschutzanode": "Magnesiumschutzanode", "Prüfsöffnung": "Prüföffnung",
+              "Betriebtemperatur": "Betriebstemperatur", "Wärmdämmung": "Wärmedämmung", "‚(750/1000": "(750/1000"}
+
+
 def zeilen(page) -> list[tuple[float, list[list]]]:
     """Wörter zu Zeilen (Mitte weicht < 3,5 pt ab) und Zeilen zu Zellen (Abstand < 5 pt) zusammenfassen."""
-    woerter = sorted(((*w[:4], re.sub(r"[\uf000-\uf8ff]", "•", w[4])) for w in page.get_text("words")),
+    woerter = sorted(((*w[:4], TIPPFEHLER.get(w[4], re.sub(r"[\uf000-\uf8ff]", "•", w[4])))
+                      for w in page.get_text("words")),
                      key=lambda w: (w[1] + w[3]) / 2)
     reihen: list[list] = []
     for w in woerter:
@@ -348,9 +355,32 @@ def lesen(pdf: Path, bilder: bool = True, vergeben: set | None = None) -> dict:
         fam["bild"] = fam["bilder"][0] if fam["bilder"] else ""
         for t in fam["produkte"] + fam["zubehoer"]:
             t.pop("y", None)
-        if fam["produkte"]:
+        # nur Speicherfamilien (der Elektrokatalog enthält auch Wärmepumpen, Klimageräte …)
+        if any(SPEICHERNAME.match(p_["typ"]) for p_ in fam["produkte"]):
             familien.append(fam)
+        else:
+            for b_ in fam["bilder"]:
+                (BILDER / f"{b_}.png").unlink(missing_ok=True)
+                vergeben.discard(b_)
     return {"quelle": pdf.name, "stand": stand, "familien": familien}
+
+
+def pakete(pdf: Path) -> list[dict]:
+    """WP-Pakete (z. B. „CS3800iAW Pakete …“): je Paket WP-Variante, enthaltene Speicher, Bestell-Nr., Preis."""
+    doc = pymupdf.open(pdf)
+    aus = []
+    for page in doc:
+        t = page.get_text()
+        if "Paketinhalt" not in t:
+            continue
+        titel_ = re.sub(r"\s+", " ", t.split("Paketinhalt")[0].split("Mehrwertsteuer.")[-1]).strip()
+        speicher = re.findall(r"–\s*(?:Puffer|Kombi|Warmwasser)speicher\s+([^\n]+)", t)
+        for m in re.finditer(r"(CS\w+)\s+(\d+)\s*\n\s*(O[A-Z]?-[ST])\s*\n(?:.*\n){0,6}?\s*(\d{10})\s*\n\s*([\d.]+,(?:––|\d{2}))", t):
+            aus.append({"titel": titel_, "wp": f"{m.group(1)} {m.group(2)} {m.group(3)}",
+                        "speicher": [x.strip() for x in speicher], "ttnr": m.group(4),
+                        "preis": zahl(m.group(5).replace("––", "00")), "quelle": pdf.name,
+                        "seite": page.get_label() or str(page.number + 1)})
+    return aus
 
 
 def main() -> None:
@@ -363,8 +393,21 @@ def main() -> None:
             alt.unlink()
     vergeben: set = set()
     teile = [lesen(pdf, not a.ohne_bilder, vergeben) for pdf in a.pdf]
+    # Familien, die ein weiterer Katalog unverändert wiederholt (z. B. Elektro-Ergänzungskatalog), nur einmal führen
+    familien, gesehen = [], {}
+    for t in teile:
+        for f in t["familien"]:
+            sig = (f["titel"], tuple(sorted((p["ttnr"], p["preis"]) for p in f["produkte"])), f["stand"])
+            if sig in gesehen:
+                gesehen[sig].setdefault("auch_in", []).append(f["quelle"])
+                for b_ in f["bilder"]:
+                    (BILDER / f"{b_}.png").unlink(missing_ok=True)
+                continue
+            gesehen[sig] = f
+            familien.append(f)
     daten = {"quellen": [{"quelle": t["quelle"], "stand": t["stand"]} for t in teile],
-             "familien": [f for t in teile for f in t["familien"]]}
+             "familien": familien,
+             "pakete": [pk for pdf in a.pdf for pk in pakete(pdf)]}
     genutzt = {b for f in daten["familien"] for b in f["bilder"]}
     for bild in BILDER.glob("kat-*.png"):
         if bild.stem not in genutzt:
