@@ -341,6 +341,17 @@
     "S": "Nur Pendelpuffer bei allen Leistungen"
    },
    "id": "bst-50-ehp-50",
+   "vergleich": {
+    "Volumen": "50,0",
+    "Höhe": "540",
+    "Durchmesser": "530",
+    "Kippmaß": "756,6",
+    "Gewicht leer": "24",
+    "Warmhalteverlust": "31,3",
+    "Energieeffizienzklasse": "B",
+    "UVP": "795,00",
+    "Freigegeben für": "14"
+   },
    "katalog": {
     "typ": "BST 50 Ehp",
     "familie": "Stora BST 50",
@@ -542,6 +553,17 @@
     "S": "Nur Pendelpuffer bei allen Leistungen"
    },
    "id": "bh-120-5-1-a",
+   "vergleich": {
+    "Volumen": "120,0",
+    "Höhe": "980",
+    "Durchmesser": "600",
+    "Kippmaß": "1180",
+    "Gewicht leer": "44,1",
+    "Warmhalteverlust": "35,2",
+    "Energieeffizienzklasse": "A",
+    "UVP": "1.126,00",
+    "Freigegeben für": "30"
+   },
    "katalog": {
     "typ": "BH 120-5 1 A",
     "familie": "Stora BH 120/200/300-5 (K)1",
@@ -882,6 +904,17 @@
     "S": "4-Punkt Anbindung bei allen Leistungen"
    },
    "id": "bh-200-5-1-a",
+   "vergleich": {
+    "Volumen": "203,7",
+    "Höhe": "1550",
+    "Durchmesser": "600",
+    "Kippmaß": "1625",
+    "Gewicht leer": "79",
+    "Warmhalteverlust": "41,4",
+    "Energieeffizienzklasse": "A",
+    "UVP": "1.239,00",
+    "Freigegeben für": "24"
+   },
    "katalog": {
     "typ": "BH 200-5 1 A",
     "familie": "Stora BH 120/200/300-5 (K)1",
@@ -1142,6 +1175,9 @@
     "S": "4-Punkt Anbindung bei allen Leistungen"
    },
    "id": "bh-300-5-k1-b",
+   "vergleich": {
+    "Freigegeben für": "24"
+   },
    "notiz_baureihe": [
     "P",
     "Q",
@@ -1219,6 +1255,16 @@
     "S": "4-Punkt Anbindung bei allen Leistungen"
    },
    "id": "bp-300-5-1",
+   "vergleich": {
+    "Volumen": "307,2",
+    "Höhe": "1495",
+    "Kippmaß": "1655",
+    "Gewicht leer": "84",
+    "Warmhalteverlust": "66,3",
+    "Energieeffizienzklasse": "B",
+    "UVP": "1.537,00",
+    "Freigegeben für": "27"
+   },
    "katalog": {
     "typ": "BP 300-5 1",
     "familie": "Stora BH 120/200/300-5 (K)1",
@@ -1418,6 +1464,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "462,0",
+    "Höhe": "1921",
+    "Durchmesser": "750",
+    "Breite / Tiefe": "750",
+    "Kippmaß": "1994",
+    "Einbringmaß": "750",
+    "Min. Raumhöhe": "2521",
+    "Gewicht leer": "89",
+    "Warmhalteverlust": "73,8",
+    "Energieeffizienzklasse": "B",
+    "UVP": "1.938,00",
+    "max. Eintauchtiefe E-Muffe": "580",
+    "E-Heizer": "11",
+    "Freigegeben für": "22"
    },
    "katalog": {
     "typ": "BP 500-7 EM 1",
@@ -1726,6 +1788,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "752,8",
+    "Höhe": "1811",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "1830",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2411",
+    "Gewicht leer": "106",
+    "Warmhalteverlust": "80,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.244,00",
+    "max. Eintauchtiefe E-Muffe": "750",
+    "E-Heizer": "12",
+    "Freigegeben für": "16"
    },
    "katalog": {
     "typ": "BP 750-7 EM 1",
@@ -2040,6 +2118,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "920,5",
+    "Höhe": "2162",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "2140",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2762",
+    "Gewicht leer": "121",
+    "Warmhalteverlust": "91,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.509,00",
+    "max. Eintauchtiefe E-Muffe": "780",
+    "E-Heizer": "12",
+    "Freigegeben für": "7"
    },
    "katalog": {
     "typ": "BP 1000-7 EM 1",
@@ -2363,6 +2457,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "462,0",
+    "Höhe": "1921",
+    "Durchmesser": "750",
+    "Breite / Tiefe": "750",
+    "Kippmaß": "1994",
+    "Einbringmaß": "750",
+    "Min. Raumhöhe": "2521",
+    "Gewicht leer": "93,4",
+    "Warmhalteverlust": "73,8",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.652,00",
+    "max. Eintauchtiefe E-Muffe": "580",
+    "E-Heizer": "11",
+    "Freigegeben für": "15"
    },
    "katalog": {
     "typ": "BP 500-7 EMR 1",
@@ -2808,6 +2918,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "751,0",
+    "Höhe": "1811",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "1830",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2411",
+    "Gewicht leer": "109,28",
+    "Warmhalteverlust": "80,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.876,00",
+    "max. Eintauchtiefe E-Muffe": "750",
+    "E-Heizer": "12",
+    "Freigegeben für": "1"
    },
    "katalog": {
     "typ": "BP 750-7 EMR 1",
@@ -3269,6 +3395,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "921,0",
+    "Höhe": "2162",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "2140",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2762",
+    "Gewicht leer": "127,64",
+    "Warmhalteverlust": "91,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.295,00",
+    "max. Eintauchtiefe E-Muffe": "780",
+    "E-Heizer": "12",
+    "Freigegeben für": "0"
    },
    "katalog": {
     "typ": "BP 1000-7 EMR 1",
@@ -3732,6 +3874,22 @@
     },
     "quelle": "katalog",
     "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+   },
+   "vergleich": {
+    "Volumen": "451,0",
+    "Höhe": "1921",
+    "Durchmesser": "750",
+    "Breite / Tiefe": "750",
+    "Kippmaß": "1994",
+    "Einbringmaß": "750",
+    "Min. Raumhöhe": "2521",
+    "Gewicht leer": "107",
+    "Wärmetauscherfläche": "1,4",
+    "Warmhalteverlust": "74,8",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.825,00",
+    "E-Heizer": "12",
+    "Freigegeben für": "8"
    },
    "katalog": {
     "typ": "BPS 500-7 ER 1",
@@ -4244,6 +4402,22 @@
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
    },
+   "vergleich": {
+    "Volumen": "462,0",
+    "Höhe": "1921",
+    "Durchmesser": "750",
+    "Breite / Tiefe": "750",
+    "Kippmaß": "1994",
+    "Einbringmaß": "750",
+    "Min. Raumhöhe": "2521",
+    "Gewicht leer": "99,04",
+    "Warmhalteverlust": "73,8",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.754,00",
+    "max. Eintauchtiefe E-Muffe": "580",
+    "E-Heizer": "11",
+    "Freigegeben für": "15"
+   },
    "katalog": {
     "typ": "BP 500-7 ERZ 1",
     "familie": "BP 500/750/1000-7 ERZ 1",
@@ -4715,6 +4889,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "752,0",
+    "Höhe": "1811",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "1830",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2411",
+    "Gewicht leer": "119,7",
+    "Warmhalteverlust": "80,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.060,00",
+    "max. Eintauchtiefe E-Muffe": "750",
+    "E-Heizer": "12",
+    "Freigegeben für": "14"
    },
    "katalog": {
     "typ": "BP 750-7 ERZ 1",
@@ -5205,6 +5395,22 @@
     "quelle": "spies",
     "hinweis": "Max. Einbaulänge BP…-7: 500 l 580 mm, 750 l 750 mm, 1000 l 780 mm. CTHK 636 (650 mm) nicht für 500 l.",
     "herkunft": "Folie „Update Puffer- und Warmwasserspeicher – Pufferspeicher E-Heater“ (Matthias Spies)"
+   },
+   "vergleich": {
+    "Volumen": "922,0",
+    "Höhe": "2162",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "2140",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2762",
+    "Gewicht leer": "137,04",
+    "Warmhalteverlust": "91,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.529,00",
+    "max. Eintauchtiefe E-Muffe": "780",
+    "E-Heizer": "12",
+    "Freigegeben für": "14"
    },
    "katalog": {
     "typ": "BP 1000-7 ERZ 1",
@@ -5699,6 +5905,22 @@
     },
     "quelle": "katalog",
     "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
+   },
+   "vergleich": {
+    "Volumen": "734,6",
+    "Höhe": "1811",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "1830",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2411",
+    "Gewicht leer": "152,36",
+    "Wärmetauscherfläche": "2,12",
+    "Warmhalteverlust": "83,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.539,00",
+    "E-Heizer": "12",
+    "Freigegeben für": "14"
    },
    "katalog": {
     "typ": "BPS 750-7 ERZ 1",
@@ -6242,6 +6464,22 @@
     "quelle": "katalog",
     "hinweis": "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. Einbautiefe und Muffe am Speicher prüfen."
    },
+   "vergleich": {
+    "Volumen": "905,2",
+    "Höhe": "2162",
+    "Durchmesser": "1030",
+    "Breite / Tiefe": "1030",
+    "Kippmaß": "2140",
+    "Einbringmaß": "790",
+    "Min. Raumhöhe": "2762",
+    "Gewicht leer": "176,26",
+    "Wärmetauscherfläche": "2,54",
+    "Warmhalteverlust": "95,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "4.111,00",
+    "E-Heizer": "12",
+    "Freigegeben für": "15"
+   },
    "katalog": {
     "typ": "BPS 1000-7 ERZ 1",
     "familie": "BPS 750/1000-7 ERZ 1",
@@ -6734,6 +6972,18 @@
    },
    "notiz": {},
    "id": "bh-500-6-1-b",
+   "vergleich": {
+    "Volumen": "495,0",
+    "Höhe": "1620",
+    "Durchmesser": "850",
+    "Kippmaß": "1912",
+    "Einbringmaß": "650",
+    "Gewicht leer": "89,5",
+    "Warmhalteverlust": "74,6",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.454,00",
+    "Freigegeben für": "7"
+   },
    "katalog": {
     "typ": "BH 500-6 1 B",
     "familie": "Stora BH 500/750-6",
@@ -6969,6 +7219,17 @@
    },
    "notiz": {},
    "id": "bh-750-6-pn6-1-b",
+   "vergleich": {
+    "Volumen": "744,0",
+    "Höhe": "1630",
+    "Durchmesser": "1030",
+    "Einbringmaß": "790",
+    "Gewicht leer": "230",
+    "Warmhalteverlust": "78,6",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.753,00",
+    "Freigegeben für": "6"
+   },
    "katalog": {
     "typ": "BH 750-6 1 B",
     "familie": "Stora BH 500/750-6",
@@ -7228,6 +7489,20 @@
     "tiefe_muffe_mm": 680
    },
    "id": "bh-500-6-erz-1-b",
+   "vergleich": {
+    "Volumen": "494,0",
+    "Höhe": "1775",
+    "Durchmesser": "850",
+    "Kippmaß": "1912",
+    "Einbringmaß": "770",
+    "Gewicht leer": "100,5",
+    "Warmhalteverlust": "78,6",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.898,00",
+    "max. Eintauchtiefe E-Muffe": "680",
+    "E-Heizer": "12",
+    "Freigegeben für": "7"
+   },
    "katalog": {
     "typ": "BH 500-6 ERZ 1 B",
     "familie": "Stora BH 500/750/1000-6 ERZ",
@@ -7685,6 +7960,19 @@
     "tiefe_muffe_mm": 820
    },
    "id": "bh-750-6-erz-1-b",
+   "vergleich": {
+    "Volumen": "743,0",
+    "Höhe": "1820",
+    "Durchmesser": "1030",
+    "Einbringmaß": "790",
+    "Gewicht leer": "155",
+    "Warmhalteverlust": "90,7",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.051,00",
+    "max. Eintauchtiefe E-Muffe": "820",
+    "E-Heizer": "12",
+    "Freigegeben für": "6"
+   },
    "katalog": {
     "typ": "BH 750-6 ERZ 1 B",
     "familie": "Stora BH 500/750/1000-6 ERZ",
@@ -8147,6 +8435,19 @@
     "tiefe_muffe_mm": 820
    },
    "id": "bh-1000-6-erz-1-b",
+   "vergleich": {
+    "Volumen": "955,0",
+    "Höhe": "2255",
+    "Durchmesser": "1030",
+    "Einbringmaß": "790",
+    "Gewicht leer": "199",
+    "Warmhalteverlust": "102,5",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.612,00",
+    "max. Eintauchtiefe E-Muffe": "820",
+    "E-Heizer": "12",
+    "Freigegeben für": "6"
+   },
    "katalog": {
     "typ": "BH 1000-6 ERZ 1 B",
     "familie": "Stora BH 500/750/1000-6 ERZ",
@@ -8601,6 +8902,19 @@
     "tiefe_muffe_mm": 820
    },
    "id": "bsh-750-6-erz-1-b",
+   "vergleich": {
+    "Volumen": "725,0",
+    "Höhe": "1820",
+    "Durchmesser": "1030",
+    "Einbringmaß": "790",
+    "Gewicht leer": "191",
+    "Warmhalteverlust": "85,1",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.612,00",
+    "max. Eintauchtiefe E-Muffe": "820",
+    "E-Heizer": "12",
+    "Freigegeben für": "6"
+   },
    "katalog": {
     "typ": "BSH 750-6 ERZ 1 B",
     "familie": "Stora BSH 750/1000-6 ERZ",
@@ -8951,6 +9265,19 @@
     "tiefe_muffe_mm": 820
    },
    "id": "bsh-1000-6-erz-1-b",
+   "vergleich": {
+    "Volumen": "934,0",
+    "Höhe": "2255",
+    "Durchmesser": "1030",
+    "Einbringmaß": "790",
+    "Gewicht leer": "245",
+    "Warmhalteverlust": "103,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "4.204,00",
+    "max. Eintauchtiefe E-Muffe": "820",
+    "E-Heizer": "12",
+    "Freigegeben für": "7"
+   },
    "katalog": {
     "typ": "BSH 1000-6 ERZ 1 B",
     "familie": "Stora BSH 750/1000-6 ERZ",
@@ -9271,6 +9598,20 @@
     "tiefe_muffe_mm": 500
    },
    "id": "bp-200-ek-1-b",
+   "vergleich": {
+    "Volumen": "199,4",
+    "Höhe": "1300",
+    "Durchmesser": "600",
+    "Kippmaß": "1340",
+    "Einbringmaß": "500",
+    "Gewicht leer": "50",
+    "Warmhalteverlust": "50,7",
+    "Energieeffizienzklasse": "B",
+    "UVP": "1.303,00",
+    "max. Eintauchtiefe E-Muffe": "500",
+    "E-Heizer": "9",
+    "Freigegeben für": "2"
+   },
    "katalog": {
     "typ": "BP 200 EK 1 B",
     "familie": "Stora BP 200/500/1000 E(P) 1 B/C",
@@ -9527,6 +9868,20 @@
     "tiefe_muffe_mm": 590
    },
    "id": "bp-500-ep-1-c",
+   "vergleich": {
+    "Volumen": "480,0",
+    "Höhe": "1961",
+    "Durchmesser": "700",
+    "Kippmaß": "2030",
+    "Einbringmaß": "597",
+    "Gewicht leer": "89",
+    "Warmhalteverlust": "100,5",
+    "Energieeffizienzklasse": "C",
+    "UVP": "2.021,00",
+    "max. Eintauchtiefe E-Muffe": "590",
+    "E-Heizer": "11",
+    "Freigegeben für": "3"
+   },
    "katalog": {
     "typ": "BP 500 EP 1 C",
     "familie": "Stora BP 200/500/1000 E(P) 1 B/C",
@@ -9783,6 +10138,20 @@
     "tiefe_muffe_mm": 790
    },
    "id": "bp-1000-e-1-c",
+   "vergleich": {
+    "Volumen": "867,0",
+    "Höhe": "2085",
+    "Durchmesser": "990",
+    "Kippmaß": "2036",
+    "Einbringmaß": "790",
+    "Gewicht leer": "120",
+    "Warmhalteverlust": "134,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "2.738,00",
+    "max. Eintauchtiefe E-Muffe": "790",
+    "E-Heizer": "12",
+    "Freigegeben für": "4"
+   },
    "katalog": {
     "typ": "BP 1000 E 1 C",
     "familie": "Stora BP 200/500/1000 E(P) 1 B/C",
@@ -10020,6 +10389,19 @@
    },
    "notiz": {},
    "id": "bthc-1000-1",
+   "vergleich": {
+    "Volumen": "870,0",
+    "Höhe": "2055",
+    "Durchmesser": "1000",
+    "Breite / Tiefe": "1000",
+    "Kippmaß": "2250",
+    "Einbringmaß": "890",
+    "Gewicht leer": "153",
+    "Warmhalteverlust": "140,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "5.151,00",
+    "Freigegeben für": "3"
+   },
    "katalog": {
     "typ": "BTHC 1000",
     "familie": "Dimplex BTHC 1000",
@@ -10258,6 +10640,20 @@
     "tiefe_handloch_mm": 460,
     "handlochdeckel_ttnr": "7719002112",
     "quelle": "vorgaenger"
+   },
+   "vergleich": {
+    "Volumen": "273,6",
+    "Höhe": "1299",
+    "Breite / Tiefe": "750",
+    "Kippmaß": "1494",
+    "Gewicht leer": "137",
+    "Wärmetauscherfläche": "3,2",
+    "Leistungskennzahl NL": "2,3",
+    "Warmhalteverlust": "57,6",
+    "Energieeffizienzklasse": "B",
+    "max. Eintauchtiefe Handloch": "460",
+    "E-Heizer": "8",
+    "Freigegeben für": "30"
    },
    "katalog": {
     "typ": "WP 290-2 KLP 1",
@@ -10541,6 +10937,20 @@
     "handlochdeckel_ttnr": "7719002112",
     "quelle": "vorgaenger"
    },
+   "vergleich": {
+    "Volumen": "350,6",
+    "Höhe": "1595",
+    "Breite / Tiefe": "750",
+    "Kippmaß": "1748",
+    "Gewicht leer": "145",
+    "Wärmetauscherfläche": "4,2",
+    "Leistungskennzahl NL": "3,0",
+    "Warmhalteverlust": "63,0",
+    "Energieeffizienzklasse": "B",
+    "max. Eintauchtiefe Handloch": "460",
+    "E-Heizer": "8",
+    "Freigegeben für": "20"
+   },
    "katalog": {
     "typ": "WP 370-2 KLP 1",
     "familie": "Stora WP 290-450-2 KLP 1",
@@ -10823,6 +11233,21 @@
     "handlochdeckel_ttnr": "7719002112"
    },
    "id": "wh-400-lp-1-b",
+   "vergleich": {
+    "Volumen": "405,2",
+    "Höhe": "1921",
+    "Durchmesser": "750",
+    "Kippmaß": "2050",
+    "Gewicht leer": "222",
+    "Wärmetauscherfläche": "7",
+    "Leistungskennzahl NL": "3,7",
+    "Warmhalteverlust": "74,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.910,00",
+    "max. Eintauchtiefe Handloch": "460",
+    "E-Heizer": "8",
+    "Freigegeben für": "20"
+   },
    "katalog": {
     "typ": "WH 400 LP 1 B",
     "familie": "Stora WH 290/370/400/450 LP 1 B",
@@ -11238,6 +11663,21 @@
     "handlochdeckel_ttnr": "7719002112"
    },
    "id": "wh-450-lp-1-b",
+   "vergleich": {
+    "Volumen": "428,0",
+    "Höhe": "1921",
+    "Durchmesser": "750",
+    "Kippmaß": "2050",
+    "Gewicht leer": "206",
+    "Wärmetauscherfläche": "5,6",
+    "Leistungskennzahl NL": "3,6",
+    "Warmhalteverlust": "71,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.947,00",
+    "max. Eintauchtiefe Handloch": "460",
+    "E-Heizer": "8",
+    "Freigegeben für": "17"
+   },
    "katalog": {
     "typ": "WH 450 LP 1 B",
     "familie": "Stora WH 290/370/400/450 LP 1 B",
@@ -11636,6 +12076,19 @@
     "name_heizerliste": "HR 200/300"
    },
    "id": "hr-200",
+   "vergleich": {
+    "Volumen": "190,0",
+    "Höhe": "1340",
+    "Durchmesser": "600",
+    "Kippmaß": "1440",
+    "Gewicht leer": "105",
+    "Wärmetauscherfläche": "1,81",
+    "Leistungskennzahl NL": "1,8",
+    "Warmhalteverlust": "57,1",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.018,00",
+    "Freigegeben für": "15"
+   },
    "katalog": {
     "typ": "HR 200",
     "familie": "Storacell HR 200/300",
@@ -11881,6 +12334,19 @@
     "name_heizerliste": "HR 200/300"
    },
    "id": "hr-300",
+   "vergleich": {
+    "Volumen": "290,0",
+    "Höhe": "1797",
+    "Durchmesser": "600",
+    "Kippmaß": "1870",
+    "Gewicht leer": "120",
+    "Wärmetauscherfläche": "2,6",
+    "Leistungskennzahl NL": "2,3",
+    "Warmhalteverlust": "91,3",
+    "Energieeffizienzklasse": "C",
+    "UVP": "2.307,00",
+    "Freigegeben für": "28"
+   },
    "katalog": {
     "typ": "HR 300",
     "familie": "Storacell HR 200/300",
@@ -12097,7 +12563,11 @@
     },
     "hinweis": ""
    },
-   "id": "swp-180-ek-1"
+   "id": "swp-180-ek-1",
+   "vergleich": {
+    "E-Heizer": "4",
+    "Freigegeben für": "0"
+   }
   },
   {
    "name": "SWP 240 EK 1",
@@ -12122,7 +12592,11 @@
     },
     "hinweis": ""
    },
-   "id": "swp-240-ek-1"
+   "id": "swp-240-ek-1",
+   "vergleich": {
+    "E-Heizer": "4",
+    "Freigegeben für": "0"
+   }
   },
   {
    "name": "SWP 290 EK 1",
@@ -12147,7 +12621,11 @@
     },
     "hinweis": ""
    },
-   "id": "swp-290-ek-1"
+   "id": "swp-290-ek-1",
+   "vergleich": {
+    "E-Heizer": "4",
+    "Freigegeben für": "0"
+   }
   },
   {
    "name": "SWDP 200-2 O (2) C",
@@ -12194,6 +12672,14 @@
    },
    "notiz": {},
    "id": "swdp-200-2-o-2-c",
+   "vergleich": {
+    "Höhe": "1199",
+    "Breite / Tiefe": "600",
+    "Kippmaß": "1290",
+    "Gewicht leer": "82",
+    "UVP": "3.219,00",
+    "Freigegeben für": "24"
+   },
    "katalog": {
     "typ": "SWDP 200-2 O C",
     "familie": "Stora SWDP 200/300-2 O (2) C",
@@ -12400,6 +12886,14 @@
    },
    "notiz": {},
    "id": "swdp-300-2-o-2-c",
+   "vergleich": {
+    "Höhe": "1838",
+    "Breite / Tiefe": "600",
+    "Kippmaß": "1925",
+    "Gewicht leer": "107 | 109",
+    "UVP": "3.064,00",
+    "Freigegeben für": "28"
+   },
    "katalog": {
     "typ": "SWDP 300-2 O C",
     "familie": "Stora SWDP 200/300-2 O (2) C",
@@ -12597,6 +13091,22 @@
     "handlochdeckel_ttnr": "8718542449"
    },
    "id": "wp-180-p-1-b",
+   "vergleich": {
+    "Volumen": "169,6",
+    "Höhe": "1184",
+    "Durchmesser": "671",
+    "Breite / Tiefe": "671",
+    "Kippmaß": "1360,9",
+    "Einbringmaß": "671",
+    "Gewicht leer": "91,5",
+    "Wärmetauscherfläche": "1,7",
+    "Warmhalteverlust": "48,1",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.046,00",
+    "max. Eintauchtiefe Handloch": "450",
+    "E-Heizer": "4",
+    "Freigegeben für": "2"
+   },
    "katalog": {
     "typ": "WP 180 P 1 B",
     "familie": "Stora WP 180/300 P 1 B",
@@ -13035,6 +13545,22 @@
     "name_heizerliste": "WP 300 KP 1 B"
    },
    "id": "wp-300-p-1-b",
+   "vergleich": {
+    "Volumen": "286,6",
+    "Höhe": "1835",
+    "Durchmesser": "662",
+    "Breite / Tiefe": "662",
+    "Kippmaß": "1950,8",
+    "Einbringmaß": "662",
+    "Gewicht leer": "124",
+    "Wärmetauscherfläche": "1,7",
+    "Warmhalteverlust": "63,5",
+    "Energieeffizienzklasse": "B",
+    "UVP": "2.361,00",
+    "max. Eintauchtiefe Handloch": "450",
+    "E-Heizer": "4",
+    "Freigegeben für": "22"
+   },
    "katalog": {
     "typ": "WP 300 KP 1 B",
     "familie": "Stora WP 180/300 P 1 B",
@@ -13452,6 +13978,22 @@
     "handlochdeckel_ttnr": "7719002112"
    },
    "id": "wp-400-kp-1-c",
+   "vergleich": {
+    "Volumen": "347,2",
+    "Höhe": "1630",
+    "Durchmesser": "700",
+    "Kippmaß": "1720",
+    "Gewicht leer": "159",
+    "Wärmetauscherfläche": "4,2",
+    "Leistungskennzahl NL": "3",
+    "Warmhalteverlust": "85,6",
+    "Energieeffizienzklasse": "C",
+    "UVP": "3.394,00",
+    "max. Eintauchtiefe E-Muffe": "597",
+    "max. Eintauchtiefe Handloch": "450",
+    "E-Heizer": "13",
+    "Freigegeben für": "12"
+   },
    "katalog": {
     "typ": "WP 400 KP 1 C",
     "familie": "Stora WP 400/500/700 P 1 C",
@@ -13779,6 +14321,22 @@
     "handlochdeckel_ttnr": "7719002112"
    },
    "id": "wp-500-p-1-c",
+   "vergleich": {
+    "Volumen": "426,0",
+    "Höhe": "1961",
+    "Durchmesser": "700",
+    "Kippmaß": "2030",
+    "Gewicht leer": "180",
+    "Wärmetauscherfläche": "5,65",
+    "Leistungskennzahl NL": "3,7",
+    "Warmhalteverlust": "95,4",
+    "Energieeffizienzklasse": "C",
+    "UVP": "4.105,00",
+    "max. Eintauchtiefe E-Muffe": "598",
+    "max. Eintauchtiefe Handloch": "450",
+    "E-Heizer": "13",
+    "Freigegeben für": "11"
+   },
    "katalog": {
     "typ": "WP 500 P 1 C",
     "familie": "Stora WP 400/500/700 P 1 C",
@@ -14106,6 +14664,22 @@
     "handlochdeckel_ttnr": "7719002112"
    },
    "id": "wp-700-p-1-c",
+   "vergleich": {
+    "Volumen": "680,4",
+    "Höhe": "2050",
+    "Durchmesser": "950",
+    "Kippmaß": "2107",
+    "Gewicht leer": "247",
+    "Wärmetauscherfläche": "7",
+    "Leistungskennzahl NL": "4,5",
+    "Warmhalteverlust": "124,8",
+    "Energieeffizienzklasse": "C",
+    "UVP": "5.199,00",
+    "max. Eintauchtiefe E-Muffe": "750",
+    "max. Eintauchtiefe Handloch": "600",
+    "E-Heizer": "14",
+    "Freigegeben für": "12"
+   },
    "katalog": {
     "typ": "WP 700 P 1 C",
     "familie": "Stora WP 400/500/700 P 1 C",
@@ -14437,6 +15011,22 @@
     "tiefe_handloch_mm": 460
    },
    "id": "wps-390-1-ep-1-c",
+   "vergleich": {
+    "Volumen": "343,0",
+    "Höhe": "1594",
+    "Durchmesser": "700",
+    "Kippmaß": "1417",
+    "Gewicht leer": "151",
+    "Wärmetauscherfläche": "3,2",
+    "Leistungskennzahl NL": "9,1",
+    "Warmhalteverlust": "87,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "3.073,00",
+    "max. Eintauchtiefe E-Muffe": "650",
+    "max. Eintauchtiefe Handloch": "460",
+    "E-Heizer": "9",
+    "Freigegeben für": "26"
+   },
    "katalog": {
     "typ": "WPS 390-1 EP 1 C",
     "familie": "Stora WPS 390/490-1 EP 1",
@@ -14829,6 +15419,22 @@
     "tiefe_handloch_mm": 460
    },
    "id": "wps-490-1-ep-1-c",
+   "vergleich": {
+    "Volumen": "419,0",
+    "Höhe": "1921",
+    "Durchmesser": "700",
+    "Kippmaß": "2020",
+    "Gewicht leer": "186",
+    "Wärmetauscherfläche": "4,3",
+    "Leistungskennzahl NL": "11,2",
+    "Warmhalteverlust": "100,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "3.883,00",
+    "max. Eintauchtiefe E-Muffe": "650",
+    "max. Eintauchtiefe Handloch": "460",
+    "E-Heizer": "9",
+    "Freigegeben für": "17"
+   },
    "katalog": {
     "typ": "WPS 490-1 EP 1 C",
     "familie": "Stora WPS 390/490-1 EP 1",
@@ -15189,6 +15795,23 @@
     "handlochdeckel_ttnr": "8732902340"
    },
    "id": "ws-500-5-ep-1b",
+   "vergleich": {
+    "Volumen": "499,0",
+    "Höhe": "1870",
+    "Durchmesser": "850",
+    "Kippmaß": "1941",
+    "Einbringmaß": "780",
+    "Gewicht leer": "197",
+    "Wärmetauscherfläche": "1,6",
+    "Leistungskennzahl NL": "4,7",
+    "Warmhalteverlust": "80,0",
+    "Energieeffizienzklasse": "B",
+    "UVP": "3.889,00",
+    "max. Eintauchtiefe E-Muffe": "680",
+    "max. Eintauchtiefe Handloch": "480",
+    "E-Heizer": "9",
+    "Freigegeben für": "0"
+   },
    "katalog": {
     "typ": "WS 500-5 EP 1 B",
     "familie": "Stora WS 500-5 EP 1 B",
@@ -15621,6 +16244,19 @@
     "tiefe_muffe_mm": 620
    },
    "id": "cst-500-ehp",
+   "vergleich": {
+    "Volumen": "538",
+    "Kippmaß": "1870",
+    "Gewicht leer": "156",
+    "Wärmetauscherfläche": "5,3",
+    "Leistungskennzahl NL": "3",
+    "Warmhalteverlust": "108,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "5.378,00",
+    "max. Eintauchtiefe E-Muffe": "620",
+    "E-Heizer": "11",
+    "Freigegeben für": "11"
+   },
    "katalog": {
     "typ": "CST 500 Ehp",
     "familie": "Stora CST 500/750 Ehp",
@@ -16034,6 +16670,19 @@
     "tiefe_muffe_mm": 730
    },
    "id": "cst-750-ehp",
+   "vergleich": {
+    "Volumen": "783",
+    "Kippmaß": "1910",
+    "Gewicht leer": "176",
+    "Wärmetauscherfläche": "6,7",
+    "Leistungskennzahl NL": "6,7",
+    "Warmhalteverlust": "127,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "7.005,00",
+    "max. Eintauchtiefe E-Muffe": "730",
+    "E-Heizer": "12",
+    "Freigegeben für": "11"
+   },
    "katalog": {
     "typ": "CST 750 Ehp",
     "familie": "Stora CST 500/750 Ehp",
@@ -16472,6 +17121,20 @@
     "tiefe_muffe_mm": 400
    },
    "id": "bpu-300-c",
+   "vergleich": {
+    "Volumen": "295,0",
+    "Höhe": "1840",
+    "Durchmesser": "610",
+    "Kippmaß": "1945",
+    "Gewicht leer": "148",
+    "Wärmetauscherfläche": "3",
+    "Warmhalteverlust": "91,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "3.285,00",
+    "max. Eintauchtiefe E-Muffe": "400",
+    "E-Heizer": "7",
+    "Freigegeben für": "26"
+   },
    "katalog": {
     "typ": "BPU 300-C",
     "familie": "BPU 300/400/500",
@@ -16825,6 +17488,20 @@
     "tiefe_muffe_mm": 450
    },
    "id": "bpu-400-c",
+   "vergleich": {
+    "Volumen": "400,0",
+    "Höhe": "1750",
+    "Durchmesser": "710",
+    "Kippmaß": "1900",
+    "Gewicht leer": "174",
+    "Wärmetauscherfläche": "3,5",
+    "Warmhalteverlust": "100,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "3.830,00",
+    "max. Eintauchtiefe E-Muffe": "450",
+    "E-Heizer": "8",
+    "Freigegeben für": "25"
+   },
    "katalog": {
     "typ": "BPU 400-C",
     "familie": "BPU 300/400/500",
@@ -17178,6 +17855,20 @@
     "tiefe_muffe_mm": 500
    },
    "id": "bpu-500-c",
+   "vergleich": {
+    "Volumen": "525,0",
+    "Höhe": "1900",
+    "Durchmesser": "760",
+    "Kippmaß": "2080",
+    "Gewicht leer": "212",
+    "Wärmetauscherfläche": "4,4",
+    "Warmhalteverlust": "108,0",
+    "Energieeffizienzklasse": "C",
+    "UVP": "4.242,00",
+    "max. Eintauchtiefe E-Muffe": "500",
+    "E-Heizer": "9",
+    "Freigegeben für": "19"
+   },
    "katalog": {
     "typ": "BPU 500-C",
     "familie": "BPU 300/400/500",
@@ -17985,6 +18676,76 @@
     "hr-300",
     "bst-50-ehp-50"
    ]
+  }
+ ],
+ "vergleich_felder": [
+  {
+   "titel": "Volumen",
+   "einheit": "l"
+  },
+  {
+   "titel": "Höhe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Durchmesser",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Breite / Tiefe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Kippmaß",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Einbringmaß",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Min. Raumhöhe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "Gewicht leer",
+   "einheit": "kg"
+  },
+  {
+   "titel": "Wärmetauscherfläche",
+   "einheit": "m²"
+  },
+  {
+   "titel": "Leistungskennzahl NL",
+   "einheit": ""
+  },
+  {
+   "titel": "Warmhalteverlust",
+   "einheit": "W"
+  },
+  {
+   "titel": "Energieeffizienzklasse",
+   "einheit": ""
+  },
+  {
+   "titel": "UVP",
+   "einheit": "€"
+  },
+  {
+   "titel": "max. Eintauchtiefe E-Muffe",
+   "einheit": "mm"
+  },
+  {
+   "titel": "max. Eintauchtiefe Handloch",
+   "einheit": "mm"
+  },
+  {
+   "titel": "E-Heizer",
+   "einheit": "Varianten"
+  },
+  {
+   "titel": "Freigegeben für",
+   "einheit": "WP"
   }
  ],
  "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"

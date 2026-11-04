@@ -442,6 +442,22 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
 
 
 # ---------------------------------------------------------------------------------------------- Nachbearbeitung
+# Speichervergleich: Titel, Einheit, Quellen (kern:<feld> | =<Label exakt> | ^<Label beginnt mit>)
+VERGLEICH = [
+    ("Volumen", "l", ["kern:volumen_l"]),
+    ("Höhe", "mm", ["kern:hoehe_mm"]),
+    ("Durchmesser", "mm", ["kern:durchmesser_mm", "=Außendurchmesser mit Wärmedämmung"]),
+    ("Breite / Tiefe", "mm", ["kern:breite_mm", "=Breite"]),
+    ("Kippmaß", "mm", ["kern:kippmass_mm"]),
+    ("Einbringmaß", "mm", ["^Min. Einbringbreite", "^Durchmesser ohne Isolierung", "=Außendurchmesser ohne Wärmedämmung"]),
+    ("Min. Raumhöhe", "mm", ["=Min. Aufstellraumhöhe"]),
+    ("Gewicht leer", "kg", ["kern:gewicht_kg"]),
+    ("Wärmetauscherfläche", "m²", ["=Wärmetauscherfläche", "=Heizfläche", "^Wärmetauscherfläche"]),
+    ("Leistungskennzahl NL", "", ["^Leistungskennzahl"]),
+    ("Warmhalteverlust", "W", ["=Warmhalteverlust"]),
+    ("Energieeffizienzklasse", "", ["=Energieeffizienzklasse", "=Warmwasserbereitungs-Energieeffizienzklasse"]),
+]
+
 NUR_WP_SPEICHER = True          # nur Speicher aus der WP-Matrix anzeigen (Vorgabe für die erste Ausbaustufe)
 
 TIPPFEHLER_EXCEL = {"je anch Verwendung": "je nach Verwendung"}
@@ -586,6 +602,7 @@ def nachbearbeiten(daten: dict) -> None:
             if vorg:
                 s["vorgaenger"] = vorg
     daten["nur_wp_speicher"] = NUR_WP_SPEICHER
+    vergleichswerte(daten)
     # WP-Pakete aus dem Katalog
     daten["pakete"] = []
     if KATALOG.exists():
@@ -600,6 +617,42 @@ def nachbearbeiten(daten: dict) -> None:
                 if treffer:
                     sids.append(treffer[0])
             daten["pakete"].append({**pk, "wp_ids": wids, "speicher_ids": sids})
+
+def vergleichswerte(daten: dict) -> None:
+    """Je Speicher die Werte für den Vergleich (max. 2 Speicher nebeneinander) vorbereiten."""
+    from bosch_flow.speicher import bewertung
+    daten["vergleich_felder"] = [{"titel": t, "einheit": e} for t, e, _ in VERGLEICH] + [
+        {"titel": t, "einheit": e} for t, e in (("UVP", "€"), ("max. Eintauchtiefe E-Muffe", "mm"),
+                                                ("max. Eintauchtiefe Handloch", "mm"), ("E-Heizer", "Varianten"),
+                                                ("Freigegeben für", "WP"))]
+    for s in daten["speicher"]:
+        k = s.get("katalog") or {}
+        werte = k.get("werte", [])
+        v = {}
+        for titel, _, quellen in VERGLEICH:
+            for q in quellen:
+                if q.startswith("kern:") and (k.get("kern") or {}).get(q[5:]):
+                    v[titel] = k["kern"][q[5:]]
+                elif q[0] in "=^":
+                    w = next((w["wert"] for w in werte if (w["label"] == q[1:] if q[0] == "=" else w["label"].startswith(q[1:]))
+                              and w["wert"] not in ("-", "–")), None)
+                    if w:
+                        v[titel] = w
+                if titel in v:
+                    break
+        if k.get("preis"):
+            v["UVP"] = f'{k["preis"]:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
+        eh = s.get("eheizer") or {}
+        if eh.get("tiefe_muffe_mm"):
+            v["max. Eintauchtiefe E-Muffe"] = str(eh["tiefe_muffe_mm"])
+        if eh.get("tiefe_handloch_mm"):
+            v["max. Eintauchtiefe Handloch"] = str(eh["tiefe_handloch_mm"])
+        n_hz = sum(1 for st in eh.get("heizer", {}).values() if st in ("ja", "hzg"))
+        if n_hz:
+            v["E-Heizer"] = str(n_hz)
+        v["Freigegeben für"] = str(sum(1 for c in s["kombi"].values() if bewertung(c)[0] in ("ja", "bedingt")))
+        s["vergleich"] = v
+
 
 def baue(xlsx: Path, stammdaten: Path) -> dict:
     with warnings.catch_warnings():

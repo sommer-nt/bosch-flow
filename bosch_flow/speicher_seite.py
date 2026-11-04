@@ -83,6 +83,15 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
                     + (f' · laut IM: {E(s["name_im"])}' if s.get("name_im") and s["name_im"] != s["name"] else "")
                     + '</div>', unsafe_allow_html=True)
         with k2:
+            vgl = st.session_state.setdefault("sp_vgl", [])
+            if st.button("Im Vergleich" if s["id"] in vgl else "Vergleichen", icon=":material/compare_arrows:",
+                         key=f"sp_vglknopf_{s['id']}", type="primary" if s["id"] in vgl else "secondary"):
+                if s["id"] in vgl:
+                    vgl.remove(s["id"])
+                else:
+                    vgl.append(s["id"])
+                    del vgl[:-2]
+                st.rerun()
             b1, b2 = st.columns(2)
             if s.get("im"):
                 b1.link_button("Installationsanleitung", s["im"], icon=":material/description:", type="primary",
@@ -248,6 +257,45 @@ def _katalog_details(s: dict, d: dict, kat: dict) -> None:
                 st.markdown(t)
 
 
+def _vergleich(d: dict, wp_id: str | None) -> None:
+    """Zwei Speicher nebeneinander (Kippmaß, Gewicht, Volumen …)."""
+    ss = st.session_state
+    vgl = [i for i in ss.setdefault("sp_vgl", []) if SP.speicher_nach_id(i, d)]
+    namen = {s["id"]: s["name"] for s in d["speicher"]}
+    with st.expander(f"Speicher vergleichen ({len(vgl)}/2)", expanded=bool(vgl)):
+        neu = st.multiselect("Speicher (max. 2)", list(namen), default=vgl, max_selections=2,
+                             format_func=lambda i: namen[i], key=f"sp_vgl_auswahl_{'_'.join(vgl)}")
+        if neu != vgl:
+            ss.sp_vgl = neu
+            st.rerun()
+        if not vgl:
+            st.caption("Speicher hier auswählen oder in der Detailansicht auf „Vergleichen“ klicken.")
+            return
+        sp = [SP.speicher_nach_id(i, d) for i in vgl]
+        zeilen = []
+        if wp_id:
+            w = SP.wp_nach_id(wp_id, d)
+            def freigabe(s):
+                c = s["kombi"].get(wp_id, "")
+                st_, zu = SP.bewertung(c)
+                return ("freigegeben" + (f" ({zu})" if zu else "")) if st_ == "ja" else \
+                    (f"eingeschränkt ({c})" if st_ == "bedingt" else "nicht freigegeben")
+            zeilen.append((f"Mit {w['name']}", [freigabe(s) for s in sp]))
+        for f in d.get("vergleich_felder", []):
+            werte = [s.get("vergleich", {}).get(f["titel"], "") for s in sp]
+            if any(werte):
+                zeilen.append((f["titel"] + (f" ({f['einheit']})" if f["einheit"] else ""), [x or "–" for x in werte]))
+        kopf = "| | " + " | ".join(f"**{E(s['name'])}**" for s in sp) + " |\n|---|" + "---|" * len(sp) + "\n"
+        st.markdown(kopf + "\n".join(
+            f"| {E(t)} | " + " | ".join((f"**{E(x)}**" if len(sp) == 2 and ws[0] != ws[1] else E(x)) for x in ws) + " |"
+            for t, ws in zeilen))
+        cols = st.columns(len(sp))
+        for s, c in zip(sp, cols):
+            b = SP.bilder(s)
+            if b:
+                c.image(str(b[0]), width="stretch")
+
+
 def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
     d = SP.laden()
     ss = st.session_state
@@ -304,6 +352,7 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
                    f"{len(ids)} Wärmepumpenspeicher")
     _spalten(gruppen, d, F, dunkel, mobil)
 
+    _vergleich(d, wp_id)
     s = SP.speicher_nach_id(ss.get("sp_wahl") or "", d)
     if s:
         _detail(s, d, F, wp_id, mobil)

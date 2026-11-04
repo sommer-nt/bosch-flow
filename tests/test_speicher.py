@@ -159,3 +159,11 @@ def test_nur_wp_speicher():
     assert D["nur_wp_speicher"] and all(s["matrix"] for s in D["speicher"])
     ids = {s["id"] for s in D["speicher"]}
     assert all(s.get("nachfolger", next(iter(ids))) in ids for s in D["speicher"])
+
+
+def test_vergleichswerte():
+    titel = [f["titel"] for f in D["vergleich_felder"]]
+    assert {"Volumen", "Kippmaß", "Gewicht leer", "UVP"} <= set(titel)
+    v = SP.speicher_nach_id("wps-390-1-ep-1-c")["vergleich"]
+    assert v["Volumen"] == "343,0" and v["Höhe"] == "1594" and v["UVP"] == "3.073,00"
+    assert all("vergleich" in s for s in D["speicher"])
