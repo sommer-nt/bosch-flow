@@ -330,7 +330,15 @@
    },
    "notiz": {
     "J": "Nur Pendelpuffer bei allen Leistungen",
-    "O": "Nur Pendelpuffer bei allen Leistungen"
+    "O": "Nur Pendelpuffer bei allen Leistungen",
+    "K": "Nur Pendelpuffer bei allen Leistungen",
+    "L": "Nur Pendelpuffer bei allen Leistungen",
+    "M": "Nur Pendelpuffer bei allen Leistungen",
+    "N": "Nur Pendelpuffer bei allen Leistungen",
+    "P": "Nur Pendelpuffer bei allen Leistungen",
+    "Q": "Nur Pendelpuffer bei allen Leistungen",
+    "R": "Nur Pendelpuffer bei allen Leistungen",
+    "S": "Nur Pendelpuffer bei allen Leistungen"
    },
    "id": "bst-50-ehp-50",
    "katalog": {
@@ -457,7 +465,17 @@
     ],
     "zubehoer": []
    },
-   "name_excel": "BST 50 Ehp 50"
+   "name_excel": "BST 50 Ehp 50",
+   "notiz_baureihe": [
+    "K",
+    "L",
+    "M",
+    "N",
+    "P",
+    "Q",
+    "R",
+    "S"
+   ]
   },
   {
    "name": "BH 120-5 1 A",
@@ -517,7 +535,11 @@
     "AZ": "-"
    },
    "notiz": {
-    "O": "Nur Pendelpuffer bei allen Leistungen"
+    "O": "Nur Pendelpuffer bei allen Leistungen",
+    "P": "Nur Pendelpuffer bei allen Leistungen",
+    "Q": "Nur Pendelpuffer bei allen Leistungen",
+    "R": "Nur Pendelpuffer bei allen Leistungen",
+    "S": "Nur Pendelpuffer bei allen Leistungen"
    },
    "id": "bh-120-5-1-a",
    "katalog": {
@@ -787,7 +809,13 @@
      "1) Kombination ist möglich; Fühlerposition analog Hydraulikschema berücksichtigen"
     ],
     "zubehoer": []
-   }
+   },
+   "notiz_baureihe": [
+    "P",
+    "Q",
+    "R",
+    "S"
+   ]
   },
   {
    "name": "BH 200-5 1 A",
@@ -847,7 +875,11 @@
     "AZ": "-"
    },
    "notiz": {
-    "O": "4-Punkt Anbindung bei allen Leistungen"
+    "O": "4-Punkt Anbindung bei allen Leistungen",
+    "P": "4-Punkt Anbindung bei allen Leistungen",
+    "Q": "4-Punkt Anbindung bei allen Leistungen",
+    "R": "4-Punkt Anbindung bei allen Leistungen",
+    "S": "4-Punkt Anbindung bei allen Leistungen"
    },
    "id": "bh-200-5-1-a",
    "katalog": {
@@ -1039,7 +1071,13 @@
      "1) Kombination ist möglich; Fühlerposition analog Hydraulikschema berücksichtigen"
     ],
     "zubehoer": []
-   }
+   },
+   "notiz_baureihe": [
+    "P",
+    "Q",
+    "R",
+    "S"
+   ]
   },
   {
    "name": "BH 300-5 K1 B",
@@ -1097,9 +1135,19 @@
     "AZ": "-"
    },
    "notiz": {
-    "O": "4-Punkt Anbindung bei allen Leistungen"
+    "O": "4-Punkt Anbindung bei allen Leistungen",
+    "P": "4-Punkt Anbindung bei allen Leistungen",
+    "Q": "4-Punkt Anbindung bei allen Leistungen",
+    "R": "4-Punkt Anbindung bei allen Leistungen",
+    "S": "4-Punkt Anbindung bei allen Leistungen"
    },
-   "id": "bh-300-5-k1-b"
+   "id": "bh-300-5-k1-b",
+   "notiz_baureihe": [
+    "P",
+    "Q",
+    "R",
+    "S"
+   ]
   },
   {
    "name": "BP 300-5 1",
@@ -1162,7 +1210,13 @@
     "J": "4-Punkt Anbindung bei allen Leistungen",
     "K": "4-Punkt Anbindung bei allen Leistungen",
     "L": "4-Punkt Anbindung bei allen Leistungen",
-    "O": "4-Punkt Anbindung bei allen Leistungen"
+    "O": "4-Punkt Anbindung bei allen Leistungen",
+    "M": "4-Punkt Anbindung bei allen Leistungen",
+    "N": "4-Punkt Anbindung bei allen Leistungen",
+    "P": "4-Punkt Anbindung bei allen Leistungen",
+    "Q": "4-Punkt Anbindung bei allen Leistungen",
+    "R": "4-Punkt Anbindung bei allen Leistungen",
+    "S": "4-Punkt Anbindung bei allen Leistungen"
    },
    "id": "bp-300-5-1",
    "katalog": {
@@ -1293,7 +1347,15 @@
      "1) Kombination ist möglich; Fühlerposition analog Hydraulikschema berücksichtigen"
     ],
     "zubehoer": []
-   }
+   },
+   "notiz_baureihe": [
+    "M",
+    "N",
+    "P",
+    "Q",
+    "R",
+    "S"
+   ]
   },
   {
    "name": "BP 500-7 EM 1",
@@ -35759,6 +35821,17 @@
  "hinweise_heizer": [
   "Zur Erhaltung des Korrosionsschutzes ist nur der Einbau von isolierten E-Heizstäben zugelassen."
  ],
+ "hinweise_eheizer_ergaenzung": [
+  "Folie nennt für den E-Heater 2 kW (7735502657) 230 mm Einbaulänge – E-Heizer-Liste und Katalog: Mindesteinbautiefe 320 mm."
+ ],
+ "erklaerungen": {
+  "4-Punkt": "4-Punkt-Anbindung (Trennpuffer): Der Puffer hat vier Anschlüsse, zwei für den Wärmepumpenkreis (Vor- und Rücklauf) und zwei für den Heizkreis. Er entkoppelt beide Kreise hydraulisch, ähnlich wie eine hydraulische Weiche. Jeder Kreis braucht dann eine eigene Pumpe.",
+  "Pendelpuffer": "Pendelpuffer bzw. Reihenpuffer (2-Punkt): Der Puffer liegt nur in einer Leitung, meist im Rücklauf, und das Wasser „pendelt“ durch. Er vergrößert das Anlagenvolumen, trennt die Kreise aber nicht. Der BST 50 ist so ein Speicher."
+ },
+ "hinweise_freigabe": [
+  "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
+  "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
+ ],
  "pakete": [
   {
    "titel": "CS3800iAW Pakete mit Kompaktmodul für 1 Heizkreis mit Warmwasserbereitung und Pufferspeicher",
@@ -36025,13 +36098,6 @@
     "bst-50-ehp-50"
    ]
   }
- ],
- "hinweise_freigabe": [
-  "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
-  "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
- ],
- "hinweise_eheizer_ergaenzung": [
-  "Folie nennt für den E-Heater 2 kW (7735502657) 230 mm Einbaulänge – E-Heizer-Liste und Katalog: Mindesteinbautiefe 320 mm."
  ],
  "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
 }

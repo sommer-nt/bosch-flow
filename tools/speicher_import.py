@@ -454,6 +454,16 @@ NACHFOLGER = [(r"^BH (\d+)-6 ERZ", "BP {}-7 ERZ 1"), (r"^BSH (\d+)-6 ERZ", "BPS 
               (r"^WH (290|370) LP 1 B", "WP {} EP 1C")]
 NAHEZU_GLEICH = "laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch"
 
+# Erklärungen zu Begriffen aus den Matrix-Kommentaren (Schlüssel = Textstück im Kommentar)
+ERKLAERUNGEN = {
+    "4-Punkt": "4-Punkt-Anbindung (Trennpuffer): Der Puffer hat vier Anschlüsse, zwei für den Wärmepumpenkreis "
+               "(Vor- und Rücklauf) und zwei für den Heizkreis. Er entkoppelt beide Kreise hydraulisch, ähnlich wie "
+               "eine hydraulische Weiche. Jeder Kreis braucht dann eine eigene Pumpe.",
+    "Pendelpuffer": "Pendelpuffer bzw. Reihenpuffer (2-Punkt): Der Puffer liegt nur in einer Leitung, meist im "
+                    "Rücklauf, und das Wasser „pendelt“ durch. Er vergrößert das Anlagenvolumen, trennt die Kreise "
+                    "aber nicht. Der BST 50 ist so ein Speicher.",
+}
+
 # Bestätigte Regeln zur Matrix (Rückmeldung Matthias Spies)
 HINWEISE_FREIGABE = [
     "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
@@ -543,6 +553,19 @@ def nachbearbeiten(daten: dict) -> None:
             grenze = e.get("tiefe_handloch_mm") if h and h["typ"] == "led_hd" else e.get("tiefe_muffe_mm")
             if st in ("ja", "hzg") and h and h["typ"] in ("led", "led_hd", "cthk") and grenze and h["einbautiefe_mm"] > grenze:
                 e.setdefault("zu_lang", []).append(hid)
+    # Kommentare „… bei allen Leistungen“ gelten für die ganze Baureihe (nicht nur die kommentierte Zelle)
+    familie = {w["id"]: w["familie"] for w in daten["wp"]}
+    for s in sp:
+        for wid in s.pop("notiz_baureihe", []):         # wiederholbar: übertragene Kommentare zuerst entfernen
+            s["notiz"].pop(wid, None)
+        for wid, text in list(s.get("notiz", {}).items()):
+            if "allen Leistungen" not in text:
+                continue
+            for w in daten["wp"]:
+                if familie[w["id"]] == familie[wid] and w["id"] not in s["notiz"] and s["kombi"].get(w["id"]):
+                    s["notiz"][w["id"]] = text
+                    s.setdefault("notiz_baureihe", []).append(w["id"])
+    daten["erklaerungen"] = ERKLAERUNGEN
     daten["hinweise_freigabe"] = HINWEISE_FREIGABE
     for s in sp:
         s.pop("hinweis_matrix", None)

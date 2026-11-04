@@ -147,3 +147,10 @@ def test_eheizer_bp7_und_pf_solar():
     assert len(SP.heizer_fuer_speicher("bp-750-7-erz-1")["cthk"]) == 7
     assert SP.speicher_nach_id("bp-500-7-erz-1")["eheizer"]["tiefe_muffe_mm"] == 580
     assert not SP.suche("PF 500 solar")
+
+
+def test_kommentar_baureihe_und_erklaerung():
+    cs3800_10 = next(w["id"] for w in D["wp"] if w["name"] == "CS3800iAW 10 O-T")
+    bh200 = SP.speicher_nach_id("bh-200-5-1-a")
+    assert "4-Punkt" in bh200["notiz"][cs3800_10] and cs3800_10 in bh200["notiz_baureihe"]
+    assert "Trennpuffer" in D["erklaerungen"]["4-Punkt"]

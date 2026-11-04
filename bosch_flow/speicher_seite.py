@@ -106,7 +106,15 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
             elif zusatz:
                 st.info(f"Mit {wp['name']}: {zusatz}")
             if s["notiz"].get(wp_id):
-                st.info(f"ⓘ Hinweis zur Kombination: {s['notiz'][wp_id]}")
+                notiz = s["notiz"][wp_id]
+                st.info(f"ⓘ Hinweis zur Kombination: {notiz}"
+                        + (" (in der Matrix an einer anderen Leistungsgröße der Baureihe vermerkt)"
+                           if wp_id in s.get("notiz_baureihe", []) else ""))
+                erkl = [t for k, t in d.get("erklaerungen", {}).items() if k in notiz]
+                if erkl:
+                    with st.expander("Was bedeutet das?"):
+                        for t in erkl:
+                            st.markdown(t)
         if s.get("hinweis_matrix"):
             st.info(s["hinweis_matrix"])
         if kat.get("von_vorgaenger"):
