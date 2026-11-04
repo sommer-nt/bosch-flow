@@ -37,7 +37,7 @@ def _tags(s: dict, e: dict | None, F: dict) -> str:
     elif e and e["zusatz"]:
         t.append(f'<b style="color:{F["akzent"]}">{E(e["zusatz"])}</b>')
     if e and e.get("quelle") == "katalog":
-        t.append(f'<b style="color:{F["akzent"]}" title="nicht in der Matrix – Freigabe laut Gesamtkatalog">nur Katalog</b>')
+        t.append(f'<b style="color:{F["akzent"]}" title="in der Matrix nicht geprüft (= nicht freigegeben) – Freigabe nur laut Katalog">nur Katalog</b>')
     if e and e["notiz"]:
         t.append(f'<span style="color:{F["gelb"]}">ⓘ {E(e["notiz"])}</span>')
     preis = SP.preis_text((s.get("katalog") or {}).get("preis"))
@@ -94,9 +94,10 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
             status, zusatz = SP.bewertung(m or k)
             wp = SP.wp_nach_id(wp_id, d)
             if not m and k and status == "nein":
-                st.warning(f"Nicht in der Matrix – mit {wp['name']} laut Katalog nicht freigegeben („{k}“).")
+                st.warning(f"In der Matrix nicht geprüft – mit {wp['name']} auch laut Katalog nicht freigegeben („{k}“).")
             elif not m and k:
-                st.info(f"Nicht in der Matrix – mit {wp['name']} laut Katalog freigegeben („{k}“).")
+                st.warning(f"In der Matrix nicht geprüft und damit nicht freigegeben – laut Katalog mit {wp['name']} "
+                           f"möglich („{k}“). Vor Einsatz mit Matthias Spies klären.")
             elif m and k and SP.bewertung(k)[0] != status:
                 st.warning(f"⚠ Gesamtkatalog weicht ab: mit {wp['name']} „{k}“, Matrix „{m}“.")
             if status == "bedingt":
@@ -105,6 +106,10 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
                 st.info(f"Mit {wp['name']}: {zusatz}")
             if s["notiz"].get(wp_id):
                 st.warning(f"ⓘ {s['notiz'][wp_id]}")
+        if s.get("hinweis_matrix"):
+            st.info(s["hinweis_matrix"])
+        if kat.get("von_vorgaenger"):
+            st.info(f"Maße, Maßbild und Daten vom Vorgänger {kat['von_vorgaenger']} – {kat['von_vorgaenger_hinweis']}.")
         if s.get("nachfolger"):
             neu = SP.speicher_nach_id(s["nachfolger"], d)
             if st.button(f"Neue Speichergeneration: {neu['name']}", key=f"sp_nf_{s['id']}", icon=":material/upgrade:"):
@@ -260,8 +265,9 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
             alte = t1.toggle("Alt-Speicher", value=True, key="sp_alte")
             bedingte = t2.toggle("eingeschränkt", value=True, key="sp_bed",
                                  help="z. B. (-)* – abweichend bei Wasser-Wasser-Betrieb")
-            katalog = t3.toggle("+ Katalog", value=True, key="sp_kat",
-                                help="Speicher ergänzen, die laut Gesamtkatalog freigegeben sind, in der Matrix aber fehlen")
+            katalog = t3.toggle("+ Katalog", value=False, key="sp_kat",
+                                help="Speicher zeigen, die in der Matrix nicht geprüft sind (leer = nicht freigegeben), "
+                                     "laut Katalog aber freigegeben")
         roh = SP.speicher_fuer_wp(wp_id, alte, bedingte, katalog, d)
         gruppen = {k: [(SP.speicher_nach_id(e["id"], d), e) for e in v] for k, v in roh.items()}
         n = sum(len(v) for v in gruppen.values())
@@ -289,6 +295,7 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
     s = SP.speicher_nach_id(ss.get("sp_wahl") or "", d)
     if s:
         _detail(s, d, F, wp_id, mobil)
-    st.caption("Legende Matrix: + freigegeben · ++ zwei Speichereinheiten · (-)* abweichend bei Wasser-Wasser-Betrieb  \n"
-               + "  \n".join(d["hinweise_matrix"]) + f"  \nQuellen: {d['quelle']}"
+    st.caption("Legende Matrix: + freigegeben · ++ zwei Speichereinheiten · (-)* abweichend bei Wasser-Wasser-Betrieb · "
+               "leer = nicht geprüft und nicht freigegeben  \n"
+               + "  \n".join(d["hinweise_matrix"] + d.get("hinweise_freigabe", [])) + f"  \nQuellen: {d['quelle']}"
                + (f" · {d['katalog_quelle']} (Preise: unverbindliche Preisempfehlung ohne MwSt.)" if d.get("katalog_quelle") else ""))

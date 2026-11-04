@@ -1580,7 +1580,8 @@
    },
    "vorgaenger": [
     "bh-500-6-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 750-7 EM 1",
@@ -1885,7 +1886,8 @@
    },
    "vorgaenger": [
     "bh-750-6-pn6-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 1000-7 EM 1",
@@ -2181,7 +2183,8 @@
       "preis": 98.4
      }
     ]
-   }
+   },
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 500-7 EMR 1",
@@ -2626,7 +2629,8 @@
    "name_excel": "BP 500-7 EMR",
    "vorgaenger": [
     "b-500-6-er-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 750-7 EMR 1",
@@ -3089,7 +3093,8 @@
    "name_excel": "BP 750-7 EMR",
    "vorgaenger": [
     "b-750-6-er-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 1000-7 EMR 1",
@@ -3556,7 +3561,8 @@
    "name_excel": "BP 1000-7 EMR",
    "vorgaenger": [
     "b-1000-6-er-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BPS 500-7 ER 1",
@@ -4038,7 +4044,8 @@
    "name_excel": "BPS500-7 ER",
    "vorgaenger": [
     "bs-500-6-er-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 500-7 ERZ 1",
@@ -4507,7 +4514,8 @@
    },
    "vorgaenger": [
     "bh-500-6-erz-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 750-7 ERZ 1",
@@ -4994,7 +5002,8 @@
    },
    "vorgaenger": [
     "bh-750-6-erz-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BP 1000-7 ERZ 1",
@@ -5487,7 +5496,8 @@
    },
    "vorgaenger": [
     "bh-1000-6-erz-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BPS 750-7 ERZ 1",
@@ -6028,7 +6038,8 @@
    },
    "vorgaenger": [
     "bsh-750-6-erz-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BPS 1000-7 ERZ 1",
@@ -6575,7 +6586,8 @@
    },
    "vorgaenger": [
     "bsh-1000-6-erz-1-b"
-   ]
+   ],
+   "hinweis_matrix": "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
   },
   {
    "name": "BH 500-6 1 B",
@@ -10103,7 +10115,268 @@
     "AS": "-"
    },
    "notiz": {},
-   "id": "wp-290-ep-1c"
+   "id": "wp-290-ep-1c",
+   "vorgaenger": [
+    "wh-290-lp-1-b"
+   ],
+   "katalog": {
+    "typ": "WH 290 LP 1 B",
+    "familie": "Stora WH 290/370/400/450 LP 1 B",
+    "seite": "12063",
+    "preis": null,
+    "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+    "stand": "03/2026",
+    "neu": false,
+    "verfuegbar_ab": "",
+    "text": "bestellen. •Zirkulationsanschluss Wärmepumpenspeicher",
+    "beschreibung": [
+     "Produktbeschreibung •Warmwasserspeicher Stora WH .. LP 1 B mit emailliertem Stahlbehälter •Verkleidung silber •Abgestimmt auf Junkers-/Bosch- Wärmepumpen",
+     "Ausstattung •Höhenverstellbare Stellfüße •Glattrohrwärmetauscher •Tauchhülse für Temperaturfühler, Schutzanode, Thermometer •Reinigungsflansch •Zirkulationsanschluss",
+     "Hinweis •Der erforderlicher Temperaturfühler NTC ist bei Wärmepumpen Compress CS...AW im Lieferumfang enthalten. Bei anderen Bosch Wärmepumpen bitte separat einen Temperaturfühler NTC bestellen."
+    ],
+    "bilder": [
+     "kat-wh-290-370-400-450-lp-1-b"
+    ],
+    "kern": {
+     "volumen_l": "276,8",
+     "hoehe_mm": "1294",
+     "durchmesser_mm": "700",
+     "kippmass_mm": "1475",
+     "gewicht_kg": "128"
+    },
+    "werte": [
+     {
+      "label": "A",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "25"
+     },
+     {
+      "label": "B",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "55"
+     },
+     {
+      "label": "C",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "220"
+     },
+     {
+      "label": "D",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "544"
+     },
+     {
+      "label": "E",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "644"
+     },
+     {
+      "label": "F",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "784"
+     },
+     {
+      "label": "G",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "829"
+     },
+     {
+      "label": "H",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1226"
+     },
+     {
+      "label": "I",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1294"
+     },
+     {
+      "label": "J",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "400"
+     },
+     {
+      "label": "K",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "700"
+     },
+     {
+      "label": "L",
+      "kz": "",
+      "einheit": "kg",
+      "wert": "137"
+     },
+     {
+      "label": "M",
+      "kz": "",
+      "einheit": "kg",
+      "wert": "414"
+     },
+     {
+      "label": "Energieeffizienzklasse",
+      "kz": "",
+      "einheit": "",
+      "wert": "B"
+     },
+     {
+      "label": "Energieeffizienzklassen-Spektrum",
+      "kz": "",
+      "einheit": "",
+      "wert": "A+ -> F"
+     },
+     {
+      "label": "Warmhalteverlust",
+      "kz": "W",
+      "einheit": "",
+      "wert": "67,0"
+     },
+     {
+      "label": "Speichervolumen",
+      "kz": "",
+      "einheit": "l",
+      "wert": "276,8"
+     },
+     {
+      "label": "Farbe",
+      "kz": "",
+      "einheit": "",
+      "wert": "silber"
+     },
+     {
+      "label": "Nutzinhalt",
+      "kz": "",
+      "einheit": "l",
+      "wert": "277"
+     },
+     {
+      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C kW",
+      "kz": "",
+      "einheit": "",
+      "wert": "11"
+     },
+     {
+      "label": "Wärmetauscherfläche",
+      "kz": "",
+      "einheit": "m²",
+      "wert": "3,2"
+     },
+     {
+      "label": "Max. Dauerleistung bei tV=60°C, tSP=45°C",
+      "kz": "",
+      "einheit": "l/h",
+      "wert": "216"
+     },
+     {
+      "label": "Berücksichtigte Umlaufwassermenge",
+      "kz": "",
+      "einheit": "l/h",
+      "wert": "1000"
+     },
+     {
+      "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
+      "kz": "NL",
+      "einheit": "",
+      "wert": "2,3"
+     },
+     {
+      "label": "Min. Aufheizzeit von tK=10°C auf tSP=57°C mit",
+      "kz": "",
+      "einheit": "min",
+      "wert": "116"
+     },
+     {
+      "label": "Kalt- und Warmwasseranschluss",
+      "kz": "",
+      "einheit": "Zoll",
+      "wert": "1"
+     },
+     {
+      "label": "Vorlauf/Rücklauf Heizung",
+      "kz": "",
+      "einheit": "Zoll",
+      "wert": "1,25"
+     },
+     {
+      "label": "Zirkulation",
+      "kz": "",
+      "einheit": "Zoll",
+      "wert": "3/4"
+     },
+     {
+      "label": "Zulässiger Betriebsdruck, Heizung",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "16"
+     },
+     {
+      "label": "Zulässiger Betriebsdruck, Warmwasser",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "10"
+     },
+     {
+      "label": "Höhe",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1294"
+     },
+     {
+      "label": "Durchmesser",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "700"
+     },
+     {
+      "label": "Kippmaß",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1475"
+     },
+     {
+      "label": "Nettogewicht",
+      "kz": "",
+      "einheit": "kg",
+      "wert": "128"
+     }
+    ],
+    "konflikte": [],
+    "kombi": {},
+    "hinweise": [
+     "1) (-) Abweichend bei Wasser-Wasser-Betrieb"
+    ],
+    "zubehoer": [],
+    "von_vorgaenger": "WH 290 LP 1 B",
+    "von_vorgaenger_hinweis": "laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch"
+   },
+   "eheizer": {
+    "produktfamilie": "Monovalente TW-Speicher Wärmepumpe",
+    "heizer": {
+     "led_hd:7735502657": "ja",
+     "led_hd:7735502658": "ja",
+     "led_hd:7735502659": "ja",
+     "led_hd:7735502660": "ja",
+     "led_hd:7735502661": "nein",
+     "flh:8738212214": "ja",
+     "flh:8738212217": "ja",
+     "flh:8738212215": "ja",
+     "flh:8738212216": "ja"
+    },
+    "hinweis": "E-Heizer vom Vorgänger WH 290 LP 1 B übernommen (laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch).",
+    "tiefe_handloch_mm": 460,
+    "handlochdeckel_ttnr": "7719002112",
+    "quelle": "vorgaenger"
+   }
   },
   {
    "name": "WP 370 EP 1C",
@@ -10154,7 +10427,268 @@
     "AS": "-"
    },
    "notiz": {},
-   "id": "wp-370-ep-1c"
+   "id": "wp-370-ep-1c",
+   "vorgaenger": [
+    "wh-370-lp-1-b"
+   ],
+   "katalog": {
+    "typ": "WH 370 LP 1 B",
+    "familie": "Stora WH 290/370/400/450 LP 1 B",
+    "seite": "12063",
+    "preis": null,
+    "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+    "stand": "03/2026",
+    "neu": false,
+    "verfuegbar_ab": "",
+    "text": "Wärmepumpenspeicher",
+    "beschreibung": [
+     "Produktbeschreibung •Warmwasserspeicher Stora WH .. LP 1 B mit emailliertem Stahlbehälter •Verkleidung silber •Abgestimmt auf Junkers-/Bosch- Wärmepumpen",
+     "Ausstattung •Höhenverstellbare Stellfüße •Glattrohrwärmetauscher •Tauchhülse für Temperaturfühler, Schutzanode, Thermometer •Reinigungsflansch •Zirkulationsanschluss",
+     "Hinweis •Der erforderlicher Temperaturfühler NTC ist bei Wärmepumpen Compress CS...AW im Lieferumfang enthalten. Bei anderen Bosch Wärmepumpen bitte separat einen Temperaturfühler NTC bestellen."
+    ],
+    "bilder": [
+     "kat-wh-290-370-400-450-lp-1-b"
+    ],
+    "kern": {
+     "volumen_l": "350,6",
+     "hoehe_mm": "1591",
+     "durchmesser_mm": "750",
+     "kippmass_mm": "1750",
+     "gewicht_kg": "174"
+    },
+    "werte": [
+     {
+      "label": "A",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "25"
+     },
+     {
+      "label": "B",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "55"
+     },
+     {
+      "label": "C",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "220"
+     },
+     {
+      "label": "D",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "665"
+     },
+     {
+      "label": "E",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "791"
+     },
+     {
+      "label": "F",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "964"
+     },
+     {
+      "label": "G",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1009"
+     },
+     {
+      "label": "H",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1523"
+     },
+     {
+      "label": "I",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1591"
+     },
+     {
+      "label": "J",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "400"
+     },
+     {
+      "label": "K",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "750"
+     },
+     {
+      "label": "L",
+      "kz": "",
+      "einheit": "kg",
+      "wert": "145"
+     },
+     {
+      "label": "M",
+      "kz": "",
+      "einheit": "kg",
+      "wert": "497"
+     },
+     {
+      "label": "Energieeffizienzklasse",
+      "kz": "",
+      "einheit": "",
+      "wert": "B"
+     },
+     {
+      "label": "Energieeffizienzklassen-Spektrum",
+      "kz": "",
+      "einheit": "",
+      "wert": "A+ -> F"
+     },
+     {
+      "label": "Warmhalteverlust",
+      "kz": "W",
+      "einheit": "",
+      "wert": "63,0"
+     },
+     {
+      "label": "Speichervolumen",
+      "kz": "",
+      "einheit": "l",
+      "wert": "350,6"
+     },
+     {
+      "label": "Farbe",
+      "kz": "",
+      "einheit": "",
+      "wert": "silber"
+     },
+     {
+      "label": "Nutzinhalt",
+      "kz": "",
+      "einheit": "l",
+      "wert": "352"
+     },
+     {
+      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C kW",
+      "kz": "",
+      "einheit": "",
+      "wert": "14"
+     },
+     {
+      "label": "Wärmetauscherfläche",
+      "kz": "",
+      "einheit": "m²",
+      "wert": "4,2"
+     },
+     {
+      "label": "Max. Dauerleistung bei tV=60°C, tSP=45°C",
+      "kz": "",
+      "einheit": "l/h",
+      "wert": "320"
+     },
+     {
+      "label": "Berücksichtigte Umlaufwassermenge",
+      "kz": "",
+      "einheit": "l/h",
+      "wert": "1500"
+     },
+     {
+      "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
+      "kz": "NL",
+      "einheit": "",
+      "wert": "3"
+     },
+     {
+      "label": "Min. Aufheizzeit von tK=10°C auf tSP=57°C mit",
+      "kz": "",
+      "einheit": "min",
+      "wert": "128"
+     },
+     {
+      "label": "Kalt- und Warmwasseranschluss",
+      "kz": "",
+      "einheit": "Zoll",
+      "wert": "1"
+     },
+     {
+      "label": "Vorlauf/Rücklauf Heizung",
+      "kz": "",
+      "einheit": "Zoll",
+      "wert": "1,25"
+     },
+     {
+      "label": "Zirkulation",
+      "kz": "",
+      "einheit": "Zoll",
+      "wert": "3/4"
+     },
+     {
+      "label": "Zulässiger Betriebsdruck, Heizung",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "16"
+     },
+     {
+      "label": "Zulässiger Betriebsdruck, Warmwasser",
+      "kz": "",
+      "einheit": "bar",
+      "wert": "10"
+     },
+     {
+      "label": "Höhe",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1591"
+     },
+     {
+      "label": "Durchmesser",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "750"
+     },
+     {
+      "label": "Kippmaß",
+      "kz": "",
+      "einheit": "mm",
+      "wert": "1750"
+     },
+     {
+      "label": "Nettogewicht",
+      "kz": "",
+      "einheit": "kg",
+      "wert": "174"
+     }
+    ],
+    "konflikte": [],
+    "kombi": {},
+    "hinweise": [
+     "1) (-) Abweichend bei Wasser-Wasser-Betrieb"
+    ],
+    "zubehoer": [],
+    "von_vorgaenger": "WH 370 LP 1 B",
+    "von_vorgaenger_hinweis": "laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch"
+   },
+   "eheizer": {
+    "produktfamilie": "Monovalente TW-Speicher Wärmepumpe",
+    "heizer": {
+     "led_hd:7735502657": "ja",
+     "led_hd:7735502658": "ja",
+     "led_hd:7735502659": "ja",
+     "led_hd:7735502660": "ja",
+     "led_hd:7735502661": "nein",
+     "flh:8738212214": "ja",
+     "flh:8738212217": "ja",
+     "flh:8738212215": "ja",
+     "flh:8738212216": "ja"
+    },
+    "hinweis": "E-Heizer vom Vorgänger WH 370 LP 1 B übernommen (laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch).",
+    "tiefe_handloch_mm": 460,
+    "handlochdeckel_ttnr": "7719002112",
+    "quelle": "vorgaenger"
+   }
   },
   {
    "name": "WH 400 LP 1 B",
@@ -19125,7 +19659,8 @@
       "preis": 611.0
      }
     ]
-   }
+   },
+   "nachfolger": "wp-290-ep-1c"
   },
   {
    "name": "WH 370 LP 1 B",
@@ -19501,7 +20036,8 @@
       "preis": 611.0
      }
     ]
-   }
+   },
+   "nachfolger": "wp-370-ep-1c"
   },
   {
    "name": "WS 300-5 PK 1 C",
@@ -35572,5 +36108,9 @@
    ]
   }
  ],
- "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf"
+ "katalog_quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf + EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf + BO_DE-DE_2026-07_P3_ALL_Ergaenzungskatalog-Elektrosortiment.pdf",
+ "hinweise_freigabe": [
+  "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
+  "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – Abweichungen zur Vorgängergeneration -6 sind gewollt."
+ ]
 }

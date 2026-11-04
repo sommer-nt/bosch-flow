@@ -449,7 +449,17 @@ TIPPFEHLER_EXCEL = {"je anch Verwendung": "je nach Verwendung"}
 # Diffusorstab … 1 Trennblech“).
 NACHFOLGER = [(r"^BH (\d+)-6 ERZ", "BP {}-7 ERZ 1"), (r"^BSH (\d+)-6 ERZ", "BPS {}-7 ERZ 1"),
               (r"^B (\d+)-6 ER\b", "BP {}-7 EMR 1"), (r"^BS (500)-6 ER\b", "BPS {}-7 ER 1"),
-              (r"^BH (\d+)-6 (?:PN6 )?1 B", "BP {}-7 EM 1")]
+              (r"^BH (\d+)-6 (?:PN6 )?1 B", "BP {}-7 EM 1"),
+              # laut M. Spies: WP … EP 1C sind die Nachfolger der WH … LP 1 B (bis auf ca. 2 cm / 3–4 l identisch)
+              (r"^WH (290|370) LP 1 B", "WP {} EP 1C")]
+NAHEZU_GLEICH = "laut Matthias Spies bis auf ca. 2 cm und 3–4 l identisch"
+
+# Bestätigte Regeln zur Matrix (Rückmeldung Matthias Spies)
+HINWEISE_FREIGABE = [
+    "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
+    "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – "
+    "Abweichungen zur Vorgängergeneration -6 sind gewollt.",
+]
 
 
 def nachbearbeiten(daten: dict) -> None:
@@ -474,6 +484,23 @@ def nachbearbeiten(daten: dict) -> None:
                 s["nachfolger"] = neu["id"]
                 neu.setdefault("vorgaenger", []).append(s["id"])
                 break
+    # Nachfolger ohne Katalogdaten (WP 290/370 EP 1C): Maße, Zeichnung und E-Heizer vom Vorgänger
+    for s in sp:
+        if s.get("katalog") or not s.get("vorgaenger"):
+            continue
+        alt = next((a for a in sp if a["id"] in s["vorgaenger"] and a.get("katalog")), None)
+        if alt:
+            s["katalog"] = {**alt["katalog"], "preis": None, "kombi": {}, "konflikte": [], "zubehoer": [],
+                            "von_vorgaenger": alt["name"], "von_vorgaenger_hinweis": NAHEZU_GLEICH}
+            s["katalog"].pop("preis_vorher", None)
+            if not s.get("eheizer") and alt.get("eheizer"):
+                s["eheizer"] = {**alt["eheizer"], "quelle": "vorgaenger",
+                                "hinweis": f"E-Heizer vom Vorgänger {alt['name']} übernommen ({NAHEZU_GLEICH})."}
+    daten["hinweise_freigabe"] = HINWEISE_FREIGABE
+    for s in sp:
+        s.pop("hinweis_matrix", None)
+        if s.get("matrix") and re.search(r"-7\b", s["name"]):
+            s["hinweis_matrix"] = HINWEISE_FREIGABE[1]
     # WP-Pakete aus dem Katalog
     daten["pakete"] = []
     if KATALOG.exists():

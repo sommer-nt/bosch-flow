@@ -127,3 +127,13 @@ def test_nachfolger_namen_pakete():
     assert bps["name"] == "BPS 500-7 ER 1" and bps["name_excel"] == "BPS500-7 ER" and bps["info"] == "je nach Verwendung"
     cs3800_4 = next(w["id"] for w in D["wp"] if w["name"] == "CS3800iAW 4 O-S")
     assert {"bpu-400-c"} <= {i for p in SP.pakete(cs3800_4) for i in p["speicher_ids"]}
+
+
+def test_rueckmeldung_spies():
+    """WP 290/370 EP 1C = Nachfolger WH 290/370 LP 1 B; Daten vom Vorgänger; -7 mit Hinweis zur Planererfahrung."""
+    wp290 = SP.speicher_nach_id("wp-290-ep-1c")
+    assert wp290["vorgaenger"] == ["wh-290-lp-1-b"]
+    assert wp290["katalog"]["von_vorgaenger"] == "WH 290 LP 1 B" and wp290["katalog"]["preis"] is None
+    assert wp290["katalog"]["kombi"] == {} and SP.bilder(wp290)
+    assert any(SP.heizer_fuer_speicher("wp-290-ep-1c").values())
+    assert "Planererfahrung" in SP.speicher_nach_id("bp-500-7-erz-1")["hinweis_matrix"]
