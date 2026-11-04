@@ -301,7 +301,7 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
             s = SP.speicher_nach_id(i, d)
             gruppen[s["kategorie"]].append((s, None))
         st.caption(f"{len(ids)} Treffer" if q.strip() else
-                   f"{len(ids)} Speicher – inkl. Speicher für Gas-/Ölgeräte und aller Speicher aus dem Gesamtkatalog")
+                   f"{len(ids)} Wärmepumpenspeicher")
     _spalten(gruppen, d, F, dunkel, mobil)
 
     s = SP.speicher_nach_id(ss.get("sp_wahl") or "", d)

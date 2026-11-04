@@ -62,7 +62,7 @@ def test_heizer_zusammengefuehrt_bpu():
 
 def test_suche_name_und_ttnr():
     assert SP.suche("bpu 300") == ["bpu-300-c"]
-    assert "w-200-5-ep-1-c" in SP.suche("W 200-5")          # Gasspeicher nur aus der E-Heizer-Liste
+    assert not SP.suche("W 200-5")                           # nur Wärmepumpenspeicher (Matrix)
     assert SP.suche("WP 300 KP 1 B") == ["wp-300-p-1-b"]     # Name aus der E-Heizer-Liste
 
 
@@ -111,12 +111,11 @@ def test_abweichung_matrix_katalog():
 
 
 def test_ergaenzungskatalog():
-    """Ergänzungskatalog 07/2026: neue BP ...-7 aus der Matrix mit Daten, neue W ...-6 mit Liefertermin."""
+    """Ergänzungskatalog 07/2026: neue BP ...-7 aus der Matrix mit Daten; Nicht-WP-Speicher werden nicht angezeigt."""
     bp = SP.speicher_nach_id("bp-500-7-erz-1")
     assert bp["katalog"]["stand"] == "07/2026" and bp["katalog"]["preis"] == 2754.0
     assert bp["eheizer"]["quelle"] == "spies" and any(SP.heizer_fuer_speicher(bp["id"]).values())
-    w6 = SP.speicher_nach_id(SP.suche("8732990136")[0])
-    assert w6["katalog"]["neu"] and w6["katalog"]["verfuegbar_ab"] == "09/2026"
+    assert not SP.suche("8732990136")                                  # W 500-6 EKP 1: kein WP-Speicher
     assert D["heizer"]["led:7735502657"]["preis"] == 560.68           # neuester Preis
 
 
@@ -132,7 +131,7 @@ def test_nachfolger_namen_pakete():
 def test_rueckmeldung_spies():
     """WP 290/370 EP 1C = Nachfolger WH 290/370 LP 1 B; Daten vom Vorgänger; -7 mit Hinweis zur Planererfahrung."""
     wp290 = SP.speicher_nach_id("wp-290-ep-1c")
-    assert wp290["vorgaenger"] == ["wh-290-lp-1-b"]
+    assert "vorgaenger" not in wp290                                 # WH 290 LP 1 B ist kein Matrix-Speicher
     assert wp290["katalog"]["aus_im"] and wp290["katalog"]["preis"] is None
     assert wp290["name_im"] == "WP 290-2 KLP 1" and wp290["ttnr"] == ["8732973069", "8732973067"]
     assert wp290["katalog"]["kern"]["hoehe_mm"] == "1299"
@@ -154,3 +153,9 @@ def test_kommentar_baureihe_und_erklaerung():
     bh200 = SP.speicher_nach_id("bh-200-5-1-a")
     assert "4-Punkt" in bh200["notiz"][cs3800_10] and cs3800_10 in bh200["notiz_baureihe"]
     assert "Trennpuffer" in D["erklaerungen"]["4-Punkt"]
+
+
+def test_nur_wp_speicher():
+    assert D["nur_wp_speicher"] and all(s["matrix"] for s in D["speicher"])
+    ids = {s["id"] for s in D["speicher"]}
+    assert all(s.get("nachfolger", next(iter(ids))) in ids for s in D["speicher"])

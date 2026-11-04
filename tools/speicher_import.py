@@ -442,6 +442,8 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
 
 
 # ---------------------------------------------------------------------------------------------- Nachbearbeitung
+NUR_WP_SPEICHER = True          # nur Speicher aus der WP-Matrix anzeigen (Vorgabe für die erste Ausbaustufe)
+
 TIPPFEHLER_EXCEL = {"je anch Verwendung": "je nach Verwendung"}
 
 # Neue Speichergeneration (-7): Vorgänger → Nachfolger. Zuordnung über die im Katalog wortgleichen
@@ -572,6 +574,18 @@ def nachbearbeiten(daten: dict) -> None:
         s.pop("hinweis_matrix", None)
         if s.get("matrix") and re.search(r"-7\b", s["name"]):
             s["hinweis_matrix"] = HINWEISE_FREIGABE[1]
+    # Erste Ausbaustufe: nur Wärmepumpenspeicher = Speicher aus der WP-Kombinationsmatrix von Matthias Spies.
+    # Speicher für Gas-/Ölgeräte und reine Katalogspeicher werden nicht angezeigt (Daten bleiben in den Quellen).
+    if NUR_WP_SPEICHER:
+        daten["speicher"] = sp = [s for s in sp if s.get("matrix")]
+        ids = {s["id"] for s in sp}
+        for s in sp:
+            if s.get("nachfolger") not in ids:
+                s.pop("nachfolger", None)
+            vorg = [v for v in s.pop("vorgaenger", []) if v in ids]
+            if vorg:
+                s["vorgaenger"] = vorg
+    daten["nur_wp_speicher"] = NUR_WP_SPEICHER
     # WP-Pakete aus dem Katalog
     daten["pakete"] = []
     if KATALOG.exists():
@@ -626,8 +640,10 @@ def html_einbetten(daten: dict) -> None:
         if p.exists():
             bilder[f"heizer:{typ}"] = "data:image/jpeg;base64," + base64.b64encode(p.read_bytes()).decode()
     if BILDER.exists():
+        genutzt = {b for s in daten["speicher"] for b in (s.get("katalog") or {}).get("bilder", [])} | \
+                  {t for s in daten["speicher"] for t in s["ttnr"] + [s["id"]]}
         for p in sorted(BILDER.iterdir()):
-            if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp"):
+            if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp") and p.stem in genutzt:
                 mime = "image/png" if p.suffix.lower() == ".png" else (
                     "image/webp" if p.suffix.lower() == ".webp" else "image/jpeg")
                 bilder[p.stem] = f"data:{mime};base64," + base64.b64encode(p.read_bytes()).decode()
