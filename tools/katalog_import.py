@@ -1,7 +1,7 @@
 """Bosch-Gesamtkatalog (Kapitel Speicher, PDF) für die Speicherauswahl auslesen.
 
-Aufruf:
-    python tools/katalog_import.py Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf
+Aufruf (mehrere Kataloge: ältester zuerst, spätere Angaben haben Vorrang):
+    python tools/katalog_import.py Speicher_..._2026-03_..._Gesamtkatalog.pdf EK_Speicher_..._2026-07_..._Ergaenzungskatalog.pdf
     python tools/speicher_import.py Speichermatrix_TT.MM.JJJJ.xlsx      # führt Matrix und Katalog zusammen
 
 Schreibt
@@ -278,14 +278,43 @@ def familie_slug(titel_: str) -> str:
     return "kat-" + re.sub(r"[^a-z0-9]+", "-", titel_.lower().replace("stora ", "").replace("storacell ", "")).strip("-")
 
 
-def lesen(pdf: Path, bilder: bool = True) -> dict:
+def katalog_stand(pdf: Path) -> str:
+    """„…_2026-07_…“ im Dateinamen → „07/2026“."""
+    m = re.search(r"(20\d{2})-(\d{2})", pdf.name)
+    return f"{m.group(2)}/{m.group(1)}" if m else ""
+
+
+def neuheiten(doc) -> set[str]:
+    """Im Kapitel-Inhaltsverzeichnis als „NEU“ markierte Produktfamilien (normalisierte Namen)."""
+    neu = set()
+    for page in doc:
+        if titel(page).startswith("Warmwasser-, Kombi"):
+            z = zeilen(page)
+            for y, zellen in z:
+                if "NEU" not in [c[4].strip() for c in zellen]:
+                    continue
+                # „NEU“ steht manchmal ein paar Punkt neben der Zeile mit dem Namen
+                for _, nachbar in sorted(z, key=lambda e: abs(e[0] - y)):
+                    name = next((c[4].strip() for c in nachbar if SPEICHERNAME.match(c[4].strip())), "")
+                    if name:
+                        neu.add(normname(name))
+                        break
+    return neu
+
+
+def lesen(pdf: Path, bilder: bool = True, vergeben: set | None = None) -> dict:
     doc = pymupdf.open(pdf)
     familien = []
+    stand = katalog_stand(pdf)
+    neu = neuheiten(doc)
+    vergeben = vergeben if vergeben is not None else set()
     for teil in abschnitte(doc):
         seiten = [doc[i] for i in teil["seiten"]]
         z_seiten = [zeilen(p) for p in seiten]
         fam = {"titel": teil["titel"], "seite": doc[teil["seiten"][0]].get_label() or str(teil["seiten"][0] + 1),
-               "produkte": [], "zubehoer": [], "tabellen": [], "hinweise": [], "beschreibung": [], "bild": ""}
+               "produkte": [], "zubehoer": [], "tabellen": [], "hinweise": [], "beschreibung": [], "bild": "",
+               "quelle": pdf.name, "stand": stand, "verfuegbar_ab": "",
+               "neu": normname(re.sub(r"^(Stora|Storacell|Dimplex)\s+", "", teil["titel"])) in neu}
         zubehoer = False
         for p, z in zip(seiten, z_seiten):
             # „Zubehör“-Überschrift trennt Produkt- und Zubehörtabellen
@@ -302,31 +331,40 @@ def lesen(pdf: Path, bilder: bool = True) -> dict:
                 fam["zubehoer"] += preiszeilen(z, y_zub or 0, 1e9)
                 zubehoer = True
             fam["hinweise"] += [h for h in fussnoten(z) if h not in fam["hinweise"]]
+            m = re.search(r"Verfügbar\s+ab\s+(\d{2}/\d{4})", p.get_text())       # Störer neben der Bestelltabelle
+            if m and not fam["verfuegbar_ab"]:
+                fam["verfuegbar_ab"] = m.group(1)
         fam["bilder"] = []
         for i, (p, z) in enumerate(zip(seiten, z_seiten)):
             tabs = tabellen(z, fam["produkte"])
             fam["tabellen"] += tabs
             if bilder and i > 0 and len(fam["bilder"]) < 3:
                 slug = f'{familie_slug(teil["titel"])}{"-" + str(len(fam["bilder"]) + 1) if fam["bilder"] else ""}'
+                if slug in vergeben:          # gleiche Familie in einem zweiten Katalog
+                    slug += "-" + stand.replace("/", "-")
                 if massbild(p, z, [t["y"] for t in tabs], BILDER / f"{slug}.png"):
                     fam["bilder"].append(slug)
+                    vergeben.add(slug)
         fam["bild"] = fam["bilder"][0] if fam["bilder"] else ""
         for t in fam["produkte"] + fam["zubehoer"]:
             t.pop("y", None)
         if fam["produkte"]:
             familien.append(fam)
-    return {"quelle": pdf.name, "familien": familien}
+    return {"quelle": pdf.name, "stand": stand, "familien": familien}
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("pdf", type=Path)
+    ap.add_argument("pdf", type=Path, nargs="+", help="Kataloge, ältester zuerst (spätere haben Vorrang)")
     ap.add_argument("--ohne-bilder", action="store_true")
     a = ap.parse_args()
     if not a.ohne_bilder and BILDER.exists():
         for alt in BILDER.glob("kat-*.png"):
             alt.unlink()
-    daten = lesen(a.pdf, not a.ohne_bilder)
+    vergeben: set = set()
+    teile = [lesen(pdf, not a.ohne_bilder, vergeben) for pdf in a.pdf]
+    daten = {"quellen": [{"quelle": t["quelle"], "stand": t["stand"]} for t in teile],
+             "familien": [f for t in teile for f in t["familien"]]}
     genutzt = {b for f in daten["familien"] for b in f["bilder"]}
     for bild in BILDER.glob("kat-*.png"):
         if bild.stem not in genutzt:

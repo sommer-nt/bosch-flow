@@ -101,9 +101,18 @@ def test_katalog_eingebunden():
     assert "wps-390-1-ep-1-c" not in [e["id"] for e in SP.speicher_fuer_wp(wp)["biv"]]
     assert {"id": "wps-390-1-ep-1-c", "quelle": "katalog"}.items() <= next(
         e for e in SP.speicher_fuer_wp(wp, katalog=True)["biv"] if e["id"] == "wps-390-1-ep-1-c").items()
-    assert D["heizer"]["led:7735502657"]["preis"] == 547.0
 
 
 def test_abweichung_matrix_katalog():
     lw13 = next(w["id"] for w in D["wp"] if w["familie"].startswith("CS 7801i") and str(w["groesse"]) == "13")
     assert {"id": lw13, "matrix": "+", "katalog": "-"} in SP.abweichungen("bh-120-5-1-a")
+
+
+def test_ergaenzungskatalog():
+    """Ergänzungskatalog 07/2026: neue BP ...-7 aus der Matrix mit Daten, neue W ...-6 mit Liefertermin."""
+    bp = SP.speicher_nach_id("bp-500-7-erz-1")
+    assert bp["katalog"]["stand"] == "07/2026" and bp["katalog"]["preis"] == 2754.0
+    assert bp["eheizer"]["quelle"] == "katalog" and any(SP.heizer_fuer_speicher(bp["id"]).values())
+    w6 = SP.speicher_nach_id(SP.suche("8732990136")[0])
+    assert w6["katalog"]["neu"] and w6["katalog"]["verfuegbar_ab"] == "09/2026"
+    assert D["heizer"]["led:7735502657"]["preis"] == 560.68           # neuester Preis

@@ -357,12 +357,13 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
     if not pfad.exists():
         return
     kat = json.loads(pfad.read_text(encoding="utf-8"))
-    daten["katalog_quelle"] = kat["quelle"]
+    quellen = kat.get("quellen") or [{"quelle": kat["quelle"], "stand": ""}]
+    daten["katalog_quelle"] = " + ".join(q["quelle"] for q in quellen)
     nach_ttnr = {t: s for s in daten["speicher"] for t in s["ttnr"]}
     preise = {}
-    for fam in kat["familien"]:
+    for fam in kat["familien"]:                  # Reihenfolge: ältester Katalog zuerst → neuester Preis gewinnt
         for z in fam["zubehoer"]:
-            preise.setdefault(z["ttnr"], z["preis"])
+            preise[z["ttnr"]] = z["preis"]
     for h in daten["heizer"].values():
         h["preis"] = preise.get(h["ttnr"])
     for fam in kat["familien"]:
@@ -400,6 +401,8 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
                         kern[feld] = w["wert"]
                         break
             info = {"typ": p["typ"], "familie": fam["titel"], "seite": fam["seite"], "preis": p["preis"],
+                    "quelle": fam.get("quelle", kat.get("quelle", "")), "stand": fam.get("stand", ""),
+                    "neu": fam.get("neu", False), "verfuegbar_ab": fam.get("verfuegbar_ab", ""),
                     "text": p["text"], "beschreibung": fam["beschreibung"], "bilder": fam.get("bilder", []), "kern": kern,
                     "werte": werte, "konflikte": konflikte, "kombi": kombi, "hinweise": fam["hinweise"],
                     "zubehoer": [{k: z[k] for k in ("typ", "text", "ttnr", "preis")} for z in fam["zubehoer"]]}
@@ -410,7 +413,31 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
                      "info": "", "alt": False, "im": "", "matrix": False, "nur_katalog": True, "kombi": {}, "notiz": {}}
                 daten["speicher"].append(s)
                 nach_ttnr[p["ttnr"]] = s
+            vorher = s.get("katalog")
+            if vorher:                      # neuerer Katalog: Angaben ersetzen, alten Preis merken
+                if vorher["preis"] != info["preis"]:
+                    info["preis_vorher"] = {"preis": vorher["preis"], "stand": vorher["stand"]}
+                info["bilder"] = info["bilder"] or vorher["bilder"]
+                for k in ("kombi", "hinweise"):
+                    info[k] = info[k] or vorher[k]
             s["katalog"] = info
+    # Zubehörpreise im Speicher auf den neuesten Stand
+    for s in daten["speicher"]:
+        for z in (s.get("katalog") or {}).get("zubehoer", []):
+            z["preis"] = preise.get(z["ttnr"], z["preis"])
+    # E-Heizer aus dem Katalog-Zubehör, wo die E-Heizer-Liste nichts sagt (z. B. neue BP ...-7)
+    typ_nach_ttnr = {}
+    for hid, h in daten["heizer"].items():
+        if h["typ"] != "led_hd":
+            typ_nach_ttnr.setdefault(h["ttnr"], hid)
+    for s in daten["speicher"]:
+        if s.get("eheizer") or not s.get("katalog"):
+            continue
+        hz = {typ_nach_ttnr[z["ttnr"]]: "ja" for z in s["katalog"]["zubehoer"] if z["ttnr"] in typ_nach_ttnr}
+        if hz:
+            s["eheizer"] = {"heizer": hz, "quelle": "katalog", "hinweis":
+                            "Nicht in der E-Heizer-Liste – E-Heizer aus dem Katalog-Zubehör übernommen. "
+                            "Einbautiefe und Muffe am Speicher prüfen."}
 
 
 def baue(xlsx: Path, stammdaten: Path) -> dict:

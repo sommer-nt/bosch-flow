@@ -1,5 +1,14 @@
 {
- "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+ "quellen": [
+  {
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026"
+  },
+  {
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026"
+  }
+ ],
  "familien": [
   {
    "titel": "Stora W 50 OB B / W 80 OB C",
@@ -495,6 +504,10 @@
     "Verwendung •CERAMINI Hinweis •NTC-Speicherfühler nicht im Lieferumfang enthalten. Bitte separat bestellen."
    ],
    "bild": "kat-w-50-ob-b-w-80-ob-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-50-ob-b-w-80-ob-c"
    ]
@@ -939,6 +952,10 @@
     "und einfachen Ausrichten Verwendung •Allen wandhängenden Geräten mit Speicheranschluss Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC; ZL 102/1 - Tauchrohr für Zirkulationsanschluss"
    ],
    "bild": "kat-w-120-5-o",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-120-5-o"
    ]
@@ -1358,6 +1375,10 @@
     "bis 50 kW Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-wst-135-200-2-hrc",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-wst-135-200-2-hrc"
    ]
@@ -1788,6 +1809,10 @@
     "Verwendung •Gas-Brennwertkessel Condens 8000i F •Öl-Brennwertkessel Olio Condens 8000i F Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-wh-135-200-3-p-2-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-wh-135-200-3-p-2-b",
     "kat-wh-135-200-3-p-2-b-2"
@@ -2148,6 +2173,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC; ZL 102/1 - Tauchrohr für Zirkulationsanschluss"
    ],
    "bild": "kat-sw-120-o-1-a",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-sw-120-o-1-a"
    ]
@@ -2675,6 +2704,10 @@
     "•Prüföffnung und Zirkulationsanschluss Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-sw-160-200-300-p-1",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-sw-160-200-300-p-1"
    ]
@@ -3184,6 +3217,10 @@
     "Hinweis •NTC-Speicherfühler nicht im Lieferumfang enthalten. Bitte separat bestellen."
    ],
    "bild": "kat-w-120-160-200-5-p-1",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-120-160-200-5-p-1"
    ]
@@ -3684,6 +3721,10 @@
     "Ausstattung •Isoliert eingebaute Schutzanode •Zirkulationsanschluss •Obenliegende Prüföffnung, 120 mm •Muffe für Elektro-Heizeinsatz, max. 6 kW"
    ],
    "bild": "kat-w-200-5-ep-1",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-200-5-ep-1"
    ]
@@ -4192,6 +4233,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-w-300-400-5-kp-1",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-300-400-5-kp-1"
    ]
@@ -4843,6 +4888,10 @@
     "•Prüföffnungen oben und vorne Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-w-500-750-1000-5-p-1-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-500-750-1000-5-p-1-b"
    ]
@@ -5507,6 +5556,10 @@
     "Hinweis •Erforderlicher Temperaturfühler NTC bitte separat bestellen, da nicht im Lieferumfang des Speichers enthalten. Ausnahme: Bei Bosch Luft- Wärmepumpen ist der erforderliche Temperaturfühler im Lieferumfang enthalten."
    ],
    "bild": "kat-hr-200-300",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-hr-200-300"
    ]
@@ -6313,6 +6366,10 @@
     "Ausstattung •Glattrohr-Wärmetauscher Hinweis •Speicherfühler separat zu bestellen in Kombination mit den Wärmepumpen CS5800/6800i AW und CS7800i LW"
    ],
    "bild": "kat-swdp-200-300-2-o-2-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-swdp-200-300-2-o-2-c"
    ]
@@ -7397,6 +7454,10 @@
     "Hinweis •Der erforderlicher Temperaturfühler NTC ist bei Wärmepumpen Compress CS...AW im Lieferumfang enthalten. Bei anderen Bosch Wärmepumpen bitte separat einen Temperaturfühler NTC bestellen."
    ],
    "bild": "kat-wh-290-370-400-450-lp-1-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-wh-290-370-400-450-lp-1-b"
    ]
@@ -8000,6 +8061,10 @@
     "100 mm Polyesterfaservlies Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC-10M (Bestell-Nr. 8738212225)"
    ],
    "bild": "kat-wp-400-500-700-p-1-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-wp-400-500-700-p-1-c",
     "kat-wp-400-500-700-p-1-c-2"
@@ -8935,6 +9000,10 @@
     "•Glattrohr-Wärmetauscher Verwendung •Hybrid-Systemen"
    ],
    "bild": "kat-wp-180-300-p-1-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-wp-180-300-p-1-b"
    ]
@@ -9435,6 +9504,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-ws-300-5-pk-1-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-ws-300-5-pk-1-c"
    ]
@@ -10009,6 +10082,10 @@
     "•Muffe mit Stopfen für Elektroheizung RP 1 1/2\" Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-ws-310-400-5-ekp-1-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-ws-310-400-5-ekp-1-b"
    ]
@@ -10569,6 +10646,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-ws-500-5-ep-1-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-ws-500-5-ep-1-b"
    ]
@@ -10989,6 +11070,10 @@
     "Verwendung •Warmwasser-Vorwärmsystem TS...-3(N) Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-w-300-400-5-sp-1-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-300-400-5-sp-1-c"
    ]
@@ -11499,6 +11584,10 @@
     "Verwendung •Warmwasser-Übergabestation TS...-3(N) Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-w-500-750-1000-5-px-1-b",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-w-500-750-1000-5-px-1-b"
    ]
@@ -12371,6 +12460,10 @@
     "eingebaut Hinweis •Erforderlicher Temperaturfühler NTC bitte separat bestellen, da nicht im Lieferumfang des Speichers enthalten. Ausnahme: Bei Bosch Luft- Wärmepumpen ist der erforderliche Temperaturfühler im Lieferumfang enthalten."
    ],
    "bild": "kat-wps-390-490-1-ep-1",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-wps-390-490-1-ep-1"
    ]
@@ -12889,6 +12982,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC, Speicheranschluss-Set ASU bei 500 l Pufferspeicher"
    ],
    "bild": "kat-b-500-750-1000-1300-6-m",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-b-500-750-1000-1300-6-m"
    ]
@@ -13465,6 +13562,10 @@
     "Elektroheizung Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC, Speicheranschluss-Set ASU bei 500 l Pufferspeicher"
    ],
    "bild": "kat-b-500-750-1000-6-er",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-b-500-750-1000-6-er"
    ]
@@ -14139,6 +14240,10 @@
     "Elektroheizung Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC, Speicheranschluss-Set ASU bei 500 l Pufferspeicher"
    ],
    "bild": "kat-bs-500-750-1000-1300-6-er",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bs-500-750-1000-1300-6-er"
    ]
@@ -14491,6 +14596,10 @@
     "Folienmantel, Abdeckung schwarz •Wärmedämmung mit hocheffizientem PU-Hartschaum •Stopfen mit Entlüfter"
    ],
    "bild": "kat-bbs-400-5-k1-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bbs-400-5-k1-c"
    ]
@@ -14944,6 +15053,10 @@
     "Hinweis •Speichertemperaturfühler ist im Lieferumfang der Wärmepumpe enthalten"
    ],
    "bild": "kat-bst-50",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bst-50"
    ]
@@ -16004,6 +16117,10 @@
     "•Hinweis: Speicherfühler ist im Lieferumfang der Wärmepumpe enthalten (Speicherfühler siehe Zubehör)"
    ],
    "bild": "kat-bh-120-200-300-5-k-1",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bh-120-200-300-5-k-1"
    ]
@@ -16586,6 +16703,10 @@
     "enthalten: Speicheranschluss-Set ASU. Speicherfühler ist im Lieferumfang der Wärmepumpe enthalten (außer STE..-1)."
    ],
    "bild": "kat-bh-500-750-6",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bh-500-750-6"
    ]
@@ -17745,6 +17866,10 @@
     "Elektroheizung Hinweis •Speicherfühler ist im Lieferumfang der Wärmepumpe enthalten (außer STE..-1 und CS 7800i LW)."
    ],
    "bild": "kat-bh-500-750-1000-6-erz",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bh-500-750-1000-6-erz"
    ]
@@ -18563,6 +18688,10 @@
     "Hinweis •Speichertemperaturfühler ist im Lieferumfang der Wärmepumpe enthalten (außer STE...-1)"
    ],
    "bild": "kat-bsh-750-1000-6-erz",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bsh-750-1000-6-erz"
    ]
@@ -19051,6 +19180,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC-10M (Bestell-Nr. 8738212225)"
    ],
    "bild": "kat-bp-200-500-1000-e-p-1-b-c",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bp-200-500-1000-e-p-1-b-c",
     "kat-bp-200-500-1000-e-p-1-b-c-2"
@@ -19422,6 +19555,10 @@
     "Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC-10M (Bestell-Nr. 8738212225)"
    ],
    "bild": "kat-dimplex-bthc-1000",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-dimplex-bthc-1000"
    ]
@@ -19932,6 +20069,10 @@
     "Montageanleitung. Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-sp-500-750-900-1-solar",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-sp-500-750-900-1-solar"
    ]
@@ -20734,6 +20875,10 @@
     "•Lieferweise: 1 Transportpalette, 1 Karton. Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
    ],
    "bild": "kat-cst-500-750-ehp",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-cst-500-750-ehp"
    ]
@@ -21731,8 +21876,5148 @@
     "•Wärmedämmung mit hocheffizientem 50 mm Polyurethan-Hartschaum und abnehmbarem Folienmantel mit Weichschaumunterlage"
    ],
    "bild": "kat-bpu-300-400-500",
+   "quelle": "Speicher_BO_DE-DE_2026-03_P1_ALL_Gesamtkatalog.pdf",
+   "stand": "03/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
    "bilder": [
     "kat-bpu-300-400-500"
+   ]
+  },
+  {
+   "titel": "W 500/750/1000-6 (E)KP 1",
+   "seite": "2",
+   "produkte": [
+    {
+     "ttnr": "8732990136",
+     "preis": 3280.0,
+     "typ": "W 500-6 EKP 1",
+     "text": "Warmwasserspeicher, silber, 500 l"
+    },
+    {
+     "ttnr": "8732990139",
+     "preis": 5720.0,
+     "typ": "W 750-6 KP 1",
+     "text": "Warmwasserspeicher, silber, 750 l"
+    },
+    {
+     "ttnr": "8732990142",
+     "preis": 7442.0,
+     "typ": "W 1000-6 KP 1",
+     "text": "Warmwasserspeicher, silber, 1000 l"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "7735502289",
+     "preis": 85.08,
+     "typ": "SF 4 Set",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler •Kabellänge 6 m •Mit Anschlussstecker und Befestigungsset •Für alle nebenstehenden Speicher"
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+    },
+    {
+     "ttnr": "7747201004",
+     "preis": 112.75,
+     "typ": "DTA",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+    },
+    {
+     "ttnr": "8718590658",
+     "preis": 30.24,
+     "typ": "Fußschrauben",
+     "text": "•Stellfüße für Speicher 500-1000 l"
+    },
+    {
+     "ttnr": "8732902340",
+     "preis": 227.55,
+     "typ": "Revisionsöffnung",
+     "text": "•Revisionsöffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-5 Speicher Durchmesser größer 700 mm"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 422.49560546875,
+     "spalten": [
+      {
+       "mitte": 311.67889404296875,
+       "name": "W 500-6 EKP 1",
+       "ttnr": [
+        "8732990136"
+       ]
+      },
+      {
+       "mitte": 402.48570251464844,
+       "name": "W 750-6 KP 1",
+       "ttnr": [
+        "8732990139"
+       ]
+      },
+      {
+       "mitte": 493.1553039550781,
+       "name": "W 1000-6 KP 1",
+       "ttnr": [
+        "8732990142"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "A",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "750",
+        "W 750-6 KP 1": "960",
+        "W 1000-6 KP 1": "1065"
+       }
+      },
+      {
+       "label": "A1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "598",
+        "W 750-6 KP 1": "750",
+        "W 1000-6 KP 1": "850"
+       }
+      },
+      {
+       "label": "B",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "30",
+        "W 750-6 KP 1": "30",
+        "W 1000-6 KP 1": "30"
+       }
+      },
+      {
+       "label": "C",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1921",
+        "W 750-6 KP 1": "2070",
+        "W 1000-6 KP 1": "2097"
+       }
+      },
+      {
+       "label": "D",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "55",
+        "W 750-6 KP 1": "130",
+        "W 1000-6 KP 1": "130"
+       }
+      },
+      {
+       "label": "D",
+       "kz": "R",
+       "einheit": "",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1",
+        "W 750-6 KP 1": "1 1/4",
+        "W 1000-6 KP 1": "1/ 1/4"
+       }
+      },
+      {
+       "label": "E",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "221",
+        "W 750-6 KP 1": "318",
+        "W 1000-6 KP 1": "326"
+       }
+      },
+      {
+       "label": "E",
+       "kz": "R",
+       "einheit": "",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1",
+        "W 750-6 KP 1": "1 1/4",
+        "W 1000-6 KP 1": "1 1/4"
+       }
+      },
+      {
+       "label": "F",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "966",
+        "W 750-6 KP 1": "1109",
+        "W 1000-6 KP 1": "1352"
+       }
+      },
+      {
+       "label": "F",
+       "kz": "R",
+       "einheit": "",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1",
+        "W 750-6 KP 1": "1 1/4",
+        "W 1000-6 KP 1": "1 1/4"
+       }
+      },
+      {
+       "label": "G",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1265",
+        "W 750-6 KP 1": "1447",
+        "W 1000-6 KP 1": "1519"
+       }
+      },
+      {
+       "label": "H",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1856",
+        "W 750-6 KP 1": "1891",
+        "W 1000-6 KP 1": "1905"
+       }
+      },
+      {
+       "label": "H",
+       "kz": "R",
+       "einheit": "",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1",
+        "W 750-6 KP 1": "1 1/4",
+        "W 1000-6 KP 1": "1 1/4"
+       }
+      },
+      {
+       "label": "I",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "2521",
+        "W 750-6 KP 1": "–",
+        "W 1000-6 KP 1": "–"
+       }
+      },
+      {
+       "label": "J",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "140",
+        "W 750-6 KP 1": "226",
+        "W 1000-6 KP 1": "277"
+       }
+      },
+      {
+       "label": "K",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "588",
+        "W 750-6 KP 1": "959",
+        "W 1000-6 KP 1": "1208"
+       }
+      },
+      {
+       "label": "L",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1995",
+        "W 750-6 KP 1": "1985",
+        "W 1000-6 KP 1": "2015"
+       }
+      },
+      {
+       "label": "M",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "450",
+        "W 750-6 KP 1": "589",
+        "W 1000-6 KP 1": "669"
+       }
+      },
+      {
+       "label": "N",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1041",
+        "W 750-6 KP 1": "–",
+        "W 1000-6 KP 1": "–"
+       }
+      },
+      {
+       "label": "O",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "–",
+        "W 750-6 KP 1": "1373",
+        "W 1000-6 KP 1": "1411"
+       }
+      },
+      {
+       "label": "P",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "–",
+        "W 750-6 KP 1": "1503",
+        "W 1000-6 KP 1": "1541"
+       }
+      },
+      {
+       "label": "V",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "12,2",
+        "W 750-6 KP 1": "33,2",
+        "W 1000-6 KP 1": "38,2"
+       }
+      },
+      {
+       "label": "V",
+       "kz": "",
+       "einheit": "m2",
+       "gruppe": "",
+       "werte": {
+        "W 500-6 EKP 1": "1,8",
+        "W 750-6 KP 1": "3,7",
+        "W 1000-6 KP 1": "4,5"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 334.4770050048828,
+       "name": "W 500-6 EKP 1",
+       "ttnr": [
+        "8732990136"
+       ]
+      },
+      {
+       "mitte": 425.16412353515625,
+       "name": "W 750-6 KP 1",
+       "ttnr": [
+        "8732990139"
+       ]
+      },
+      {
+       "mitte": 515.8332977294922,
+       "name": "W 1000-6 KP 1",
+       "ttnr": [
+        "8732990142"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "W 500-6 EKP 1": "Silber",
+        "W 750-6 KP 1": "Silber",
+        "W 1000-6 KP 1": "Silber"
+       }
+      },
+      {
+       "label": "Speichermaterial",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Speichermaterial",
+       "werte": {
+        "W 500-6 EKP 1": "Polyestervlies;",
+        "W 750-6 KP 1": "Polyestervlies;",
+        "W 1000-6 KP 1": "Polyestervlies;"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "W 500-6 EKP 1": "PUR-Hartschaum",
+        "W 750-6 KP 1": "PUR-Hartschaum",
+        "W 1000-6 KP 1": "PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "W 500-6 EKP 1": "16",
+        "W 750-6 KP 1": "16",
+        "W 1000-6 KP 1": "16"
+       }
+      },
+      {
+       "label": "Max. Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "W 500-6 EKP 1": "110",
+        "W 750-6 KP 1": "110",
+        "W 1000-6 KP 1": "110"
+       }
+      },
+      {
+       "label": "Wärmetauschervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "W 500-6 EKP 1": "12,2",
+        "W 750-6 KP 1": "33,2",
+        "W 1000-6 KP 1": "38,2"
+       }
+      },
+      {
+       "label": "Verteilverluste bei Speichertemperatur 60 °C,",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Nutzbare Wassermenge ohne Nachladung und",
+       "werte": {
+        "W 500-6 EKP 1": "314",
+        "W 750-6 KP 1": "–",
+        "W 1000-6 KP 1": "–"
+       }
+      },
+      {
+       "label": "Warmwasser-Dauerleistung (80/45/10 °C)",
+       "kz": "",
+       "einheit": "kW",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "56",
+        "W 750-6 KP 1": "93",
+        "W 1000-6 KP 1": "102"
+       }
+      },
+      {
+       "label": "Warmwasser-Dauerleistung (80/45/10 °C)",
+       "kz": "",
+       "einheit": "l/h",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "1390",
+        "W 750-6 KP 1": "2286",
+        "W 1000-6 KP 1": "2543"
+       }
+      },
+      {
+       "label": "Leistungskennzahl bei max. Heizleistung (NL)",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "18",
+        "W 750-6 KP 1": "28",
+        "W 1000-6 KP 1": "39"
+       }
+      },
+      {
+       "label": "Max. Warmwasser-Betriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "10",
+        "W 750-6 KP 1": "10",
+        "W 1000-6 KP 1": "10"
+       }
+      },
+      {
+       "label": "Max. Warmwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "95",
+        "W 750-6 KP 1": "95",
+        "W 1000-6 KP 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "1,873",
+        "W 750-6 KP 1": "2,1",
+        "W 1000-6 KP 1": "2,399"
+       }
+      },
+      {
+       "label": "Wärmetauscherfläche",
+       "kz": "",
+       "einheit": "m²",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "1,87",
+        "W 750-6 KP 1": "3,7",
+        "W 1000-6 KP 1": "4,5"
+       }
+      },
+      {
+       "label": "Druckverlust (oberer Wärmetauscher)",
+       "kz": "",
+       "einheit": "mbar",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "116",
+        "W 750-6 KP 1": "73",
+        "W 1000-6 KP 1": "79"
+       }
+      },
+      {
+       "label": "Max. Durchflussmenge (oberer Wärmetauscher)",
+       "kz": "",
+       "einheit": "m³/h",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "3",
+        "W 750-6 KP 1": "3",
+        "W 1000-6 KP 1": "3"
+       }
+      },
+      {
+       "label": "Min. Aufheizzeit bei 80/45/10 °C",
+       "kz": "",
+       "einheit": "min",
+       "gruppe": "Zapftemperatur 45 °C",
+       "werte": {
+        "W 500-6 EKP 1": "23",
+        "W 750-6 KP 1": "17",
+        "W 1000-6 KP 1": "20"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "1921",
+        "W 750-6 KP 1": "2070",
+        "W 1000-6 KP 1": "2100"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "750",
+        "W 750-6 KP 1": "960",
+        "W 1000-6 KP 1": "1065"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "831",
+        "W 750-6 KP 1": "1055",
+        "W 1000-6 KP 1": "1155"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "750",
+        "W 750-6 KP 1": "960",
+        "W 1000-6 KP 1": "1065"
+       }
+      },
+      {
+       "label": "Höhe ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "–",
+        "W 750-6 KP 1": "1972",
+        "W 1000-6 KP 1": "1997"
+       }
+      },
+      {
+       "label": "Außendurchmesser ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "–",
+        "W 750-6 KP 1": "750",
+        "W 1000-6 KP 1": "850"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "76",
+        "W 750-6 KP 1": "105",
+        "W 1000-6 KP 1": "105"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "1995",
+        "W 750-6 KP 1": "1985",
+        "W 1000-6 KP 1": "2015"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "2521",
+        "W 750-6 KP 1": "2670",
+        "W 1000-6 KP 1": "2700"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "750",
+        "W 750-6 KP 1": "750",
+        "W 1000-6 KP 1": "850"
+       }
+      },
+      {
+       "label": "Höhe Vorlaufanschluss (Speicher)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "966",
+        "W 750-6 KP 1": "1059",
+        "W 1000-6 KP 1": "1352"
+       }
+      },
+      {
+       "label": "Höhe Rücklaufanschluss (Speicher)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "221",
+        "W 750-6 KP 1": "318",
+        "W 1000-6 KP 1": "326"
+       }
+      },
+      {
+       "label": "Höhe Kaltwassereintritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "55",
+        "W 750-6 KP 1": "130",
+        "W 1000-6 KP 1": "131"
+       }
+      },
+      {
+       "label": "Höhe Warmwasseraustritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "1856",
+        "W 750-6 KP 1": "1916",
+        "W 1000-6 KP 1": "1930"
+       }
+      },
+      {
+       "label": "Höhe Zirkulationseintritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "1265",
+        "W 750-6 KP 1": "1447",
+        "W 1000-6 KP 1": "1519"
+       }
+      },
+      {
+       "label": "Fußabstand (Breite)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 EKP 1": "450",
+        "W 750-6 KP 1": "450",
+        "W 1000-6 KP 1": "450"
+       }
+      },
+      {
+       "label": "Anschluss für Heizungsvorlauf/-rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "W 500-6 EKP 1": "R1",
+        "W 750-6 KP 1": "R1 1/4",
+        "W 1000-6 KP 1": "R1 1/4"
+       }
+      },
+      {
+       "label": "Anschluss für Vorlauf und Rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "W 500-6 EKP 1": "R1",
+        "W 750-6 KP 1": "R1 1/4",
+        "W 1000-6 KP 1": "R1 1/4"
+       }
+      },
+      {
+       "label": "Durchmesser Zirkulationsanschluss",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "W 500-6 EKP 1": "R3/4",
+        "W 750-6 KP 1": "R3/4",
+        "W 1000-6 KP 1": "R3/4"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "W 500-6 EKP 1": "G1 1/2",
+        "W 750-6 KP 1": "–",
+        "W 1000-6 KP 1": "–"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 EKP 1": "B",
+        "W 750-6 KP 1": "B",
+        "W 1000-6 KP 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 EKP 1": "A+ -> F",
+        "W 750-6 KP 1": "A+ -> F",
+        "W 1000-6 KP 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 EKP 1": "78,0",
+        "W 750-6 KP 1": "87,5",
+        "W 1000-6 KP 1": "100,0"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 EKP 1": "461,8",
+        "W 750-6 KP 1": "713,2",
+        "W 1000-6 KP 1": "933,4"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Warmwasserspeicher mit druckfestem, emailliertem Stahlbehälter und einer Heizschlange •W 500-6 EKP 1 eingeschäumt mit zusätzlicher 56 mm Isolierung PU- Hartschaumdämmung und 20 mm silbernem Folienmantel",
+    "•ab 750 l: eingeschäumt mit zusätzlicher 77 mm Isolierung PU- Hartschaumdämmung und 20 mm silbernem Folienmantel Ausstattung •Isoliert eingebaute Magnesiumschutzanode",
+    "•Prüföffnungen oben und vorne Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
+   ],
+   "bild": "kat-w-500-750-1000-6-e-kp-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "09/2026",
+   "neu": true,
+   "bilder": [
+    "kat-w-500-750-1000-6-e-kp-1"
+   ]
+  },
+  {
+   "titel": "WS 500-6 EKP 1",
+   "seite": "8",
+   "produkte": [
+    {
+     "ttnr": "8732990152",
+     "preis": 3485.0,
+     "typ": "WS 500-6 EKP 1",
+     "text": "Solarspeicher, silber, 500 l"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "7735502289",
+     "preis": 85.08,
+     "typ": "SF 4 Set",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler •Kabellänge 6 m •Mit Anschlussstecker und Befestigungsset •Für alle nebenstehenden Speicher"
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk. •Warmwasser-Komfortgruppe für den Einsatz im 1-2"
+    },
+    {
+     "ttnr": "7719003023",
+     "preis": 847.68,
+     "typ": "WWKG",
+     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,"
+    },
+    {
+     "ttnr": "7735600273",
+     "preis": 154.78,
+     "typ": "TWM",
+     "text": "•Thermostatischer Trinkwassermischer DN 20 als Verbrühschutz, einstellbar von 30 - 70 °C, Anschlussverschraubung R3/4\", Verwendung bei Frischwasserstation FF20 als Vormischeinrichtung für optimalen Warmwasserkomfort bei Duschen mit Sparbrause"
+    },
+    {
+     "ttnr": "7738110915",
+     "preis": 634.48,
+     "typ": "NR. 1663",
+     "text": "•Zirkulationspumpen-Set mit Rückschlagventil •Speicher-Anschlussgruppe mit Speicherladepumpe"
+    },
+    {
+     "ttnr": "8718588480",
+     "preis": 563.75,
+     "typ": "BCC 27-HE",
+     "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7800F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+    },
+    {
+     "ttnr": "8718588406",
+     "preis": 159.9,
+     "typ": "Zusatzpaket BCC 27-HE",
+     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
+    },
+    {
+     "ttnr": "8718590658",
+     "preis": 30.24,
+     "typ": "Fußschrauben",
+     "text": "•Stellfüße für Speicher 500-1000 l"
+    },
+    {
+     "ttnr": "8732902340",
+     "preis": 227.55,
+     "typ": "Revisionsöffnung",
+     "text": "•Revisionsöffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-5 Speicher Durchmesser größer 700 mm"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+    },
+    {
+     "ttnr": "7735501421",
+     "preis": 29.73,
+     "typ": "M8 Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 425.20257568359375,
+       "name": "WS 500-6 EKP 1",
+       "ttnr": [
+        "8732990152"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "WS 500-6 EKP 1": "Silber"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "WS 500-6 EKP 1": "Polyestervlies; PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "16"
+       }
+      },
+      {
+       "label": "Max. Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "110"
+       }
+      },
+      {
+       "label": "Wärmetauschervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "8,8"
+       }
+      },
+      {
+       "label": "Speichervolumen Bereitschaftsteil",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "190"
+       }
+      },
+      {
+       "label": "Nicht-solares Speichervolumen (Vbu)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "190"
+       }
+      },
+      {
+       "label": "Warmwasser-Dauerleistung (80/45/10 °C)",
+       "kz": "",
+       "einheit": "kW",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "52,8"
+       }
+      },
+      {
+       "label": "Warmwasser-Dauerleistung (80/45/10 °C)",
+       "kz": "",
+       "einheit": "l/h",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "1304"
+       }
+      },
+      {
+       "label": "Leistungskennzahl bei max. Heizleistung (NL)",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "19"
+       }
+      },
+      {
+       "label": "Max. Warmwasser-Betriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "10"
+       }
+      },
+      {
+       "label": "Max. Warmwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "1,909"
+       }
+      },
+      {
+       "label": "Wärmetauscherfläche",
+       "kz": "",
+       "einheit": "m²",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "1,2"
+       }
+      },
+      {
+       "label": "Druckverlust (oberer Wärmetauscher)",
+       "kz": "",
+       "einheit": "mbar",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "79"
+       }
+      },
+      {
+       "label": "Max. Durchflussmenge (oberer Wärmetauscher)",
+       "kz": "",
+       "einheit": "m³/h",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "3"
+       }
+      },
+      {
+       "label": "Min. Aufheizzeit bei 80/45/10 °C",
+       "kz": "",
+       "einheit": "min",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "WS 500-6 EKP 1": "26"
+       }
+      },
+      {
+       "label": "Speichervolumen (solar)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "WS 500-6 EKP 1": "256"
+       }
+      },
+      {
+       "label": "Wärmetauschervolumen (solar)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "WS 500-6 EKP 1": "12,4"
+       }
+      },
+      {
+       "label": "Wärmetauscherfläche (solar)",
+       "kz": "",
+       "einheit": "m²",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "WS 500-6 EKP 1": "1,8"
+       }
+      },
+      {
+       "label": "Max. Solar-Betriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "WS 500-6 EKP 1": "16"
+       }
+      },
+      {
+       "label": "Min. Anzahl Flachkollektoren",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "WS 500-6 EKP 1": "3"
+       }
+      },
+      {
+       "label": "Max. Anzahl Flachkollektoren",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "WS 500-6 EKP 1": "5"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "1921"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "750"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "848"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "750"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "76"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "2000"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "2521"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "750"
+       }
+      },
+      {
+       "label": "Höhe Vorlaufanschluss (Speicher)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "1605"
+       }
+      },
+      {
+       "label": "Höhe Rücklaufanschluss (Speicher)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "1115"
+       }
+      },
+      {
+       "label": "Höhe Vorlaufanschluss (solar)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "966"
+       }
+      },
+      {
+       "label": "Höhe Rücklaufanschluss (solar)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "221"
+       }
+      },
+      {
+       "label": "Höhe Kaltwassereintritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "55"
+       }
+      },
+      {
+       "label": "Höhe Warmwasseraustritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "1856"
+       }
+      },
+      {
+       "label": "Höhe Zirkulationseintritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "1265"
+       }
+      },
+      {
+       "label": "Fußabstand (Breite)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "WS 500-6 EKP 1": "450"
+       }
+      },
+      {
+       "label": "Anschluss für Heizungsvorlauf/-rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "WS 500-6 EKP 1": "R1"
+       }
+      },
+      {
+       "label": "Anschlussdurchmesser Speicherrücklauf (solar)",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "WS 500-6 EKP 1": "R1"
+       }
+      },
+      {
+       "label": "Anschluss für Vorlauf und Rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "WS 500-6 EKP 1": "R1"
+       }
+      },
+      {
+       "label": "Durchmesser Zirkulationsanschluss",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "WS 500-6 EKP 1": "R3/4"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "WS 500-6 EKP 1": "G1 1/2"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 402.4046173095703,
+       "name": "WS 500-6 EKP 1",
+       "ttnr": [
+        "8732990152"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "WS 500-6 EKP 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "WS 500-6 EKP 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "WS 500-6 EKP 1": "79,5"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "WS 500-6 EKP 1": "449,4"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Warmwasserspeicher mit druckfestem, emailliertem Stahlbehälter •WS 500-6 EKP 1 eingeschäumt mit zusätzlicher 56 mm Isolierung PU- Hartschaumdämmung und 20 mm silbernem Folienmantel",
+    "•2 Wärmeübertrager: oben für Wärmeerzeuger, unten für Solarkollektoren Ausstattung •Isoliert eingebaute Magnesiumschutzanode •2 Inspektionsöffnungen oben und vorne",
+    "•E-Heater Anschlussmuffe G 1 1/2\" Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
+   ],
+   "bild": "kat-ws-500-6-ekp-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "09/2026",
+   "neu": true,
+   "bilder": [
+    "kat-ws-500-6-ekp-1"
+   ]
+  },
+  {
+   "titel": "W 500/750/1000-6 KPX 1",
+   "seite": "14",
+   "produkte": [
+    {
+     "ttnr": "8732990145",
+     "preis": 3024.0,
+     "typ": "W 500-6 KPX 1",
+     "text": "Warmwasserspeicher, silber, 500 l"
+    },
+    {
+     "ttnr": "8732990147",
+     "preis": 5433.0,
+     "typ": "W 750-6 KPX 1",
+     "text": "Warmwasserspeicher, silber, 750 l"
+    },
+    {
+     "ttnr": "8732990149",
+     "preis": 7073.0,
+     "typ": "W 1000-6 KPX 1",
+     "text": "Warmwasserspeicher, silber, 1000 l"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "7747201004",
+     "preis": 112.75,
+     "typ": "DTA",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Fremdstromanode für Korrosionsschutz von"
+    },
+    {
+     "ttnr": "8718590658",
+     "preis": 30.24,
+     "typ": "Fußschrauben",
+     "text": "Steckeranschluss •Stellfüße für Speicher 500-1000 l"
+    },
+    {
+     "ttnr": "8732902340",
+     "preis": 227.55,
+     "typ": "Revisionsöffnung",
+     "text": "•Revisionsöffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-6 Speicher Durchmesser größer 700 mm"
+    },
+    {
+     "ttnr": "7735502290",
+     "preis": 63.55,
+     "typ": "SF 4",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+    },
+    {
+     "ttnr": "7735600413",
+     "preis": 4288.6,
+     "typ": "TS 1-3 S",
+     "text": "•Warmwasser-Ladestation 80kW"
+    },
+    {
+     "ttnr": "7735600414",
+     "preis": 4700.65,
+     "typ": "TS 2-3 S",
+     "text": "•Warmwasser-Ladestation 120kW"
+    },
+    {
+     "ttnr": "7735600415",
+     "preis": 5823.03,
+     "typ": "TS 3-3 S",
+     "text": "•Warmwasser-Ladestation 160kW"
+    },
+    {
+     "ttnr": "7735600416",
+     "preis": 6734.25,
+     "typ": "TS 4-3 S",
+     "text": "•Warmwasser-Ladestation 240kW"
+    },
+    {
+     "ttnr": "7735600417",
+     "preis": 7969.38,
+     "typ": "TS 5-3 S",
+     "text": "•Warmwasser-Ladestation 310kW"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 64.63630676269531,
+     "spalten": [
+      {
+       "mitte": 334.453125,
+       "name": "W 500-6 KPX 1",
+       "ttnr": [
+        "8732990145"
+       ]
+      },
+      {
+       "mitte": 425.16131591796875,
+       "name": "W 750-6 KPX 1",
+       "ttnr": [
+        "8732990147"
+       ]
+      },
+      {
+       "mitte": 515.8308715820312,
+       "name": "W 1000-6 KPX 1",
+       "ttnr": [
+        "8732990149"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "W 500-6 KPX 1": "Silber",
+        "W 750-6 KPX 1": "Silber",
+        "W 1000-6 KPX 1": "Silber"
+       }
+      },
+      {
+       "label": "",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "W 500-6 KPX 1": "PolyestervliesPUR-",
+        "W 750-6 KPX 1": "PolyestervliesPUR-",
+        "W 1000-6 KPX 1": "PolyestervliesPUR-"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "W 500-6 KPX 1": "Hartschaum",
+        "W 750-6 KPX 1": "Hartschaum",
+        "W 1000-6 KPX 1": "Hartschaum"
+       }
+      },
+      {
+       "label": "Max. Warmwasser-Betriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "W 500-6 KPX 1": "10",
+        "W 750-6 KPX 1": "10",
+        "W 1000-6 KPX 1": "10"
+       }
+      },
+      {
+       "label": "Max. Warmwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "W 500-6 KPX 1": "95",
+        "W 750-6 KPX 1": "-99",
+        "W 1000-6 KPX 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Warmwasser",
+       "werte": {
+        "W 500-6 KPX 1": "1,81",
+        "W 750-6 KPX 1": "2,1",
+        "W 1000-6 KPX 1": "2,399"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "1921",
+        "W 750-6 KPX 1": "2070",
+        "W 1000-6 KPX 1": "2093"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "750",
+        "W 750-6 KPX 1": "960",
+        "W 1000-6 KPX 1": "1065"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "849",
+        "W 750-6 KPX 1": "1055",
+        "W 1000-6 KPX 1": "1155"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "750",
+        "W 750-6 KPX 1": "960",
+        "W 1000-6 KPX 1": "1065"
+       }
+      },
+      {
+       "label": "Höhe ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "–",
+        "W 750-6 KPX 1": "1974",
+        "W 1000-6 KPX 1": "1973"
+       }
+      },
+      {
+       "label": "Außendurchmesser ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "–",
+        "W 750-6 KPX 1": "750",
+        "W 1000-6 KPX 1": "850"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "76",
+        "W 750-6 KPX 1": "105",
+        "W 1000-6 KPX 1": "105"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "1995",
+        "W 750-6 KPX 1": "1985",
+        "W 1000-6 KPX 1": "2020"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "2521",
+        "W 750-6 KPX 1": "2670",
+        "W 1000-6 KPX 1": "2693"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "750",
+        "W 750-6 KPX 1": "750",
+        "W 1000-6 KPX 1": "850"
+       }
+      },
+      {
+       "label": "Höhe Kaltwassereintritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "55",
+        "W 750-6 KPX 1": "127",
+        "W 1000-6 KPX 1": "131"
+       }
+      },
+      {
+       "label": "Höhe Warmwasseraustritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "1674",
+        "W 750-6 KPX 1": "1668",
+        "W 1000-6 KPX 1": "1936"
+       }
+      },
+      {
+       "label": "Höhe Zirkulationseintritt",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "1265",
+        "W 750-6 KPX 1": "1173",
+        "W 1000-6 KPX 1": "1181"
+       }
+      },
+      {
+       "label": "Fußabstand (Breite)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "W 500-6 KPX 1": "450",
+        "W 750-6 KPX 1": "450",
+        "W 1000-6 KPX 1": "450"
+       }
+      },
+      {
+       "label": "Anschluss für Vorlauf und Rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "W 500-6 KPX 1": "R1 1/2",
+        "W 750-6 KPX 1": "R2",
+        "W 1000-6 KPX 1": "R2"
+       }
+      },
+      {
+       "label": "Durchmesser Zirkulationsanschluss",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "W 500-6 KPX 1": "R3/4",
+        "W 750-6 KPX 1": "R1 1/4",
+        "W 1000-6 KPX 1": "R1 1/4"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 KPX 1": "B",
+        "W 750-6 KPX 1": "B",
+        "W 1000-6 KPX 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 KPX 1": "A+ -> F",
+        "W 750-6 KPX 1": "A+ -> F",
+        "W 1000-6 KPX 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 KPX 1": "75,0",
+        "W 750-6 KPX 1": "87,5",
+        "W 1000-6 KPX 1": "100,0"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "W 500-6 KPX 1": "478,0",
+        "W 750-6 KPX 1": "748,4",
+        "W 1000-6 KPX 1": "972,0"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Warmwasserspeicher mit druckfestem, emailliertem Stahlbehälter ohne Wärmetauscher •für Warmwassersystem: \"Ladesystem TS\" und \"Vorwärmsystem TS\" in Verbindung mit WW-Übergabestation TS...-3 S •W 500-6 KPX 1 eingeschäumt mit zusätzlicher 56 mm Isolierung PU- Hartschaumdämmung und 20 mm",
+    "silbernem Folienmantel •ab 750 l: eingeschäumt mit zusätzlicher 77 mm Isolierung PU- Hartschaumdämmung und 20 mm silbernem Folienmantel •Einfacher Service durch groß dimensionierte Inspektionsöffnungen oben und vorne •Isoliert eingebaute Magnesiumschutzanode",
+    "Ausstattung •Digitalthermometer als Zubehör einsetzbar Verwendung •Warmwasser-Übergabestation TS...-3 S Hinweis •Bitte separat bestellen, nicht im Lieferumfang enthalten: erforderlicher Temperaturfühler NTC"
+   ],
+   "bild": "kat-w-500-750-1000-6-kpx-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "09/2026",
+   "neu": true,
+   "bilder": [
+    "kat-w-500-750-1000-6-kpx-1"
+   ]
+  },
+  {
+   "titel": "BP 500/750/1000-7 EM 1",
+   "seite": "20",
+   "produkte": [
+    {
+     "ttnr": "7724002303",
+     "preis": 1938.0,
+     "typ": "BP 500-7 EM 1",
+     "text": "Pufferspeicher, 500 l, silber"
+    },
+    {
+     "ttnr": "7724002304",
+     "preis": 2244.0,
+     "typ": "BP 750-7 EM 1",
+     "text": "Pufferspeicher, 750 l, silber"
+    },
+    {
+     "ttnr": "7724002305",
+     "preis": 2509.0,
+     "typ": "BP 1000-7 EM 1",
+     "text": "Pufferspeicher, 1000 l, silber"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "8718544956",
+     "preis": 119.93,
+     "typ": "Verlängerung ELT",
+     "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+    },
+    {
+     "ttnr": "8718544963",
+     "preis": 57.4,
+     "typ": "Stopfen",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse."
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 297.43731689453125,
+     "spalten": [
+      {
+       "mitte": 325.91192626953125,
+       "name": "BP 500-7 EM 1",
+       "ttnr": [
+        "7724002303"
+       ]
+      },
+      {
+       "mitte": 410.95082092285156,
+       "name": "BP 750-7 EM 1",
+       "ttnr": [
+        "7724002304"
+       ]
+      },
+      {
+       "mitte": 496.0712127685547,
+       "name": "BP 1000-7 EM 1",
+       "ttnr": [
+        "7724002305"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Höhe",
+       "kz": "H",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "1921",
+        "BP 750-7 EM 1": "1811",
+        "BP 1000-7 EM 1": "2162"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H1 mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "1818",
+        "BP 750-7 EM 1": "1570",
+        "BP 1000-7 EM 1": "1920"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "1663",
+        "BP 750-7 EM 1": "1445",
+        "BP 1000-7 EM 1": "1800"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H4 mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "–",
+        "BP 750-7 EM 1": "–",
+        "BP 1000-7 EM 1": "1553"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H5/E mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "945",
+        "BP 750-7 EM 1": "1110",
+        "BP 1000-7 EM 1": "1300/1325"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "945",
+        "BP 750-7 EM 1": "950",
+        "BP 1000-7 EM 1": "1150"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H8 mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "–",
+        "BP 750-7 EM 1": "830",
+        "BP 1000-7 EM 1": "952"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H10/ mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "667",
+        "BP 750-7 EM 1": "714",
+        "BP 1000-7 EM 1": "802"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H12/ mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "230",
+        "BP 750-7 EM 1": "274",
+        "BP 1000-7 EM 1": "274"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H13 mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "75",
+        "BP 750-7 EM 1": "133",
+        "BP 1000-7 EM 1": "133"
+       }
+      },
+      {
+       "label": "Durchmesser",
+       "kz": "",
+       "einheit": "D1 mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "750",
+        "BP 750-7 EM 1": "1030",
+        "BP 1000-7 EM 1": "1030"
+       }
+      },
+      {
+       "label": "Durchmesser",
+       "kz": "",
+       "einheit": "D2 mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "598",
+        "BP 750-7 EM 1": "790",
+        "BP 1000-7 EM 1": "790"
+       }
+      },
+      {
+       "label": "–",
+       "kz": "",
+       "einheit": "V4 l",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "462",
+        "BP 750-7 EM 1": "753",
+        "BP 1000-7 EM 1": "921"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "A",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "89",
+        "BP 750-7 EM 1": "106",
+        "BP 1000-7 EM 1": "121"
+       }
+      },
+      {
+       "label": "Bruttogewicht",
+       "kz": "B",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EM 1": "551",
+        "BP 750-7 EM 1": "857",
+        "BP 1000-7 EM 1": "1042"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 334.4168243408203,
+       "name": "BP 500-7 EM 1",
+       "ttnr": [
+        "7724002303"
+       ]
+      },
+      {
+       "mitte": 425.1250457763672,
+       "name": "BP 750-7 EM 1",
+       "ttnr": [
+        "7724002304"
+       ]
+      },
+      {
+       "mitte": 515.9145355224609,
+       "name": "BP 1000-7 EM 1",
+       "ttnr": [
+        "7724002305"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BP 500-7 EM 1": "Silber",
+        "BP 750-7 EM 1": "Silber",
+        "BP 1000-7 EM 1": "Silber"
+       }
+      },
+      {
+       "label": "",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BP 500-7 EM 1": "Polyestervlies:",
+        "BP 750-7 EM 1": "Polyestervlies:",
+        "BP 1000-7 EM 1": "Polyestervlies:"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "BP 500-7 EM 1": "PUR-Hartschaum",
+        "BP 750-7 EM 1": "PUR-Hartschaum",
+        "BP 1000-7 EM 1": "PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Speichervolumen (Heizung)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EM 1": "462",
+        "BP 750-7 EM 1": "752,8",
+        "BP 1000-7 EM 1": "920,5"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EM 1": "3",
+        "BP 750-7 EM 1": "3",
+        "BP 1000-7 EM 1": "3"
+       }
+      },
+      {
+       "label": "Max. zulässige Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EM 1": "95",
+        "BP 750-7 EM 1": "95",
+        "BP 1000-7 EM 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EM 1": "1,772",
+        "BP 750-7 EM 1": "1,918",
+        "BP 1000-7 EM 1": "2,176"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "1921",
+        "BP 750-7 EM 1": "1811",
+        "BP 1000-7 EM 1": "2162"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "750",
+        "BP 750-7 EM 1": "1030",
+        "BP 1000-7 EM 1": "1030"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "780",
+        "BP 750-7 EM 1": "1030",
+        "BP 1000-7 EM 1": "1030"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "750",
+        "BP 750-7 EM 1": "1030",
+        "BP 1000-7 EM 1": "1030"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "88,9",
+        "BP 750-7 EM 1": "103,41",
+        "BP 1000-7 EM 1": "120,72"
+       }
+      },
+      {
+       "label": "Höhe ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "–",
+        "BP 750-7 EM 1": "1680",
+        "BP 1000-7 EM 1": "2030"
+       }
+      },
+      {
+       "label": "Außendurchmesser ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "–",
+        "BP 750-7 EM 1": "790",
+        "BP 1000-7 EM 1": "790"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "76",
+        "BP 750-7 EM 1": "120",
+        "BP 1000-7 EM 1": "120"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "1994",
+        "BP 750-7 EM 1": "1830",
+        "BP 1000-7 EM 1": "2140"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "2521",
+        "BP 750-7 EM 1": "2411",
+        "BP 1000-7 EM 1": "2762"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EM 1": "750",
+        "BP 750-7 EM 1": "790",
+        "BP 1000-7 EM 1": "790"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BP 500-7 EM 1": "G 1 1/2",
+        "BP 750-7 EM 1": "G 1 1/2",
+        "BP 1000-7 EM 1": "G 1 1/2"
+       }
+      },
+      {
+       "label": "CE-Kennzeichen",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Zulassungen und Qualitätskennzeichen",
+       "werte": {
+        "BP 500-7 EM 1": "Ja",
+        "BP 750-7 EM 1": "Ja",
+        "BP 1000-7 EM 1": "Ja"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EM 1": "B",
+        "BP 750-7 EM 1": "B",
+        "BP 1000-7 EM 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EM 1": "A+ -> F",
+        "BP 750-7 EM 1": "A+ -> F",
+        "BP 1000-7 EM 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EM 1": "73,8",
+        "BP 750-7 EM 1": "80,0",
+        "BP 1000-7 EM 1": "91,0"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EM 1": "462,0",
+        "BP 750-7 EM 1": "752,8",
+        "BP 1000-7 EM 1": "920,5"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Pufferspeicher für alle Wärmeerzeuger •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm silbernem Folienmantel •ab 750 l: Verkleidungsdeckel, abnehmbaren 90 mm PU-Viertelschalen und 20 mm silbernem Folienmantel",
+    "Ausstattung •Sensorleiste für Anlegefühler (750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\" •Anschlüsse 750-1000l: H1-H13 mit G1 1/2\"",
+    "•Stellfüße im Lieferumfang enthalten Hinweis •Bitte separat bestellen, nicht im Lieferumfang von BP 500-7 EM 1 enthalten: Temperaturfühler NTC, Speicheranschluss-Set ASU"
+   ],
+   "bild": "kat-bp-500-750-1000-7-em-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
+   "bilder": [
+    "kat-bp-500-750-1000-7-em-1"
+   ]
+  },
+  {
+   "titel": "BP 500/750/1000-7 EMR 1",
+   "seite": "24",
+   "produkte": [
+    {
+     "ttnr": "7724002306",
+     "preis": 2652.0,
+     "typ": "BP 500-7 EMR 1",
+     "text": "Pufferspeicher, 500 l, silber"
+    },
+    {
+     "ttnr": "7724002307",
+     "preis": 2876.0,
+     "typ": "BP 750-7 EMR 1",
+     "text": "Pufferspeicher, 750 l, silber"
+    },
+    {
+     "ttnr": "7724002308",
+     "preis": 3295.0,
+     "typ": "BP 1000-7 EMR 1",
+     "text": "Pufferspeicher, 1000 l, silber"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "7735502289",
+     "preis": 85.08,
+     "typ": "SF 4 Set",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler •Kabellänge 6 m •Mit Anschlussstecker und Befestigungsset •Für alle nebenstehenden Speicher"
+    },
+    {
+     "ttnr": "7735502290",
+     "preis": 63.55,
+     "typ": "SF 4",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+    },
+    {
+     "ttnr": "7747201004",
+     "preis": 112.75,
+     "typ": "DTA",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+    },
+    {
+     "ttnr": "8735100556",
+     "preis": 149.65,
+     "typ": "DTA Gehäuse 1",
+     "text": "•Thermometergehäuse für 1 Thermometer DTA"
+    },
+    {
+     "ttnr": "8735100555",
+     "preis": 147.6,
+     "typ": "DTA Gehäuse 3",
+     "text": "•Thermometergehäuse für 3 Thermometer DTA"
+    },
+    {
+     "ttnr": "8718544959",
+     "preis": 141.45,
+     "typ": "KASK-V-R1-1/2",
+     "text": "•Kaskadierungsverbinder R 1 1/2\" •Wellrohr mit Anschlussstücken für Innengewinde 1 1/2\", für eine einfache Parallelschaltung von max. 3 Speichern •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 3 x Kaskadierungsverbinder notwendig)"
+    },
+    {
+     "ttnr": "8718544960",
+     "preis": 259.33,
+     "typ": "KASK-V-R1-1/2T",
+     "text": "•Kaskadierungsverbinder R1 1/2\" T-Stück •Wellrohr mit Anschlussstücken für Innengewinde 1 1/2\" und mit T-Stück in der Mitte, für eine einfache Parallelschaltung •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 3 x Kaskadierungsverbinder notwendig)"
+    },
+    {
+     "ttnr": "8718596167",
+     "preis": 280.85,
+     "typ": "KASK-V-R2T",
+     "text": "•Kaskadierungsverbinder R2\" T-Stück für eine einfache Parallelschaltung •Wellrohr mit Anschlussstücken für Innengewinde 1 1/2\" •T-Stück 2\" in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 3 x Kaskadierungsverbinder notwendig)"
+    },
+    {
+     "ttnr": "8718544956",
+     "preis": 119.93,
+     "typ": "Verlängerung ELT",
+     "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+    },
+    {
+     "ttnr": "8718544963",
+     "preis": 57.4,
+     "typ": "Stopfen",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+    },
+    {
+     "ttnr": "8738212205",
+     "preis": 436.56,
+     "typ": "CTHK 631",
+     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+    },
+    {
+     "ttnr": "8738212206",
+     "preis": 472.26,
+     "typ": "CTHK 632",
+     "text": "•Elektroheizstab für Pufferspeicher, 2,9 kW, 400V"
+    },
+    {
+     "ttnr": "8738212204",
+     "preis": 484.5,
+     "typ": "CTHK 630",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5kW, 230V"
+    },
+    {
+     "ttnr": "8738212207",
+     "preis": 499.8,
+     "typ": "CTHK 633",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212208",
+     "preis": 527.34,
+     "typ": "CTHK 634",
+     "text": "•Elektroheizstab für Pufferspeicher, 6 kW, 400V"
+    },
+    {
+     "ttnr": "8738212209",
+     "preis": 539.58,
+     "typ": "CTHK 635",
+     "text": "•Elektroheizstab für Pufferspeicher, 7,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212210",
+     "preis": 567.12,
+     "typ": "CTHK 636",
+     "text": "•Elektroheizstab für Pufferspeicher, 9 kW, 400V"
+    },
+    {
+     "ttnr": "7735501421",
+     "preis": 29.73,
+     "typ": "Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 322.89959716796875,
+     "spalten": [
+      {
+       "mitte": 340.0787353515625,
+       "name": "BP 500-7 EMR 1",
+       "ttnr": [
+        "7724002306"
+       ]
+      },
+      {
+       "mitte": 419.44834899902344,
+       "name": "BP 750-7 EMR 1",
+       "ttnr": [
+        "7724002307"
+       ]
+      },
+      {
+       "mitte": 498.8994445800781,
+       "name": "BP 1000-7 EMR 1",
+       "ttnr": [
+        "7724002308"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Höhe H",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "1921",
+        "BP 750-7 EMR 1": "1811",
+        "BP 1000-7 EMR 1": "2162"
+       }
+      },
+      {
+       "label": "Höhe H1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "1818",
+        "BP 750-7 EMR 1": "1570",
+        "BP 1000-7 EMR 1": "1920"
+       }
+      },
+      {
+       "label": "Höhe H2/H3",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "1663",
+        "BP 750-7 EMR 1": "1445",
+        "BP 1000-7 EMR 1": "1800"
+       }
+      },
+      {
+       "label": "Höhe H4",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "–",
+        "BP 750-7 EMR 1": "–",
+        "BP 1000-7 EMR 1": "1553"
+       }
+      },
+      {
+       "label": "Höhe H5/E",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "945",
+        "BP 750-7 EMR 1": "1110",
+        "BP 1000-7 EMR 1": "1300/1325"
+       }
+      },
+      {
+       "label": "Höhe H6/H7",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "945",
+        "BP 750-7 EMR 1": "950",
+        "BP 1000-7 EMR 1": "1150"
+       }
+      },
+      {
+       "label": "Höhe H8",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "–",
+        "BP 750-7 EMR 1": "830",
+        "BP 1000-7 EMR 1": "952"
+       }
+      },
+      {
+       "label": "Höhe H9/H10/VLs",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "667",
+        "BP 750-7 EMR 1": "714",
+        "BP 1000-7 EMR 1": "802"
+       }
+      },
+      {
+       "label": "Höhe H11/H12/RLs",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "230",
+        "BP 750-7 EMR 1": "274",
+        "BP 1000-7 EMR 1": "274"
+       }
+      },
+      {
+       "label": "Höhe H13",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "75",
+        "BP 750-7 EMR 1": "133",
+        "BP 1000-7 EMR 1": "133"
+       }
+      },
+      {
+       "label": "Durchmesser D1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "750",
+        "BP 750-7 EMR 1": "1030",
+        "BP 1000-7 EMR 1": "1030"
+       }
+      },
+      {
+       "label": "Durchmesser D2",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "598",
+        "BP 750-7 EMR 1": "790",
+        "BP 1000-7 EMR 1": "790"
+       }
+      },
+      {
+       "label": "– V4",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "462",
+        "BP 750-7 EMR 1": "751",
+        "BP 1000-7 EMR 1": "921"
+       }
+      },
+      {
+       "label": "Nettogewicht A",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "93",
+        "BP 750-7 EMR 1": "109",
+        "BP 1000-7 EMR 1": "128"
+       }
+      },
+      {
+       "label": "Bruttogewicht B",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 EMR 1": "555",
+        "BP 750-7 EMR 1": "860",
+        "BP 1000-7 EMR 1": "1049"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 334.4104461669922,
+       "name": "BP 500-7 EMR 1",
+       "ttnr": [
+        "7724002306"
+       ]
+      },
+      {
+       "mitte": 425.11863708496094,
+       "name": "BP 750-7 EMR 1",
+       "ttnr": [
+        "7724002307"
+       ]
+      },
+      {
+       "mitte": 515.9082336425781,
+       "name": "BP 1000-7 EMR 1",
+       "ttnr": [
+        "7724002308"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BP 500-7 EMR 1": "Silber",
+        "BP 750-7 EMR 1": "Silber",
+        "BP 1000-7 EMR 1": "Silber"
+       }
+      },
+      {
+       "label": "",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BP 500-7 EMR 1": "Polyestervlies;",
+        "BP 750-7 EMR 1": "Polyestervlies;",
+        "BP 1000-7 EMR 1": "Polyestervlies;"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "BP 500-7 EMR 1": "PUR-Hartschaum",
+        "BP 750-7 EMR 1": "PUR-Hartschaum",
+        "BP 1000-7 EMR 1": "PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Speichervolumen (Heizung)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EMR 1": "462",
+        "BP 750-7 EMR 1": "751",
+        "BP 1000-7 EMR 1": "921"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EMR 1": "3",
+        "BP 750-7 EMR 1": "3",
+        "BP 1000-7 EMR 1": "3"
+       }
+      },
+      {
+       "label": "Max. zulässige Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EMR 1": "95",
+        "BP 750-7 EMR 1": "95",
+        "BP 1000-7 EMR 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 EMR 1": "1,772",
+        "BP 750-7 EMR 1": "1,918",
+        "BP 1000-7 EMR 1": "2,176"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "1921",
+        "BP 750-7 EMR 1": "1811",
+        "BP 1000-7 EMR 1": "2162"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "750",
+        "BP 750-7 EMR 1": "1030",
+        "BP 1000-7 EMR 1": "1030"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "780",
+        "BP 750-7 EMR 1": "1030",
+        "BP 1000-7 EMR 1": "1030"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "750",
+        "BP 750-7 EMR 1": "1030",
+        "BP 1000-7 EMR 1": "1030"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "93,4",
+        "BP 750-7 EMR 1": "109,28",
+        "BP 1000-7 EMR 1": "127,64"
+       }
+      },
+      {
+       "label": "Höhe ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "–",
+        "BP 750-7 EMR 1": "1680",
+        "BP 1000-7 EMR 1": "2030"
+       }
+      },
+      {
+       "label": "Außendurchmesser ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "–",
+        "BP 750-7 EMR 1": "790",
+        "BP 1000-7 EMR 1": "790"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "76",
+        "BP 750-7 EMR 1": "120",
+        "BP 1000-7 EMR 1": "120"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "1994",
+        "BP 750-7 EMR 1": "1830",
+        "BP 1000-7 EMR 1": "2140"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "2521",
+        "BP 750-7 EMR 1": "2411",
+        "BP 1000-7 EMR 1": "2762"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 EMR 1": "750",
+        "BP 750-7 EMR 1": "790",
+        "BP 1000-7 EMR 1": "790"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BP 500-7 EMR 1": "G 1 1/2",
+        "BP 750-7 EMR 1": "G 1 1/2",
+        "BP 1000-7 EMR 1": "G 1 1/2"
+       }
+      },
+      {
+       "label": "CE-Kennzeichen",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Zulassungen und Qualitätskennzeichen",
+       "werte": {
+        "BP 500-7 EMR 1": "Ja",
+        "BP 750-7 EMR 1": "Ja",
+        "BP 1000-7 EMR 1": "Ja"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EMR 1": "B",
+        "BP 750-7 EMR 1": "B",
+        "BP 1000-7 EMR 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EMR 1": "A+ -> F",
+        "BP 750-7 EMR 1": "A+ -> F",
+        "BP 1000-7 EMR 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EMR 1": "73,8",
+        "BP 750-7 EMR 1": "80,0",
+        "BP 1000-7 EMR 1": "91,0"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 EMR 1": "462,0",
+        "BP 750-7 EMR 1": "751,0",
+        "BP 1000-7 EMR 1": "921,0"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Universell einsetzbarer Pufferspeicher mit effizienter und temperatursensibler Schichtladeeinheit •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm silbernem Folienmantel •ab 750 l: Verkleidungsdeckel, abnehmbaren 90 mm PU-Viertelschalen",
+    "und 20 mm silbernem Folienmantel •Einfach kaskadierbar mit Kaskadensets (Zubehör) Ausstattung •Sensorleiste für Anlegefühler (750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\"",
+    "•Anschlüsse 750-1000l: H1-H13 mit G1 1/2\" •Stellfüße im Lieferumfang enthalten Hinweis •Bitte separat bestellen, nicht im Lieferumfang von BP 500-7 EMR 1 enthalten: Temperaturfühler NTC, Speicheranschluss bei 500 l Pufferspeicher"
+   ],
+   "bild": "kat-bp-500-750-1000-7-emr-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
+   "bilder": [
+    "kat-bp-500-750-1000-7-emr-1"
+   ]
+  },
+  {
+   "titel": "BP 500/750/1000-7 ERZ 1",
+   "seite": "30",
+   "produkte": [
+    {
+     "ttnr": "7724002309",
+     "preis": 2754.0,
+     "typ": "BP 500-7 ERZ 1",
+     "text": "Pufferspeicher, 500 l, silber"
+    },
+    {
+     "ttnr": "7724002310",
+     "preis": 3060.0,
+     "typ": "BP 750-7 ERZ 1",
+     "text": "Pufferspeicher, 750 l, silber"
+    },
+    {
+     "ttnr": "7724002311",
+     "preis": 3529.0,
+     "typ": "BP 1000-7 ERZ 1",
+     "text": "Pufferspeicher, 1000 l, silber"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "8738202915",
+     "preis": 23.97,
+     "typ": "–",
+     "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge"
+    },
+    {
+     "ttnr": "7735502290",
+     "preis": 63.55,
+     "typ": "SF 4",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+    },
+    {
+     "ttnr": "7747201004",
+     "preis": 112.75,
+     "typ": "DTA",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+    },
+    {
+     "ttnr": "8735100556",
+     "preis": 149.65,
+     "typ": "DTA Gehäuse 1",
+     "text": "•Thermometergehäuse für 1 Thermometer DTA"
+    },
+    {
+     "ttnr": "8735100555",
+     "preis": 147.6,
+     "typ": "DTA Gehäuse 3",
+     "text": "•Thermometergehäuse für 3 Thermometer DTA"
+    },
+    {
+     "ttnr": "8718544956",
+     "preis": 119.93,
+     "typ": "Verlängerung ELT",
+     "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+    },
+    {
+     "ttnr": "8718544963",
+     "preis": 57.4,
+     "typ": "Stopfen",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen"
+    },
+    {
+     "ttnr": "8738204926",
+     "preis": 35.19,
+     "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
+     "text": "•Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+    },
+    {
+     "ttnr": "8738212205",
+     "preis": 436.56,
+     "typ": "CTHK 631",
+     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+    },
+    {
+     "ttnr": "8738212206",
+     "preis": 472.26,
+     "typ": "CTHK 632",
+     "text": "•Elektroheizstab für Pufferspeicher, 2,9 kW, 400V"
+    },
+    {
+     "ttnr": "8738212204",
+     "preis": 484.5,
+     "typ": "CTHK 630",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5kW, 230V"
+    },
+    {
+     "ttnr": "8738212207",
+     "preis": 499.8,
+     "typ": "CTHK 633",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212208",
+     "preis": 527.34,
+     "typ": "CTHK 634",
+     "text": "•Elektroheizstab für Pufferspeicher, 6 kW, 400V"
+    },
+    {
+     "ttnr": "8738212209",
+     "preis": 539.58,
+     "typ": "CTHK 635",
+     "text": "•Elektroheizstab für Pufferspeicher, 7,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212210",
+     "preis": 567.12,
+     "typ": "CTHK 636",
+     "text": "•Elektroheizstab für Pufferspeicher, 9 kW, 400V"
+    },
+    {
+     "ttnr": "7735501421",
+     "preis": 29.73,
+     "typ": "Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 353.55108642578125,
+     "spalten": [
+      {
+       "mitte": 344.30592346191406,
+       "name": "BP 500-7 ERZ 1",
+       "ttnr": [
+        "7724002309"
+       ]
+      },
+      {
+       "mitte": 420.8410186767578,
+       "name": "BP 750-7 ERZ 1",
+       "ttnr": [
+        "7724002310"
+       ]
+      },
+      {
+       "mitte": 498.7547302246094,
+       "name": "BP 1000-7 ERZ 1",
+       "ttnr": [
+        "7724002311"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Höhe H",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "1921",
+        "BP 750-7 ERZ 1": "1811",
+        "BP 1000-7 ERZ 1": "2162"
+       }
+      },
+      {
+       "label": "Höhe H1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "1818",
+        "BP 750-7 ERZ 1": "1570",
+        "BP 1000-7 ERZ 1": "1920"
+       }
+      },
+      {
+       "label": "Höhe H2/H3",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "1663",
+        "BP 750-7 ERZ 1": "1445",
+        "BP 1000-7 ERZ 1": "1800"
+       }
+      },
+      {
+       "label": "Höhe H4",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "–",
+        "BP 750-7 ERZ 1": "–",
+        "BP 1000-7 ERZ 1": "1553"
+       }
+      },
+      {
+       "label": "Höhe H5/E",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "945",
+        "BP 750-7 ERZ 1": "1110",
+        "BP 1000-7 ERZ 1": "1300/1325"
+       }
+      },
+      {
+       "label": "Höhe H6/H7",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "945",
+        "BP 750-7 ERZ 1": "950",
+        "BP 1000-7 ERZ 1": "1150"
+       }
+      },
+      {
+       "label": "Höhe H8",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "–",
+        "BP 750-7 ERZ 1": "830",
+        "BP 1000-7 ERZ 1": "952"
+       }
+      },
+      {
+       "label": "Höhe H9/H10/VLs",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "667",
+        "BP 750-7 ERZ 1": "714",
+        "BP 1000-7 ERZ 1": "802"
+       }
+      },
+      {
+       "label": "Höhe H11/H12/RLs",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "230",
+        "BP 750-7 ERZ 1": "274",
+        "BP 1000-7 ERZ 1": "274"
+       }
+      },
+      {
+       "label": "Höhe H13",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "75",
+        "BP 750-7 ERZ 1": "133",
+        "BP 1000-7 ERZ 1": "133"
+       }
+      },
+      {
+       "label": "Durchmesser D1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "750",
+        "BP 750-7 ERZ 1": "1030",
+        "BP 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Durchmesser D2",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "598",
+        "BP 750-7 ERZ 1": "790",
+        "BP 1000-7 ERZ 1": "790"
+       }
+      },
+      {
+       "label": "– V1",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "278",
+        "BP 750-7 ERZ 1": "405",
+        "BP 1000-7 ERZ 1": "532"
+       }
+      },
+      {
+       "label": "– V2",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "184",
+        "BP 750-7 ERZ 1": "346",
+        "BP 1000-7 ERZ 1": "389"
+       }
+      },
+      {
+       "label": "– V4",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "462",
+        "BP 750-7 ERZ 1": "751",
+        "BP 1000-7 ERZ 1": "921"
+       }
+      },
+      {
+       "label": "Nettogewicht A",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "99",
+        "BP 750-7 ERZ 1": "120",
+        "BP 1000-7 ERZ 1": "137"
+       }
+      },
+      {
+       "label": "Bruttogewicht B",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BP 500-7 ERZ 1": "561",
+        "BP 750-7 ERZ 1": "872",
+        "BP 1000-7 ERZ 1": "1059"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 334.38563537597656,
+       "name": "BP 500-7 ERZ 1",
+       "ttnr": [
+        "7724002309"
+       ]
+      },
+      {
+       "mitte": 425.0938262939453,
+       "name": "BP 750-7 ERZ 1",
+       "ttnr": [
+        "7724002310"
+       ]
+      },
+      {
+       "mitte": 515.8834075927734,
+       "name": "BP 1000-7 ERZ 1",
+       "ttnr": [
+        "7724002311"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BP 500-7 ERZ 1": "Silber",
+        "BP 750-7 ERZ 1": "Silber",
+        "BP 1000-7 ERZ 1": "Silber"
+       }
+      },
+      {
+       "label": "",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BP 500-7 ERZ 1": "Polyestervlies;",
+        "BP 750-7 ERZ 1": "Polyestervlies;",
+        "BP 1000-7 ERZ 1": "Polyestervlies;"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "BP 500-7 ERZ 1": "PUR-Hartschaum",
+        "BP 750-7 ERZ 1": "PUR-Hartschaum",
+        "BP 1000-7 ERZ 1": "PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Speichervolumen (Heizung)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 ERZ 1": "462",
+        "BP 750-7 ERZ 1": "752",
+        "BP 1000-7 ERZ 1": "922"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 ERZ 1": "3",
+        "BP 750-7 ERZ 1": "3",
+        "BP 1000-7 ERZ 1": "3"
+       }
+      },
+      {
+       "label": "Max. zulässige Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 ERZ 1": "95",
+        "BP 750-7 ERZ 1": "95",
+        "BP 1000-7 ERZ 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BP 500-7 ERZ 1": "1,772",
+        "BP 750-7 ERZ 1": "1,918",
+        "BP 1000-7 ERZ 1": "2,176"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "1921",
+        "BP 750-7 ERZ 1": "1811",
+        "BP 1000-7 ERZ 1": "2162"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "750",
+        "BP 750-7 ERZ 1": "1030",
+        "BP 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "780",
+        "BP 750-7 ERZ 1": "1030",
+        "BP 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "750",
+        "BP 750-7 ERZ 1": "1030",
+        "BP 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "99,04",
+        "BP 750-7 ERZ 1": "119,7",
+        "BP 1000-7 ERZ 1": "137,04"
+       }
+      },
+      {
+       "label": "Höhe ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "–",
+        "BP 750-7 ERZ 1": "1680",
+        "BP 1000-7 ERZ 1": "2030"
+       }
+      },
+      {
+       "label": "Außendurchmesser ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "–",
+        "BP 750-7 ERZ 1": "790",
+        "BP 1000-7 ERZ 1": "790"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "76",
+        "BP 750-7 ERZ 1": "120",
+        "BP 1000-7 ERZ 1": "120"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "1994",
+        "BP 750-7 ERZ 1": "1830",
+        "BP 1000-7 ERZ 1": "2140"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "2521",
+        "BP 750-7 ERZ 1": "2411",
+        "BP 1000-7 ERZ 1": "2762"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BP 500-7 ERZ 1": "750",
+        "BP 750-7 ERZ 1": "790",
+        "BP 1000-7 ERZ 1": "790"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BP 500-7 ERZ 1": "G 1 1/2",
+        "BP 750-7 ERZ 1": "G 1 1/2",
+        "BP 1000-7 ERZ 1": "G 1 1/2"
+       }
+      },
+      {
+       "label": "CE-Kennzeichen",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Zulassungen und Qualitätskennzeichen",
+       "werte": {
+        "BP 500-7 ERZ 1": "Ja",
+        "BP 750-7 ERZ 1": "Ja",
+        "BP 1000-7 ERZ 1": "Ja"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 ERZ 1": "B",
+        "BP 750-7 ERZ 1": "B",
+        "BP 1000-7 ERZ 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 ERZ 1": "A+ -> F",
+        "BP 750-7 ERZ 1": "A+ -> F",
+        "BP 1000-7 ERZ 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 ERZ 1": "73,8",
+        "BP 750-7 ERZ 1": "80,0",
+        "BP 1000-7 ERZ 1": "91,0"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BP 500-7 ERZ 1": "462,0",
+        "BP 750-7 ERZ 1": "752,0",
+        "BP 1000-7 ERZ 1": "922,0"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Universeller Pufferspeicher mit effizienter, temperatursensibler Schichtladeeinheit mit 2 Rücklaufanschlüssen, Diffusorstab zur beruhigten Beladung und 1 Trennblech zur Vermeidung der Durchmischung der Temperaturzonen •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm",
+    "silbernem Folienmantel •ab 750 l: Verkleidungsdeckel, abnehmbaren 90 mm PU-Viertelschalen und 20 mm silbernem Folienmantel Ausstattung •Sensorleiste für Anlegefühler ‚(750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\"",
+    "•Anschlüsse 750-1000l: H1-H13 mit G1 1/2\" •Stellfüße im Lieferumfang enthalten Hinweis •Bitte separat bestellen, nicht im Lieferumfang von BP 500-7 EM 1 enthalten: Temperaturfühler NTC, Speicheranschluss-Set ASU"
+   ],
+   "bild": "kat-bp-500-750-1000-7-erz-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
+   "bilder": [
+    "kat-bp-500-750-1000-7-erz-1"
+   ]
+  },
+  {
+   "titel": "BPS 500-7 ER 1",
+   "seite": "36",
+   "produkte": [
+    {
+     "ttnr": "7724002312",
+     "preis": 2825.0,
+     "typ": "BPS 500-7 ER 1",
+     "text": "Pufferspeicher, 500 l, silber"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "7735502289",
+     "preis": 85.08,
+     "typ": "SF 4 Set",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler •Kabellänge 6 m •Mit Anschlussstecker und Befestigungsset •Für alle nebenstehenden Speicher"
+    },
+    {
+     "ttnr": "7735502290",
+     "preis": 63.55,
+     "typ": "SF 4",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+    },
+    {
+     "ttnr": "7747201004",
+     "preis": 112.75,
+     "typ": "DTA",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+    },
+    {
+     "ttnr": "8735100556",
+     "preis": 149.65,
+     "typ": "DTA Gehäuse 1",
+     "text": "•Thermometergehäuse für 1 Thermometer DTA"
+    },
+    {
+     "ttnr": "8735100555",
+     "preis": 147.6,
+     "typ": "DTA Gehäuse 3",
+     "text": "•Thermometergehäuse für 3 Thermometer DTA"
+    },
+    {
+     "ttnr": "8718544959",
+     "preis": 141.45,
+     "typ": "KASK-V-R1-1/2",
+     "text": "•Kaskadierungsverbinder R 1 1/2\" •Wellrohr mit Anschlussstücken für Innengewinde 1 1/2\", für eine einfache Parallelschaltung von max. 3 Speichern •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 3 x Kaskadierungsverbinder notwendig)"
+    },
+    {
+     "ttnr": "8718544960",
+     "preis": 259.33,
+     "typ": "KASK-V-R1-1/2T",
+     "text": "•Kaskadierungsverbinder R1 1/2\" T-Stück •Wellrohr mit Anschlussstücken für Innengewinde 1 1/2\" und mit T-Stück in der Mitte, für eine einfache Parallelschaltung •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 3 x Kaskadierungsverbinder notwendig)"
+    },
+    {
+     "ttnr": "8718596167",
+     "preis": 280.85,
+     "typ": "KASK-V-R2T",
+     "text": "•Kaskadierungsverbinder R2\" T-Stück für eine einfache Parallelschaltung •Wellrohr mit Anschlussstücken für Innengewinde 1 1/2\" •T-Stück 2\" in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 3 x Kaskadierungsverbinder notwendig)"
+    },
+    {
+     "ttnr": "8718545012",
+     "preis": 176.3,
+     "typ": "KASK-V-SOLAR-R1T",
+     "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher"
+    },
+    {
+     "ttnr": "8718544956",
+     "preis": 119.93,
+     "typ": "Verlängerung ELT",
+     "text": "mind. 2 x Kaskadierungsverbinder notwendig) •Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+    },
+    {
+     "ttnr": "8718544963",
+     "preis": 57.4,
+     "typ": "Stopfen",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+    },
+    {
+     "ttnr": "8738212205",
+     "preis": 436.56,
+     "typ": "CTHK 631",
+     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+    },
+    {
+     "ttnr": "8738212206",
+     "preis": 472.26,
+     "typ": "CTHK 632",
+     "text": "•Elektroheizstab für Pufferspeicher, 2,9 kW, 400V"
+    },
+    {
+     "ttnr": "8738212204",
+     "preis": 484.5,
+     "typ": "CTHK 630",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5kW, 230V"
+    },
+    {
+     "ttnr": "8738212207",
+     "preis": 499.8,
+     "typ": "CTHK 633",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212208",
+     "preis": 527.34,
+     "typ": "CTHK 634",
+     "text": "•Elektroheizstab für Pufferspeicher, 6 kW, 400V"
+    },
+    {
+     "ttnr": "8738212209",
+     "preis": 539.58,
+     "typ": "CTHK 635",
+     "text": "•Elektroheizstab für Pufferspeicher, 7,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212210",
+     "preis": 567.12,
+     "typ": "CTHK 636",
+     "text": "•Elektroheizstab für Pufferspeicher, 9 kW, 400V"
+    },
+    {
+     "ttnr": "7735501421",
+     "preis": 29.73,
+     "typ": "Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 367.5696105957031,
+     "spalten": [
+      {
+       "mitte": 408.2372131347656,
+       "name": "BPS 500-7 ER 1",
+       "ttnr": [
+        "7724002312"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Höhe",
+       "kz": "H",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "1921"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H1 mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "1818"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "1663"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H4 mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "–"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H5/E mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "945"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "945"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H8 mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "–"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H10/ mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "667"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H12/ mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "230"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "H13 mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "75"
+       }
+      },
+      {
+       "label": "Durchmesser",
+       "kz": "",
+       "einheit": "D1 mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "750"
+       }
+      },
+      {
+       "label": "Durchmesser",
+       "kz": "",
+       "einheit": "D2 mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "598"
+       }
+      },
+      {
+       "label": "–",
+       "kz": "",
+       "einheit": "V4 l",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "451"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "A",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "107"
+       }
+      },
+      {
+       "label": "Bruttogewicht",
+       "kz": "B",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BPS 500-7 ER 1": "569"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 425.12591552734375,
+       "name": "BPS 500-7 ER 1",
+       "ttnr": [
+        "7724002312"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BPS 500-7 ER 1": "Silber"
+       }
+      },
+      {
+       "label": "",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BPS 500-7 ER 1": "Polyestervlies;"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "BPS 500-7 ER 1": "PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Speichervolumen (Heizung)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 500-7 ER 1": "451"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 500-7 ER 1": "3"
+       }
+      },
+      {
+       "label": "Max. zulässige Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 500-7 ER 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 500-7 ER 1": "1,795"
+       }
+      },
+      {
+       "label": "Wärmetauscherfläche (solar)",
+       "kz": "",
+       "einheit": "m²",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 500-7 ER 1": "1,4"
+       }
+      },
+      {
+       "label": "Wärmetauschervolumen (solar)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 500-7 ER 1": "10"
+       }
+      },
+      {
+       "label": "Min. Anzahl Flachkollektoren",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 500-7 ER 1": "3"
+       }
+      },
+      {
+       "label": "Max. Anzahl Flachkollektoren",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 500-7 ER 1": "5"
+       }
+      },
+      {
+       "label": "Max. Solar-Betriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 500-7 ER 1": "10"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "1921"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "750"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "780"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "750"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "107,2"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "76"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "1994"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "2521"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "750"
+       }
+      },
+      {
+       "label": "Höhe Vorlaufanschluss (solar)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "666"
+       }
+      },
+      {
+       "label": "Höhe Rücklaufanschluss (solar)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 500-7 ER 1": "230"
+       }
+      },
+      {
+       "label": "Anschluss für Heizungsvorlauf/-rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BPS 500-7 ER 1": "R1"
+       }
+      },
+      {
+       "label": "Anschlussdurchmesser Speicherrücklauf (solar)",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BPS 500-7 ER 1": "R1"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BPS 500-7 ER 1": "G 1 1/2"
+       }
+      },
+      {
+       "label": "CE-Kennzeichen",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Zulassungen und Qualitätskennzeichen",
+       "werte": {
+        "BPS 500-7 ER 1": "Ja"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 500-7 ER 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 500-7 ER 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 500-7 ER 1": "74,8"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 500-7 ER 1": "451,0"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Universell einsetzbarer Pufferspeicher mit Solarwärmetauscher und effizienter, temperatursensibler Schichtladeeinheit mit 2 Rücklaufanschlüssen •500 l Speicher eingeschäumt mit zusätzlicher 56 mm PU- Hartschaumdämmung und 20 mm silbernem Folienmantell",
+    "•Einfach kaskadierbar mit Kaskadensets (Zubehör) Ausstattung •Sensorleiste für Anlegefühler (750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 500l: H1+H13 mit R1 1/2\"; H2-H12 mit G1 1/2\" •Anschlüsse Solar: R1\"",
+    "•Stellfüße im Lieferumfang enthalten Hinweis •Bitte separat bestellen, nicht im Lieferumfang von BPS 500-7 ER 1 enthalten: erforderlicher Temperaturfühler NTC, Speicheranschluss-Set ASU"
+   ],
+   "bild": "kat-bps-500-7-er-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "",
+   "neu": true,
+   "bilder": [
+    "kat-bps-500-7-er-1"
+   ]
+  },
+  {
+   "titel": "BPS 750/1000-7 ERZ 1",
+   "seite": "42",
+   "produkte": [
+    {
+     "ttnr": "7724002313",
+     "preis": 3539.0,
+     "typ": "BPS 750-7 ERZ 1",
+     "text": "Pufferspeicher, 750 l, silber"
+    },
+    {
+     "ttnr": "7724002314",
+     "preis": 4111.0,
+     "typ": "BPS 1000-7 ERZ 1",
+     "text": "Pufferspeicher, 1000 l, silber"
+    }
+   ],
+   "zubehoer": [
+    {
+     "ttnr": "8738202915",
+     "preis": 23.97,
+     "typ": "–",
+     "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge"
+    },
+    {
+     "ttnr": "7735502290",
+     "preis": 63.55,
+     "typ": "SF 4",
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+    },
+    {
+     "ttnr": "7735501429",
+     "preis": 98.4,
+     "typ": "EPP-Abdeckung",
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+    },
+    {
+     "ttnr": "7747201004",
+     "preis": 112.75,
+     "typ": "DTA",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+    },
+    {
+     "ttnr": "8735100556",
+     "preis": 149.65,
+     "typ": "DTA Gehäuse 1",
+     "text": "•Thermometergehäuse für 1 Thermometer DTA"
+    },
+    {
+     "ttnr": "8735100555",
+     "preis": 147.6,
+     "typ": "DTA Gehäuse 3",
+     "text": "•Thermometergehäuse für 3 Thermometer DTA"
+    },
+    {
+     "ttnr": "8718544956",
+     "preis": 119.93,
+     "typ": "Verlängerung ELT",
+     "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+    },
+    {
+     "ttnr": "8718544963",
+     "preis": 57.4,
+     "typ": "Stopfen",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse."
+    },
+    {
+     "ttnr": "8738204926",
+     "preis": 35.19,
+     "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
+     "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser"
+    },
+    {
+     "ttnr": "7735502657",
+     "preis": 560.68,
+     "typ": "E-Heater mit LED 2kW/230V",
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+    },
+    {
+     "ttnr": "7735502658",
+     "preis": 582.2,
+     "typ": "E-Heater mit LED 3kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 3 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 330 mm"
+    },
+    {
+     "ttnr": "7735502659",
+     "preis": 631.4,
+     "typ": "E-Heater mit LED 4.5kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 4,5 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 360 mm"
+    },
+    {
+     "ttnr": "7735502660",
+     "preis": 664.2,
+     "typ": "E-Heater mit LED 6kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
+    },
+    {
+     "ttnr": "7735502661",
+     "preis": 705.2,
+     "typ": "E-Heater mit LED 9kW/400V",
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+    },
+    {
+     "ttnr": "8738212205",
+     "preis": 436.56,
+     "typ": "CTHK 631",
+     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+    },
+    {
+     "ttnr": "8738212206",
+     "preis": 472.26,
+     "typ": "CTHK 632",
+     "text": "•Elektroheizstab für Pufferspeicher, 2,9 kW, 400V"
+    },
+    {
+     "ttnr": "8738212204",
+     "preis": 484.5,
+     "typ": "CTHK 630",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5kW, 230V"
+    },
+    {
+     "ttnr": "8738212207",
+     "preis": 499.8,
+     "typ": "CTHK 633",
+     "text": "•Elektroheizstab für Pufferspeicher, 4,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212208",
+     "preis": 527.34,
+     "typ": "CTHK 634",
+     "text": "•Elektroheizstab für Pufferspeicher, 6 kW, 400V"
+    },
+    {
+     "ttnr": "8738212209",
+     "preis": 539.58,
+     "typ": "CTHK 635",
+     "text": "•Elektroheizstab für Pufferspeicher, 7,5 kW, 400V"
+    },
+    {
+     "ttnr": "8738212210",
+     "preis": 567.12,
+     "typ": "CTHK 636",
+     "text": "•Elektroheizstab für Pufferspeicher, 9 kW, 400V"
+    },
+    {
+     "ttnr": "7735501421",
+     "preis": 29.73,
+     "typ": "Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+    }
+   ],
+   "tabellen": [
+    {
+     "y": 363.9164123535156,
+     "spalten": [
+      {
+       "mitte": 410.93719482421875,
+       "name": "BPS 750-7 ERZ 1",
+       "ttnr": [
+        "7724002313"
+       ]
+      },
+      {
+       "mitte": 495.93751525878906,
+       "name": "BPS 1000-7 ERZ 1",
+       "ttnr": [
+        "7724002314"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Höhe H",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1811",
+        "BPS 1000-7 ERZ 1": "2162"
+       }
+      },
+      {
+       "label": "Höhe H1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1570",
+        "BPS 1000-7 ERZ 1": "1920"
+       }
+      },
+      {
+       "label": "Höhe H2/H3",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1445",
+        "BPS 1000-7 ERZ 1": "1800"
+       }
+      },
+      {
+       "label": "Höhe H4",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "–",
+        "BPS 1000-7 ERZ 1": "1553"
+       }
+      },
+      {
+       "label": "Höhe H5/E",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1110",
+        "BPS 1000-7 ERZ 1": "1300/1325"
+       }
+      },
+      {
+       "label": "Höhe H6/H7",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "950",
+        "BPS 1000-7 ERZ 1": "1150"
+       }
+      },
+      {
+       "label": "Höhe H8",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "830",
+        "BPS 1000-7 ERZ 1": "952"
+       }
+      },
+      {
+       "label": "Höhe H9/H10/VLs",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "714",
+        "BPS 1000-7 ERZ 1": "802"
+       }
+      },
+      {
+       "label": "Höhe H11/H12/RLs",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "274",
+        "BPS 1000-7 ERZ 1": "274"
+       }
+      },
+      {
+       "label": "Höhe H13",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "133",
+        "BPS 1000-7 ERZ 1": "133"
+       }
+      },
+      {
+       "label": "Durchmesser D1",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1030",
+        "BPS 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Durchmesser D2",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "790",
+        "BPS 1000-7 ERZ 1": "790"
+       }
+      },
+      {
+       "label": "– V1",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "280",
+        "BPS 1000-7 ERZ 1": "356"
+       }
+      },
+      {
+       "label": "– V2",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "125",
+        "BPS 1000-7 ERZ 1": "176"
+       }
+      },
+      {
+       "label": "– V3",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "346",
+        "BPS 1000-7 ERZ 1": "389"
+       }
+      },
+      {
+       "label": "– V4",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "–",
+        "BPS 1000-7 ERZ 1": "–"
+       }
+      },
+      {
+       "label": "Nettogewicht A",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "153",
+        "BPS 1000-7 ERZ 1": "176"
+       }
+      },
+      {
+       "label": "Bruttogewicht B",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "",
+       "werte": {
+        "BPS 750-7 ERZ 1": "917",
+        "BPS 1000-7 ERZ 1": "1097"
+       }
+      }
+     ],
+     "art": "daten"
+    },
+    {
+     "y": 59.63642883300781,
+     "spalten": [
+      {
+       "mitte": 357.0801086425781,
+       "name": "BPS 750-7 ERZ 1",
+       "ttnr": [
+        "7724002313"
+       ]
+      },
+      {
+       "mitte": 493.2239532470703,
+       "name": "BPS 1000-7 ERZ 1",
+       "ttnr": [
+        "7724002314"
+       ]
+      }
+     ],
+     "zeilen": [
+      {
+       "label": "Farbe",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BPS 750-7 ERZ 1": "Silber",
+        "BPS 1000-7 ERZ 1": "Silber"
+       }
+      },
+      {
+       "label": "",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Allgemeine Daten",
+       "werte": {
+        "BPS 750-7 ERZ 1": "Polyestervlies;",
+        "BPS 1000-7 ERZ 1": "Polyestervlies;"
+       }
+      },
+      {
+       "label": "Dämmstoff",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Dämmstoff",
+       "werte": {
+        "BPS 750-7 ERZ 1": "PUR-Hartschaum",
+        "BPS 1000-7 ERZ 1": "PUR-Hartschaum"
+       }
+      },
+      {
+       "label": "Speichervolumen (Heizung)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 750-7 ERZ 1": "734,6",
+        "BPS 1000-7 ERZ 1": "905,2"
+       }
+      },
+      {
+       "label": "Max. Heizungsbetriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 750-7 ERZ 1": "3",
+        "BPS 1000-7 ERZ 1": "3"
+       }
+      },
+      {
+       "label": "Max. zulässige Heizwassertemperatur",
+       "kz": "",
+       "einheit": "°C",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 750-7 ERZ 1": "95",
+        "BPS 1000-7 ERZ 1": "95"
+       }
+      },
+      {
+       "label": "Bereitschaftsverlust",
+       "kz": "",
+       "einheit": "kWh/d",
+       "gruppe": "Betriebsangaben: Heizung",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1,992",
+        "BPS 1000-7 ERZ 1": "2,282"
+       }
+      },
+      {
+       "label": "Wärmetauscherfläche (solar)",
+       "kz": "",
+       "einheit": "m²",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 750-7 ERZ 1": "2,12",
+        "BPS 1000-7 ERZ 1": "2,54"
+       }
+      },
+      {
+       "label": "Wärmetauschervolumen (solar)",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 750-7 ERZ 1": "14,6",
+        "BPS 1000-7 ERZ 1": "17,4"
+       }
+      },
+      {
+       "label": "Min. Anzahl Flachkollektoren",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 750-7 ERZ 1": "5",
+        "BPS 1000-7 ERZ 1": "6"
+       }
+      },
+      {
+       "label": "Max. Anzahl Flachkollektoren",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 750-7 ERZ 1": "8",
+        "BPS 1000-7 ERZ 1": "10"
+       }
+      },
+      {
+       "label": "Max. Solar-Betriebsdruck",
+       "kz": "",
+       "einheit": "bar",
+       "gruppe": "Betriebsangaben: Solar",
+       "werte": {
+        "BPS 750-7 ERZ 1": "10",
+        "BPS 1000-7 ERZ 1": "10"
+       }
+      },
+      {
+       "label": "Höhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1811",
+        "BPS 1000-7 ERZ 1": "2162"
+       }
+      },
+      {
+       "label": "Breite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1030",
+        "BPS 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Tiefe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1030",
+        "BPS 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Außendurchmesser mit Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1030",
+        "BPS 1000-7 ERZ 1": "1030"
+       }
+      },
+      {
+       "label": "Nettogewicht",
+       "kz": "",
+       "einheit": "kg",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "152,36",
+        "BPS 1000-7 ERZ 1": "176,26"
+       }
+      },
+      {
+       "label": "Höhe ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1680",
+        "BPS 1000-7 ERZ 1": "2030"
+       }
+      },
+      {
+       "label": "Außendurchmesser ohne Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "790",
+        "BPS 1000-7 ERZ 1": "790"
+       }
+      },
+      {
+       "label": "Dicke der Wärmedämmung",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "120",
+        "BPS 1000-7 ERZ 1": "120"
+       }
+      },
+      {
+       "label": "Kippmaß",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "1830",
+        "BPS 1000-7 ERZ 1": "2140"
+       }
+      },
+      {
+       "label": "Min. Aufstellraumhöhe",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "2411",
+        "BPS 1000-7 ERZ 1": "2762"
+       }
+      },
+      {
+       "label": "Min. Einbringbreite",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "790",
+        "BPS 1000-7 ERZ 1": "790"
+       }
+      },
+      {
+       "label": "Höhe Vorlaufanschluss (solar)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "714",
+        "BPS 1000-7 ERZ 1": "802"
+       }
+      },
+      {
+       "label": "Höhe Rücklaufanschluss (solar)",
+       "kz": "",
+       "einheit": "mm",
+       "gruppe": "Abmessungen/Gewichte",
+       "werte": {
+        "BPS 750-7 ERZ 1": "270",
+        "BPS 1000-7 ERZ 1": "274"
+       }
+      },
+      {
+       "label": "Anschluss für Heizungsvorlauf/-rücklauf",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BPS 750-7 ERZ 1": "R1",
+        "BPS 1000-7 ERZ 1": "R1"
+       }
+      },
+      {
+       "label": "Anschlussdurchmesser Speicherrücklauf (solar)",
+       "kz": "",
+       "einheit": "Zoll",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BPS 750-7 ERZ 1": "R1",
+        "BPS 1000-7 ERZ 1": "R1"
+       }
+      },
+      {
+       "label": "Durchmesser Elektro-Heizeinsatz",
+       "kz": "DN",
+       "einheit": "",
+       "gruppe": "Anschlüsse",
+       "werte": {
+        "BPS 750-7 ERZ 1": "G 1 1/2",
+        "BPS 1000-7 ERZ 1": "G 1 1/2"
+       }
+      },
+      {
+       "label": "CE-Kennzeichen",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "Zulassungen und Qualitätskennzeichen",
+       "werte": {
+        "BPS 750-7 ERZ 1": "Ja",
+        "BPS 1000-7 ERZ 1": "Ja"
+       }
+      },
+      {
+       "label": "Warmwasserbereitungs-Energieeffizienzklasse",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 750-7 ERZ 1": "B",
+        "BPS 1000-7 ERZ 1": "B"
+       }
+      },
+      {
+       "label": "Spektrum",
+       "kz": "",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 750-7 ERZ 1": "A+ -> F",
+        "BPS 1000-7 ERZ 1": "A+ -> F"
+       }
+      },
+      {
+       "label": "Warmhalteverlust",
+       "kz": "W",
+       "einheit": "",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 750-7 ERZ 1": "83,0",
+        "BPS 1000-7 ERZ 1": "95,0"
+       }
+      },
+      {
+       "label": "Speichervolumen",
+       "kz": "",
+       "einheit": "l",
+       "gruppe": "EU-Richtlinie für Energieeffizienz",
+       "werte": {
+        "BPS 750-7 ERZ 1": "734,6",
+        "BPS 1000-7 ERZ 1": "905,2"
+       }
+      }
+     ],
+     "art": "daten"
+    }
+   ],
+   "hinweise": [],
+   "beschreibung": [
+    "Produktbeschreibung •Universell einsetzbarer Pufferspeicher mit Solarwärmetauscher, effizienter, temperatursensibler Schichtladeeinheit mit 2 Rücklaufanschlüssen, Diffusorstab zur beruhigten Beladung und 2 Trennblechen zur Vermeidung der Durchmischung der Temperaturzonen",
+    "•Verkleidungsdeckel, abnehmbaren 90 mm PU-Viertelschalen und 20 mm silbernem Folienmantel Ausstattung •Sensorleiste für Anlegefühler (750/1000 L) •E-Heater Anschlussmuffe G 1 1/2\" •Anschlüsse 750-1000l: H1-H13 mit",
+    "G1 1/2\" •Anschlüsse Solar: R1\" •Stellfüße im Lieferumfang enthalten Hinweis •Speichertemperaturfühler ist im Lieferumfang der Wärmepumpe enthalten"
+   ],
+   "bild": "kat-bps-750-1000-7-erz-1",
+   "quelle": "EK_Speicher_BO_DE-DE_2026-07_P1_ALL_Ergaenzungskatalog.pdf",
+   "stand": "07/2026",
+   "verfuegbar_ab": "",
+   "neu": false,
+   "bilder": [
+    "kat-bps-750-1000-7-erz-1"
    ]
   }
  ]

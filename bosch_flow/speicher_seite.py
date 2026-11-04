@@ -25,6 +25,11 @@ def _tags(s: dict, e: dict | None, F: dict) -> str:
         t.append(s["info"])
     if s.get("alt"):
         t.append(f'<b style="color:{F["rot"]}">Alt</b>')
+    kat = s.get("katalog") or {}
+    if kat.get("neu"):
+        t.append(f'<b style="color:{F["gruen"]}">NEU</b>')
+    if kat.get("verfuegbar_ab"):
+        t.append(f'<b style="color:{F["gelb"]}">ab {E(kat["verfuegbar_ab"])}</b>')
     if e and e["status"] == "bedingt":
         t.append(f'<b style="color:{F["gelb"]}">{E(e["code"])} eingeschränkt</b>')
     elif e and e["zusatz"]:
@@ -67,7 +72,8 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
     with st.container(border=True):
         k1, k2 = st.columns([3, 2] if not mobil else [1, 1])
         meta = [d["kategorien"][s["kategorie"]]] + ([s["info"]] if s.get("info") else []) + \
-               (["Alt – auslaufend"] if s.get("alt") else [])
+               (["Alt – auslaufend"] if s.get("alt") else []) + (["NEU"] if kat.get("neu") else []) + \
+               ([f"verfügbar ab {kat['verfuegbar_ab']}"] if kat.get("verfuegbar_ab") else [])
         k1.markdown(f'<div style="font-size:24px;font-weight:800;color:{F["text"]}">{E(s["name"])}</div>'
                     f'<div style="color:{F["leise"]};font-size:13px">{E(_ttnr_text(s))} · {E(" · ".join(meta))}'
                     + (f' · in der E-Heizer-Liste: {E(eh["name_heizerliste"])}' if eh.get("name_heizerliste") else "")
@@ -129,14 +135,16 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
             if eh.get("handlochdeckel_ttnr"):
                 zeilen.append(("Handlochdeckel", eh["handlochdeckel_ttnr"]))
             if kat.get("preis"):
-                zeilen.append(("UVP (Katalog, zzgl. MwSt.)", SP.preis_text(kat["preis"])))
+                vorher = kat.get("preis_vorher")
+                zeilen.append((f"UVP (Katalog {kat.get('stand', '')}, zzgl. MwSt.)", SP.preis_text(kat["preis"])
+                               + (f" (vorher {vorher['stand']}: {SP.preis_text(vorher['preis'])})" if vorher else "")))
             for k, t in SP.STAMMDATEN_TITEL.items():
                 if (s.get("daten") or {}).get(k):
                     zeilen.append((t, s["daten"][k]))
             st.markdown("".join(f'<div class="g-zeile"><span>{E(a)}</span><b>{E(str(b))}</b></div>' for a, b in zeilen),
                         unsafe_allow_html=True)
             if kat:
-                st.caption(f"Daten und Maßbild: {d.get('katalog_quelle', 'Gesamtkatalog')}, Seite {kat['seite']} "
+                st.caption(f"Daten und Maßbild: {kat.get('quelle') or d.get('katalog_quelle')}, Seite {kat['seite']} "
                            f"(„{kat['familie']}“)")
                 if kat.get("konflikte"):
                     st.warning("Katalog uneinheitlich: " + "; ".join(kat["konflikte"]))
