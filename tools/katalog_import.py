@@ -262,7 +262,23 @@ def massbild(page, z, tabellen_y: list[float], ziel: Path) -> bool:
     unten = min([y for y in tabellen_y if y > oben] + marken + [FUSS_Y])
     if unten - oben < 120:
         return False
-    clip = pymupdf.Rect(30, oben, 570, unten - 4)
+    # ganze Seitenbreite bis direkt an die Tabelle – ohne die Kapitelmarke („12“) am linken/rechten Seitenrand
+    links, rechts = 15, page.rect.width - 5
+    for b_ in page.get_text("dict")["blocks"]:
+        r = pymupdf.Rect(b_["bbox"])
+        if b_["type"] == 1 and r.width < 50 and r.height > 600:
+            if r.x0 < 60:
+                links = max(links, r.x1 + 2)
+            else:
+                rechts = min(rechts, r.x0 - 2)
+    for _, c in z:      # Kapitelnummer als Text im Randstreifen
+        for x in c:
+            if re.fullmatch(r"\d{1,2}", x[4].strip()) and (x[0] > page.rect.width - 60 or x[2] < 60) and 200 < x[1] < 760:
+                if x[0] > page.rect.width - 60:
+                    rechts = min(rechts, x[0] - 2)
+                else:
+                    links = max(links, x[2] + 2)
+    clip = pymupdf.Rect(links, oben, rechts, unten - 0.5)
     pfade = [it[0] for d in page.get_drawings() if clip.intersects(d["rect"]) for it in d["items"]]
     rasterbild = any(pymupdf.Rect(b["bbox"]).intersect(clip).get_area() > 30000
                      for b in page.get_text("dict")["blocks"] if b["type"] == 1)
