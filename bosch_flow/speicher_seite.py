@@ -305,7 +305,7 @@ def _vergleich(d: dict, wp_id: str | None) -> None:
                 c.image(str(b[0]), width="stretch")
 
 
-def seite(F: dict, dunkel: bool = False, mobil: bool = False, eigenstaendig: bool = False) -> None:
+def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
     d = SP.laden()
     ss = st.session_state
     st.markdown('<style>[class*="st-key-sp_"] button {justify-content:flex-start; min-height:34px; padding:4px 10px}'
@@ -314,7 +314,7 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False, eigenstaendig: boo
     k1.markdown(f'<div class="marke">BOSCH <span>Speicherauswahl</span>'
                 f'<small>Wärmepumpe → Speicher → E-Heizer · Matrix-Stand {E(d["stand"])} · {E(ENTWICKLER)}</small></div>',
                 unsafe_allow_html=True)
-    if not eigenstaendig and k2.button("Netzrechner", icon=":material/arrow_back:", width="stretch"):
+    if k2.button("Netzrechner", icon=":material/arrow_back:", width="stretch"):
         st.query_params.clear()
         st.rerun()
 
