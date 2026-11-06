@@ -544,13 +544,13 @@
      "ttnr": "7719001934",
      "preis": 112.0,
      "typ": "ZL 102/1",
-     "text": "•Tauchrohr für Zirkulationsanschluss •Service-Pakete für Aufputzinstallation"
+     "text": "•Tauchrohr für Zirkulationsanschluss"
     },
     {
      "ttnr": "7738112218",
      "preis": 203.0,
      "typ": "NR. 528/1",
-     "text": "•2 Wartungshähne R 3/4, Durchgangsform •1 Gashahn R 3/4, Durchgangsform mit thermisch auslösender Absperreinrichtung •Für Erd- und Flüssiggas"
+     "text": "•Service-Pakete für Aufputzinstallation •2 Wartungshähne R 3/4, Durchgangsform •1 Gashahn R 3/4, Durchgangsform mit thermisch auslösender Absperreinrichtung •Für Erd- und Flüssiggas"
     },
     {
      "ttnr": "7738112219",
@@ -598,13 +598,13 @@
      "ttnr": "7719001938",
      "preis": 503.0,
      "typ": "NR. 686/1",
-     "text": "•Installationssatz (Auf- und Unterputz) für Heizung und Sanitär •Montageanschlussplatte (einschl. 3/4\" Anschlussnippel und Rückflussverhinderer 3/4\") •Metallwellschlauch für Vor- und Rücklauf mit Wärmedämmung, mit Sicherheitsgruppe, ohne Druckminderer, Trichtersiphon, Anschlussteile"
+     "text": "•Installationssatz (Auf- und Unterputz) für Heizung und Sanitär •Montageanschlussplatte (einschl. 3/4\" Anschlussnippel und Rückflussverhinderer 3/4\") •Metallwellschlauch für Vor- und Rücklauf mit Wärmedämmung, mit Sicherheitsgruppe, ohne Druckminderer, Trichtersiphon, Anschlussteile •Für Montage Ceramini"
     },
     {
      "ttnr": "7719002803",
      "preis": 112.0,
      "typ": "NR. 618/1",
-     "text": "•Für Montage Ceramini •Druckminderer auf 4 bar fest eingestellt"
+     "text": "•Druckminderer auf 4 bar fest eingestellt"
     },
     {
      "ttnr": "7719002804",
@@ -998,13 +998,13 @@
      "ttnr": "7736602295",
      "preis": 700.0,
      "typ": "BCC33",
-     "text": "(Energieeffizienzklasse A) und Schwerkraftbremse •Für GC7000F und GC8000iF / GC8800iF 15/22/30/40/ 50 kW mit Stora WST/WH 135-200 •Je nach Kessel-/ Speicherkombination ist das jeweilige Aufstellblech als Installationszubehör auszuwählen •Bei Verwendung mit GC7000F und GC8000iF / GC8800iF 50 kW ist zusätzlich das Reduzierstück- Set"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A) und Schwerkraftbremse •Für GC7000F und GC8000iF / GC8800iF 15/22/30/40/ 50 kW mit Stora WST/WH 135-200 •Je nach Kessel-/ Speicherkombination ist das jeweilige Aufstellblech als Installationszubehör auszuwählen •Bei Verwendung mit GC7000F und GC8000iF / GC8800iF 50 kW ist zusätzlich das Reduzierstück- Set Bestell.-Nr.: 8718594445 erforderlich."
     },
     {
      "ttnr": "8718594445",
      "preis": 54.0,
      "typ": "Reduzierstück-Set",
-     "text": "Bestell.-Nr.: 8718594445 erforderlich. •Reduzierstück-Set G1 1/2 x G1 (2 St.) •Wird zum Anschluss BCC33 an GC7000F/ GC8000iF / GC8800iF 50 kW benötigt"
+     "text": "•Reduzierstück-Set G1 1/2 x G1 (2 St.) •Wird zum Anschluss BCC33 an GC7000F/ GC8000iF / GC8800iF 50 kW benötigt"
     },
     {
      "ttnr": "8718588481",
@@ -1028,13 +1028,13 @@
      "ttnr": "8718587494",
      "preis": 70.0,
      "typ": "Halteblech",
-     "text": "•Halteblech Ausdehnungsgefäß. Zur Montage eines MAG 35 auf dem Speicher Stora WST 135-200-2 HRC. Nicht für Kombination GC7000F 40/50 kW mit Stora WST 135- 200-2 HRC. Das benötigte MAG 35 bitte separat bestellen! •-Fremdstromanode für Korrosionsschutz von"
+     "text": "•Halteblech Ausdehnungsgefäß. Zur Montage eines MAG 35 auf dem Speicher Stora WST 135-200-2 HRC. Nicht für Kombination GC7000F 40/50 kW mit Stora WST 135- 200-2 HRC. Das benötigte MAG 35 bitte separat bestellen!"
     },
     {
      "ttnr": "7735502655",
      "preis": 384.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Deckel",
-     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift •- inklusive Verbindungskabel (Länge 3m)"
     }
    ],
    "tabellen": [
@@ -1421,43 +1421,43 @@
      "ttnr": "7736602295",
      "preis": 700.0,
      "typ": "BCC33",
-     "text": "(Energieeffizienzklasse A) und Schwerkraftbremse •Für GC7000F und GC8000iF / GC8800iF 15/22/30/40/ 50 kW mit Stora WST/WH 135-200 •Je nach Kessel-/ Speicherkombination ist das jeweilige Aufstellblech als Installationszubehör auszuwählen •Bei Verwendung mit GC7000F und GC8000iF / GC8800iF 50 kW ist zusätzlich das Reduzierstück- Set"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A) und Schwerkraftbremse •Für GC7000F und GC8000iF / GC8800iF 15/22/30/40/ 50 kW mit Stora WST/WH 135-200 •Je nach Kessel-/ Speicherkombination ist das jeweilige Aufstellblech als Installationszubehör auszuwählen •Bei Verwendung mit GC7000F und GC8000iF / GC8800iF 50 kW ist zusätzlich das Reduzierstück- Set Bestell.-Nr.: 8718594445 erforderlich."
     },
     {
      "ttnr": "8718594445",
      "preis": 54.0,
      "typ": "Reduzierstück-Set",
-     "text": "Bestell.-Nr.: 8718594445 erforderlich. •Reduzierstück-Set G1 1/2 x G1 (2 St.) •Wird zum Anschluss BCC33 an GC7000F/ GC8000iF / GC8800iF 50 kW benötigt"
+     "text": "•Reduzierstück-Set G1 1/2 x G1 (2 St.) •Wird zum Anschluss BCC33 an GC7000F/ GC8000iF / GC8800iF 50 kW benötigt"
     },
     {
      "ttnr": "8718587494",
      "preis": 70.0,
      "typ": "Halteblech",
-     "text": "•Halteblech Ausdehnungsgefäß. Zur Montage eines MAG 35 auf dem Speicher Stora WST 135-200-2 HRC. Nicht für Kombination GC7000F 40/50 kW mit Stora WST 135- 200-2 HRC. Das benötigte MAG 35 bitte separat"
+     "text": "•Halteblech Ausdehnungsgefäß. Zur Montage eines MAG 35 auf dem Speicher Stora WST 135-200-2 HRC. Nicht für Kombination GC7000F 40/50 kW mit Stora WST 135- 200-2 HRC. Das benötigte MAG 35 bitte separat bestellen!"
     },
     {
      "ttnr": "7736602280",
      "preis": 99.0,
      "typ": "Aufstellblech 450x335 silber",
-     "text": "bestellen! •Aufstellblech 450x335, Stora WH 135-200-3 P 2 und GC8000iF / GC8800iF / OC8800iF 15-30 kW"
+     "text": "•Aufstellblech 450x335, Stora WH 135-200-3 P 2 und GC8000iF / GC8800iF / OC8800iF 15-30 kW"
     },
     {
      "ttnr": "7736602281",
      "preis": 120.0,
      "typ": "Aufstellblech 450x507 silber",
-     "text": "•Aufstellblech 450x507, Stora WH 135-200-3 P 2 und GC8000iF / GC8800iF 40-50 kW •Speicher-Anschlussgruppe mit Speicherladepumpe"
+     "text": "•Aufstellblech 450x507, Stora WH 135-200-3 P 2 und GC8000iF / GC8800iF 40-50 kW"
     },
     {
      "ttnr": "7736604151",
      "preis": 694.0,
      "typ": "BCC36",
-     "text": "•(Energieeffizienzklasse A) und Schwerkraftbremse für •WH 135-3 P 2 B; WH 160-3 P 2 B; WH 200-3 P 2 B. •Je nach Kessel-/ Speicherkombination ist das jeweilige •Aufstellblech sowie der Speicher-Temperaturfühler als Installationszubehör auszuwählen."
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe •(Energieeffizienzklasse A) und Schwerkraftbremse für •WH 135-3 P 2 B; WH 160-3 P 2 B; WH 200-3 P 2 B. •Je nach Kessel-/ Speicherkombination ist das jeweilige •Aufstellblech sowie der Speicher-Temperaturfühler als Installationszubehör auszuwählen."
     },
     {
      "ttnr": "7735502655",
      "preis": 384.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Deckel",
-     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift •- inklusive Verbindungskabel (Länge 3m)"
     }
    ],
    "tabellen": [
@@ -1844,13 +1844,13 @@
      "ttnr": "7719001934",
      "preis": 112.0,
      "typ": "ZL 102/1",
-     "text": "•Tauchrohr für Zirkulationsanschluss •Service-Pakete für Aufputzinstallation"
+     "text": "•Tauchrohr für Zirkulationsanschluss"
     },
     {
      "ttnr": "7738112218",
      "preis": 203.0,
      "typ": "NR. 528/1",
-     "text": "•2 Wartungshähne R 3/4, Durchgangsform •1 Gashahn R 3/4, Durchgangsform mit thermisch auslösender Absperreinrichtung •Für Erd- und Flüssiggas"
+     "text": "•Service-Pakete für Aufputzinstallation •2 Wartungshähne R 3/4, Durchgangsform •1 Gashahn R 3/4, Durchgangsform mit thermisch auslösender Absperreinrichtung •Für Erd- und Flüssiggas"
     },
     {
      "ttnr": "7738112219",
@@ -1898,13 +1898,13 @@
      "ttnr": "7719001938",
      "preis": 503.0,
      "typ": "NR. 686/1",
-     "text": "•Installationssatz (Auf- und Unterputz) für Heizung und Sanitär •Montageanschlussplatte (einschl. 3/4\" Anschlussnippel und Rückflussverhinderer 3/4\") •Metallwellschlauch für Vor- und Rücklauf mit Wärmedämmung, mit Sicherheitsgruppe, ohne Druckminderer, Trichtersiphon, Anschlussteile"
+     "text": "•Installationssatz (Auf- und Unterputz) für Heizung und Sanitär •Montageanschlussplatte (einschl. 3/4\" Anschlussnippel und Rückflussverhinderer 3/4\") •Metallwellschlauch für Vor- und Rücklauf mit Wärmedämmung, mit Sicherheitsgruppe, ohne Druckminderer, Trichtersiphon, Anschlussteile •Für Montage Ceramini"
     },
     {
      "ttnr": "7719002803",
      "preis": 112.0,
      "typ": "NR. 618/1",
-     "text": "•Für Montage Ceramini •Druckminderer auf 4 bar fest eingestellt"
+     "text": "•Druckminderer auf 4 bar fest eingestellt"
     },
     {
      "ttnr": "7719002804",
@@ -2243,25 +2243,25 @@
      "ttnr": "7736602298",
      "preis": 140.0,
      "typ": "Ergänzungs-Kit 1",
-     "text": "•Ergänzungs-Set für Speicheranschluss links vom Kessel •Speicher-Anschlussgruppe mit Speicherladepumpe"
+     "text": "•Ergänzungs-Set für Speicheranschluss links vom Kessel"
     },
     {
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
-     "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem"
+     "typ": "Zusatzpaket BCC 27-HE Stellfüße",
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem höheren Einstellbereich für Speicher bis 400 l,"
     },
     {
      "ttnr": "7719000758",
      "preis": 177.0,
      "typ": "NR. 429",
-     "text": "•Sicherheitsgruppe (DN15) für Netzdrücke bis 4 bar mit Sicherheitsventil (6 bar), Absperrhahn, Prüfstutzen, Rückschlagventil, Anschlussverschraubungen"
+     "text": "schalldämmend •Sicherheitsgruppe (DN15) für Netzdrücke bis 4 bar mit Sicherheitsventil (6 bar), Absperrhahn, Prüfstutzen, Rückschlagventil, Anschlussverschraubungen"
     },
     {
      "ttnr": "7719000759",
@@ -2774,19 +2774,19 @@
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
-     "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem"
+     "typ": "Zusatzpaket BCC 27-HE Stellfüße",
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem höheren Einstellbereich für Speicher bis 400 l,"
     },
     {
      "ttnr": "7719000758",
      "preis": 177.0,
      "typ": "NR. 429",
-     "text": "•Sicherheitsgruppe (DN15) für Netzdrücke bis 4 bar mit Sicherheitsventil (6 bar), Absperrhahn, Prüfstutzen, Rückschlagventil, Anschlussverschraubungen"
+     "text": "schalldämmend •Sicherheitsgruppe (DN15) für Netzdrücke bis 4 bar mit Sicherheitsventil (6 bar), Absperrhahn, Prüfstutzen, Rückschlagventil, Anschlussverschraubungen"
     },
     {
      "ttnr": "7719000759",
@@ -2810,7 +2810,7 @@
      "ttnr": "7735502655",
      "preis": 384.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Deckel",
-     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift"
+     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift •- inklusive Verbindungskabel (Länge 3m)"
     }
    ],
    "tabellen": [
@@ -3275,19 +3275,19 @@
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
-     "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem"
+     "typ": "Zusatzpaket BCC 27-HE Stellfüße",
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem höheren Einstellbereich für Speicher bis 400 l,"
     },
     {
      "ttnr": "7719000758",
      "preis": 177.0,
      "typ": "NR. 429",
-     "text": "•Sicherheitsgruppe (DN15) für Netzdrücke bis 4 bar mit Sicherheitsventil (6 bar), Absperrhahn, Prüfstutzen, Rückschlagventil, Anschlussverschraubungen"
+     "text": "schalldämmend •Sicherheitsgruppe (DN15) für Netzdrücke bis 4 bar mit Sicherheitsventil (6 bar), Absperrhahn, Prüfstutzen, Rückschlagventil, Anschlussverschraubungen"
     },
     {
      "ttnr": "7719000759",
@@ -3305,13 +3305,13 @@
      "ttnr": "7719002804",
      "preis": 144.0,
      "typ": "NR. 620/1",
-     "text": "•Druckminderer einstellbar, DN 15 •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+     "text": "•Druckminderer einstellbar, DN 15"
     },
     {
      "ttnr": "7735502657",
      "preis": 547.0,
      "typ": "E-Heater mit LED 2kW/230V",
-     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
     },
     {
      "ttnr": "7735502658",
@@ -3779,13 +3779,13 @@
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
-     "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem"
+     "typ": "Zusatzpaket BCC 27-HE Stellfüße",
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links •PTFE-beschichtete Einstellschrauben mit einem höheren Einstellbereich für Speicher bis 400 l,"
     },
     {
      "ttnr": "8718542449",
@@ -3851,7 +3851,7 @@
      "ttnr": "7735502784",
      "preis": 434.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-     "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)"
     }
    ],
    "tabellen": [
@@ -4284,8 +4284,8 @@
     {
      "ttnr": "7747201004",
      "preis": 110.0,
-     "typ": "DTA",
-     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+     "typ": "DTA Anodenprüfer",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Messgerät zur Kontrolle des kathodischen Korrosionsschutz bei isoliert eingebauten Anoden in"
     },
     {
      "ttnr": "8718590658",
@@ -4297,13 +4297,13 @@
      "ttnr": "8732902340",
      "preis": 222.0,
      "typ": "Revisionsöffnung",
-     "text": "•Revisionsöffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-5 Speicher Durchmesser größer 700 mm •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+     "text": "•Revisionsöffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-5 Speicher Durchmesser größer 700 mm"
     },
     {
      "ttnr": "7735502657",
      "preis": 547.0,
      "typ": "E-Heater mit LED 2kW/230V",
-     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
     },
     {
      "ttnr": "7735502658",
@@ -4327,7 +4327,7 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm •Fremdstromanode für Korrosionsschutz von"
     }
    ],
    "tabellen": [
@@ -4922,7 +4922,7 @@
      "ttnr": "7735502784",
      "preis": 434.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-     "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 2m)"
     }
    ],
    "tabellen": [
@@ -6472,19 +6472,19 @@
      "ttnr": "8738212216",
      "preis": 626.0,
      "typ": "FLH 90",
-     "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V. •-Fremdstromanode für Korrosionsschutz von"
+     "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V."
     },
     {
      "ttnr": "7735502784",
      "preis": 434.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-     "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)"
     },
     {
      "ttnr": "7735502785",
      "preis": 611.0,
      "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-     "text": "Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 3,5m)"
     }
    ],
    "tabellen": [
@@ -7560,13 +7560,13 @@
      "ttnr": "7735502785",
      "preis": 611.0,
      "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-     "text": "Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m)"
     },
     {
      "ttnr": "7735501421",
      "preis": 29.0,
      "typ": "Abdeckrosetten Set für E-Heizeinsatz",
-     "text": "(1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m) •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+     "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
     }
    ],
    "tabellen": [
@@ -8108,7 +8108,7 @@
      "ttnr": "7735502784",
      "preis": 434.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-     "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)"
     },
     {
      "ttnr": "7735502657",
@@ -9034,13 +9034,13 @@
      "ttnr": "7735501429",
      "preis": 96.0,
      "typ": "EPP-Abdeckung",
-     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk. •Warmwasser-Komfortgruppe für den Einsatz im 1-2"
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7719003023",
      "preis": 827.0,
      "typ": "WWKG",
-     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,"
+     "text": "•Warmwasser-Komfortgruppe für den Einsatz im 1-2 Familienhaus, für alle Warmwasserspeicher mit einer zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer, Rückschlagventil zur Vermeidung von Fehlstörungen, inkl. Wandhalterung und Befestigungsmaterial"
     },
     {
      "ttnr": "7735600273",
@@ -9052,19 +9052,19 @@
      "ttnr": "7738110915",
      "preis": 619.0,
      "typ": "NR. 1663",
-     "text": "•Zirkulationspumpen-Set mit Rückschlagventil •Speicher-Anschlussgruppe mit Speicherladepumpe"
+     "text": "•Zirkulationspumpen-Set mit Rückschlagventil"
     },
     {
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
      "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
     },
     {
      "ttnr": "8718542449",
@@ -9075,8 +9075,8 @@
     {
      "ttnr": "8718542444",
      "preis": 680.0,
-     "typ": "Inertanode",
-     "text": "•Fremdstromanode für Korrosionschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, 1 1/2\", 230 VAC Steckeranschluss"
+     "typ": "Inertanode Stellfüße",
+     "text": "•Fremdstromanode für Korrosionschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, 1 1/2\", 230 VAC Steckeranschluss •PTFE-beschichtete Einstellschrauben mit einem höheren Einstellbereich für Speicher bis 400 l,"
     },
     {
      "ttnr": "7735502657",
@@ -9106,7 +9106,7 @@
      "ttnr": "7735502784",
      "preis": 434.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-     "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)"
     }
    ],
    "tabellen": [
@@ -9544,13 +9544,13 @@
      "ttnr": "7735501429",
      "preis": 96.0,
      "typ": "EPP-Abdeckung",
-     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk. •Warmwasser-Komfortgruppe für den Einsatz im 1-2"
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7719003023",
      "preis": 827.0,
      "typ": "WWKG",
-     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,"
+     "text": "•Warmwasser-Komfortgruppe für den Einsatz im 1-2 Familienhaus, für alle Warmwasserspeicher mit einer zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer, Rückschlagventil zur Vermeidung von Fehlstörungen, inkl. Wandhalterung und Befestigungsmaterial"
     },
     {
      "ttnr": "7735600273",
@@ -9562,31 +9562,31 @@
      "ttnr": "7738110915",
      "preis": 619.0,
      "typ": "NR. 1663",
-     "text": "•Zirkulationspumpen-Set mit Rückschlagventil •Speicher-Anschlussgruppe mit Speicherladepumpe"
+     "text": "•Zirkulationspumpen-Set mit Rückschlagventil"
     },
     {
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
      "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
     },
     {
      "ttnr": "8718542444",
      "preis": 680.0,
      "typ": "Inertanode",
-     "text": "•Fremdstromanode für Korrosionschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, 1 1/2\", 230 VAC Steckeranschluss"
+     "text": "•Fremdstromanode für Korrosionschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, 1 1/2\", 230 VAC Steckeranschluss •PTFE-beschichtete Einstellschrauben mit einem"
     },
     {
      "ttnr": "8718542449",
      "preis": 264.0,
-     "typ": "Revisionsöffnung",
-     "text": "schalldämmend •Prüföffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-5 Speicher mit 600 und 670 mm Durchmesser"
+     "typ": "Stellfüße Revisionsöffnung",
+     "text": "höheren Einstellbereich für Speicher bis 400 l, schalldämmend •Prüföffnung mit 1 1/2\" Muffe für eine Elektroheizung und isolierte Abdeckung, verwendbar mit W...-5 Speicher mit 600 und 670 mm Durchmesser"
     },
     {
      "ttnr": "7735502657",
@@ -9616,13 +9616,13 @@
      "ttnr": "7735502784",
      "preis": 434.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-     "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)"
     },
     {
      "ttnr": "7735502785",
      "preis": 611.0,
      "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-     "text": "Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m)"
     }
    ],
    "tabellen": [
@@ -10116,13 +10116,13 @@
      "ttnr": "7735501429",
      "preis": 96.0,
      "typ": "EPP-Abdeckung",
-     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk. •Warmwasser-Komfortgruppe für den Einsatz im 1-2"
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7719003023",
      "preis": 827.0,
      "typ": "WWKG",
-     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,"
+     "text": "•Warmwasser-Komfortgruppe für den Einsatz im 1-2 Familienhaus, für alle Warmwasserspeicher mit einer zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer, Rückschlagventil zur Vermeidung von Fehlstörungen, inkl. Wandhalterung und Befestigungsmaterial"
     },
     {
      "ttnr": "7735600273",
@@ -10134,19 +10134,19 @@
      "ttnr": "7738110915",
      "preis": 619.0,
      "typ": "NR. 1663",
-     "text": "•Zirkulationspumpen-Set mit Rückschlagventil •Speicher-Anschlussgruppe mit Speicherladepumpe"
+     "text": "•Zirkulationspumpen-Set mit Rückschlagventil"
     },
     {
      "ttnr": "8718588480",
      "preis": 550.0,
      "typ": "BCC 27-HE",
-     "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 156.0,
      "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
     },
     {
      "ttnr": "8718590658",
@@ -10188,13 +10188,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm •Fremdstromanode für Korrosionsschutz von"
     },
     {
      "ttnr": "7735501421",
      "preis": 29.0,
-     "typ": "Abdeckrosetten Set für E-Heizeinsatz",
-     "text": "Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+     "typ": "Fremdstromanode M8 Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
     }
    ],
    "tabellen": [
@@ -10728,13 +10728,13 @@
      "ttnr": "7735502655",
      "preis": 384.0,
      "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Deckel",
-     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift"
+     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher bis 400l (W 160-200/WST 135-200/ WH 135-200) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift •- inklusive Verbindungskabel (Länge 3m)"
     },
     {
      "ttnr": "7735600413",
      "preis": 4184.0,
-     "typ": "TS 1-3 S",
-     "text": "Steckeranschluss •Warmwasser-Ladestation 80kW"
+     "typ": "Fremdstromanode M8 TS 1-3 S",
+     "text": "•Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Warmwasser-Ladestation 80kW"
     },
     {
      "ttnr": "7735600414",
@@ -11109,14 +11109,14 @@
     {
      "ttnr": "7747201004",
      "preis": 110.0,
-     "typ": "DTA",
-     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Fremdstromanode für Korrosionsschutz von"
+     "typ": "DTA Fremdstromanode",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei"
     },
     {
      "ttnr": "8718590658",
      "preis": 29.5,
-     "typ": "Fußschrauben",
-     "text": "Steckeranschluss •Stellfüße für Speicher 500-1000 l"
+     "typ": "M8 Fußschrauben",
+     "text": "Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Stellfüße für Speicher 500-1000 l"
     },
     {
      "ttnr": "8732902340",
@@ -11624,13 +11624,13 @@
      "ttnr": "8738202915",
      "preis": 23.5,
      "typ": "–",
-     "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+     "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge"
     },
     {
      "ttnr": "7735502657",
      "preis": 547.0,
      "typ": "E-Heater mit LED 2kW/230V",
-     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
     },
     {
      "ttnr": "7735502658",
@@ -11678,13 +11678,13 @@
      "ttnr": "8738212216",
      "preis": 626.0,
      "typ": "FLH 90",
-     "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V. •-Fremdstromanode für Korrosionsschutz von"
+     "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V."
     },
     {
      "ttnr": "7735502785",
      "preis": 611.0,
      "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-     "text": "Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung"
+     "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 3,5m)"
     }
    ],
    "tabellen": [
@@ -12512,13 +12512,13 @@
      "ttnr": "7735502289",
      "preis": 83.0,
      "typ": "SF 4 Set",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler •Kabellänge 6 m •Mit Anschlussstecker und Befestigungsset •Für alle nebenstehenden Speicher"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler •Kabellänge 6 m •Mit Anschlussstecker und Befestigungsset •Für alle nebenstehenden Speicher •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 96.0,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -13028,13 +13028,13 @@
      "ttnr": "7735502290",
      "preis": 62.0,
      "typ": "SF 4",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 96.0,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -13118,13 +13118,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -13614,13 +13614,13 @@
      "ttnr": "7735502290",
      "preis": 62.0,
      "typ": "SF 4",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 96.0,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -13662,13 +13662,13 @@
      "ttnr": "8718545012",
      "preis": 172.0,
      "typ": "KASK-V-SOLAR-R1T",
-     "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher"
+     "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 2 x Kaskadierungsverbinder notwendig)"
     },
     {
      "ttnr": "8718544956",
      "preis": 117.0,
      "typ": "Verlängerung ELT",
-     "text": "mind. 2 x Kaskadierungsverbinder notwendig) •Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+     "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
     },
     {
      "ttnr": "8718544963",
@@ -13680,13 +13680,13 @@
      "ttnr": "8718590658",
      "preis": 29.5,
      "typ": "Fußschrauben",
-     "text": "•Stellfüße für Speicher 500-1000 l •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+     "text": "•Stellfüße für Speicher 500-1000 l"
     },
     {
      "ttnr": "7735502657",
      "preis": 547.0,
      "typ": "E-Heater mit LED 2kW/230V",
-     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
     },
     {
      "ttnr": "7735502658",
@@ -13710,13 +13710,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -16162,14 +16162,14 @@
     {
      "ttnr": "8718590658",
      "preis": 29.5,
-     "typ": "Fußschrauben",
-     "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur"
+     "typ": "Fußschrauben ASU",
+     "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l"
     },
     {
      "ttnr": "7735501429",
      "preis": 96.0,
      "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     }
    ],
    "tabellen": [
@@ -16749,13 +16749,13 @@
      "ttnr": "7735502290",
      "preis": 62.0,
      "typ": "SF 4",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 96.0,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -16827,13 +16827,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -17948,13 +17948,13 @@
      "ttnr": "8718590658",
      "preis": 29.5,
      "typ": "Fußschrauben",
-     "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur"
+     "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "8738204926",
      "preis": 34.5,
-     "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
-     "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser"
+     "typ": "ASU Kabel Adapter Wärmepumpe ext. Umschaltventil",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser"
     },
     {
      "ttnr": "7735502657",
@@ -17984,13 +17984,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -18758,13 +18758,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -19595,7 +19595,7 @@
      "ttnr": "7719003023",
      "preis": 827.0,
      "typ": "WWKG",
-     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,"
+     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer, Rückschlagventil zur Vermeidung von Fehlstörungen, inkl. Wandhalterung und Befestigungsmaterial"
     },
     {
      "ttnr": "7735600273",
@@ -20127,13 +20127,13 @@
      "ttnr": "7735502661",
      "preis": 688.0,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -20933,13 +20933,13 @@
      "ttnr": "7735502660",
      "preis": 648.0,
      "typ": "E-Heater mit LED 6kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 428.0,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 450 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -21928,13 +21928,13 @@
      "ttnr": "7747201004",
      "preis": 112.75,
      "typ": "DTA",
-     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler"
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Messgerät zur Kontrolle des kathodischen"
     },
     {
      "ttnr": "8718590658",
      "preis": 30.24,
-     "typ": "Fußschrauben",
-     "text": "•Stellfüße für Speicher 500-1000 l"
+     "typ": "Anodenprüfer Fußschrauben",
+     "text": "Korrosionsschutz bei isoliert eingebauten Anoden in emaillierten Warmwasserspeichern •Stellfüße für Speicher 500-1000 l"
     },
     {
      "ttnr": "8732902340",
@@ -21970,7 +21970,7 @@
      "ttnr": "7735502661",
      "preis": 705.2,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm •Fremdstromanode für Korrosionsschutz von"
     }
    ],
    "tabellen": [
@@ -22774,13 +22774,13 @@
      "ttnr": "7735501429",
      "preis": 98.4,
      "typ": "EPP-Abdeckung",
-     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk. •Warmwasser-Komfortgruppe für den Einsatz im 1-2"
+     "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7719003023",
      "preis": 847.68,
      "typ": "WWKG",
-     "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,"
+     "text": "•Warmwasser-Komfortgruppe für den Einsatz im 1-2 Familienhaus, für alle Warmwasserspeicher mit einer zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer, Rückschlagventil zur Vermeidung von Fehlstörungen, inkl. Wandhalterung und Befestigungsmaterial"
     },
     {
      "ttnr": "7735600273",
@@ -22792,19 +22792,19 @@
      "ttnr": "7738110915",
      "preis": 634.48,
      "typ": "NR. 1663",
-     "text": "•Zirkulationspumpen-Set mit Rückschlagventil •Speicher-Anschlussgruppe mit Speicherladepumpe"
+     "text": "•Zirkulationspumpen-Set mit Rückschlagventil"
     },
     {
      "ttnr": "8718588480",
      "preis": 563.75,
      "typ": "BCC 27-HE",
-     "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7800F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)"
+     "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7800F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend"
     },
     {
      "ttnr": "8718588406",
      "preis": 159.9,
      "typ": "Zusatzpaket BCC 27-HE",
-     "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
+     "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links"
     },
     {
      "ttnr": "8718590658",
@@ -22846,13 +22846,13 @@
      "ttnr": "7735502661",
      "preis": 705.2,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm •Fremdstromanode für Korrosionsschutz von"
     },
     {
      "ttnr": "7735501421",
      "preis": 29.73,
-     "typ": "M8 Abdeckrosetten Set für E-Heizeinsatz",
-     "text": "Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
+     "typ": "Fremdstromanode M8 Abdeckrosetten Set für E-Heizeinsatz",
+     "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)"
     }
    ],
    "tabellen": [
@@ -23361,14 +23361,14 @@
     {
      "ttnr": "7747201004",
      "preis": 112.75,
-     "typ": "DTA",
-     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Fremdstromanode für Korrosionsschutz von"
+     "typ": "DTA Fremdstromanode",
+     "text": "•Digitales Thermometer (mit Knopfzelle) zum Einclipsen in die Speicherverkleidung, mit Kapillare 3000 mm und 6 mm Rundfühler zum Einbau in Tauchhülsen oder als Anlegetemperaturfühler •Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei"
     },
     {
      "ttnr": "8718590658",
      "preis": 30.24,
-     "typ": "Fußschrauben",
-     "text": "Steckeranschluss •Stellfüße für Speicher 500-1000 l"
+     "typ": "M8 Fußschrauben",
+     "text": "Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Stellfüße für Speicher 500-1000 l"
     },
     {
      "ttnr": "8732902340",
@@ -23811,14 +23811,14 @@
     {
      "ttnr": "8718544963",
      "preis": 57.4,
-     "typ": "Stopfen",
-     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse."
+     "typ": "Stopfen ASU",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l"
     },
     {
      "ttnr": "7735501429",
      "preis": 98.4,
      "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     }
    ],
    "tabellen": [
@@ -24362,13 +24362,13 @@
      "ttnr": "7735502290",
      "preis": 63.55,
      "typ": "SF 4",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 98.4,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -24416,13 +24416,13 @@
      "ttnr": "8718544963",
      "preis": 57.4,
      "typ": "Stopfen",
-     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen"
     },
     {
      "ttnr": "7735502657",
      "preis": 560.68,
      "typ": "E-Heater mit LED 2kW/230V",
-     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
     },
     {
      "ttnr": "7735502658",
@@ -24446,13 +24446,13 @@
      "ttnr": "7735502661",
      "preis": 705.2,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 436.56,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -25038,13 +25038,13 @@
      "ttnr": "7735502290",
      "preis": 63.55,
      "typ": "SF 4",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 98.4,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -25110,13 +25110,13 @@
      "ttnr": "7735502661",
      "preis": 705.2,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 436.56,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -25712,13 +25712,13 @@
      "ttnr": "7735502290",
      "preis": 63.55,
      "typ": "SF 4",
-     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker"
+     "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung"
     },
     {
      "ttnr": "7735501429",
      "preis": 98.4,
-     "typ": "EPP-Abdeckung",
-     "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
+     "typ": "ASU EPP-Abdeckung",
+     "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk."
     },
     {
      "ttnr": "7747201004",
@@ -25760,25 +25760,25 @@
      "ttnr": "8718545012",
      "preis": 176.3,
      "typ": "KASK-V-SOLAR-R1T",
-     "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher"
+     "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 2 x Kaskadierungsverbinder notwendig)"
     },
     {
      "ttnr": "8718544956",
      "preis": 119.93,
      "typ": "Verlängerung ELT",
-     "text": "mind. 2 x Kaskadierungsverbinder notwendig) •Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
+     "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel"
     },
     {
      "ttnr": "8718544963",
      "preis": 57.4,
      "typ": "Stopfen",
-     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW"
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen"
     },
     {
      "ttnr": "7735502657",
      "preis": 560.68,
      "typ": "E-Heater mit LED 2kW/230V",
-     "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
+     "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm"
     },
     {
      "ttnr": "7735502658",
@@ -25802,13 +25802,13 @@
      "ttnr": "7735502661",
      "preis": 705.2,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 436.56,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",
@@ -26380,14 +26380,14 @@
     {
      "ttnr": "8718544963",
      "preis": 57.4,
-     "typ": "Stopfen",
-     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse."
+     "typ": "Stopfen ASU",
+     "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l"
     },
     {
      "ttnr": "8738204926",
      "preis": 35.19,
      "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
-     "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser"
+     "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser"
     },
     {
      "ttnr": "7735502657",
@@ -26417,13 +26417,13 @@
      "ttnr": "7735502661",
      "preis": 705.2,
      "typ": "E-Heater mit LED 9kW/400V",
-     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom"
+     "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm"
     },
     {
      "ttnr": "8738212205",
      "preis": 436.56,
      "typ": "CTHK 631",
-     "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V"
+     "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V"
     },
     {
      "ttnr": "8738212206",

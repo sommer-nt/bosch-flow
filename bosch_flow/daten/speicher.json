@@ -392,8 +392,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "31,3"
      },
      {
@@ -591,128 +591,128 @@
     },
     "werte": [
      {
-      "label": "A",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "A",
       "einheit": "mm",
       "wert": "600"
      },
      {
-      "label": "B",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "B",
       "einheit": "mm",
       "wert": "964"
      },
      {
-      "label": "C",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "C",
       "einheit": "mm",
       "wert": "248"
      },
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "12,5"
      },
      {
-      "label": "E",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "E",
       "einheit": "mm",
       "wert": "980"
      },
      {
-      "label": "F",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "F",
       "einheit": "mm",
       "wert": "996"
      },
      {
-      "label": "G",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "G",
       "einheit": "kg",
       "wert": "53"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "H",
       "einheit": "kg",
       "wert": "173"
      },
      {
-      "label": "I",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "I",
       "einheit": "mm",
       "wert": "1180"
      },
      {
-      "label": "J",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "J",
       "einheit": "mm",
       "wert": "465"
      },
      {
-      "label": "K",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "K",
       "einheit": "mm",
       "wert": "280"
      },
      {
-      "label": "L",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "L",
       "einheit": "mm",
       "wert": "130"
      },
      {
-      "label": "M",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "M",
       "einheit": "mm",
       "wert": "389"
      },
      {
-      "label": "N",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "N",
       "einheit": "mm",
       "wert": "345"
      },
      {
-      "label": "O",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "O",
       "einheit": "mm",
       "wert": "280"
      },
      {
-      "label": "P",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "P",
       "einheit": "mm",
       "wert": "215"
      },
      {
-      "label": "Q",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "Q",
       "einheit": "mm",
       "wert": "171"
      },
      {
-      "label": "R",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "R",
       "einheit": "mm",
       "wert": "150"
      },
      {
-      "label": "S",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "S",
       "einheit": "mm",
       "wert": "185"
      },
      {
-      "label": "T",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "T",
       "einheit": "mm",
       "wert": "218"
      },
      {
-      "label": "U",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "U",
       "einheit": "mm",
       "wert": "130"
      },
@@ -730,8 +730,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "35,2"
      },
      {
@@ -942,50 +942,50 @@
     },
     "werte": [
      {
-      "label": "A",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "A",
       "einheit": "mm",
       "wert": "600"
      },
      {
-      "label": "B",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "B",
       "einheit": "mm",
       "wert": "1530"
      },
      {
-      "label": "C",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "C",
       "einheit": "mm",
       "wert": "265"
      },
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "12,5"
      },
      {
-      "label": "E",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "E",
       "einheit": "mm",
       "wert": "1399"
      },
      {
-      "label": "G",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "G",
       "einheit": "kg",
       "wert": "92"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "H",
       "einheit": "kg",
       "wert": "292"
      },
      {
-      "label": "I",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "I",
       "einheit": "mm",
       "wert": "1625"
      },
@@ -1003,8 +1003,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "41,4"
      },
      {
@@ -1291,50 +1291,50 @@
     },
     "werte": [
      {
-      "label": "A",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "A",
       "einheit": "mm",
       "wert": "670"
      },
      {
-      "label": "B",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "B",
       "einheit": "mm",
       "wert": "1495"
      },
      {
-      "label": "C",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "C",
       "einheit": "mm",
       "wert": "318"
      },
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "12,5"
      },
      {
-      "label": "E",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "E",
       "einheit": "mm",
       "wert": "1355"
      },
      {
-      "label": "G",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "G",
       "einheit": "kg",
       "wert": "87"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "H",
       "einheit": "kg",
       "wert": "394"
      },
      {
-      "label": "I",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "I",
       "einheit": "mm",
       "wert": "1655"
      },
@@ -1352,8 +1352,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "66,3"
      },
      {
@@ -1515,50 +1515,50 @@
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H1 mm",
+      "kz": "H1",
+      "einheit": "mm",
       "wert": "1818"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H5/E mm",
+      "kz": "H5/E",
+      "einheit": "mm",
       "wert": "945"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H10/ mm",
+      "kz": "H10",
+      "einheit": "mm",
       "wert": "667"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H12/ mm",
+      "kz": "H12",
+      "einheit": "mm",
       "wert": "230"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H13 mm",
+      "kz": "H13",
+      "einheit": "mm",
       "wert": "75"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D1 mm",
+      "kz": "D1",
+      "einheit": "mm",
       "wert": "750"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D2 mm",
+      "kz": "D2",
+      "einheit": "mm",
       "wert": "598"
      },
      {
       "label": "–",
-      "kz": "",
-      "einheit": "V4 l",
+      "kz": "V4",
+      "einheit": "l",
       "wert": "462"
      },
      {
@@ -1659,8 +1659,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -1683,8 +1683,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "73,8"
      },
      {
@@ -1709,14 +1709,14 @@
       "preis": 119.93
      },
      {
-      "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse.",
+      "typ": "Stopfen ASU",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      }
@@ -1839,56 +1839,56 @@
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H1 mm",
+      "kz": "H1",
+      "einheit": "mm",
       "wert": "1570"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H5/E mm",
+      "kz": "H5/E",
+      "einheit": "mm",
       "wert": "1110"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H8 mm",
+      "kz": "H8",
+      "einheit": "mm",
       "wert": "830"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H10/ mm",
+      "kz": "H10",
+      "einheit": "mm",
       "wert": "714"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H12/ mm",
+      "kz": "H12",
+      "einheit": "mm",
       "wert": "274"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H13 mm",
+      "kz": "H13",
+      "einheit": "mm",
       "wert": "133"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D1 mm",
+      "kz": "D1",
+      "einheit": "mm",
       "wert": "1030"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D2 mm",
+      "kz": "D2",
+      "einheit": "mm",
       "wert": "790"
      },
      {
       "label": "–",
-      "kz": "",
-      "einheit": "V4 l",
+      "kz": "V4",
+      "einheit": "l",
       "wert": "753"
      },
      {
@@ -2001,8 +2001,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -2025,8 +2025,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "80,0"
      },
      {
@@ -2051,14 +2051,14 @@
       "preis": 119.93
      },
      {
-      "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse.",
+      "typ": "Stopfen ASU",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      }
@@ -2169,62 +2169,62 @@
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H1 mm",
+      "kz": "H1",
+      "einheit": "mm",
       "wert": "1920"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H4 mm",
+      "kz": "H4",
+      "einheit": "mm",
       "wert": "1553"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H5/E mm",
+      "kz": "H5/E",
+      "einheit": "mm",
       "wert": "1300/1325"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H8 mm",
+      "kz": "H8",
+      "einheit": "mm",
       "wert": "952"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H10/ mm",
+      "kz": "H10",
+      "einheit": "mm",
       "wert": "802"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H12/ mm",
+      "kz": "H12",
+      "einheit": "mm",
       "wert": "274"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H13 mm",
+      "kz": "H13",
+      "einheit": "mm",
       "wert": "133"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D1 mm",
+      "kz": "D1",
+      "einheit": "mm",
       "wert": "1030"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D2 mm",
+      "kz": "D2",
+      "einheit": "mm",
       "wert": "790"
      },
      {
       "label": "–",
-      "kz": "",
-      "einheit": "V4 l",
+      "kz": "V4",
+      "einheit": "l",
       "wert": "921"
      },
      {
@@ -2337,8 +2337,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -2361,8 +2361,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "91,0"
      },
      {
@@ -2387,14 +2387,14 @@
       "preis": 119.93
      },
      {
-      "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse.",
+      "typ": "Stopfen ASU",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      }
@@ -2675,8 +2675,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -2699,8 +2699,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "73,8"
      },
      {
@@ -2722,13 +2722,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -2776,13 +2776,13 @@
      },
      {
       "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "E-Heater mit LED 2kW/230V",
-      "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
+      "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
       "ttnr": "7735502657",
       "preis": 560.68
      },
@@ -2806,13 +2806,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -3154,8 +3154,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -3178,8 +3178,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "80,0"
      },
      {
@@ -3201,13 +3201,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -3255,13 +3255,13 @@
      },
      {
       "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "E-Heater mit LED 2kW/230V",
-      "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
+      "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
       "ttnr": "7735502657",
       "preis": 560.68
      },
@@ -3285,13 +3285,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -3637,8 +3637,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -3661,8 +3661,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "91,0"
      },
      {
@@ -3684,13 +3684,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -3738,13 +3738,13 @@
      },
      {
       "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "E-Heater mit LED 2kW/230V",
-      "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
+      "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
       "ttnr": "7735502657",
       "preis": 560.68
      },
@@ -3768,13 +3768,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -3928,50 +3928,50 @@
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H1 mm",
+      "kz": "H1",
+      "einheit": "mm",
       "wert": "1818"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H5/E mm",
+      "kz": "H5/E",
+      "einheit": "mm",
       "wert": "945"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H10/ mm",
+      "kz": "H10",
+      "einheit": "mm",
       "wert": "667"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H12/ mm",
+      "kz": "H12",
+      "einheit": "mm",
       "wert": "230"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H13 mm",
+      "kz": "H13",
+      "einheit": "mm",
       "wert": "75"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D1 mm",
+      "kz": "D1",
+      "einheit": "mm",
       "wert": "750"
      },
      {
       "label": "Durchmesser",
-      "kz": "",
-      "einheit": "D2 mm",
+      "kz": "D2",
+      "einheit": "mm",
       "wert": "598"
      },
      {
       "label": "–",
-      "kz": "",
-      "einheit": "V4 l",
+      "kz": "V4",
+      "einheit": "l",
       "wert": "451"
      },
      {
@@ -4126,8 +4126,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -4150,8 +4150,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "74,8"
      },
      {
@@ -4177,13 +4177,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -4225,25 +4225,25 @@
      },
      {
       "typ": "KASK-V-SOLAR-R1T",
-      "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher",
+      "text": "•Kaskadierungsverbinder R 1\" für eine einfache Parallelschaltung der Solarwärmetauscher von BS...-6 ER •Wellrohr mit Anschlussstücken für Außengewinde 1\" und mit T-Stück in der Mitte •VPE 1 Kaskadierungsverbinder (pro Anschluss-Speicher mind. 2 x Kaskadierungsverbinder notwendig)",
       "ttnr": "8718545012",
       "preis": 176.3
      },
      {
       "typ": "Verlängerung ELT",
-      "text": "mind. 2 x Kaskadierungsverbinder notwendig) •Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel",
+      "text": "•Verlängerungsset Entlüftung, zur Entlüftung des Speichers ohne Abnahme der Isolierung, Flexrohr mit Anschluss 1/2\" und Ventil zum Anschluss an die Muffe im Speicherdeckel",
       "ttnr": "8718544956",
       "preis": 119.93
      },
      {
       "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "E-Heater mit LED 2kW/230V",
-      "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
+      "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
       "ttnr": "7735502657",
       "preis": 560.68
      },
@@ -4267,13 +4267,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -4634,8 +4634,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -4658,8 +4658,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "73,8"
      },
      {
@@ -4681,13 +4681,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -4753,13 +4753,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -5140,8 +5140,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -5164,8 +5164,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "80,0"
      },
      {
@@ -5187,13 +5187,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -5259,13 +5259,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -5652,8 +5652,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -5676,8 +5676,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "91,0"
      },
      {
@@ -5699,13 +5699,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -5771,13 +5771,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -6213,8 +6213,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -6237,8 +6237,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "83,0"
      },
      {
@@ -6295,14 +6295,14 @@
       "preis": 119.93
      },
      {
-      "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse.",
+      "typ": "Stopfen ASU",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
-      "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
       "ttnr": "8738204926",
       "preis": 35.19
      },
@@ -6332,13 +6332,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -6780,8 +6780,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "G 1 1/2"
      },
      {
@@ -6804,8 +6804,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "95,0"
      },
      {
@@ -6862,14 +6862,14 @@
       "preis": 119.93
      },
      {
-      "typ": "Stopfen",
-      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse.",
+      "typ": "Stopfen ASU",
+      "text": "•Dichtstopfen G1 1/2\" (4er-Set) mit AFM-Dichtring zum schnellen Abdichten nicht benutzter Stutzen •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718544963",
       "preis": 57.4
      },
      {
       "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
-      "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
       "ttnr": "8738204926",
       "preis": 35.19
      },
@@ -6899,13 +6899,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -7027,38 +7027,38 @@
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H1 mm",
+      "kz": "H1",
+      "einheit": "mm",
       "wert": "1620"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H2 mm",
+      "kz": "H2",
+      "einheit": "mm",
       "wert": "1440"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H11 mm",
+      "kz": "H11",
+      "einheit": "mm",
       "wert": "270"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H13 mm",
+      "kz": "H13",
+      "einheit": "mm",
       "wert": "130"
      },
      {
       "label": "–",
-      "kz": "",
-      "einheit": "V4 l",
+      "kz": "V4",
+      "einheit": "l",
       "wert": "500"
      },
      {
       "label": "Durchmesser mit Isolierung",
-      "kz": "",
-      "einheit": "D1 mm",
+      "kz": "D1",
+      "einheit": "mm",
       "wert": "850"
      },
      {
@@ -7087,8 +7087,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "74,6"
      },
      {
@@ -7126,12 +7126,6 @@
       "kz": "",
       "einheit": "°C",
       "wert": "95"
-     },
-     {
-      "label": "Durchmesser mit Isolierung",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "850"
      },
      {
       "label": "Durchmesser ohne Isolierung (Einbringmaß)",
@@ -7190,14 +7184,14 @@
       "preis": 57.4
      },
      {
-      "typ": "Fußschrauben",
-      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur",
+      "typ": "Fußschrauben ASU",
+      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718590658",
       "preis": 30.24
      },
      {
       "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      }
@@ -7272,44 +7266,44 @@
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H1 mm",
+      "kz": "H1",
+      "einheit": "mm",
       "wert": "1630"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H2 mm",
+      "kz": "H2",
+      "einheit": "mm",
       "wert": "1440"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H11 mm",
+      "kz": "H11",
+      "einheit": "mm",
       "wert": "270"
      },
      {
       "label": "Höhe",
-      "kz": "",
-      "einheit": "H13 mm",
+      "kz": "H13",
+      "einheit": "mm",
       "wert": "130"
      },
      {
       "label": "Durchmesser ohne Isolierung",
-      "kz": "",
-      "einheit": "D2 mm",
+      "kz": "D2",
+      "einheit": "mm",
       "wert": "790"
      },
      {
       "label": "–",
-      "kz": "",
-      "einheit": "V4 l",
+      "kz": "V4",
+      "einheit": "l",
       "wert": "732"
      },
      {
       "label": "Durchmesser mit Isolierung",
-      "kz": "",
-      "einheit": "D1 mm",
+      "kz": "D1",
+      "einheit": "mm",
       "wert": "1030"
      },
      {
@@ -7338,8 +7332,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "78,6"
      },
      {
@@ -7379,12 +7373,6 @@
       "wert": "95"
      },
      {
-      "label": "Durchmesser mit Isolierung",
-      "kz": "",
-      "einheit": "mm",
-      "wert": "1030"
-     },
-     {
       "label": "Durchmesser ohne Isolierung (Einbringmaß)",
       "kz": "",
       "einheit": "mm",
@@ -7412,14 +7400,14 @@
       "preis": 57.4
      },
      {
-      "typ": "Fußschrauben",
-      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur",
+      "typ": "Fußschrauben ASU",
+      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung von mehr als 2 Fühlern. Im Lieferumfang der 500 l",
       "ttnr": "8718590658",
       "preis": 30.24
      },
      {
       "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "text": "Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      }
@@ -7642,8 +7630,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "78,6"
      },
      {
@@ -7765,13 +7753,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -7843,13 +7831,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -8117,8 +8105,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "90,7"
      },
      {
@@ -8240,13 +8228,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -8318,13 +8306,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -8592,8 +8580,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "102,5"
      },
      {
@@ -8709,13 +8697,13 @@
      },
      {
       "typ": "SF 4",
-      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker",
+      "text": "•Temperaturfühler NTC12K (6 mm) •Einsetzbar als Speicher- oder Tauchfühler für WST..-2 HRC/WH..-3 und Pufferspeicher ab 750 l •Kabellänge 6 m •Mit Anschlussstecker •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "7735502290",
       "preis": 63.55
      },
      {
-      "typ": "EPP-Abdeckung",
-      "text": "Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
+      "typ": "ASU EPP-Abdeckung",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
@@ -8787,13 +8775,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -8963,8 +8951,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "85,1"
      },
      {
@@ -9114,13 +9102,13 @@
      },
      {
       "typ": "Fußschrauben",
-      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur",
+      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "8718590658",
       "preis": 30.24
      },
      {
-      "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
-      "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
+      "typ": "ASU Kabel Adapter Wärmepumpe ext. Umschaltventil",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
       "ttnr": "8738204926",
       "preis": 35.19
      },
@@ -9150,13 +9138,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -9326,8 +9314,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "103,0"
      },
      {
@@ -9477,13 +9465,13 @@
      },
      {
       "typ": "Fußschrauben",
-      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur",
+      "text": "•Stellfüße für Speicher 500-1000 l •Zusätzliches Speicheranschluss-Set ASU zur Befestigung eines Speicherfühlers in der Tauchhülse. Notwendig nur für 500 l Pufferspeicher und Verwendung",
       "ttnr": "8718590658",
       "preis": 30.24
      },
      {
-      "typ": "Kabel Adapter Wärmepumpe ext. Umschaltventil",
-      "text": "Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
+      "typ": "ASU Kabel Adapter Wärmepumpe ext. Umschaltventil",
+      "text": "von mehr als 2 Fühlern. Im Lieferumfang der 500 l Pufferspeicher sind bereits 2 Anschluss-Sets enthalten. Set bestehend aus 2 Blindstücken für einen Fühler mit Ausgleichsfeder. •Y-Kabel für Systeme aus Wärmepumpen und BSH ...-6 ERZ oder BH ...-6 ERZ zum Anschluss eines 2. externen Umschaltventils für Warmwasser",
       "ttnr": "8738204926",
       "preis": 35.19
      },
@@ -9513,13 +9501,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -9662,8 +9650,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "50,7"
      },
      {
@@ -9784,13 +9772,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -9932,8 +9920,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "100,5"
      },
      {
@@ -10054,13 +10042,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -10202,8 +10190,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "134,0"
      },
      {
@@ -10324,13 +10312,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -10552,8 +10540,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "140,0"
      }
     ],
@@ -11278,80 +11266,80 @@
     },
     "werte": [
      {
-      "label": "A",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "A",
       "einheit": "mm",
       "wert": "25"
      },
      {
-      "label": "B",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "B",
       "einheit": "mm",
       "wert": "55"
      },
      {
-      "label": "C",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "C",
       "einheit": "mm",
       "wert": "220"
      },
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "1081"
      },
      {
-      "label": "E",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "E",
       "einheit": "mm",
       "wert": "1241"
      },
      {
-      "label": "F",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "F",
       "einheit": "mm",
       "wert": "1415"
      },
      {
-      "label": "G",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "G",
       "einheit": "mm",
       "wert": "1459"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "H",
       "einheit": "mm",
       "wert": "1811"
      },
      {
-      "label": "I",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "I",
       "einheit": "mm",
       "wert": "1921"
      },
      {
-      "label": "J",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "J",
       "einheit": "mm",
       "wert": "400"
      },
      {
-      "label": "K",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "K",
       "einheit": "mm",
       "wert": "750"
      },
      {
-      "label": "L",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "L",
       "einheit": "kg",
       "wert": "200"
      },
      {
-      "label": "M",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "M",
       "einheit": "kg",
       "wert": "633"
      },
@@ -11369,8 +11357,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "74,0"
      },
      {
@@ -11392,9 +11380,9 @@
       "wert": "399"
      },
      {
-      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C kW",
+      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C",
       "kz": "",
-      "einheit": "",
+      "einheit": "kW",
       "wert": "23"
      },
      {
@@ -11417,7 +11405,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "3,7"
      },
@@ -11577,19 +11565,19 @@
      },
      {
       "typ": "FLH 90",
-      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V. •-Fremdstromanode für Korrosionsschutz von",
+      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V.",
       "ttnr": "8738212216",
       "preis": 626.0
      },
      {
       "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-      "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)",
       "ttnr": "7735502784",
       "preis": 434.0
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      }
@@ -11707,80 +11695,80 @@
     },
     "werte": [
      {
-      "label": "A",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "A",
       "einheit": "mm",
       "wert": "25"
      },
      {
-      "label": "B",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "B",
       "einheit": "mm",
       "wert": "55"
      },
      {
-      "label": "C",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "C",
       "einheit": "mm",
       "wert": "220"
      },
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "855"
      },
      {
-      "label": "E",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "E",
       "einheit": "mm",
       "wert": "945"
      },
      {
-      "label": "F",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "F",
       "einheit": "mm",
       "wert": "1189"
      },
      {
-      "label": "G",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "G",
       "einheit": "mm",
       "wert": "1234"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "H",
       "einheit": "mm",
       "wert": "1853"
      },
      {
-      "label": "I",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "I",
       "einheit": "mm",
       "wert": "1921"
      },
      {
-      "label": "J",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "J",
       "einheit": "mm",
       "wert": "400"
      },
      {
-      "label": "K",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "K",
       "einheit": "mm",
       "wert": "750"
      },
      {
-      "label": "L",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "L",
       "einheit": "kg",
       "wert": "180"
      },
      {
-      "label": "M",
-      "kz": "",
+      "label": "Gewicht laut Maßbild",
+      "kz": "M",
       "einheit": "kg",
       "wert": "579"
      },
@@ -11798,8 +11786,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "71,0"
      },
      {
@@ -11821,9 +11809,9 @@
       "wert": "433"
      },
      {
-      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C kW",
+      "label": "Max. Heizflächenleistung bei tV=55°C, tSP=45°C",
       "kz": "",
-      "einheit": "",
+      "einheit": "kW",
       "wert": "23"
      },
      {
@@ -11846,7 +11834,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "3,6"
      },
@@ -12006,19 +11994,19 @@
      },
      {
       "typ": "FLH 90",
-      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V. •-Fremdstromanode für Korrosionsschutz von",
+      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V.",
       "ttnr": "8738212216",
       "preis": 626.0
      },
      {
       "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-      "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)",
       "ttnr": "7735502784",
       "preis": 434.0
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      }
@@ -12117,14 +12105,14 @@
     },
     "werte": [
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "610"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "H",
       "einheit": "mm",
       "wert": "1340"
      },
@@ -12148,8 +12136,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "57,1"
      },
      {
@@ -12178,7 +12166,7 @@
      },
      {
       "label": "Leistungskennzahl mit ODU",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "1,8"
      },
@@ -12276,7 +12264,7 @@
     "zubehoer": [
      {
       "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-      "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 2m)",
       "ttnr": "7735502784",
       "preis": 434.0
      }
@@ -12375,14 +12363,14 @@
     },
     "werte": [
      {
-      "label": "D",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "D",
       "einheit": "mm",
       "wert": "610"
      },
      {
-      "label": "H",
-      "kz": "",
+      "label": "Maß laut Maßbild",
+      "kz": "H",
       "einheit": "mm",
       "wert": "1797"
      },
@@ -12406,8 +12394,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "91,3"
      },
      {
@@ -12436,7 +12424,7 @@
      },
      {
       "label": "Leistungskennzahl mit ODU",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "2,3"
      },
@@ -12534,7 +12522,7 @@
     "zubehoer": [
      {
       "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-      "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "Mg Anoden •Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/310; WH290; WP 180/ WP300) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 2m)",
       "ttnr": "7735502784",
       "preis": 434.0
      }
@@ -13411,8 +13399,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "NA"
      },
      {
@@ -13429,8 +13417,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "48,1"
      }
     ],
@@ -13475,7 +13463,7 @@
      },
      {
       "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-      "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)",
       "ttnr": "7735502784",
       "preis": 434.0
      },
@@ -13865,8 +13853,8 @@
      },
      {
       "label": "Durchmesser Elektro-Heizeinsatz",
-      "kz": "DN",
-      "einheit": "",
+      "kz": "",
+      "einheit": "DN",
       "wert": "NA"
      },
      {
@@ -13883,8 +13871,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "63,5"
      }
     ],
@@ -13906,7 +13894,7 @@
      },
      {
       "typ": "Fremdstromanode Set Correx MP2.3- 900 TA200 Muffe",
-      "text": "Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher 300-400l (W 300/400 KP 1 B; WS 300/ 310; WH290; WP 180/ WP300) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (200mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 2m)",
       "ttnr": "7735502784",
       "preis": 434.0
      },
@@ -14036,8 +14024,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "85,6"
      },
      {
@@ -14084,7 +14072,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "3"
      },
@@ -14250,13 +14238,13 @@
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      },
      {
       "typ": "Abdeckrosetten Set für E-Heizeinsatz",
-      "text": "(1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m) •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
+      "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
       "ttnr": "7735501421",
       "preis": 29.73
      }
@@ -14379,8 +14367,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "95,4"
      },
      {
@@ -14427,7 +14415,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "3,7"
      },
@@ -14593,13 +14581,13 @@
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      },
      {
       "typ": "Abdeckrosetten Set für E-Heizeinsatz",
-      "text": "(1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m) •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
+      "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
       "ttnr": "7735501421",
       "preis": 29.73
      }
@@ -14722,8 +14710,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "124,8"
      },
      {
@@ -14770,7 +14758,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "4,5"
      },
@@ -14936,13 +14924,13 @@
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •Steckerpotentiostat zum Anschluss an 230V •Schukosteckdose •Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      },
      {
       "typ": "Abdeckrosetten Set für E-Heizeinsatz",
-      "text": "(1\", 1 1/4\" und 1 1/2\") •inklusive Verbindungskabel (Länge 3,5m) •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
+      "text": "•Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
       "ttnr": "7735501421",
       "preis": 29.73
      }
@@ -15158,8 +15146,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "87,0"
      },
      {
@@ -15182,7 +15170,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "9,1"
      },
@@ -15290,13 +15278,13 @@
      },
      {
       "typ": "–",
-      "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW",
+      "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge",
       "ttnr": "8738202915",
       "preis": 23.97
      },
      {
       "typ": "E-Heater mit LED 2kW/230V",
-      "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
+      "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
       "ttnr": "7735502657",
       "preis": 560.68
      },
@@ -15344,13 +15332,13 @@
      },
      {
       "typ": "FLH 90",
-      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V. •-Fremdstromanode für Korrosionsschutz von",
+      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V.",
       "ttnr": "8738212216",
       "preis": 626.0
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      }
@@ -15566,8 +15554,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "100,0"
      },
      {
@@ -15590,7 +15578,7 @@
      },
      {
       "label": "Leistungskennzahl nach DIN 4708 bei tV=60°C",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "11,2"
      },
@@ -15696,13 +15684,13 @@
      },
      {
       "typ": "–",
-      "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge •Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW",
+      "text": "•Warmwasser-Temperaturfühler für Wärmepumpe SupraEco T (STE/STM-1) •NTC-Tauchfühler 6mm •4m Kabellänge",
       "ttnr": "8738202915",
       "preis": 23.97
      },
      {
       "typ": "E-Heater mit LED 2kW/230V",
-      "text": "•Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
+      "text": "•Elektro-Einschraubheizung R 1 1/2\" mit LED, 2 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •230 V Wechselstrom •Mindesteinbautiefe 320 mm",
       "ttnr": "7735502657",
       "preis": 560.68
      },
@@ -15750,13 +15738,13 @@
      },
      {
       "typ": "FLH 90",
-      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V. •-Fremdstromanode für Korrosionsschutz von",
+      "text": "•Flanschheizung zur Nacherwärmung und thermischen Desinfektion. Temperaturregler einstellbar von 30°C bis 80°C, Sicherheitstemperaturbegrenzer. Einsetzbar für •alle Warmwasserspeicher Stora WH/ WP/WPS. Unbeheizte Länge 105 mm, Ø 180 mm, Einbaulänge 450 mm, Leistung 9 kW, 400V.",
       "ttnr": "8738212216",
       "preis": 626.0
      },
      {
       "typ": "Fremdstromanode Set Correx UP2.3- 919 TA400 Muffe",
-      "text": "Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung",
+      "text": "•-Fremdstromanode für Korrosionsschutz von emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden •- Für Speicher ab 400l (WH 370-450; WP 400/500/700; WS400; WPS 390/490) •- Steckerpotentiostat zum Anschluss an 230V •- Schukosteckdose •- Fremdstromanode (400mm lang) zur isolierten Lochmontage mit M8-Gewindestift und Verschraubung (1\", 1 1/4\" und 1 1/2\") •- inklusive Verbindungskabel (Länge 3,5m)",
       "ttnr": "7735502785",
       "preis": 611.0
      }
@@ -15847,8 +15835,8 @@
      },
      {
       "label": "Durchmesser ohne Isolierung",
-      "kz": "",
-      "einheit": "A1 mm",
+      "kz": "A1",
+      "einheit": "mm",
       "wert": "780"
      },
      {
@@ -15949,14 +15937,14 @@
      },
      {
       "label": "",
-      "kz": "",
-      "einheit": "P1 mm",
+      "kz": "P1",
+      "einheit": "mm",
       "wert": "450"
      },
      {
       "label": "",
-      "kz": "",
-      "einheit": "P2 mm",
+      "kz": "P2",
+      "einheit": "mm",
       "wert": "520"
      },
      {
@@ -15997,8 +15985,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "80,0"
      },
      {
@@ -16051,7 +16039,7 @@
      },
      {
       "label": "Leistungskennzahl bei max. Heizleistung",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "4,7"
      },
@@ -16112,13 +16100,13 @@
      },
      {
       "typ": "EPP-Abdeckung",
-      "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk. •Warmwasser-Komfortgruppe für den Einsatz im 1-2",
+      "text": "•EPP-Abdeckung für Fühlerhülsen •Verwendbar für 500 l Pufferspeicher und Warmwasserspeicher •VPE 8 Stk.",
       "ttnr": "7735501429",
       "preis": 98.4
      },
      {
       "typ": "WWKG",
-      "text": "zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer,",
+      "text": "•Warmwasser-Komfortgruppe für den Einsatz im 1-2 Familienhaus, für alle Warmwasserspeicher mit einer zulässigen Betriebstemperatur von bis zu 90 °C, als Verbrühungsschutz für solare Trinkwasseranlagen und Festbrennstoffkessel-Anlagen, mit Zirkulationspumpe und thermostatischem Mischventil für einstellbare Temperaturen im Bereich von 35 - 65 °C, zwei Thermometer für die Warmwasseraustrittstemperatur und die verfügbare Speichertemperatur, Absperrung für einfache Wartung von Pumpe und Mischer, Rückschlagventil zur Vermeidung von Fehlstörungen, inkl. Wandhalterung und Befestigungsmaterial",
       "ttnr": "7719003023",
       "preis": 847.68
      },
@@ -16130,19 +16118,19 @@
      },
      {
       "typ": "NR. 1663",
-      "text": "•Zirkulationspumpen-Set mit Rückschlagventil •Speicher-Anschlussgruppe mit Speicherladepumpe",
+      "text": "•Zirkulationspumpen-Set mit Rückschlagventil",
       "ttnr": "7738110915",
       "preis": 634.48
      },
      {
       "typ": "BCC 27-HE",
-      "text": "(Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar)",
+      "text": "•Speicher-Anschlussgruppe mit Speicherladepumpe (Energieeffizienzklasse A), Schwerkraftbremse und Entleerung •Für OC7000F 18...35 mit (S)W 120...300 P(K) 1 und bivalente Speicher (mit Verlängerung 63020497 auch für Speicher W 400...500-5 einsetzbar) •Speicher rechts stehend",
       "ttnr": "8718588480",
       "preis": 563.75
      },
      {
       "typ": "Zusatzpaket BCC 27-HE",
-      "text": "•Speicher rechts stehend •Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links",
+      "text": "•Zusatzpaket für Speicheranschluss-Gruppe BCC 27-HE •Für Speicheranordnung links",
       "ttnr": "8718588406",
       "preis": 159.9
      },
@@ -16184,13 +16172,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm •Fremdstromanode für Korrosionsschutz von",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
-      "typ": "Abdeckrosetten Set für E-Heizeinsatz",
-      "text": "Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
+      "typ": "Fremdstromanode M8 Abdeckrosetten Set für E-Heizeinsatz",
+      "text": "emaillierten Speicher ohne ein Materialabtrag wie bei Mg Anoden, M8-Gewindestift, 230 VAC Steckeranschluss •Abdeckrosetten für E-Heizeinsatz zum Aufkleben für Speicher ab 500 l (PU-Hartschaum mit Folienmantel)",
       "ttnr": "7735501421",
       "preis": 29.73
      }
@@ -16380,8 +16368,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "108,0"
      },
      {
@@ -16398,7 +16386,7 @@
      },
      {
       "label": "Leistungskennzahl bei max. Heizleistung",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "3"
      },
@@ -16574,13 +16562,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -16806,8 +16794,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "127,0"
      },
      {
@@ -16824,7 +16812,7 @@
      },
      {
       "label": "Leistungskennzahl bei max. Heizleistung",
-      "kz": "NL",
+      "kz": "",
       "einheit": "",
       "wert": "6,7"
      },
@@ -17000,13 +16988,13 @@
      },
      {
       "typ": "E-Heater mit LED 9kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 9 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 500 mm",
       "ttnr": "7735502661",
       "preis": 705.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 500 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -17176,8 +17164,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "91,0"
      },
      {
@@ -17237,7 +17225,7 @@
      {
       "label": "Bereitschaftswärmeaufwand 1)",
       "kz": "",
-      "einheit": "kWh/24",
+      "einheit": "kWh/24h",
       "wert": "2,18"
      },
      {
@@ -17379,13 +17367,13 @@
      },
      {
       "typ": "E-Heater mit LED 6kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm",
       "ttnr": "7735502660",
       "preis": 664.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 450 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -17543,8 +17531,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "100,0"
      },
      {
@@ -17604,7 +17592,7 @@
      {
       "label": "Bereitschaftswärmeaufwand 1)",
       "kz": "",
-      "einheit": "kWh/24",
+      "einheit": "kWh/24h",
       "wert": "2,4"
      },
      {
@@ -17746,13 +17734,13 @@
      },
      {
       "typ": "E-Heater mit LED 6kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm",
       "ttnr": "7735502660",
       "preis": 664.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 450 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },
@@ -17910,8 +17898,8 @@
      },
      {
       "label": "Warmhalteverlust",
-      "kz": "W",
-      "einheit": "",
+      "kz": "",
+      "einheit": "W",
       "wert": "108,0"
      },
      {
@@ -17971,7 +17959,7 @@
      {
       "label": "Bereitschaftswärmeaufwand 1)",
       "kz": "",
-      "einheit": "kWh/24",
+      "einheit": "kWh/24h",
       "wert": "2,6"
      },
      {
@@ -18113,13 +18101,13 @@
      },
      {
       "typ": "E-Heater mit LED 6kW/400V",
-      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom",
+      "text": "•Elektro-Einschraubheizung mit LED R 1 1/2\", 6 kW •Zur Verwendung als Notheizung für den Trinkwasserbereitschaftsteil oder zur Heizungsunterstützung •Mit integrierter Regelung •400 V Drehstrom •Mindesteinbautiefe 450 mm",
       "ttnr": "7735502660",
       "preis": 664.2
      },
      {
       "typ": "CTHK 631",
-      "text": "•Mindesteinbautiefe 450 mm •Elektroheizstab für Pufferspeicher, 2 kW, 230V",
+      "text": "•Elektroheizstab für Pufferspeicher, 2 kW, 230V",
       "ttnr": "8738212205",
       "preis": 436.56
      },

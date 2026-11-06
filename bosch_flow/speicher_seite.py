@@ -245,8 +245,11 @@ def _katalog_details(s: dict, d: dict, kat: dict) -> None:
     if kat.get("werte"):
         with st.expander(f"Technische Daten laut {'Installationsanleitung' if kat.get('aus_im') else 'Katalog'} "
                          f"({len(kat['werte'])})"):
-            st.dataframe([{"Größe": w["label"], "": w["kz"], "Einheit": w["einheit"], "Wert": w["wert"]}
-                          for w in kat["werte"]], hide_index=True, width="stretch")
+            st.dataframe([{"": w["kz"], "Größe": w["label"], "Wert": w["wert"], "Einheit": w["einheit"]}
+                          for w in kat["werte"]], hide_index=True, width="stretch",
+                         column_config={"": st.column_config.TextColumn(width=50),
+                                        "Wert": st.column_config.TextColumn(width=100),
+                                        "Einheit": st.column_config.TextColumn(width=80)})
     if kat.get("zubehoer"):
         with st.expander(f"Zubehör laut Katalog ({len(kat['zubehoer'])})"):
             st.dataframe([{"Typ": z["typ"], "Bezeichnung": z["text"], "TTNr": z["ttnr"], "UVP": SP.preis_text(z["preis"])}

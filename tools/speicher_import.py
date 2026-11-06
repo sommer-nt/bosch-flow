@@ -348,6 +348,29 @@ def _kategorie_katalog(titel: str, name: str) -> str:
     return "ww"
 
 
+EINHEITEN = ("mm", "l", "kg", "bar", "mbar", "°C", "W", "kW", "kWh/d", "kWh/24h", "m²", "m³/h", "l/h", "l/min", "min",
+             "Zoll", "DN")
+
+
+def zeile_ordnen(w: dict) -> dict:
+    """Katalogzeile vereinheitlichen: Einheit immer in „einheit“, Kennbuchstabe (A, H1, V4 …) in „kz“."""
+    label, kz, einheit = w["label"].strip(), w["kz"].strip(), w["einheit"].strip()
+    if kz in ("W", "DN") and not einheit:                 # Einheit stand in der Kennbuchstaben-Spalte
+        kz, einheit = "", kz
+    if kz == "NL":                                        # Formelzeichen der Leistungskennzahl, keine Einheit
+        kz = ""
+    m = re.fullmatch(r"([A-Z]\d*(?:/[A-Z]?\d*)?)/?\s+(.+)", einheit)   # „H1 mm“, „V4 l“, „H10/ mm“
+    if m and not kz:
+        kz, einheit = m.group(1).rstrip("/"), m.group(2)
+    m = re.fullmatch(r"(.+?)\s+(kW|W|l|mm|kg|bar|°C|l/h|m²)", label)    # Einheit am Ende der Bezeichnung
+    if m and not einheit:
+        label, einheit = m.group(1), m.group(2)
+    if re.fullmatch(r"[A-Z]\d*", label) and not kz:     # nur Kennbuchstabe → Verweis aufs Maßbild
+        kz, label = label, "Gewicht laut Maßbild" if einheit == "kg" else "Maß laut Maßbild"
+    einheit = {"kWh/24": "kWh/24h", "m2": "m²"}.get(einheit, einheit)
+    return {**w, "label": label, "kz": kz, "einheit": einheit}
+
+
 def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
     """Katalogdaten (tools/katalog_import.py) je TTNr an die Speicher hängen; fehlende Speicher ergänzen."""
     daten["speicher"] = [s for s in daten["speicher"] if not s.get("nur_katalog")]
@@ -392,7 +415,7 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
                     if alt and any(z["label"] in namen for _, namen in KERN):
                         konflikte.append(f'{z["label"]}: {alt["wert"]} bzw. {v} {z["einheit"]}'.strip())
                         continue
-                    werte.append({"label": z["label"], "kz": z["kz"], "einheit": z["einheit"], "wert": v})
+                    werte.append(zeile_ordnen({"label": z["label"], "kz": z["kz"], "einheit": z["einheit"], "wert": v}))
             kern = {}
             for feld, namen in KERN:
                 for n in namen:

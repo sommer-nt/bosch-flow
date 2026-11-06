@@ -137,20 +137,38 @@ def preiszeilen(z: list[tuple[float, list]], von: float = 0, bis: float = 1e9):
     x_text = next((c[0] for y, zs in z for c in zs if c[4].strip() in ("Beschreibung", "Bezeichnung")), None)
     if x_typ is None or x_text is None:
         return []
+    # Kandidatenzeilen sammeln (Typ- und Beschreibungsspalte)
+    kandidaten = []
     for y, zellen in z:
-        if not (von <= y <= bis) or y < min(t["y"] for t in treffer) - 40:
-            continue
-        nah = min(treffer, key=lambda t: abs(t["y"] - y))
-        if abs(nah["y"] - y) > 40:
+        if not (von <= y <= bis) or y < min(t["y"] for t in treffer) - 40 or y > max(t["y"] for t in treffer) + 60:
             continue
         for c in zellen:
             t = c[4].strip()
-            if TTNR.match(t) or PREIS.match(t) or t in ("Typ", "Beschreibung", "Bezeichnung", "Bestell-Nr.", "€"):
+            if TTNR.match(t) or PREIS.match(t) or t in ("Typ", "Beschreibung", "Bezeichnung", "Bestell-Nr.", "€") \
+                    or t.startswith("Unverbindliche"):
                 continue
             if x_typ - 6 <= c[0] < x_text - 4:
-                nah["typ"].append((y, t))
+                kandidaten.append((y, "typ", t))
             elif x_text - 4 <= c[0] < x_nr - 4:
-                nah["text"].append((y, t))
+                kandidaten.append((y, "text", t))
+    # Zeilen zu Blöcken bündeln (Zeilenabstand ~10 pt, zwischen zwei Positionen deutlich mehr) und den Block der
+    # Preiszeile zuordnen, die in ihm liegt – sonst der nächstgelegenen
+    kandidaten.sort()
+    bloecke, akt = [], []
+    for k in kandidaten:
+        if akt and k[0] - akt[-1][0] > 12:
+            bloecke.append(akt)
+            akt = []
+        akt.append(k)
+    if akt:
+        bloecke.append(akt)
+    for block in bloecke:
+        y0, y1 = block[0][0] - 6, block[-1][0] + 6
+        drin = [t for t in treffer if y0 <= t["y"] <= y1]
+        for y, art, text in block:
+            ziel = drin[0] if len(drin) == 1 else min(drin or treffer, key=lambda t: abs(t["y"] - y))
+            if abs(ziel["y"] - y) <= 90:
+                ziel[art].append((y, text))
     # Zeilen zwischen zwei Positionen gehören zur näheren – Typ steht oft mittig zur Beschreibung
     for t in treffer:
         t["typ"] = " ".join(x for _, x in sorted(t["typ"]))
