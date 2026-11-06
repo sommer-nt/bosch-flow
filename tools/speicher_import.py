@@ -485,7 +485,7 @@ ERKLAERUNGEN = {
 # Bestätigte Regeln zur Matrix (Rückmeldung Matthias Spies)
 HINWEISE_FREIGABE = [
     "Leere Matrixzelle: nicht geprüft und nicht freigegeben.",
-    "Generation -7: Freigaben von Matthias Spies und Michael aus Planererfahrung angepasst – "
+    "Generation -7: Freigaben von Matthias Spies und Michael Hoss aus Planererfahrung angepasst – "
     "Abweichungen zur Vorgängergeneration -6 sind gewollt.",
 ]
 
