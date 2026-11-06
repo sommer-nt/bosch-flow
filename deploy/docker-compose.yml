@@ -1,5 +1,6 @@
-# BOSCH Flow auf dem eigenen Server hinter nginx (flow.sommer-nt.de).
-# Die App lauscht nur lokal auf 127.0.0.1:${APP_PORT:-8504}; nginx leitet flow.sommer-nt.de dorthin.
+# BOSCH Flow auf dem eigenen Server hinter nginx.
+#  app:      Netzrechner      → 127.0.0.1:${APP_PORT:-8504}      (flow.sommer-nt.de)
+#  speicher: Speicherauswahl  → 127.0.0.1:${SPEICHER_PORT:-8505} (speicher.sommer-nt.de)
 # Start:  cd deploy && docker compose -p flow up -d --build
 services:
   app:
@@ -8,3 +9,11 @@ services:
     env_file: .env
     ports:
       - "127.0.0.1:${APP_PORT:-8504}:8501"
+  speicher:
+    build: ..
+    restart: unless-stopped
+    env_file: .env
+    command: ["streamlit", "run", "speicher_app.py", "--server.address=0.0.0.0", "--server.port=8501",
+              "--server.headless=true", "--browser.gatherUsageStats=false", "--client.toolbarMode=minimal"]
+    ports:
+      - "127.0.0.1:${SPEICHER_PORT:-8505}:8501"
