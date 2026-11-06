@@ -9,6 +9,7 @@ import html
 import streamlit as st
 
 from bosch_flow import speicher as SP
+from bosch_flow.bericht import ENTWICKLER
 
 KAT_FARBE = {"puffer": ("#92d050", "#5f8f2c"), "ww": ("#ffc000", "#a77d00"), "biv": ("#bdd7ee", "#3d6285"),
              "kombi": ("#cc99ff", "#7a4fae")}
@@ -311,7 +312,7 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
                 '[class*="st-key-sp_"] button p {font-weight:650}</style>', unsafe_allow_html=True)
     k1, k2 = st.columns([4, 1])
     k1.markdown(f'<div class="marke">BOSCH <span>Speicherauswahl</span>'
-                f'<small>Wärmepumpe → Speicher → E-Heizer · Matrix-Stand {E(d["stand"])}</small></div>',
+                f'<small>Wärmepumpe → Speicher → E-Heizer · Matrix-Stand {E(d["stand"])} · {E(ENTWICKLER)}</small></div>',
                 unsafe_allow_html=True)
     if k2.button("Netzrechner", icon=":material/arrow_back:", width="stretch"):
         st.query_params.clear()
@@ -373,6 +374,7 @@ def seite(F: dict, dunkel: bool = False, mobil: bool = False) -> None:
                 kopf, _, rest = t.partition(": ")
                 with st.expander(f"{kopf} – gilt hier für {len(namen)} Speicher"):
                     st.markdown(f"{rest}  \n**Gilt hier für:** {', '.join(namen)}")
+    st.caption(ENTWICKLER)
     st.caption("Legende Matrix: + freigegeben · ++ zwei Speichereinheiten · (-)* abweichend bei Wasser-Wasser-Betrieb · "
                "leer = nicht geprüft und nicht freigegeben  \n"
                + "  \n".join(d["hinweise_matrix"] + d.get("hinweise_freigabe", [])) + f"  \nQuellen: {d['quelle']}"

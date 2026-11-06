@@ -214,6 +214,7 @@
     <div class="logo">BOSCH <span>Speicherauswahl</span></div>
     <div class="subtitle">Wärmepumpe → Speicher → E-Heizer</div>
     <div class="badge" id="stand"></div>
+    <div class="badge">Entwickelt von <b>Daniel Sommer</b> · HC/SDE3-PSD</div>
     <div class="kopf-rechts">
       <button class="knopf" onclick="window.print()" title="Auswahl drucken / als PDF speichern">🖶 Drucken</button>
       <button class="knopf" id="themeToggle" onclick="toggleTheme()" title="Hell / Dunkel umschalten">☀ / ☾</button>
@@ -654,7 +655,7 @@ function zeige(){
 $("stand").innerHTML = `Matrix-Stand <b>${esc(D.stand || "–")}</b>`;
 $("fuss").innerHTML = `<b>Legende Matrix:</b> + freigegeben · ++ zwei Speichereinheiten · (-)* abweichend bei Wasser-Wasser-Betrieb · leer = nicht geprüft und nicht freigegeben · ⓘ Hinweis zur Kombination
   <ul>${D.hinweise_matrix.concat(D.hinweise_freigabe || []).map(t => `<li>${esc(t)}</li>`).join("")}</ul>
-  Quellen: ${esc(D.quelle)}${D.katalog_quelle ? " · " + esc(D.katalog_quelle) + " (Preise: unverbindliche Preisempfehlung ohne MwSt.)" : ""} · ${D.wp.length} Wärmepumpen · ${D.speicher.length} Speicher`;
+  Entwickelt von Daniel Sommer · HC/SDE3-PSD<br>Quellen: ${esc(D.quelle)}${D.katalog_quelle ? " · " + esc(D.katalog_quelle) + " (Preise: unverbindliche Preisempfehlung ohne MwSt.)" : ""} · ${D.wp.length} Wärmepumpen · ${D.speicher.length} Speicher`;
 (function(){
   const p = new URLSearchParams(location.hash.slice(1));
   const wpId = p.get("wp") && wpNachId(D, p.get("wp")) ? p.get("wp") : D.wp[0].id;
