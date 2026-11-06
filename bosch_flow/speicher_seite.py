@@ -72,7 +72,12 @@ def _detail(s: dict, d: dict, F: dict, wp_id: str | None, mobil: bool) -> None:
     eh = s.get("eheizer") or {}
     kat = s.get("katalog") or {}
     with st.container(border=True):
-        k1, k2 = st.columns([3, 2] if not mobil else [1, 1])
+        foto = SP.ORDNER / "speicher" / "fotos" / f"{kat.get('foto')}.jpg" if kat.get("foto") else None
+        if foto and foto.exists():
+            k0, k1, k2 = st.columns([0.5, 2.5, 2] if not mobil else [1, 2, 2])
+            k0.image(str(foto), width=70)
+        else:
+            k1, k2 = st.columns([3, 2] if not mobil else [1, 1])
         meta = [d["kategorien"][s["kategorie"]]] + ([s["info"]] if s.get("info") else []) + \
                (["Alt – auslaufend"] if s.get("alt") else []) + (["NEU"] if kat.get("neu") else []) + \
                ([f"verfügbar ab {kat['verfuegbar_ab']}"] if kat.get("verfuegbar_ab") else [])

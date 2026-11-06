@@ -371,6 +371,15 @@ def zeile_ordnen(w: dict) -> dict:
     return {**w, "label": label, "kz": kz, "einheit": einheit}
 
 
+def foto_fuer(fam: dict, produkt: dict) -> str:
+    """Produktfoto: je Ausführung eines, wenn der Katalog so viele Fotos wie Produkte zeigt, sonst das erste."""
+    fotos = fam.get("fotos", [])
+    if not fotos:
+        return ""
+    i = next((j for j, p in enumerate(fam["produkte"]) if p["ttnr"] == produkt["ttnr"]), 0)
+    return fotos[i] if len(fotos) == len(fam["produkte"]) else fotos[0]
+
+
 def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
     """Katalogdaten (tools/katalog_import.py) je TTNr an die Speicher hängen; fehlende Speicher ergänzen."""
     daten["speicher"] = [s for s in daten["speicher"] if not s.get("nur_katalog")]
@@ -427,6 +436,7 @@ def katalog_einbinden(daten: dict, pfad: Path = KATALOG) -> None:
                     "quelle": fam.get("quelle", kat.get("quelle", "")), "stand": fam.get("stand", ""),
                     "neu": fam.get("neu", False), "verfuegbar_ab": fam.get("verfuegbar_ab", ""),
                     "text": p["text"], "beschreibung": fam["beschreibung"], "bilder": fam.get("bilder", []), "kern": kern,
+                    "foto": foto_fuer(fam, p),
                     "werte": werte, "konflikte": konflikte, "kombi": kombi, "hinweise": fam["hinweise"],
                     "zubehoer": [{k: z[k] for k in ("typ", "text", "ttnr", "preis")} for z in fam["zubehoer"]]}
             s = nach_ttnr.get(p["ttnr"])
@@ -720,6 +730,11 @@ def html_einbetten(daten: dict) -> None:
         p = DATEN.parent / "speicher" / datei
         if p.exists():
             bilder[f"heizer:{typ}"] = "data:image/jpeg;base64," + base64.b64encode(p.read_bytes()).decode()
+    fotos_ordner = DATEN.parent / "speicher" / "fotos"
+    for s in daten["speicher"]:
+        f = (s.get("katalog") or {}).get("foto")
+        if f and (fotos_ordner / f"{f}.jpg").exists():
+            bilder[f] = "data:image/jpeg;base64," + base64.b64encode((fotos_ordner / f"{f}.jpg").read_bytes()).decode()
     if BILDER.exists():
         genutzt = {b for s in daten["speicher"] for b in (s.get("katalog") or {}).get("bilder", [])} | \
                   {t for s in daten["speicher"] for t in s["ttnr"] + [s["id"]]}

@@ -377,6 +377,7 @@
      "kippmass_mm": "756,6",
      "gewicht_kg": "24"
     },
+    "foto": "foto-bst-50-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -589,6 +590,7 @@
      "kippmass_mm": "1180",
      "gewicht_kg": "44,1"
     },
+    "foto": "foto-bh-120-200-300-5-k-1-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -940,6 +942,7 @@
      "kippmass_mm": "1625",
      "gewicht_kg": "79"
     },
+    "foto": "foto-bh-120-200-300-5-k-1-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -1289,6 +1292,7 @@
      "kippmass_mm": "1655",
      "gewicht_kg": "84"
     },
+    "foto": "foto-bh-120-200-300-5-k-1-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -1506,6 +1510,7 @@
      "kippmass_mm": "1994",
      "gewicht_kg": "89"
     },
+    "foto": "foto-bp-500-750-1000-7-em-1-1",
     "werte": [
      {
       "label": "Höhe",
@@ -1830,6 +1835,7 @@
      "kippmass_mm": "1830",
      "gewicht_kg": "106"
     },
+    "foto": "foto-bp-500-750-1000-7-em-1-1",
     "werte": [
      {
       "label": "Höhe",
@@ -2160,6 +2166,7 @@
      "kippmass_mm": "2140",
      "gewicht_kg": "121"
     },
+    "foto": "foto-bp-500-750-1000-7-em-1-1",
     "werte": [
      {
       "label": "Höhe",
@@ -2498,6 +2505,7 @@
      "kippmass_mm": "1994",
      "gewicht_kg": "93,4"
     },
+    "foto": "foto-bp-500-750-1000-7-emr-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -2959,6 +2967,7 @@
      "kippmass_mm": "1830",
      "gewicht_kg": "109,28"
     },
+    "foto": "foto-bp-500-750-1000-7-emr-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -3436,6 +3445,7 @@
      "kippmass_mm": "2140",
      "gewicht_kg": "127,64"
     },
+    "foto": "foto-bp-500-750-1000-7-emr-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -3919,6 +3929,7 @@
      "kippmass_mm": "1994",
      "gewicht_kg": "107"
     },
+    "foto": "foto-bps-500-7-er-1-1",
     "werte": [
      {
       "label": "Höhe",
@@ -4445,6 +4456,7 @@
      "kippmass_mm": "1994",
      "gewicht_kg": "99,04"
     },
+    "foto": "foto-bp-500-750-1000-7-erz-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -4933,6 +4945,7 @@
      "kippmass_mm": "1830",
      "gewicht_kg": "119,7"
     },
+    "foto": "foto-bp-500-750-1000-7-erz-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -5439,6 +5452,7 @@
      "kippmass_mm": "2140",
      "gewicht_kg": "137,04"
     },
+    "foto": "foto-bp-500-750-1000-7-erz-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -5952,6 +5966,7 @@
      "kippmass_mm": "1830",
      "gewicht_kg": "152,36"
     },
+    "foto": "foto-bps-750-1000-7-erz-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -6513,6 +6528,7 @@
      "kippmass_mm": "2140",
      "gewicht_kg": "176,26"
     },
+    "foto": "foto-bps-750-1000-7-erz-1-1",
     "werte": [
      {
       "label": "Höhe H",
@@ -7018,6 +7034,7 @@
      "kippmass_mm": "1912",
      "gewicht_kg": "89,5"
     },
+    "foto": "foto-bh-500-750-6-1",
     "werte": [
      {
       "label": "Höhe mit Isolierung",
@@ -7257,6 +7274,7 @@
      "durchmesser_mm": "1030",
      "gewicht_kg": "230"
     },
+    "foto": "foto-bh-500-750-6-1",
     "werte": [
      {
       "label": "Höhe mit Isolierung",
@@ -7525,6 +7543,7 @@
      "kippmass_mm": "1912",
      "gewicht_kg": "100,5"
     },
+    "foto": "foto-bh-500-750-1000-6-erz-1",
     "werte": [
      {
       "label": "Höhe mit Isolierung H",
@@ -7994,6 +8013,7 @@
      "durchmesser_mm": "1030",
      "gewicht_kg": "155"
     },
+    "foto": "foto-bh-500-750-1000-6-erz-1",
     "werte": [
      {
       "label": "Höhe mit Isolierung H",
@@ -8469,6 +8489,7 @@
      "durchmesser_mm": "1030",
      "gewicht_kg": "199"
     },
+    "foto": "foto-bh-500-750-1000-6-erz-1",
     "werte": [
      {
       "label": "Höhe mit Isolierung H",
@@ -8936,6 +8957,7 @@
      "durchmesser_mm": "1030",
      "gewicht_kg": "191"
     },
+    "foto": "foto-bsh-750-1000-6-erz-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -9299,6 +9321,7 @@
      "durchmesser_mm": "1030",
      "gewicht_kg": "245"
     },
+    "foto": "foto-bsh-750-1000-6-erz-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -9635,6 +9658,7 @@
      "kippmass_mm": "1340",
      "gewicht_kg": "50"
     },
+    "foto": "foto-bp-200-500-1000-e-p-1-b-c-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -9905,6 +9929,7 @@
      "kippmass_mm": "2030",
      "gewicht_kg": "89"
     },
+    "foto": "foto-bp-200-500-1000-e-p-1-b-c-2",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -10175,6 +10200,7 @@
      "kippmass_mm": "2036",
      "gewicht_kg": "120"
     },
+    "foto": "foto-bp-200-500-1000-e-p-1-b-c-3",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -10423,6 +10449,7 @@
      "kippmass_mm": "2250",
      "gewicht_kg": "153"
     },
+    "foto": "foto-dimplex-bthc-1000-1",
     "werte": [
      {
       "label": "Speichervolumen (Heizung)",
@@ -11264,6 +11291,7 @@
      "kippmass_mm": "2050",
      "gewicht_kg": "222"
     },
+    "foto": "foto-wh-290-370-400-450-lp-1-b-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -11693,6 +11721,7 @@
      "kippmass_mm": "2050",
      "gewicht_kg": "206"
     },
+    "foto": "foto-wh-290-370-400-450-lp-1-b-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -12103,6 +12132,7 @@
      "kippmass_mm": "1440",
      "gewicht_kg": "105"
     },
+    "foto": "foto-hr-200-300-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -12361,6 +12391,7 @@
      "kippmass_mm": "1870",
      "gewicht_kg": "120"
     },
+    "foto": "foto-hr-200-300-1",
     "werte": [
      {
       "label": "Maß laut Maßbild",
@@ -12692,6 +12723,7 @@
      "kippmass_mm": "1290",
      "gewicht_kg": "82"
     },
+    "foto": "foto-swdp-200-300-2-o-2-c-2",
     "werte": [
      {
       "label": "Breite",
@@ -12906,6 +12938,7 @@
      "kippmass_mm": "1925",
      "gewicht_kg": "107 | 109"
     },
+    "foto": "foto-swdp-200-300-2-o-2-c-4",
     "werte": [
      {
       "label": "Breite",
@@ -13120,6 +13153,7 @@
      "kippmass_mm": "1360,9",
      "gewicht_kg": "91,5"
     },
+    "foto": "foto-wp-180-300-p-1-b-1",
     "werte": [
      {
       "label": "Außendurchmesser mit Wärmedämmung",
@@ -13574,6 +13608,7 @@
      "kippmass_mm": "1950,8",
      "gewicht_kg": "124"
     },
+    "foto": "foto-wp-180-300-p-1-b-1",
     "werte": [
      {
       "label": "Außendurchmesser mit Wärmedämmung",
@@ -14009,6 +14044,7 @@
      "kippmass_mm": "1720",
      "gewicht_kg": "159"
     },
+    "foto": "foto-wp-400-500-700-p-1-c-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -14352,6 +14388,7 @@
      "kippmass_mm": "2030",
      "gewicht_kg": "180"
     },
+    "foto": "foto-wp-400-500-700-p-1-c-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -14695,6 +14732,7 @@
      "kippmass_mm": "2107",
      "gewicht_kg": "247"
     },
+    "foto": "foto-wp-400-500-700-p-1-c-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -15041,6 +15079,7 @@
      "kippmass_mm": "1417",
      "gewicht_kg": "151"
     },
+    "foto": "foto-wps-390-490-1-ep-1-1",
     "werte": [
      {
       "label": "Höhe",
@@ -15449,6 +15488,7 @@
      "kippmass_mm": "2020",
      "gewicht_kg": "186"
     },
+    "foto": "foto-wps-390-490-1-ep-1-1",
     "werte": [
      {
       "label": "Höhe",
@@ -15826,6 +15866,7 @@
      "kippmass_mm": "1941",
      "gewicht_kg": "197"
     },
+    "foto": "foto-ws-500-5-ep-1-b-1",
     "werte": [
      {
       "label": "Durchmesser mit Isolierung",
@@ -16269,6 +16310,7 @@
      "kippmass_mm": "1870",
      "gewicht_kg": "156"
     },
+    "foto": "foto-cst-500-750-ehp-1",
     "werte": [
      {
       "label": "Speicher inkl. Isolierung Höhe H",
@@ -16695,6 +16737,7 @@
      "kippmass_mm": "1910",
      "gewicht_kg": "176"
     },
+    "foto": "foto-cst-500-750-ehp-1",
     "werte": [
      {
       "label": "Speicher inkl. Isolierung Höhe H",
@@ -17149,6 +17192,7 @@
      "kippmass_mm": "1945",
      "gewicht_kg": "148"
     },
+    "foto": "foto-bpu-300-400-500-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -17516,6 +17560,7 @@
      "kippmass_mm": "1900",
      "gewicht_kg": "174"
     },
+    "foto": "foto-bpu-300-400-500-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",
@@ -17883,6 +17928,7 @@
      "kippmass_mm": "2080",
      "gewicht_kg": "212"
     },
+    "foto": "foto-bpu-300-400-500-1",
     "werte": [
      {
       "label": "Energieeffizienzklasse",

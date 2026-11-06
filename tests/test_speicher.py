@@ -175,3 +175,9 @@ def test_rueckmeldung_spies_2():
         assert SP.speicher_nach_id(sid)["eheizer"]["quelle"] == "spies"
     assert len(SP.heizer_fuer_speicher("bps500-7-er")["cthk"]) == 6         # CTHK 636 nicht für 500 l
     assert SP.speicher_nach_id("bps-750-7-erz-1")["eheizer"]["tiefe_muffe_mm"] == 750
+
+
+def test_produktfotos():
+    mit = [s for s in D["speicher"] if (s.get("katalog") or {}).get("foto")]
+    assert len(mit) >= 40
+    assert all((SP.ORDNER / "speicher" / "fotos" / f'{s["katalog"]["foto"]}.jpg').exists() for s in mit)

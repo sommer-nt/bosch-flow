@@ -315,6 +315,25 @@ def massbild(page, z, tabellen_y: list[float], ziel: Path) -> bool:
     return True
 
 
+FOTOS = BILDER.parent / "fotos"
+
+
+def produktfotos(page, slug: str) -> list[str]:
+    """Produktfotos neben der Bestelltabelle (je Ausführung eines, von oben nach unten) als JPEG speichern."""
+    bloecke = sorted((b for b in page.get_text("dict")["blocks"] if b["type"] == 1 and 60 < b["bbox"][1] < 780
+                      and b["bbox"][3] - b["bbox"][1] < 600 and b["bbox"][0] < 200), key=lambda b: b["bbox"][1])
+    aus = []
+    for i, b in enumerate(bloecke):
+        r = pymupdf.Rect(b["bbox"])
+        pix = page.get_pixmap(clip=r, dpi=300)        # Seite neu rendern: Freisteller und Farben wie im Katalog
+        im = Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
+        name = f"{slug.replace('kat-', 'foto-')}-{i + 1}"
+        FOTOS.mkdir(parents=True, exist_ok=True)
+        im.save(FOTOS / f"{name}.jpg", quality=85, optimize=True)
+        aus.append(name)
+    return aus
+
+
 def familie_slug(titel_: str) -> str:
     return "kat-" + re.sub(r"[^a-z0-9]+", "-", titel_.lower().replace("stora ", "").replace("storacell ", "")).strip("-")
 
@@ -387,6 +406,8 @@ def lesen(pdf: Path, bilder: bool = True, vergeben: set | None = None) -> dict:
                     fam["bilder"].append(slug)
                     vergeben.add(slug)
         fam["bild"] = fam["bilder"][0] if fam["bilder"] else ""
+        if bilder:
+            fam["fotos"] = produktfotos(seiten[0], familie_slug(teil["titel"]))
         for t in fam["produkte"] + fam["zubehoer"]:
             t.pop("y", None)
         # nur Speicherfamilien (der Elektrokatalog enthält auch Wärmepumpen, Klimageräte …)
@@ -424,6 +445,8 @@ def main() -> None:
     a = ap.parse_args()
     if not a.ohne_bilder and BILDER.exists():
         for alt in BILDER.glob("kat-*.png"):
+            alt.unlink()
+        for alt in FOTOS.glob("foto-*.jpg"):
             alt.unlink()
     vergeben: set = set()
     teile = [lesen(pdf, not a.ohne_bilder, vergeben) for pdf in a.pdf]
