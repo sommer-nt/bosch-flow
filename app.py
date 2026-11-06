@@ -333,13 +333,6 @@ if _passwort and not ss.get("angemeldet"):
     st.stop()
 
 
-# ====================================================================== Speicherauswahl Wärmepumpe (?tool=speicher)
-if st.query_params.get("tool") == "speicher":
-    from bosch_flow.speicher_seite import seite as speicher_seite  # noqa: E402
-    speicher_seite(F, DUNKEL, MOBIL)
-    st.stop()
-
-
 # ====================================================================== Projektzustand
 def neues_projekt(inp: Inputs | None = None, straenge: list | None = None, meta: dict | None = None) -> None:
     ss.inp = inp or Inputs()
@@ -740,7 +733,7 @@ with kopf_laden.popover("Laden", icon=":material/folder_open:", width="stretch",
         ss.geladen_id = datei.file_id
         if laden(datei.getvalue(), f"Projekt „{datei.name}“ geladen."):
             st.rerun()
-with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Preise, Zwischenspeichern, Excel, Speicherauswahl, Zurücksetzen"):
+with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help="Preise, Zwischenspeichern, Excel, Zurücksetzen"):
     st.toggle("Preise im Export (intern)", key="preise_export",
               help="Aus: PDF und Excel ohne UVP und Summen – zur Weitergabe. Ein: mit Preisen, nur für uns zur Übersicht.")
     if st.button("Zwischenspeichern", icon=":material/backup:", width="stretch",
@@ -750,10 +743,6 @@ with kopf_menue.popover("", icon=":material/more_horiz:", width="stretch", help=
     st.download_button("Excel-Export", RP.excel_bytes(inp, meta, results, straenge, PREISE), file_name=f"Bosch_Flow_{name}{'_intern' if PREISE else ''}.xlsx",
                        width="stretch", icon=":material/table_view:",
                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    if st.button("Speicherauswahl WP", icon=":material/water_heater:", width="stretch",
-                 help="Wärmepumpe → zugelassene Speicher → passende E-Heizer"):
-        st.query_params["tool"] = "speicher"
-        st.rerun()
     st.divider()
     if _passwort and st.button("Abmelden", icon=":material/logout:", width="stretch",
                                help="Sofort abmelden – danach wird wieder das Passwort abgefragt"):
