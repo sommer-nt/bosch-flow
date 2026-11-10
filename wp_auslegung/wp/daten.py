@@ -32,6 +32,16 @@ def plz_suche(plz: str) -> tuple[str, float] | None:
     return (t[0], float(t[1])) if t else None
 
 
+@lru_cache(maxsize=None)
+def bild_uri(name: str | None) -> str | None:
+    """Produktbild als data-URI (für Tabellen in Streamlit)."""
+    import base64
+    if not name:
+        return None
+    datei = DATEN / "bilder" / f"{name}.jpg"
+    return "data:image/jpeg;base64," + base64.b64encode(datei.read_bytes()).decode() if datei.exists() else None
+
+
 def geraet(gid: str) -> dict | None:
     return next((g for g in geraete()["geraete"] if g["id"] == gid), None)
 

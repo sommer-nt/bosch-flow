@@ -155,6 +155,39 @@ def tww_formel(e: dict, r: dict) -> str:
     return f"Qw,b · np · 365 = {f(r['tww']['qwb_person'], 2)} · {f(t['personen'], 0)} · 365"
 
 
+def eheizer_zeilen(r: dict) -> list[dict]:
+    """E-Heizer je Baugröße wie index.html (Text für Tabelle)."""
+    out = []
+    for x in r.get("eheizer") or []:
+        if x["status"] == "E-Heizer":
+            bew = "E-Heizer unterstützt" + (f" (max. {f(x['eheizer_max_kw'], 0)} kW)" if x.get("eheizer_max_kw") is not None else " (bauseits)")
+        else:
+            bew = x["status"]
+        out.append({**x, "text_q": "–" if x["q_nat"] is None else f(x["q_nat"], 2) + " kW",
+                    "text_eh": "–" if x["eheizer_kw"] is None else f(x["eheizer_kw"], 1) + " kW",
+                    "text_w": "–" if x["eheizer_kw"] is None else f(round(x["eheizer_kw"] * 10) * 100, 0) + " W",
+                    "bewertung": bew})
+    return out
+
+
+def min_hinweis(r: dict) -> str:
+    """Erläuterung der Mindestleistung (Modulationsgrenze) wie minHinweis() in index.html."""
+    k, g = r.get("kennlinien"), r.get("gewaehlt")
+    if not k or not g:
+        return ""
+    if not k["min"]:
+        return "Für diese Baureihe liegen keine Mindestleistungen vor – keine Taktgrenze."
+    v = [x for x in k["min"] if x is not None]
+    sprung = max((abs(b - a) for a, b in zip(v, v[1:])), default=0.0)
+    if r["waermequelle"] == "sole":
+        quelle = "Mindestleistung laut Katalog (Modulationsbereich" + (", bei Supraeco T 1. Verdichter" if g["serie"] == "SupraecoT" else "") + ")"
+    else:
+        quelle = "Mindestleistung je Gerät laut Excel-Werkzeug" + (" (gilt für ein Gerät der Kaskade)" if g["n"] > 1 else "")
+    if sprung > 0.5:
+        quelle += f" · Stufen bis {f(sprung, 1)} kW stammen aus den Herstellerdaten (Temperaturbänder), sie werden nicht geglättet."
+    return quelle
+
+
 def anbindung(e: dict, r: dict) -> list[tuple[str, str, str]]:
     """Kacheln (Titel, Wert, Zusatz) „Warmwasser & Anbindung“ wie index.html."""
     tw, ltg, er, k = r["tww"], r.get("leitung"), r.get("erdreich"), []

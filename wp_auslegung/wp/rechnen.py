@@ -202,10 +202,56 @@ def tww_temperaturen(e: dict) -> dict:
 
 # ------------------------------------------------------------------------------------------------ Auslegung
 def last(t: float, qh_sperr: float, qtw: float, nat: float, thg: float) -> float:
-    """Gebäudekennlinie: Heizung linear von QH (bei NAT) auf 0 (bei Heizgrenze), Warmwasser konstant."""
-    if thg <= nat:
+    """Gebäudekennlinie wie Excel-Diagramm: unterhalb θe konstant QGES, dann linear auf 0 an der Heizgrenze
+    (Warmwasser konstant)."""
+    if thg <= nat or t <= nat:
         return qh_sperr + qtw
     return qh_sperr * max(0.0, (thg - t) / (thg - nat)) + qtw
+
+
+# DIN V 4701-10 / VDI 4650 (Bild im Excel-Werkzeug): Bivalenzpunkt -> Leistungsanteil μ, Deckungsanteil α
+VDI_BIV_T = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+VDI_BIV_MU = [0.77, 0.73, 0.69, 0.65, 0.62, 0.58, 0.54, 0.50, 0.46, 0.42, 0.38, 0.35, 0.31, 0.27, 0.23, 0.19]
+VDI_BIV_PAR = [1.00, 0.99, 0.99, 0.99, 0.99, 0.98, 0.97, 0.96, 0.95, 0.93, 0.90, 0.87, 0.83, 0.77, 0.70, 0.61]
+VDI_BIV_ALT = [0.96, 0.96, 0.95, 0.94, 0.93, 0.91, 0.87, 0.83, 0.78, 0.71, 0.64, 0.55, 0.46, 0.37, 0.28, 0.19]
+
+
+def vdi_bivalenz(g: dict | None) -> dict | None:
+    """Deckungsanteil α (bivalent-parallel / -alternativ) zum Bivalenzpunkt, linear interpoliert."""
+    if not g or not g.get("moeglich") or g["bivalenz_art"] == "nicht" or g["bivalenz"] is None:
+        return None
+    t = min(5.0, max(-10.0, g["bivalenz"]))
+    pts = [[float(a), b] for a, b in zip(VDI_BIV_T, VDI_BIV_PAR)]
+    alt = [[float(a), b] for a, b in zip(VDI_BIV_T, VDI_BIV_ALT)]
+    mu = [[float(a), b] for a, b in zip(VDI_BIV_T, VDI_BIV_MU)]
+    return {"t_biv": t, "mu": interp(mu, t), "alpha_parallel": interp(pts, t), "alpha_alternativ": interp(alt, t)}
+
+
+def eheizer_baureihe(daten: dict, r: dict, katalog: dict | None) -> list[dict]:
+    """E-Heizer-Bedarf bei θe für alle Größen der gewählten Baureihe (gleiche Anzahl) wie Excel: QGES − Q_WP(θe).
+
+    Excel zeigt den Wert nur, wenn er über 0 und unter der E-Heizer-Leistung (9 kW) liegt.
+    """
+    g = r.get("gewaehlt")
+    if not g:
+        return []
+    serie = next(s for s in daten["serien"] if s["id"] == g["serie"])
+    out = []
+    for d in daten["geraete"]:
+        if d["serie"] != g["serie"]:
+            continue
+        km = kurve_bei_vl(d["max"], r["vl"])
+        if km is None:
+            out.append({"geraet": d["id"], "kurz": d["kurz"], "n": g["n"], "q_nat": None, "eheizer_kw": None, "status": "kein Vorlauf"})
+            continue
+        q = g["n"] * km[0](r["nat"])
+        bedarf = max(0.0, r["qges"] - q)
+        emax = serie.get("eheizer_kw")
+        emax = emax * g["n"] if emax is not None else None
+        status = "kein E-Heizer nötig" if bedarf <= 0 else ("über E-Heizer-Leistung" if emax is not None and bedarf > emax + 1e-9 else "E-Heizer")
+        out.append({"geraet": d["id"], "kurz": d["kurz"], "n": g["n"], "q_nat": q, "eheizer_kw": bedarf,
+                    "eheizer_max_kw": emax, "status": status})
+    return out
 
 
 def bewerte(geraet: dict, n: int, vl: float, r: dict, daten: dict, katalog: dict | None = None) -> dict:
@@ -388,6 +434,8 @@ def rechne(e: dict, daten: dict, katalog: dict | None = None) -> dict:
         r["gewaehlt"], r["kennlinien"], r["energie"] = None, None, None
     r["leitung"] = leitung(e, r)
     r["erdreich"] = erdreich(e, r, katalog)
+    r["eheizer"] = eheizer_baureihe(daten, r, katalog)
+    r["vdi_bivalenz"] = vdi_bivalenz(r["gewaehlt"])
     return r
 
 

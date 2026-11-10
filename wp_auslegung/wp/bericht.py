@@ -6,15 +6,18 @@ Seite 3: Anlagenschema (Prinzip), Jahresbilanz, Haftungsausschluss
 """
 from __future__ import annotations
 
+import io
 from datetime import date
 from pathlib import Path
 
 from fpdf import FPDF
 
 from . import rechnen as R
+from . import schema as S
 from . import texte as T
 
 BILDER = Path(__file__).resolve().parent.parent / "daten" / "bilder"
+ENTWICKLER = "Entwickelt von Daniel Sommer · HC/SDE3-PSD"
 ROT = (226, 0, 21)
 BLAU = (0, 86, 145)
 INK = (20, 30, 41)
@@ -86,9 +89,10 @@ class Ausdruck(FPDF):
         self.line(13, 283, 197, 283)
         self.schrift_(6.8, False, GRAU)
         self.set_xy(13, 284)
-        self.cell(80, 4, self.t("© Bosch Thermotechnik GmbH · WP-Schnellauslegung"))
-        self.cell(40, 4, self.datum, align="C")
-        self.cell(64, 4, f"{self.page_no()} / {{nb}}", align="R")
+        self.cell(70, 4, self.t("© Bosch Thermotechnik GmbH · WP-Schnellauslegung"))
+        self.cell(60, 4, self.t(ENTWICKLER), align="C")
+        self.cell(24, 4, self.datum, align="C")
+        self.cell(30, 4, f"{self.page_no()} / {{nb}}", align="R")
 
     def band(self, y: float, h: float = 7):
         b = (self.w - 0) / len(BAND)
@@ -129,7 +133,7 @@ class Ausdruck(FPDF):
         self.rect(x, y, w, yy - y + 1.5)
         return yy + 1.5
 
-    def tabelle(self, kopf, zeilen, breiten, rechts=(), fett=lambda z: False):
+    def tabelle(self, kopf, zeilen, breiten, rechts=(), fett=lambda z: False, bilder=None):
         self.set_draw_color(*LINIE)
         self.set_line_width(0.15)
         x0 = self.l_margin
@@ -148,10 +152,14 @@ class Ausdruck(FPDF):
                 self.add_page()
                 y = self.get_y()
             x = x0
+            bild = bilder[zeilen.index(z)] if bilder else None
+            if bild:
+                self.image(str(bild), x=x0 + 0.5, y=y + 0.4, h=4.6)
             for i, (v, b) in enumerate(zip(z, breiten)):
                 self.schrift_(7.6, fett(z))
-                self.set_xy(x, y)
-                self.cell(b, 5.4, self.t(v), align="R" if i in rechts else "L")
+                einzug = 8 if (i == 0 and bilder) else 0
+                self.set_xy(x + einzug, y)
+                self.cell(b - einzug, 5.4, self.t(v), align="R" if i in rechts else "L")
                 x += b
             self.line(x0, y + 5.4, x0 + sum(breiten), y + 5.4)
             self.set_y(y + 5.4)
@@ -197,6 +205,17 @@ def diagramm(pdf: Ausdruck, r: dict, daten: dict, x: float, y: float, w: float, 
     with pdf.rotation(90, x + 2, y + (h - B) / 2):
         pdf.set_xy(x + 2 - 20, y + (h - B) / 2 - 2)
         pdf.cell(40, 4, pdf.t("Heizleistung in kW"), align="C")
+    # Bivalenzbereich (orange) und A-7-Marke (rot) wie im Excel-Diagramm
+    if g["bivalenz_art"] == "punkt" and g["bivalenz"] > t0:
+        pdf.set_fill_color(252, 228, 205)
+        pdf.rect(X(g["bivalenz"] - 0.8), Y(qmax), X(g["bivalenz"] + 0.8) - X(g["bivalenz"] - 0.8), Y(0) - Y(qmax), style="F")
+    if -7 > t0:
+        pdf.set_draw_color(*ROT)
+        pdf.set_line_width(0.4)
+        pdf.line(X(-7), Y(0), X(-7), Y(qmax) + 4)
+        pdf.schrift_(6.2, False, ROT)
+        pdf.set_xy(X(-7) + 0.8, Y(qmax) + 3.5)
+        pdf.cell(8, 3, "A-7")
     # θe
     pdf.set_draw_color(*HELL)
     pdf.set_dash_pattern(0.6, 0.9)
@@ -262,168 +281,16 @@ def diagramm(pdf: Ausdruck, r: dict, daten: dict, x: float, y: float, w: float, 
 
 
 # ------------------------------------------------------------------------------------------------ Schema
-def schema(pdf: Ausdruck, e: dict, r: dict, ie: dict | None, x: float, y: float, w: float):
-    g = r["gewaehlt"]
-    sole, friwa = r["waermequelle"] == "sole", r["tww"]["system"] == "friwa"
-    kaskade = not sole and (g["n"] > 1 or g["serie"] == "CS5001")
-    integriert = bool(not friwa and ie and ie.get("speicher") == "integriert")
-    puffermodul = bool(ie and "Puffer" in ie.get("art", ""))
-    mit_puffer = kaskade or friwa or not (integriert or puffermodul)
-    mit_ww = r["tww"]["aktiv"] and not integriert
-
-    def ln(punkte, farbe, strich=False):
-        pdf.set_draw_color(*farbe)
-        pdf.set_line_width(0.6)
-        if strich:
-            pdf.set_dash_pattern(1.2, 0.9)
-        pdf.polyline(punkte)
-        pdf.set_dash_pattern()
-
-    def kasten(bx, by, bw, bh, t1, t2):
-        pdf.set_draw_color(*INK)
-        pdf.set_line_width(0.35)
-        pdf.set_fill_color(255, 255, 255)
-        pdf.rect(bx, by, bw, bh, style="DF", round_corners=True, corner_radius=1.6)
-        pdf.schrift_(6.8, True)
-        pdf.set_xy(bx - 12, by + bh + 1)
-        pdf.cell(bw + 24, 3.2, pdf.t(t1), align="C")
-        pdf.schrift_(6.2, False, GRAU)
-        pdf.set_xy(bx - 12, by + bh + 4.2)
-        pdf.cell(bw + 24, 3.2, pdf.t(t2), align="C")
-
-    # Legende
-    for i, (c, txt, s) in enumerate([(VL_F, "Vorlauf Heizung", 0), (RL_F, "Rücklauf Heizung", 1), (WW_F, "Warmwasser", 0), (KW_F, "Kaltwasser", 0)]):
-        lx = x + w - 120 + i * 30
-        ln([(lx, y + 1.5), (lx + 6, y + 1.5)], c, s)
-        pdf.schrift_(6.2, False, GRAU)
-        pdf.set_xy(lx + 7, y)
-        pdf.cell(22, 3, pdf.t(txt))
-    hk = y + 30
-    yB, hB = y + 58, 20
-    xAE, xIE, xP, xW = x + w - 32, x + w - 76, x + w - 112, x + 14
-    ln([(x + w - 76, hk), (x + w - 2, hk)], VL_F)
-    ln([(x + w - 76, hk + 4), (x + w - 2, hk + 4)], RL_F, True)
-    pdf.schrift_(6.2, False, GRAU)
-    pdf.set_xy(x + w - 76, hk + 5)
-    pdf.cell(74, 3, pdf.t(f"Heizkreisverteiler · max. {T.f(r['vl'], 0)} °C"), align="R")
-    # Heizkreise: Pumpe, bei gemischten Kreisen 3-Wege-Mischer, Verbraucher-Symbol
-    kreise = T.heizkreis_liste(e)
-    br = 66 / len(kreise)
-    for i, h in enumerate(kreise):
-        cx = x + w - 66 + i * br + br / 2
-        xv, xr, oben = cx - 2.5, cx + 2.5, hk - 17
-        ln([(xv, hk), (xv, oben + 4)], VL_F)
-        ln([(xr, hk + 4), (xr, oben + 4)], RL_F, True)
-        pdf.set_draw_color(*INK)
-        pdf.set_line_width(0.25)
-        pdf.set_fill_color(255, 255, 255)
-        pdf.circle(xv, hk - 4, 1.3, style="DF")
-        if h["gemischt"]:
-            ln([(xr, hk - 9), (xv + 1.4, hk - 9)], RL_F, True)
-            pdf.set_draw_color(*INK)
-            pdf.set_line_width(0.25)
-            pdf.polygon([(xv - 1.4, hk - 10.4), (xv + 1.4, hk - 7.6), (xv + 1.4, hk - 10.4), (xv - 1.4, hk - 7.6)], style="DF")
-        if h["typ"] == "fbh":
-            pdf.polyline([(cx - 4.5, oben + 4), (cx - 4.5, oben), (cx - 1.5, oben), (cx - 1.5, oben + 3.5), (cx + 1.5, oben + 3.5),
-                          (cx + 1.5, oben), (cx + 4.5, oben), (cx + 4.5, oben + 4)])
-        else:
-            pdf.rect(cx - 4.5, oben, 9, 4.5, style="DF")
-            if h["typ"] == "hk":
-                for j in range(4):
-                    pdf.line(cx - 3 + j * 2, oben + 0.8, cx - 3 + j * 2, oben + 3.7)
-            else:
-                pdf.circle(cx, oben + 2.25, 1.6)
-        pdf.schrift_(5.6, True)
-        pdf.set_xy(cx - br / 2, oben - 6.5)
-        pdf.cell(br, 2.6, f"HK {h['nr']}", align="C")
-        pdf.schrift_(5.2, False, GRAU)
-        pdf.set_xy(cx - br / 2, oben - 3.8)
-        pdf.cell(br, 2.6, pdf.t({"hk": "Heizkörper", "fbh": "FBH", "konvektor": "Konvektor"}[h["typ"]] + (" · gem." if h["gemischt"] else "")), align="C")
-    SO = (122, 62, 157)
-    if sole:
-        pdf.set_fill_color(234, 240, 245)
-        pdf.rect(xAE - 3, yB - 3, 32, hB + 10, style="F")
-        ln([(xIE + 22, yB + 6), (xAE + 9, yB + 6), (xAE + 9, yB + hB + 4), (xAE + 17, yB + hB + 4), (xAE + 17, yB + 12), (xIE + 22, yB + 12)], SO)
-        pdf.schrift_(6.8, True)
-        pdf.set_xy(xAE - 10, yB + hB + 8)
-        pdf.cell(46, 3.2, pdf.t("Erdwärmesonde"), align="C")
-        pdf.schrift_(6.2, False, GRAU)
-        pdf.set_xy(xAE - 10, yB + hB + 11.2)
-        er = r.get("erdreich")
-        pdf.cell(46, 3.2, pdf.t(f"ca. {T.f(er['sondenlaenge_m'], 0)} m (Richtwert)" if er else "oder Flächenkollektor"), align="C")
-    # Außeneinheit(en)
-    for i in range(0 if sole else min(g["n"], 3)):
-        pdf.set_draw_color(*INK)
-        pdf.set_line_width(0.35)
-        pdf.set_fill_color(255, 255, 255)
-        pdf.rect(xAE + i * 2, yB - (min(g["n"], 3) - 1) * 3 + i * 3, 26, hB, style="DF", round_corners=True, corner_radius=2)
-    if not sole:
-        pdf.circle(xAE + 13 + (min(g["n"], 3) - 1) * 2, yB + hB / 2, 4.2)
-        pdf.schrift_(6.8, True)
-        pdf.set_xy(xAE - 10, yB + hB + 1)
-        pdf.cell(46, 3.2, pdf.t((f"{g['n']} × " if g["n"] > 1 else "") + "Außeneinheit"), align="C")
-        pdf.schrift_(6.2, False, GRAU)
-        pdf.set_xy(xAE - 10, yB + hB + 4.2)
-        ltg = r.get("leitung")
-        pdf.cell(46, 3.2, pdf.t(g["geraet"] + (f" · {T.f(ltg['laenge_m'], 0)} m, {ltg['rohr']}" if ltg else "")), align="C")
-    if kaskade:
-        kasten(xIE, yB + 2, 22, 16, ie["typ"] if ie and ie.get("ab_anzahl") else "Wärmepumpenmanager",
-               "Kaskadenregelung" if g["n"] > 1 else "HPC 301")
-    else:
-        kasten(xIE, yB - 3, 22, hB + 6, "Sole/Wasser-WP" if sole else "Inneneinheit", g["geraet"] if sole else (ie["typ"] if ie else ""))
-        if not sole:
-            ln([(xIE + 22, yB + 6), (xAE, yB + 6)], VL_F)
-            ln([(xIE + 22, yB + 12), (xAE, yB + 12)], RL_F, True)
-        if integriert or puffermodul:
-            pdf.schrift_(5.8, False, WW_F if integriert else GRAU)
-            pdf.set_xy(xIE, yB + 2)
-            pdf.cell(22, 3, pdf.t("WW-Speicher" if integriert else "Puffer"), align="C")
-    if mit_puffer:
-        kasten(xP, yB - 5, 12, hB + 8, "Trennpufferspeicher" if kaskade else "Pufferspeicher",
-               f"≥ {T.f(r['tww']['t_speicher'], 0)} °C für FriWa" if friwa else
-               ("hydraulische Entkopplung" if kaskade else "Reihen-/Trennpuffer"))
-        ziel = xAE if kaskade else xIE
-        ln([(xP + 12, yB), (ziel, yB)] + ([(ziel, yB + 2)] if kaskade else []), VL_F)
-        ln([(xP + 12, yB + 17), (ziel - (2 if kaskade else 0), yB + 17)], RL_F, True)
-        ln([(xP + 5, yB - 5), (xP + 5, hk), (x + w - 76, hk)], VL_F)
-        ln([(xP + 9, yB - 5), (xP + 9, hk + 4), (x + w - 76, hk + 4)], RL_F, True)
-    else:
-        ln([(xIE + 7, yB - 3), (xIE + 7, hk)], VL_F)
-        ln([(xIE + 15, yB - 3), (xIE + 15, hk + 4)], RL_F, True)
-    if mit_ww and friwa:
-        kasten(xW, yB, 20, 14, "Frischwasserstation", f"Zapftemperatur {T.f(r['tww']['t_zapf'], 0)} °C")
-        ln([(xP, yB + 2), (xW + 20, yB + 2)], VL_F)
-        ln([(xP, yB + 12), (xW + 20, yB + 12)], RL_F, True)
-        ln([(xW + 5, yB), (xW + 5, hk - 7), (xW + 15, hk - 7)], WW_F)
-        pdf.schrift_(6.2, False, GRAU)
-        pdf.set_xy(xW + 16, hk - 8.5)
-        pdf.cell(20, 3, "Zapfstellen")
-        ln([(xW, yB + 10), (xW - 7, yB + 10), (xW - 7, yB + 33)], KW_F)
-        pdf.set_xy(xW - 17, yB + 34)
-        pdf.cell(20, 3, "Kaltwasser", align="C")
-    elif mit_ww:
-        kasten(xW, yB - 5, 20, hB + 8, "Warmwasserspeicher", ("WW-Modul · " if kaskade else "") + f"{T.f(r['tww']['t_speicher'], 0)} °C")
-        # Heizwendel (Glattrohr-Wärmetauscher) im unteren Speicherteil
-        pdf.set_draw_color(*VL_F)
-        pdf.set_line_width(0.45)
-        punkte = [(xW + 20, yB + 6), (xW + 16, yB + 6)]
-        for j in range(4):
-            punkte += [(xW + 4, yB + 7.5 + j * 1.6), (xW + 16, yB + 8.3 + j * 1.6)]
-        punkte += [(xW + 16, yB + 14), (xW + 20, yB + 14)]
-        pdf.polyline(punkte)
-        y1, y2 = yB + hB + 11, yB + hB + 13.5
-        sx1, sx2 = (xAE - 5, xAE - 8) if kaskade else (xIE + 26, xIE + 29)
-        sy1, sy2 = (yB, yB + 17) if kaskade else (yB + 6, yB + 12)
-        ln([(sx1, sy1), (sx1, y1), (xW + 25, y1), (xW + 25, yB + 6), (xW + 20, yB + 6)], VL_F)
-        ln([(sx2, sy2), (sx2, y2), (xW + 27.5, y2), (xW + 27.5, yB + 14), (xW + 20, yB + 14)], RL_F, True)
-        ln([(xW + 5, yB - 5), (xW + 5, hk - 7), (xW + 15, hk - 7)], WW_F)
-        pdf.schrift_(6.2, False, GRAU)
-        pdf.set_xy(xW + 16, hk - 8.5)
-        pdf.cell(20, 3, "Zapfstellen")
-        ln([(xW, yB + 18), (xW - 7, yB + 18), (xW - 7, yB + 33)], KW_F)
-        pdf.set_xy(xW - 17, yB + 34)
-        pdf.cell(20, 3, "Kaltwasser", align="C")
-    return yB + hB + 18
+def schema(pdf: Ausdruck, e: dict, r: dict, ie: dict | None, x: float, y: float, w: float) -> float:
+    """Anlagenschema: dieselbe SVG-Zeichnung wie index.html (wp/schema.py), als Vektorgrafik eingebettet."""
+    svg = S.schema_svg(r, ie, T.heizkreis_liste(e), S.FARBEN_DRUCK)
+    # Text in SVG-Grafiken setzt fpdf2 mit der Standardschrift (Latin-1): Sonderzeichen ersetzen
+    svg = svg.replace("≥", "&gt;=").replace("−", "-").replace("–", "-")
+    if not svg:
+        return y
+    h = w * 470 / 900
+    pdf.image(io.BytesIO(svg.encode("utf-8")), x=x, y=y, w=w, h=h)
+    return y + h + 2
 
 
 # ------------------------------------------------------------------------------------------------ Bericht
@@ -546,11 +413,13 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
         pdf.set_y(y + 96)
     pdf.h2("Passende Wärmepumpen je Baureihe (kleinste passende Größe) und gewählte Wärmepumpe")
     emp = set(r["empfehlung_je_serie"])
-    zeilen = []
+    zeilen, bilder_tab = [], []
     for c in r["kandidaten"]:
         if not ((c["geraet"] + "|" + str(c["n"])) in emp or (g and c["geraet"] == g["geraet"])):
             continue
         k = katalog["geraete"].get(c["geraet"], {})
+        b_ = katalog.get("bilder", {}).get(c["geraet"])
+        bilder_tab.append(BILDER / f"{b_}.jpg" if b_ and (BILDER / f"{b_}.jpg").exists() else None)
         z = [("● " if c["ok"] else "○ ") + c["geraet"] + (" ★" if (c["geraet"] + "|" + str(c["n"])) in emp else ""), str(c["n"])]
         if c["moeglich"]:
             z += [T.f(c["q_a7"], 2), T.f(c["q_nat"], 2), T.f(c["abdeckung"] * 100, 0) + " %", T.biv_text(c),
@@ -561,18 +430,49 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
             z.append(T.euro(k["uvp"] * c["n"]) if k.get("uvp") else "–")
         zeilen.append(z)
     kopf = ["Wärmepumpe", "Anz.", ("B0" if r["waermequelle"] == "sole" else "A-7") + f"/W{T.f(r['vl'], 0)}", "bei θe", "Abdeckung", "Bivalenzpunkt", "Heizstab", "Deckung"]
-    breiten = [52, 10, 18, 16, 18, 24, 16, 18]
+    breiten = [60, 10, 17, 15, 17, 23, 14, 16]
     if preise:
         kopf.append("UVP")
         breiten.append(22)
     gsel = (g["geraet"] if g else "")
     pdf.tabelle(kopf, zeilen, breiten, rechts=tuple(range(1, len(kopf))),
-                fett=lambda z: gsel and gsel in z[0])
+                fett=lambda z: gsel and gsel in z[0], bilder=bilder_tab)
     rest = len(r["kandidaten"]) - len(zeilen)
     if rest:
         pdf.schrift_(7, False, HELL)
         pdf.cell(0, 5, pdf.t(f"{rest} weitere Größen/Geräte siehe Werkzeug. ● erfüllt das Kriterium, ★ kleinste passende Größe der Baureihe."),
                  new_x="LMARGIN", new_y="NEXT")
+
+    zeilen_eh = T.eheizer_zeilen(r)
+    if zeilen_eh:
+        pdf.h2("E-Heizer je Baugröße")
+        pdf.schrift_(7, True, GRAU)
+        y = pdf.get_y()
+        for txt, xx, bb, al in (("Wärmepumpe", 26, 60, "L"), (f"Leistung bei θe {T.ft(r['nat'])} °C", 86, 34, "R"),
+                                ("E-Heizer", 120, 20, "R"), ("in Watt", 140, 18, "R"), ("Bewertung", 162, 35, "L")):
+            pdf.set_xy(xx, y)
+            pdf.cell(bb, 5, pdf.t(txt), align=al)
+        y += 6
+        for x in zeilen_eh:
+            bild = katalog.get("bilder", {}).get(x["geraet"])
+            if bild and (BILDER / f"{bild}.jpg").exists():
+                pdf.image(str(BILDER / f"{bild}.jpg"), x=13, y=y - 0.5, h=6)
+            fett = g and x["geraet"] == g["geraet"]
+            pdf.schrift_(7.4, fett)
+            for txt, xx, bb, al in (((f"{x['n']} × " if x["n"] > 1 else "") + x["geraet"] + (" (gewählt)" if fett else ""), 26, 60, "L"),
+                                    (x["text_q"], 86, 34, "R"), (x["text_eh"], 120, 20, "R"), (x["text_w"], 140, 18, "R"),
+                                    (x["bewertung"], 162, 35, "L")):
+                pdf.set_xy(xx, y)
+                pdf.cell(bb, 5, pdf.t(txt), align=al)
+            pdf.set_draw_color(*LINIE)
+            pdf.set_line_width(0.15)
+            pdf.line(13, y + 6, 197, y + 6)
+            y += 7
+        pdf.set_y(y + 1)
+        pdf.schrift_(6.8, False, HELL)
+        pdf.multi_cell(184, 3.5, pdf.t(f"E-Heizer bei Norm-Außentemperatur = QGES {T.f(r['qges'], 2)} kW − Heizleistung der Wärmepumpe bei "
+                                       f"{T.ft(r['nat'])} °C und {T.f(r['vl'], 0)} °C Vorlauf (wie Excel-Werkzeug)."),
+                       new_x="LMARGIN", new_y="NEXT")
 
     # ---- Seite 3
     pdf.add_page()
@@ -583,6 +483,34 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
     pdf.schrift_(7, False, HELL)
     pdf.multi_cell(184, 3.8, pdf.t("Prinzipdarstellung – Zubehör, Speicher, Sicherheitstechnik und hydraulischer Abgleich sind in "
                                    "der Systemkonfiguration (SysCon) zu planen."), new_x="LMARGIN", new_y="NEXT")
+    vb = r.get("vdi_bivalenz")
+    if g:
+        pdf.h2("Deckungsanteil nach Bivalenzpunkt (DIN V 4701-10 / VDI 4650)")
+        ts = R.VDI_BIV_T
+        naechst = min(ts, key=lambda t: abs(t - vb["t_biv"])) if vb else None
+        y = pdf.get_y()
+        for zi, (titel, werte) in enumerate((("Bivalenzpunkt ϑBiv in °C", ts), ("Leistungsanteil μ", R.VDI_BIV_MU),
+                                             ("αH,a bivalent-parallel", R.VDI_BIV_PAR), ("αH,a bivalent-alternativ", R.VDI_BIV_ALT))):
+            pdf.schrift_(6.6, zi == 0, INK if zi else GRAU)
+            pdf.set_xy(13, y)
+            pdf.cell(40, 5, pdf.t(titel))
+            for i, (t, v) in enumerate(zip(ts, werte)):
+                xx = 53 + i * 9
+                if t == naechst:
+                    pdf.set_fill_color(*BLAU)
+                    pdf.rect(xx, y, 9, 5, style="F")
+                    pdf.schrift_(6.6, True, (255, 255, 255))
+                else:
+                    pdf.schrift_(6.6, zi == 0, INK)
+                pdf.set_xy(xx, y)
+                txt = (("+" if t > 0 else "") + str(t)).replace("-", "−") if zi == 0 else T.f(v, 2)
+                pdf.cell(9, 5, pdf.t(txt), align="C")
+            y += 5.4
+        pdf.set_y(y + 1)
+        if vb:
+            pdf.schrift_(6.8, False, HELL)
+            pdf.cell(0, 4, pdf.t(f"Bivalenzpunkt {T.ft(g['bivalenz'])} °C: αH,a parallel ≈ {T.f(vb['alpha_parallel'], 2)}, "
+                                 f"alternativ ≈ {T.f(vb['alpha_alternativ'], 2)} (linear interpoliert)."), new_x="LMARGIN", new_y="NEXT")
     kacheln = T.anbindung(e, r)
     if kacheln:
         pdf.h2("Warmwasser und Anbindung")

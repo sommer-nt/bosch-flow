@@ -235,3 +235,57 @@ def test_bilder_vorhanden():
     k = D.katalog()
     for g in D.geraete()["geraete"]:
         assert (D.DATEN / "bilder" / f"{k['bilder'][g['id']]}.jpg").exists(), g["id"]
+
+
+SCHEMA_FAELLE = [
+    {}, {"heizkreise": [{"typ": "hk"}, {"typ": "fbh"}, {"typ": "konvektor"}]},
+    {"heizkreise": [{"typ": "hk"}, {"typ": "fbh"}, {"typ": "fbh"}, {"typ": "konvektor"}]},
+    {"heizlast": {"vorgabe_kw": 20}, "auswahl": {"geraet": "CS8800iAW 13 O-T", "anzahl": 2, "inneneinheit": ""}},
+    {"heizlast": {"vorgabe_kw": 95}, "tww": {"personen": 40}},
+    {"tww": {"system": "friwa"}}, {"tww": {"aktiv": False}},
+    {"auswahl": {"geraet": "CS3800iAW 7 O-S", "anzahl": 1, "inneneinheit": "AWMi"}},
+    {"auswahl": {"geraet": "CS5800/6800iAW 7 OR-S", "anzahl": 1, "inneneinheit": "CS6800iAW 12 MB"}},
+    {"waermequelle": "sole", "auslegung": "monovalent"},
+    {"waermequelle": "sole", "auslegung": "monovalent", "tww": {"system": "friwa"}, "heizkreise": [{"typ": "hk"}, {"typ": "fbh"}]},
+]
+
+
+def _mische(ziel, quelle):
+    for k, v in quelle.items():
+        if isinstance(v, dict) and isinstance(ziel.get(k), dict):
+            _mische(ziel[k], v)
+        else:
+            ziel[k] = copy.deepcopy(v)
+    return ziel
+
+
+@pytest.mark.skipif(shutil.which("node") is None, reason="node nicht installiert")
+def test_schema_python_gleich_html(tmp_path):
+    from wp import schema as S
+    from wp import texte as T
+    faelle = []
+    for aend in SCHEMA_FAELLE:
+        e = _mische(P.neu(), aend)
+        r = json.loads(json.dumps(rechne(e)))
+        faelle.append({"r": r, "ie": T.inneneinheit(e, r, D.katalog()), "kreise": T.heizkreis_liste(e), "farben": S.FARBEN_DRUCK})
+    datei = tmp_path / "f.json"
+    datei.write_text(json.dumps(faelle, ensure_ascii=False), encoding="utf-8")
+    js = json.loads(subprocess.run(["node", str(HIER / "schema_html.js"), str(ROOT / "index.html"), str(datei)],
+                                   capture_output=True, text=True, check=True).stdout)
+    for f_, j in zip(faelle, js):
+        py = S.schema_svg(f_["r"], f_["ie"], f_["kreise"], S.FARBEN_DRUCK)
+        assert py == j
+
+
+def _playwright_da() -> bool:
+    if shutil.which("node") is None:
+        return False
+    return subprocess.run(["node", "-e", "require('playwright')"], capture_output=True).returncode == 0
+
+
+@pytest.mark.skipif(not _playwright_da(), reason="node/playwright nicht installiert")
+def test_schema_ohne_ueberschneidungen():
+    """Alle Schema-Varianten: kein Text auf Rohrleitungen, kein Text über Text (tools/schema_pruefen.js)."""
+    out = subprocess.run(["node", str(ROOT / "tools" / "schema_pruefen.js"), str(ROOT / "index.html")],
+                         capture_output=True, text=True, timeout=120)
+    assert out.returncode == 0, out.stdout + out.stderr

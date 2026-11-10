@@ -1,5 +1,7 @@
 # Bosch WP-Schnellauslegung
 
+Entwickelt von Daniel Sommer · HC/SDE3-PSD
+
 Schnellauslegung von Luft/Wasser-Wärmepumpen für den Außendienst – auch für Großanlagen (Compress 5000 AW / CS5001AW
 als Kaskade), die der Heat Pump Advisor nicht abdeckt. Ersetzt das interne Excel-Werkzeug „WP-Auslegung_S“ für die
 Weitergabe; das Zubehör plant weiterhin die Systemkonfiguration (SysCon).
@@ -45,6 +47,19 @@ Lastprofil/Nachheizzeit, Kaltwassertemperatur, Sperrzeit, Betriebsweise, Spreizu
 6. Luft/Wasser: Verbindungsleitung Außeneinheit – Gebäude (kleinstes Rohr mit v ≤ 1 m/s und R ≤ 200 Pa/m, Δp mit 30 %
    Einzelwiderständen).
 7. Empfehlung: kleinste passende Größe je Baureihe, gesamt Einzelgerät vor Kaskade. Jahresbilanz über SCOP.
+8. **E-Heizer je Baugröße** wie Excel-Diagramm: QGES − Heizleistung bei θe (z. B. CS8800 bei 15 kW/−11 °C:
+   11 O-T 5,0 · 13 O-T 2,9 · 15 O-T 1,5 kW). Gebäudekennlinie wie Excel unterhalb θe konstant QGES.
+   Dazu die Tabelle **Deckungsanteil nach Bivalenzpunkt** (DIN V 4701-10 / VDI 4650) mit markierter Spalte.
+9. **Mindestleistung (Modulation):** Herstellerdaten unverändert; Stufen (z. B. CS3800 O-S, Temperaturbänder) werden
+   nicht geglättet und im Diagramm erläutert. In der Kaskade gilt die Mindestleistung eines Geräts.
+
+## Anlagenschema
+
+`wp/schema.py` und `schemaSvg()` in `index.html` erzeugen dasselbe SVG (Test vergleicht beide); das PDF bettet es als
+Vektorgrafik ein, Streamlit zeigt es direkt. Piktogramme im SysCon-Stil (Verteilerbalken, FBH mit Wärmewellen,
+Heizkörper, Dusche, Außeneinheit mit Ventilator, Speicher mit Heizwendel, nummerierte Abschnitte 1–4).
+`node wp_auslegung/tools/schema_pruefen.js wp_auslegung/index.html` prüft alle Varianten auf Überschneidungen
+(Text über Rohr, Text über Text) – läuft auch in `pytest`.
 
 Die Kurven sind maximale Heizleistungen; bei A-7/W35 stimmen sie auf ±6 % mit „Max. Heizleistung“ im Katalog überein
 (Test). Die A2/A7-Werte im Katalog sind Teillastpunkte nach EN 14511 und deshalb kleiner.

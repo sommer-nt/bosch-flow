@@ -35,6 +35,8 @@
   .logo{font-weight:800;letter-spacing:.3px;font-size:20px;color:var(--bosch)}
   .logo span{color:var(--ink);font-weight:600}
   .subtitle{color:var(--ink-soft);font-size:13px}
+  .devbadge{font-size:12px;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line);padding:4px 12px;border-radius:20px}
+  .devbadge b{color:var(--bosch-blue)}
   .actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
   button,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:20px;padding:6px 14px;cursor:pointer}
   button:hover,.btn:hover{border-color:var(--bosch-blue);color:var(--bosch-blue)}
@@ -140,13 +142,16 @@
   .dk-tab th{background:#e9eef2;font-size:7.5pt}
   .dk-tab td,.dk-tab th{padding:1.3mm 1.5mm}
   .dk-fuss{position:absolute;bottom:0;left:0;right:0;font-size:7pt;color:#4a5866;display:flex;justify-content:space-between;border-top:1px solid #c9d3dc;padding-top:1.5mm}
+  .dk-tab .vdi td,.dk-tab .vdi th{padding:1mm 1mm}
+  table.vdi{font-size:12px}
   .dk-text{font-size:8pt;line-height:1.45;column-count:2;column-gap:7mm;text-align:justify}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <div class="logo">BOSCH <span>WP-Schnellauslegung</span></div>
-  <div class="subtitle">Luft/Wasser-Wärmepumpen · Heizlast, Bivalenzpunkt, Geräteauswahl</div>
+  <div class="subtitle">Luft/Wasser- und Sole/Wasser-Wärmepumpen · Heizlast, Bivalenzpunkt, Geräteauswahl</div>
+  <div class="devbadge">Entwickelt von <b>Daniel Sommer</b> · HC/SDE3-PSD</div>
   <div class="actions">
     <button id="bExperte" title="Zusätzliche Eingaben: Gebäudehülle, Nutzungsgrad, Warmwasser nach DIN V 18599, Sperrzeit, Betriebsweise …">Expertenmodus</button>
     <button id="bNeu" title="Neues Projekt">Neu</button>
@@ -277,6 +282,7 @@
   <div class="card"><h2>Gewählte Wärmepumpe</h2><div class="in" id="wpKarte"></div></div>
   <div class="card"><h2>Heizleistung über der Außentemperatur</h2><div class="in">
     <div class="legende" id="legende"></div><div id="diagramm"></div></div></div>
+  <div class="card"><h2>E-Heizer je Baugröße &amp; Deckungsanteil nach Bivalenzpunkt</h2><div class="in" style="overflow-x:auto"><div id="eheizer"></div></div></div>
   <div class="card"><h2>Mögliche Wärmepumpen <span class="rechts">kleinste passende Größe je Gerät · Klick wählt aus</span></h2><div class="in" style="overflow-x:auto">
     <table id="tabKandidaten"></table></div></div>
   <div class="card"><h2>Herleitung Heizlast</h2><div class="in"><table class="formel" id="herleitung"></table></div></div>
@@ -286,7 +292,7 @@
   <div class="card"><h2>Jahresbilanz (Schätzung)</h2><div class="in" id="energie"></div></div>
 </div>
 </div>
-<div class="fuss">Leistungsdaten: <span id="quelle"></span> · Katalog: Gesamtkatalog März 2026 · Ergebnis ersetzt keine Fachplanung.</div>
+<div class="fuss">Entwickelt von Daniel Sommer · HC/SDE3-PSD · Leistungsdaten: <span id="quelle"></span> · Katalog: Gesamtkatalog März 2026 · Ergebnis ersetzt keine Fachplanung.</div>
 </div>
 
 <!-- ============================================================ Druckansicht -->
@@ -401,7 +407,7 @@ const RK = (() => {
     return {d, hinweise};
   }
   function last(t, qhs, qtw, nat, thg) {
-    if (thg <= nat) return qhs + qtw;
+    if (thg <= nat || t <= nat) return qhs + qtw;
     return qhs * Math.max(0.0, (thg - t) / (thg - nat)) + qtw;
   }
   function bewerte(g, n, vl, r, daten, katalog) {
@@ -471,6 +477,30 @@ const RK = (() => {
             max: km ? werteImBereich(km, ts, n) : null, min: kmin ? werteImBereich(kmin, ts, 1) : null};
   }
   function werteImBereich(k, ts, n) { return ts.map(t => (k[1] - 1e-9 <= t && t <= k[2] + 1e-9) ? n * k[0](t) : null); }
+  const VDI_BIV_T = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
+  const VDI_BIV_MU = [0.77, 0.73, 0.69, 0.65, 0.62, 0.58, 0.54, 0.50, 0.46, 0.42, 0.38, 0.35, 0.31, 0.27, 0.23, 0.19];
+  const VDI_BIV_PAR = [1.00, 0.99, 0.99, 0.99, 0.99, 0.98, 0.97, 0.96, 0.95, 0.93, 0.90, 0.87, 0.83, 0.77, 0.70, 0.61];
+  const VDI_BIV_ALT = [0.96, 0.96, 0.95, 0.94, 0.93, 0.91, 0.87, 0.83, 0.78, 0.71, 0.64, 0.55, 0.46, 0.37, 0.28, 0.19];
+  function vdiBivalenz(g) {
+    if (!g || !g.moeglich || g.bivalenz_art === 'nicht' || g.bivalenz === null) return null;
+    const t = Math.min(5.0, Math.max(-10.0, g.bivalenz)), z = a => VDI_BIV_T.map((x, i) => [x, a[i]]);
+    return {t_biv: t, mu: interp(z(VDI_BIV_MU), t), alpha_parallel: interp(z(VDI_BIV_PAR), t), alpha_alternativ: interp(z(VDI_BIV_ALT), t)};
+  }
+  function eheizerBaureihe(daten, r) {
+    const g = r.gewaehlt; if (!g) return [];
+    const serie = daten.serien.find(s => s.id === g.serie), out = [];
+    for (const d of daten.geraete) {
+      if (d.serie !== g.serie) continue;
+      const km = kurveBeiVl(d.max, r.vl);
+      if (km === null) { out.push({geraet: d.id, kurz: d.kurz, n: g.n, q_nat: null, eheizer_kw: null, status: 'kein Vorlauf'}); continue; }
+      const q = g.n * km[0](r.nat), bedarf = Math.max(0.0, r.qges - q);
+      let emax = serie.eheizer_kw === undefined ? null : serie.eheizer_kw;
+      emax = emax !== null ? emax * g.n : null;
+      const status = bedarf <= 0 ? 'kein E-Heizer nötig' : ((emax !== null && bedarf > emax + 1e-9) ? 'über E-Heizer-Leistung' : 'E-Heizer');
+      out.push({geraet: d.id, kurz: d.kurz, n: g.n, q_nat: q, eheizer_kw: bedarf, eheizer_max_kw: emax, status});
+    }
+    return out;
+  }
   function rohrWerte(rohr, vs) {
     const d = rohr[1] / 1000, v = vs / 3600 / (Math.PI * d * d / 4), re = v * d / 0.7e-6;
     const lam = re < 2300 ? (re > 0 ? 64 / re : 0.0) : 0.25 / Math.log10(rohr[2] / 1000 / (3.7 * d) + 5.74 / Math.pow(re, 0.9)) ** 2;
@@ -559,11 +589,154 @@ const RK = (() => {
     } else { r.gewaehlt = null; r.kennlinien = null; r.energie = null; }
     r.leitung = leitung(e, r);
     r.erdreich = erdreich(e, r, katalog);
+    r.eheizer = eheizerBaureihe(daten, r);
+    r.vdi_bivalenz = vdiBivalenz(r.gewaehlt);
     return r;
   }
-  return {rechne, bewerte, kurveBeiVl, last, lastprofilAusLiter};
+  return {rechne, bewerte, kurveBeiVl, last, lastprofilAusLiter, VDI_BIV_T, VDI_BIV_MU, VDI_BIV_PAR, VDI_BIV_ALT};
 })();
 if (typeof module !== 'undefined') module.exports = RK;
+</script>
+
+<script id="schemasvg">
+// Anlagenschema als SVG – reine Funktion, gleiche Ausgabe wie wp/schema.py (Test vergleicht beide).
+// Raster: oben Legende und Heizkreise mit Verteilerbalken, darunter ein Korridor für die Speicherladung,
+// unten die Geräte. Unter den Geräten liegt nur das Beschriftungsband – dort verlaufen keine Rohre.
+function schemaSvg(r, ie, kreise, F, W) {
+  const g = r.gewaehlt;
+  if (!g) return '';
+  const H = 470, fz = x => (typeof x === 'number' ? String(x) : x);
+  const sole = r.waermequelle === 'sole', friwa = r.tww.system === 'friwa', ww = r.tww.aktiv;
+  const kaskade = !sole && (g.n > 1 || g.serie === 'CS5001');
+  const integriert = !friwa && !!ie && ie.speicher === 'integriert';
+  const puffermodul = !!ie && ie.art.indexOf('Puffer') >= 0;
+  const mitPuffer = kaskade || friwa || !(integriert || puffermodul);
+  const yB = 300, hB = 80, yLab = yB + hB + 22, hkY = 160, yK1 = 228, yK2 = 244;
+  const xW = 50, xP = W - 500, xIE = W - 330, wIE = 64, xAE = W - 150, xV0 = W - 360, xV1 = W - 20;
+  const t = (x, y, s, a) => `<text x="${fz(x)}" y="${fz(y)}" ${a}>${schemaEsc(s)}</text>`;
+  const lab = (cx, s1, s2, s3) => t(cx, yLab, s1, `font-size="11.5" font-weight="700" text-anchor="middle" fill="${F.ink}"`)
+    + (s2 ? t(cx, yLab + 14, s2, `font-size="10.5" text-anchor="middle" fill="${F.soft}"`) : '')
+    + (s3 ? t(cx, yLab + 27, s3, `font-size="10.5" text-anchor="middle" fill="${F.soft}"`) : '');
+  const ln = (d, c, dash) => `<path class="rohr" d="${d}" fill="none" stroke="${c}" stroke-width="2.4"${dash ? ' stroke-dasharray="5 4"' : ''}/>`;
+  const box = (x, y, w, h, rr) => `<rect x="${fz(x)}" y="${fz(y)}" width="${fz(w)}" height="${fz(h)}" rx="${fz(rr)}" fill="${F.paper}" stroke="${F.ink}" stroke-width="2.2"/>`;
+  const nummer = (x, y, n) => `<circle cx="${fz(x)}" cy="${fz(y)}" r="11" fill="${F.badge}"/>` + t(x, y + 4.5, String(n), `font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff"`);
+  const luefter = (cx, cy) => `<circle cx="${fz(cx)}" cy="${fz(cy)}" r="22" fill="none" stroke="${F.ink}" stroke-width="2.2"/>`
+    + [0, 120, 240].map(w => `<path d="M${fz(cx)},${fz(cy)} C${fz(cx - 7)},${fz(cy - 6)} ${fz(cx - 6)},${fz(cy - 17)} ${fz(cx)},${fz(cy - 18)} C${fz(cx + 6)},${fz(cy - 17)} ${fz(cx + 7)},${fz(cy - 6)} ${fz(cx)},${fz(cy)} Z" fill="${F.ink}" transform="rotate(${w} ${fz(cx)} ${fz(cy)})"/>`).join('')
+    + `<circle cx="${fz(cx)}" cy="${fz(cy)}" r="4" fill="${F.paper}" stroke="${F.ink}" stroke-width="1.6"/>`;
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="Helvetica, Arial, sans-serif" class="schema">`;
+  // Legende
+  const leg = [[F.vl, 'Vorlauf Heizung', 0], [F.rl, 'Rücklauf Heizung', 1], [F.ww, 'Warmwasser', 0], [F.kw, 'Kaltwasser', 0]].concat(sole ? [[F.so, 'Sole', 0]] : []);
+  leg.forEach(([c, txt, d], i) => {
+    const x = W - leg.length * 125 + i * 125;
+    s += `<line x1="${x}" x2="${x + 25}" y1="12" y2="12" stroke="${c}" stroke-width="2.4"${d ? ' stroke-dasharray="5 4"' : ''}/>` + t(x + 30, 16, txt, `font-size="11" fill="${F.soft}"`);
+  });
+
+  // ---- 2 Heizkreise: Verteilerbalken, je Kreis Pumpe, gemischt mit 3-Wege-Mischer, Verbraucher-Piktogramm
+  const br = (xV1 - xV0 - 30) / kreise.length;
+  s += `<path class="rohr" d="M${xV0},${hkY} L${xV1},${hkY}" stroke="${F.vl}" stroke-width="8"/><path class="rohr" d="M${xV0},${hkY + 18} L${xV1},${hkY + 18}" stroke="${F.rl}" stroke-width="8"/>`;
+  s += t(xV1, hkY + 40, `Heizkreisverteiler · max. ${schemaZahl(r.vl, 0)} °C`, `font-size="10.5" text-anchor="end" fill="${F.soft}"`);
+  s += nummer(xV0 + 14, hkY - 62, 2);
+  kreise.forEach((h, i) => {
+    const cx = xV0 + 30 + i * br + br / 2, xv = cx - 10, xr = cx + 10, y0 = hkY - 80;
+    s += ln(`M${fz(xv)},${hkY - 4} L${fz(xv)},${y0 + 28}`, F.vl) + ln(`M${fz(xr)},${hkY + 14} L${fz(xr)},${y0 + 28}`, F.rl, 1);
+    s += `<circle cx="${fz(xv)}" cy="${hkY - 18}" r="5.5" fill="${F.paper}" stroke="${F.ink}" stroke-width="1.4"/><path d="M${fz(xv - 3)},${hkY - 15} L${fz(xv)},${hkY - 21} L${fz(xv + 3)},${hkY - 15}" fill="none" stroke="${F.ink}" stroke-width="1.1"/>`;
+    if (h.gemischt) s += ln(`M${fz(xr)},${hkY - 38} L${fz(xv + 6)},${hkY - 38}`, F.rl, 1)
+      + `<path d="M${fz(xv - 6)},${hkY - 44} L${fz(xv + 6)},${hkY - 32} L${fz(xv + 6)},${hkY - 44} L${fz(xv - 6)},${hkY - 32} Z" fill="${F.paper}" stroke="${F.ink}" stroke-width="1.3"/>`
+      + t(xv - 9, hkY - 35, 'M', `font-size="9" text-anchor="end" fill="${F.soft}"`);
+    if (h.typ === 'fbh') {
+      s += `<path d="M${fz(cx - 22)},${y0 + 28} L${fz(cx + 22)},${y0 + 28} L${fz(cx + 15)},${y0 + 15} L${fz(cx - 15)},${y0 + 15} Z" fill="${F.paper}" stroke="${F.ink}" stroke-width="2"/>`;
+      [-9, 0, 9].forEach(dx => { s += `<path d="M${fz(cx + dx)},${y0 + 12} c-4,-3 4,-6 0,-9 c-4,-3 4,-6 0,-9" fill="none" stroke="${F.ink}" stroke-width="1.8"/>`; });
+    } else if (h.typ === 'hk') {
+      s += `<rect x="${fz(cx - 20)}" y="${y0}" width="40" height="28" rx="3" fill="${F.paper}" stroke="${F.ink}" stroke-width="2"/>`;
+      [0, 1, 2, 3, 4].forEach(j => { s += `<line x1="${fz(cx - 12 + j * 6)}" x2="${fz(cx - 12 + j * 6)}" y1="${y0 + 5}" y2="${y0 + 23}" stroke="${F.ink}" stroke-width="2.6"/>`; });
+    } else {
+      s += `<rect x="${fz(cx - 20)}" y="${y0}" width="40" height="28" rx="3" fill="${F.paper}" stroke="${F.ink}" stroke-width="2"/>`
+        + [0, 1, 2].map(j => `<line x1="${fz(cx - 14)}" x2="${fz(cx - 2)}" y1="${y0 + 8 + j * 6}" y2="${y0 + 8 + j * 6}" stroke="${F.ink}" stroke-width="1.6"/>`).join('')
+        + `<circle cx="${fz(cx + 9)}" cy="${y0 + 14}" r="6" fill="none" stroke="${F.ink}" stroke-width="1.6"/>`;
+    }
+    const art = {hk: 'Heizkörper', fbh: 'FBH', konvektor: 'Konvektor'}[h.typ] + (h.gemischt ? (br < 90 ? ' · gem.' : ' · gemischt') : '');
+    s += t(cx, y0 - 26, `HK ${h.nr}`, `font-size="10.5" font-weight="700" text-anchor="middle" fill="${F.ink}"`) + t(cx, y0 - 14, art, `font-size="9.5" text-anchor="middle" fill="${F.soft}"`);
+  });
+
+  // ---- 1 Wärmeerzeuger: Außeneinheit(en) bzw. Erdwärmesonde
+  if (sole) {
+    s += `<rect x="${xAE - 6}" y="${yB - 12}" width="116" height="${hB + 18}" fill="${F.panel}" stroke="none"/>`;
+    s += ln(`M${xIE + wIE},${yB + 25} L${xAE + 65},${yB + 25} L${xAE + 65},${yB + hB - 8} Q${xAE + 50},${yB + hB + 4} ${xAE + 35},${yB + hB - 8} L${xAE + 35},${yB + 50} L${xIE + wIE},${yB + 50}`, F.so);
+    s += lab(xAE + 52, 'Erdwärmesonde', r.erdreich ? 'ca. ' + schemaZahl(r.erdreich.sondenlaenge_m, 0) + ' m (Richtwert)' : 'oder Flächenkollektor', '');
+    s += nummer(xAE + 122, yB - 14, 1);
+  } else {
+    const nAE = Math.min(g.n, 3);
+    for (let i = 0; i < nAE; i++) {
+      const y = yB - (nAE - 1) * 8 + i * 8, x = xAE + i * 8;
+      s += box(x, y, 105, hB, 12);
+      if (i === nAE - 1) s += luefter(x + 52, y + hB / 2);
+    }
+    s += lab(xAE + 56, (g.n > 1 ? g.n + ' × ' : '') + 'Außeneinheit', g.geraet, r.leitung ? schemaZahl(r.leitung.laenge_m, 0) + ' m · ' + r.leitung.rohr : '');
+    s += nummer(xAE + 128, yB - 14, 1);
+  }
+
+  // ---- Inneneinheit / Sole-WP / Kaskadenregler
+  if (kaskade) {
+    s += `<rect x="${xIE - 13}" y="${yB + 18}" width="90" height="38" rx="6" fill="${F.paper}" stroke="${F.ink}" stroke-width="1.6"/>`
+      + t(xIE + 32, yB + 34, ie && ie.ab_anzahl ? ie.typ : 'HPC 301', `font-size="10.5" font-weight="700" text-anchor="middle" fill="${F.ink}"`)
+      + t(xIE + 32, yB + 48, g.n > 1 ? 'Kaskadenregler' : 'WP-Manager', `font-size="9.5" text-anchor="middle" fill="${F.soft}"`);
+    s += `<path d="M${xIE + 77},${yB + 37} L${xAE},${yB + 37}" stroke="${F.faint}" stroke-dasharray="1 4" stroke-width="2" fill="none"/>`;
+  } else {
+    s += box(xIE, yB - 10, wIE, hB + 20, 10) + `<circle cx="${xIE + wIE / 2}" cy="${yB + 66}" r="8" fill="none" stroke="${F.ink}" stroke-width="2"/>`;
+    if (integriert) s += `<rect x="${xIE + 8}" y="${yB + 2}" width="${wIE - 16}" height="40" rx="5" fill="none" stroke="${F.ww}" stroke-width="1.6"/>` + t(xIE + wIE / 2, yB + 26, 'WW', `font-size="10" font-weight="700" text-anchor="middle" fill="${F.ww}"`);
+    if (puffermodul) s += `<rect x="${xIE + 8}" y="${yB + 2}" width="${wIE - 16}" height="40" rx="5" fill="none" stroke="${F.soft}" stroke-width="1.6"/>` + t(xIE + wIE / 2, yB + 26, 'Puffer', `font-size="9.5" text-anchor="middle" fill="${F.soft}"`);
+    s += lab(xIE + wIE / 2, sole ? 'Sole/Wasser-WP' : 'Inneneinheit', sole ? g.geraet : (ie ? ie.typ : ''), integriert ? 'mit WW-Speicher' : (puffermodul ? 'mit Puffer' : ''));
+    if (!sole) s += ln(`M${xIE + wIE},${yB + 25} L${xAE},${yB + 25}`, F.vl) + ln(`M${xIE + wIE},${yB + 50} L${xAE},${yB + 50}`, F.rl, 1);
+  }
+
+  // ---- 4 Pufferspeicher, Steigleitungen zum Verteiler
+  if (mitPuffer) {
+    s += box(xP, yB - 20, 50, hB + 20, 10) + `<rect x="${xP + 13}" y="${yB - 6}" width="24" height="${hB - 8}" rx="5" fill="none" stroke="${F.ink}" stroke-width="2"/>`;
+    s += lab(xP + 25, kaskade ? 'Trennpuffer' : 'Pufferspeicher', friwa ? `≥ ${schemaZahl(r.tww.t_speicher, 0)} °C für FriWa` : (kaskade ? 'hydraulische Weiche' : 'Reihen-/Trennpuffer'), '');
+    s += nummer(xP + 68, yB - 32, 4);
+    if (kaskade) s += ln(`M${xP + 50},${yB - 4} L${xAE},${yB - 4}`, F.vl) + ln(`M${xP + 50},${yB + 70} L${xAE},${yB + 70}`, F.rl, 1);
+    else s += ln(`M${xP + 50},${yB + 5} L${xIE},${yB + 5}`, F.vl) + ln(`M${xP + 50},${yB + 70} L${xIE},${yB + 70}`, F.rl, 1);
+    s += ln(`M${xP + 18},${yB - 20} L${xP + 18},${hkY} L${xV0},${hkY}`, F.vl) + ln(`M${xP + 32},${yB - 20} L${xP + 32},${hkY + 18} L${xV0},${hkY + 18}`, F.rl, 1);
+  } else {
+    s += ln(`M${xIE + 20},${yB - 10} L${xIE + 20},${hkY} L${xV0},${hkY}`, F.vl) + ln(`M${xIE + 44},${yB - 10} L${xIE + 44},${hkY + 18}`, F.rl, 1);
+  }
+
+  // ---- 3 Warmwasser: Speicher mit Heizwendel (Ladung über den Korridor) oder Frischwasserstation, Dusche/Zapfstelle
+  // Dusche/Zapfstelle: Leitung von (x, y) nach oben, Brausekopf bei xk
+  const dusche = (x, y, xk) => ln(`M${x},${y} L${x},70 L${xk},70 L${xk},78`, F.ww)
+    + `<line x1="${xk - 14}" x2="${xk + 14}" y1="80" y2="80" stroke="${F.ink}" stroke-width="3.5"/>`
+    + [0, 1, 2].map(z => [0, 1, 2, 3, 4].slice(0, 3 + z).map(k => `<circle cx="${fz(xk + (k - (2 + z) / 2) * 9)}" cy="${88 + z * 7}" r="1.6" fill="${F.ink}"/>`).join('')).join('')
+    + t(Math.min(x, xk) - 4, 52, 'Dusche / Zapfstelle', `font-size="10.5" fill="${F.soft}"`);
+  const kalt = (yIn) => ln(`M${xW},${yIn} L${xW - 34},${yIn} L${xW - 34},${H - 14}`, F.kw) + t(xW - 30, H - 4, 'Kaltwasser', `font-size="10.5" fill="${F.soft}"`);
+  if (friwa && ww) {
+    s += box(xW, yB, 80, 60, 8) + [15, 30, 45].map(dy => `<line x1="${xW + 15}" x2="${xW + 65}" y1="${yB + dy}" y2="${yB + dy}" stroke="${F.ink}" stroke-width="1.6"/>`).join('');
+    s += lab(xW + 40, 'Frischwasserstation', `Zapftemperatur ${schemaZahl(r.tww.t_zapf, 0)} °C`, '');
+    s += nummer(xW - 14, yB - 14, 3);
+    s += ln(`M${xP},${yB + 10} L${xW + 80},${yB + 10}`, F.vl) + ln(`M${xP},${yB + 50} L${xW + 80},${yB + 50}`, F.rl, 1);
+    s += dusche(xW + 20, yB, xW + 60) + kalt(yB + 45);
+  } else if (!integriert && ww) {
+    s += box(xW, yB - 20, 80, hB + 20, 10);
+    s += `<path d="M${xW + 80},${yB + 30} L${xW + 62},${yB + 30} ${[0, 1, 2, 3].map(j => `L${xW + 18},${yB + 35 + j * 7} L${xW + 62},${yB + 39 + j * 7}`).join(' ')} L${xW + 62},${yB + 62} L${xW + 80},${yB + 62}" fill="none" stroke="${F.vl}" stroke-width="2"/>`;
+    s += lab(xW + 40, 'Warmwasserspeicher', (kaskade ? 'WW-Modul · ' : 'Heizwendel · ') + schemaZahl(r.tww.t_speicher, 0) + ' °C', '');
+    s += nummer(xW - 14, yB - 34, 3);
+    let qv, qr;
+    if (kaskade) { qv = `L${xAE - 22},${yK1} L${xAE - 22},${yB - 4}`; qr = `L${xAE - 36},${yK2} L${xAE - 36},${yB + 70}`; }
+    else if (sole) { qv = `L${xP + 86},${yK1} L${xP + 86},${yB + 5}`; qr = `L${xP + 100},${yK2} L${xP + 100},${yB + 70}`; }
+    else { qv = `L${xIE + wIE + 22},${yK1} L${xIE + wIE + 22},${yB + 25}`; qr = `L${xIE + wIE + 36},${yK2} L${xIE + wIE + 36},${yB + 50}`; }
+    s += ln(`M${xW + 80},${yB + 30} L${xW + 100},${yB + 30} L${xW + 100},${yK1} ${qv}`, F.vl) + ln(`M${xW + 80},${yB + 62} L${xW + 114},${yB + 62} L${xW + 114},${yK2} ${qr}`, F.rl, 1);
+    s += dusche(xW + 20, yB - 20, xW + 60) + kalt(yB + hB - 6);
+  } else if (integriert && ww) {
+    s += dusche(xIE + 10, yB - 10, xIE - 40);
+  }
+  return s + '</svg>';
+}
+function schemaEsc(s) { return String(s === null || s === undefined ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+// Zahl wie wp/texte.f: deutsches Format, feste Nachkommastellen, Tausenderpunkt
+function schemaZahl(x, d) {
+  const v = Math.floor(Math.abs(x) * Math.pow(10, d) + 0.5) / Math.pow(10, d), teile = v.toFixed(d).split('.');
+  teile[0] = teile[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return (x < 0 && v !== 0 ? '-' : '') + teile.join(',');
+}
 </script>
 
 <script>
@@ -804,14 +977,45 @@ function zeichne() {
   $('#meldungen').innerHTML = meldungen(r).map(x => `<div class="meldung">${esc(x)}</div>`).join('');
   $('#kpis').innerHTML = kpis(r).map(k => `<div class="kpi ${k.c || ''}"><div class="t">${k.t}</div><div class="v">${k.v}</div><div class="s">${k.s || ''}</div></div>`).join('');
   $('#wpKarte').innerHTML = wpKarte(r);
-  $('#legende').innerHTML = legende(r);
+  $('#legende').innerHTML = legende(r) + minHinweis(r);
   $('#diagramm').innerHTML = diagramm(r, {breite: 900, hoehe: 380});
   $('#tabKandidaten').innerHTML = kandidatenTabelle(r, true);
   $$('#tabKandidaten tr[data-g]').forEach(tr => tr.onclick = () => { E.auswahl.geraet = tr.dataset.g; E.auswahl.anzahl = +tr.dataset.n; E.auswahl.inneneinheit = ''; aktualisiere(); });
   $('#herleitung').innerHTML = herleitung(r);
   $('#schema').innerHTML = schema(r, {breite: 900});
   $('#anbindung').innerHTML = anbindungHtml(r);
+  $('#eheizer').innerHTML = eheizerHtml(r) + vdiTabelle(r);
+  $$('#eheizer tr[data-g]').forEach(tr => tr.onclick = () => { E.auswahl.geraet = tr.dataset.g; E.auswahl.anzahl = +tr.dataset.n; E.auswahl.inneneinheit = ''; aktualisiere(); });
   $('#energie').innerHTML = energieHtml(r);
+}
+
+function bildKlein(gid, h) {
+  const b = (KAT.bilder || {})[gid];
+  return (typeof BILDER_DATEN !== 'undefined' && b && BILDER_DATEN[b]) ? `<img src="${BILDER_DATEN[b]}" alt="" style="height:${h}px;max-width:${h * 1.6}px;object-fit:contain;vertical-align:middle;background:#fff;border-radius:3px">` : '';
+}
+// E-Heizer wie im Excel-Diagramm: QGES − Heizleistung der WP bei θe, je Baugröße der gewählten Baureihe
+function eheizerHtml(r) {
+  const g = r.gewaehlt; if (!g || !r.eheizer.length) return '<p class="hint">–</p>';
+  let h = `<table><thead><tr><th></th><th>Wärmepumpe</th><th class="z">Leistung bei θe ${fT(r.nat)} °C</th><th class="z">E-Heizer</th><th class="z">in Watt</th><th>Bewertung</th></tr></thead><tbody>`;
+  for (const x of r.eheizer) {
+    const sel = x.geraet === g.geraet, c = x.status === 'E-Heizer' ? 'warn' : (x.status === 'kein E-Heizer nötig' ? 'ok' : 'bad');
+    h += `<tr class="click ${sel ? 'sel' : ''}" data-g="${esc(x.geraet)}" data-n="${x.n}"><td>${bildKlein(x.geraet, 30)}</td><td>${x.n > 1 ? x.n + ' × ' : ''}${esc(x.geraet)}${sel ? ' <b>(gewählt)</b>' : ''}</td>
+      <td class="z">${x.q_nat == null ? '–' : f(x.q_nat, 2) + ' kW'}</td><td class="z"><b>${x.eheizer_kw == null ? '–' : f(x.eheizer_kw, 1) + ' kW'}</b></td>
+      <td class="z">${x.eheizer_kw == null ? '–' : f(Math.round(x.eheizer_kw * 1000 / 100) * 100, 0) + ' W'}</td>
+      <td><span class="ampel ${c}"></span>${x.status === 'E-Heizer' ? 'E-Heizer unterstützt' + (x.eheizer_max_kw != null ? ' (max. ' + f(x.eheizer_max_kw, 0) + ' kW)' : ' (bauseits)') : x.status}</td></tr>`;
+  }
+  return h + `</tbody></table><p class="hint">E-Heizer-Leistung bei Norm-Außentemperatur = QGES ${f(r.qges, 2)} kW − Heizleistung der Wärmepumpe bei ${fT(r.nat)} °C und ${f(r.vl, 0)} °C Vorlauf (wie Excel-Werkzeug; der E-Heizer der Inneneinheit unterstützt bis 9 kW).</p>`;
+}
+function vdiTabelle(r) {
+  const v = r.vdi_bivalenz, T = RK.VDI_BIV_T;
+  const naechst = v ? T.reduce((a, b) => Math.abs(b - v.t_biv) < Math.abs(a - v.t_biv) ? b : a) : null;
+  const zelle = (t, x) => `<td class="z" style="${t === naechst ? 'background:var(--bosch-blue);color:#fff;font-weight:700' : ''}">${f(x, 2)}</td>`;
+  let h = `<div class="sub" style="margin-top:14px">Deckungsanteil nach Bivalenzpunkt (DIN V 4701-10 / VDI 4650)</div><table class="vdi"><thead><tr><th>Bivalenzpunkt ϑBiv in °C</th>${T.map(t => `<th class="z" style="${t === naechst ? 'background:var(--bosch-blue);color:#fff' : ''}">${t > 0 ? '+' + t : String(t).replace('-', '−')}</th>`).join('')}</tr></thead><tbody>`;
+  h += `<tr><td>Leistungsanteil μ</td>${T.map((t, i) => zelle(t, RK.VDI_BIV_MU[i])).join('')}</tr>`;
+  h += `<tr><td>Deckungsanteil αH,a bivalent-parallel</td>${T.map((t, i) => zelle(t, RK.VDI_BIV_PAR[i])).join('')}</tr>`;
+  h += `<tr><td>Deckungsanteil αH,a bivalent-alternativ</td>${T.map((t, i) => zelle(t, RK.VDI_BIV_ALT[i])).join('')}</tr></tbody></table>`;
+  if (v) h += `<p class="hint">Bivalenzpunkt der gewählten Wärmepumpe ${fT(r.gewaehlt.bivalenz)} °C${r.gewaehlt.bivalenz < -10 ? ' (unter −10 °C, Tabellenrand)' : ''}: αH,a parallel ≈ ${f(v.alpha_parallel, 2)}, alternativ ≈ ${f(v.alpha_alternativ, 2)} (linear interpoliert).</p>`;
+  return h;
 }
 
 function anbindungHtml(r) {
@@ -880,7 +1084,7 @@ function kandidatenTabelle(r, preise, nurPassend) {
     const amp = !c.moeglich ? 'aus' : (c.ok ? 'ok' : 'bad');
     const k = kat(c.geraet);
     h += `<tr class="click ${sel ? 'sel' : ''}" data-g="${esc(c.geraet)}" data-n="${c.n}"><td><span class="ampel ${amp}"></span></td>
-      <td style="white-space:nowrap">${esc(c.geraet)}${emp.has(c.geraet + '|' + c.n) ? ' <b title="kleinste passende Größe der Baureihe">★</b>' : ''}</td><td class="z">${c.n}</td>
+      <td style="white-space:nowrap">${bildKlein(c.geraet, 22)} ${esc(c.geraet)}${emp.has(c.geraet + '|' + c.n) ? ' <b title="kleinste passende Größe der Baureihe">★</b>' : ''}</td><td class="z">${c.n}</td>
       <td class="z">${c.moeglich ? f(c.q_a7, 2) : '–'}</td><td class="z">${c.moeglich ? f(c.q_nat, 2) : '–'}</td>
       <td class="z">${c.moeglich ? f(c.abdeckung * 100, 0) + ' %' : '–'}</td><td class="z">${bivText(c)}</td>
       <td class="z">${c.moeglich ? f(c.heizstab_kw, 1) : '–'}</td><td class="z">${c.moeglich ? f(c.deckung * 100, 1) + ' %' : '–'}</td>
@@ -939,12 +1143,23 @@ function energieHtml(r) {
 }
 
 // ------------------------------------------------------------------ Diagramm (SVG)
+// Mindestleistung (Modulationsgrenze): Herkunft und Stufen der Herstellerdaten erläutern
+function minHinweis(r) {
+  const k = r.kennlinien, g = r.gewaehlt;
+  if (!k || !g) return '';
+  if (!k.min) return '<span class="hint" style="flex-basis:100%">Für diese Baureihe liegen keine Mindestleistungen vor – keine Taktgrenze.</span>';
+  const v = k.min.filter(x => x !== null);
+  let sprung = 0; for (let i = 1; i < v.length; i++) sprung = Math.max(sprung, Math.abs(v[i] - v[i - 1]));
+  const quelle = r.waermequelle === 'sole' ? 'Mindestleistung laut Katalog (Modulationsbereich' + (g.serie === 'SupraecoT' ? ', bei Supraeco T 1. Verdichter' : '') + ')' : 'Mindestleistung je Gerät laut Excel-Werkzeug' + (g.n > 1 ? ' (gilt für ein Gerät der Kaskade)' : '');
+  return `<span class="hint" style="flex-basis:100%">${quelle}${sprung > 0.5 ? ` · Stufen bis ${f(sprung, 1)} kW stammen aus den Herstellerdaten (Temperaturbänder), sie werden nicht geglättet.` : ''}</span>`;
+}
 function legende(r) {
   const g = r.gewaehlt; if (!g || !r.kennlinien) return '';
   return `<span><i style="border-color:var(--bosch-blue)"></i>${esc(g.n > 1 ? g.n + ' × ' + g.geraet : g.geraet)} (max.)</span>
     ${r.kennlinien.min ? '<span><i style="border-color:var(--bosch-blue);border-top-style:dashed"></i>Mindestleistung (1 Gerät)</span>' : ''}
     <span><i style="border-color:var(--chart-other);border-top-style:dotted"></i>weitere Größen der Baureihe</span>
-    <span><i style="border-color:var(--chart-ink)"></i>Gebäudekennlinie</span>`;
+    <span><i style="border-color:var(--chart-ink)"></i>Gebäudekennlinie QGES</span>
+    <span><i style="border-color:#e20015"></i>A-7</span><span><i style="border-color:#f28c28;border-top-width:8px;opacity:.5"></i>Bivalenzpunkt</span>`;
 }
 function diagramm(r, o) {
   const k = r.kennlinien, g = r.gewaehlt;
@@ -973,6 +1188,9 @@ function diagramm(r, o) {
     const idx = k.t.map((t, i) => i).filter(i => k.max[i] !== null && k.min[i] !== null);
     if (idx.length > 1) s += `<path d="M${idx.map(i => X(k.t[i]).toFixed(1) + ',' + Y(k.max[i]).toFixed(1)).join('L')}L${idx.slice().reverse().map(i => X(k.t[i]).toFixed(1) + ',' + Y(k.min[i]).toFixed(1)).join('L')}Z" fill="var(--bosch-blue)" opacity=".08"/>`;
   }
+  // Bivalenzbereich (Excel: orange) und A-7-Marke (Excel: rot)
+  if (g.bivalenz_art === 'punkt' && g.bivalenz > t0) s += `<rect x="${X(g.bivalenz - 0.8)}" y="${T}" width="${X(g.bivalenz + 0.8) - X(g.bivalenz - 0.8)}" height="${H - B - T}" fill="#f28c28" opacity=".14"/>`;
+  if (-7 > t0) s += `<line x1="${X(-7)}" x2="${X(-7)}" y1="${T + 18}" y2="${H - B}" stroke="#e20015" stroke-width="1.6"/><text x="${X(-7) + 4}" y="${T + 28}" font-size="10.5" fill="#e20015">A-7</text>`;
   // NAT
   s += `<line x1="${X(r.nat)}" x2="${X(r.nat)}" y1="${T}" y2="${H - B}" stroke="var(--ink-faint)" stroke-dasharray="2 3"/><text x="${X(r.nat) + 4}" y="${T + 10}" font-size="11" fill="var(--ink-soft)">θe ${fT(r.nat)} °C</text>`;
   const ende = [];
@@ -997,93 +1215,11 @@ function diagramm(r, o) {
 }
 
 // ------------------------------------------------------------------ Anlagenschema (SVG)
+const FARBEN_HTML = {vl: 'var(--vl)', rl: 'var(--rl)', ww: 'var(--ww)', kw: 'var(--kw)', so: '#7a3e9d', ink: 'var(--ink)', soft: 'var(--ink-soft)',
+  faint: 'var(--ink-faint)', paper: 'var(--paper)', panel: 'var(--panel2)', badge: '#0a6fb3'};
 function schema(r, o) {
-  const g = r.gewaehlt; if (!g) return '<p class="hint">–</p>';
-  const ie = innenEinheit(), W = o.breite, H = 420;
-  const sole = r.waermequelle === 'sole', friwa = r.tww.system === 'friwa';
-  const kaskade = !sole && (g.n > 1 || g.serie === 'CS5001');
-  const integriert = !friwa && ie && ie.speicher === 'integriert';
-  const puffermodul = ie && /Puffer/.test(ie.art);
-  const VL = 'var(--vl)', RL = 'var(--rl)', WW = 'var(--ww)', KW = 'var(--kw)', SO = '#7a3e9d';
-  const box = (x, y, w, h, t1, t2, extra = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>${extra}<text x="${x + w / 2}" y="${y + h + 15}" font-size="11.5" font-weight="700" text-anchor="middle" fill="var(--ink)">${esc(t1)}</text><text x="${x + w / 2}" y="${y + h + 29}" font-size="10.5" text-anchor="middle" fill="var(--ink-soft)">${esc(t2)}</text>`;
-  const ln = (d, c, dash) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="2.4" ${dash ? 'stroke-dasharray="5 4"' : ''}/>`;
-  const luefter = (cx, cy) => `<circle cx="${cx}" cy="${cy}" r="17" fill="none" stroke="var(--ink)" stroke-width="1.6"/><path d="M${cx},${cy} l0,-13 M${cx},${cy} l11,7 M${cx},${cy} l-11,7" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>`;
-  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px" role="img" aria-label="Anlagenschema">`;
-  const leg = [[VL, 'Vorlauf Heizung'], [RL, 'Rücklauf Heizung', 1], [WW, 'Warmwasser'], [KW, 'Kaltwasser']].concat(sole ? [[SO, 'Sole']] : []);
-  s += `<g font-size="11">${leg.map(([c, t, d], i) => `<line x1="${W - leg.length * 125 + i * 125}" x2="${W - leg.length * 125 + 25 + i * 125}" y1="12" y2="12" stroke="${c}" stroke-width="2.4" ${d ? 'stroke-dasharray="5 4"' : ''}/><text x="${W - leg.length * 125 + 30 + i * 125}" y="16" fill="var(--ink-soft)">${t}</text>`).join('')}</g>`;
-  // Heizkreise oben rechts: Verteiler, je Kreis Pumpe (gemischt mit Mischer) und Verbraucher-Symbol
-  const hkY = 130, kreise = heizkreisListe(), xV0 = W - 330, xV1 = W - 30, br = (xV1 - xV0 - 30) / kreise.length;
-  s += ln(`M${xV0},${hkY} L${xV1},${hkY}`, VL) + ln(`M${xV0},${hkY + 16} L${xV1},${hkY + 16}`, RL, 1);
-  s += `<text x="${xV1}" y="${hkY + 32}" font-size="10" text-anchor="end" fill="var(--ink-soft)">Heizkreisverteiler · max. ${f(r.vl, 0)} °C</text>`;
-  kreise.forEach((h, i) => {
-    const cx = xV0 + 40 + i * br + br / 2, xv = cx - 10, xr = cx + 10, top = hkY - 72;
-    s += ln(`M${xv},${hkY} L${xv},${top + 18}`, VL) + ln(`M${xr},${hkY + 16} L${xr},${top + 18}`, RL, 1);
-    // Pumpe
-    s += `<circle cx="${xv}" cy="${hkY - 16}" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><path d="M${xv - 3},${hkY - 13} L${xv},${hkY - 19} L${xv + 3},${hkY - 13}" fill="none" stroke="var(--ink)" stroke-width="1"/>`;
-    // gemischter Kreis: 3-Wege-Mischer mit Beimischung aus dem Rücklauf
-    if (h.gemischt) s += ln(`M${xr},${hkY - 36} L${xv + 6},${hkY - 36}`, RL, 1) + `<path d="M${xv - 6},${hkY - 42} L${xv + 6},${hkY - 30} L${xv + 6},${hkY - 42} L${xv - 6},${hkY - 30} Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><text x="${xv - 9}" y="${hkY - 33}" font-size="9" text-anchor="end" fill="var(--ink-soft)">M</text>`;
-    // Verbraucher
-    const y0 = top - 4;
-    if (h.typ === 'hk') s += `<rect x="${cx - 18}" y="${y0}" width="36" height="20" rx="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.3"/>${[0, 1, 2, 3].map(j => `<line x1="${cx - 11 + j * 7}" x2="${cx - 11 + j * 7}" y1="${y0 + 3}" y2="${y0 + 17}" stroke="var(--ink)"/>`).join('')}`;
-    else if (h.typ === 'fbh') s += `<path d="M${cx - 18},${y0 + 18} L${cx - 18},${y0 + 2} L${cx - 9},${y0 + 2} L${cx - 9},${y0 + 16} L${cx},${y0 + 16} L${cx},${y0 + 2} L${cx + 9},${y0 + 2} L${cx + 9},${y0 + 16} L${cx + 18},${y0 + 16} L${cx + 18},${y0 + 2}" fill="none" stroke="var(--ink)" stroke-width="1.4"/>`;
-    else s += `<rect x="${cx - 18}" y="${y0}" width="36" height="20" rx="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.3"/><circle cx="${cx}" cy="${y0 + 10}" r="6" fill="none" stroke="var(--ink)"/><path d="M${cx - 4},${y0 + 10} L${cx + 4},${y0 + 10} M${cx},${y0 + 6} L${cx},${y0 + 14}" stroke="var(--ink)"/>`;
-    s += `<text x="${cx}" y="${y0 - 16}" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">HK ${h.nr}</text><text x="${cx}" y="${y0 - 5}" font-size="9.5" text-anchor="middle" fill="var(--ink-soft)">${{hk: 'Heizkörper', fbh: 'FBH', konvektor: 'Konvektor'}[h.typ]}${h.gemischt ? ' · gemischt' : ''}</text>`;
-  });
-  const yB = 250, hB = 80;
-  // Außeneinheit(en) bzw. Erdwärmesonde
-  const nAE = sole ? 0 : Math.min(g.n, 3), xAE = W - 150;
-  if (sole) {
-    s += `<rect x="${xAE - 10}" y="${yB - 10}" width="125" height="${hB + 40}" fill="var(--panel2)" stroke="none"/>`;
-    s += `<path d="M${xAE + 30},${yB - 10} L${xAE + 30},${yB + hB + 22} Q${xAE + 45},${yB + hB + 36} ${xAE + 60},${yB + hB + 22} L${xAE + 60},${yB - 10}" fill="none" stroke="${SO}" stroke-width="2.4"/>`;
-    s += `<text x="${xAE + 56}" y="${yB + hB + 50}" font-size="11.5" font-weight="700" text-anchor="middle" fill="var(--ink)">Erdwärmesonde</text><text x="${xAE + 56}" y="${yB + hB + 64}" font-size="10.5" text-anchor="middle" fill="var(--ink-soft)">${r.erdreich ? 'ca. ' + f(r.erdreich.sondenlaenge_m, 0) + ' m (Richtwert)' : 'oder Flächenkollektor'}</text>`;
-    s += ln(`M${xIE_SOLE()},${yB + 25} L${xAE + 30},${yB + 25} L${xAE + 30},${yB - 10}`, SO) + ln(`M${xIE_SOLE()},${yB + 50} L${xAE + 60},${yB + 50}`, SO, 1);
-  }
-  function xIE_SOLE() { return W - 330 + 90; }
-  for (let i = 0; i < nAE; i++) {
-    const y = yB - (nAE - 1) * 14 + i * 14, x = xAE + i * 8;
-    s += `<rect x="${x}" y="${y}" width="105" height="${hB}" rx="10" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>`;
-    if (i === nAE - 1) s += luefter(x + 52, y + hB / 2);
-  }
-  if (!sole) s += `<text x="${xAE + 56}" y="${yB + hB + 18}" font-size="11.5" font-weight="700" text-anchor="middle" fill="var(--ink)">${g.n > 1 ? g.n + ' × ' : ''}Außeneinheit</text><text x="${xAE + 56}" y="${yB + hB + 32}" font-size="10.5" text-anchor="middle" fill="var(--ink-soft)">${esc(g.geraet)}${r.leitung ? ' · ' + f(r.leitung.laenge_m, 0) + ' m, ' + esc(r.leitung.rohr) : ''}</text>`;
-  // Inneneinheit / Regler
-  const xIE = W - 330, wIE = 90;
-  if (kaskade) {
-    s += box(xIE, yB + 5, wIE, 70, ie && ie.ab_anzahl ? ie.typ : 'Wärmepumpenmanager', g.n > 1 ? 'Kaskadenregelung' : 'HPC 301', `<rect x="${xIE + 15}" y="${yB + 20}" width="60" height="26" rx="3" fill="none" stroke="var(--ink)"/>`);
-    s += `<path d="M${xIE + wIE},${yB + 40} L${xAE},${yB + 40}" stroke="var(--ink-faint)" stroke-dasharray="1 4" stroke-width="2" fill="none"/>`;
-  } else {
-    s += box(xIE, yB - 10, wIE, hB + 20, sole ? 'Sole/Wasser-WP' : 'Inneneinheit', sole ? g.geraet : (ie ? ie.typ : ''), `<circle cx="${xIE + 45}" cy="${yB + 60}" r="7" fill="none" stroke="var(--ink)" stroke-width="1.4"/>` + (integriert ? `<rect x="${xIE + 12}" y="${yB + 4}" width="66" height="36" rx="5" fill="none" stroke="var(--ww)" stroke-width="1.4"/><text x="${xIE + 45}" y="${yB + 26}" font-size="9.5" text-anchor="middle" fill="var(--ww)">WW-Speicher</text>` : '') + (puffermodul ? `<rect x="${xIE + 12}" y="${yB + 4}" width="66" height="36" rx="5" fill="none" stroke="var(--ink-soft)" stroke-width="1.4"/><text x="${xIE + 45}" y="${yB + 26}" font-size="9.5" text-anchor="middle" fill="var(--ink-soft)">Puffer</text>` : ''));
-    if (!sole) s += ln(`M${xIE + wIE},${yB + 25} L${xAE},${yB + 25}`, VL) + ln(`M${xIE + wIE},${yB + 50} L${xAE},${yB + 50}`, RL, 1);
-  }
-  // Pufferspeicher
-  const xP = W - 480, mitPuffer = kaskade || friwa || !(integriert || puffermodul);
-  if (mitPuffer) {
-    s += box(xP, yB - 20, 50, hB + 30, kaskade ? 'Trennpufferspeicher' : 'Pufferspeicher', friwa ? `≥ ${f(r.tww.t_speicher, 0)} °C für FriWa` : (kaskade ? 'hydraulische Entkopplung' : 'Reihen-/Trennpuffer'), `<rect x="${xP + 14}" y="${yB - 8}" width="22" height="${hB + 6}" rx="4" fill="none" stroke="var(--ink)"/>`);
-    if (kaskade) s += ln(`M${xP + 50},${yB + 0} L${xAE},${yB + 0} L${xAE},${yB + 10}`, VL) + ln(`M${xP + 50},${yB + 72} L${xAE - 6},${yB + 72}`, RL, 1);
-    else s += ln(`M${xP + 50},${yB + 0} L${xIE},${yB + 0}`, VL) + ln(`M${xP + 50},${yB + 70} L${xIE},${yB + 70}`, RL, 1);
-    s += ln(`M${xP + 25},${yB - 20} L${xP + 25},${hkY} L${W - 330},${hkY}`, VL) + ln(`M${xP + 40},${yB - 20} L${xP + 40},${hkY + 16} L${W - 330},${hkY + 16}`, RL, 1);
-  } else {
-    s += ln(`M${xIE + 30},${yB - 10} L${xIE + 30},${hkY} L${W - 330},${hkY}`, VL) + ln(`M${xIE + 60},${yB - 10} L${xIE + 60},${hkY + 16}`, RL, 1);
-  }
-  // Warmwasserspeicher
-  if (friwa && r.tww.aktiv) {
-    const xW = 60;
-    s += box(xW, yB - 5, 80, 60, 'Frischwasserstation', `Zapftemperatur ${f(r.tww.t_zapf, 0)} °C`, `<path d="M${xW + 15},${yB + 10} l50,0 M${xW + 15},${yB + 25} l50,0 M${xW + 15},${yB + 40} l50,0" stroke="var(--ink)" stroke-width="1.4"/>`);
-    s += ln(`M${xP},${yB + 5} L${xW + 80},${yB + 5}`, VL) + ln(`M${xP},${yB + 45} L${xW + 80},${yB + 45}`, RL, 1);
-    s += ln(`M${xW + 20},${yB - 5} L${xW + 20},${hkY - 30} L${xW + 60},${hkY - 30}`, WW) + `<text x="${xW + 66}" y="${hkY - 26}" font-size="10.5" fill="var(--ink-soft)">Zapfstellen</text>`;
-    s += ln(`M${xW},${yB + 40} L${xW - 30},${yB + 40} L${xW - 30},${yB + 150}`, KW) + `<text x="${xW - 30}" y="${yB + 164}" font-size="10.5" text-anchor="middle" fill="var(--ink-soft)">Kaltwasser</text>`;
-  } else if (!integriert && r.tww.aktiv) {
-    const xW = 60;
-    const wendel = `<path d="M${xW + 80},${yB + 45} L${xW + 62},${yB + 45} ${[0, 1, 2, 3].map(j => `L${xW + 18},${yB + 50 + j * 6} L${xW + 62},${yB + 53 + j * 6}`).join(' ')} L${xW + 62},${yB + 70} L${xW + 80},${yB + 70}" fill="none" stroke="var(--vl)" stroke-width="1.8"/>`;
-    s += box(xW, yB - 20, 80, hB + 30, 'Warmwasserspeicher', (kaskade ? 'WW-Modul · ' : 'mit Heizwendel · ') + f(r.tww.t_speicher, 0) + ' °C', wendel);
-    const y1 = yB + hB + 44, y2 = yB + hB + 54;
-    if (kaskade) s += ln(`M${xAE - 20},${yB} L${xAE - 20},${y1} L${xW + 118},${y1} L${xW + 118},${yB + 45} L${xW + 80},${yB + 45}`, VL) + ln(`M${xAE - 32},${yB + 72} L${xAE - 32},${y2} L${xW + 128},${y2} L${xW + 128},${yB + 70} L${xW + 80},${yB + 70}`, RL, 1);
-    else s += ln(`M${xIE + 105},${yB + 25} L${xIE + 105},${y1} L${xW + 118},${y1} L${xW + 118},${yB + 45} L${xW + 80},${yB + 45}`, VL) + ln(`M${xIE + 117},${yB + 50} L${xIE + 117},${y2} L${xW + 128},${y2} L${xW + 128},${yB + 70} L${xW + 80},${yB + 70}`, RL, 1);
-    s += ln(`M${xW + 20},${yB - 20} L${xW + 20},${hkY - 30} L${xW + 60},${hkY - 30}`, WW) + `<text x="${xW + 66}" y="${hkY - 26}" font-size="10.5" fill="var(--ink-soft)">Zapfstellen</text>`;
-    s += ln(`M${xW},${yB + 80} L${xW - 30},${yB + 80} L${xW - 30},${yB + 150}`, KW) + `<text x="${xW - 30}" y="${yB + 164}" font-size="10.5" text-anchor="middle" fill="var(--ink-soft)">Kaltwasser</text>`;
-  } else if (integriert && r.tww.aktiv) {
-    s += ln(`M${xIE + 20},${yB - 10} L${xIE + 20},${hkY - 30} L${xIE - 40},${hkY - 30}`, WW) + `<text x="${xIE - 44}" y="${hkY - 26}" font-size="10.5" text-anchor="end" fill="var(--ink-soft)">Zapfstellen</text>`;
-  }
-  return s + '</svg>';
+  if (!r.gewaehlt) return '<p class="hint">–</p>';
+  return schemaSvg(r, innenEinheit(), heizkreisListe(), FARBEN_HTML, o.breite).replace(/width="(\d+)" height="(\d+)"/, 'width="100%" style="max-width:$1px"');
 }
 
 // ------------------------------------------------------------------ Druckansicht
@@ -1092,13 +1228,13 @@ function baueDruck() {
   const r = R, g = r.gewaehlt, p = E.projekt, ie = innenEinheit(), k = g ? kat(g.geraet) : {};
   const datum = (p.datum || new Date().toISOString().slice(0, 10)).split('-').reverse().join('.');
   const titel = esc(p.name || 'ohne Namen');
-  const fuss = (s, n) => `<div class="dk-fuss"><span>© Bosch Thermotechnik GmbH · WP-Schnellauslegung</span><span>${datum}</span><span>${s} / ${n}</span></div>`;
+  const fuss = (s, n) => `<div class="dk-fuss"><span>© Bosch Thermotechnik GmbH · WP-Schnellauslegung</span><span>Entwickelt von Daniel Sommer · HC/SDE3-PSD</span><span>${datum}</span><span>${s} / ${n}</span></div>`;
   const klein = `<div class="dk-kleinkopf"><span class="dk-logo">BOSCH</span><span class="r"><b>Wärmepumpen-Schnellauslegung</b><br>Projekt ${titel}</span></div>`;
   const tr = (a, b) => `<tr><td>${a}</td><td>${b}</td></tr>`;
   const preise = !!E.preise_drucken;
   const kp = g && g.moeglich ? [['Gesamtheizlast QGES', f(r.qges, 2) + ' kW'], ['Bivalenzpunkt', bivText(g)], ['Leistung bei θe ' + fT(r.nat) + ' °C', f(g.q_nat, 2) + ' kW'], ['WP-Deckungsanteil', f(g.deckung * 100, 1) + ' %']] : [['Gesamtheizlast QGES', f(r.qges, 2) + ' kW']];
   const meldungen = $('#meldungen').innerHTML;
-  const n = 3;
+  const n = 4;
   let h = `<div class="seite">
     <div class="dk-kopf"><h1>Wärmepumpen-Schnellauslegung</h1><span class="dk-logo">BOSCH</span></div>
     <div class="dk-band"></div>
@@ -1125,17 +1261,21 @@ function baueDruck() {
     ${fuss(1, n)}</div>`;
   h += `<div class="seite">${klein}<div class="dk-h">Leistungsdaten</div>
     <div class="dk-h2">Heizleistung über der Außentemperatur – Vorlauf ${f(r.vl, 0)} °C</div>
-    <div class="legende">${legende(r)}</div>${diagramm(r, {breite: 760, hoehe: 340})}
+    <div class="legende">${legende(r)}${minHinweis(r)}</div>${diagramm(r, {breite: 760, hoehe: 340})}
     <div class="dk-h2">Passende Wärmepumpen je Baureihe (kleinste passende Größe) und gewählte Wärmepumpe</div>
-    <table class="dk-tab">${kandidatenTabelle(r, preise, true)}</table>${fuss(2, n)}</div>`;
+    <table class="dk-tab">${kandidatenTabelle(r, preise, true)}</table>
+    <div class="dk-h2">E-Heizer je Baugröße</div><div class="dk-tab">${eheizerHtml(r).replace('<table>', '<table class="dk-tab">')}</div>${fuss(2, n)}</div>`;
   h += `<div class="seite">${klein}<div class="dk-h">Anlagenschema und Jahresbilanz</div>
     ${schema(r, {breite: 760})}
     <p class="hint">Prinzipdarstellung – Zubehör, Speicher, Sicherheitstechnik und hydraulischer Abgleich sind in der Systemkonfiguration (SysCon) zu planen.</p>
+    <div class="dk-tab">${vdiTabelle(r)}</div>
     <div class="dk-h2">Warmwasser und Anbindung</div>${anbindungHtml(r)}
+    ${fuss(3, n)}</div>`;
+  h += `<div class="seite">${klein}<div class="dk-h">Jahresbilanz und Hinweise</div>
     <div class="dk-h2">Jahresbilanz (Schätzung)</div>${energieHtml(r)}
     <div class="dk-h2">Haftungsausschluss</div>
     <div class="dk-text">Die Schnellauslegung dient der Produktvor- und Systemauswahl und ersetzt nicht die fachtechnische Planung. Sie berücksichtigt nicht die individuellen Eigenschaften eines Bauvorhabens. Leistungsdaten nach Herstellerangaben (Excel-Werkzeug „WP-Auslegung_S“, Gesamtkatalog März 2026); Zwischenwerte linear interpoliert. Die Heizlast ist nach der im Land gültigen Norm (DIN EN 12831) zu berechnen; eine Auslegung über Vorjahresverbräuche oder Flächenkennwerte ist nur überschlägig und kann zu Unter- oder Überdimensionierung führen. Der Deckungsanteil nach VDI 4650 gilt für parallelen Betrieb. Energiewerte sind Näherungen ohne Gewähr; Schallimmissionen sind gesondert nachzuweisen (TA Lärm). Vor Ausführung sind Planung und Angaben durch den ausführenden Fachbetrieb oder ein Planungsbüro auf Plausibilität, Aktualität, Richtigkeit und Vollständigkeit zu prüfen. Aufstellbedingungen, Einsatzgrenzen, R290-Sicherheitsbereiche und die elektrischen Anschlussbedingungen des Netzbetreibers sind zu beachten.${preise ? ' Preise: unverbindliche Preisempfehlung ohne MwSt.' : ''}</div>
-    ${fuss(3, n)}</div>`;
+    ${fuss(4, n)}</div>`;
   $('#druck').innerHTML = h;
 }
 

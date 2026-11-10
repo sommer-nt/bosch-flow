@@ -19,6 +19,7 @@ from wp import bericht as B  # noqa: E402
 from wp import daten as D  # noqa: E402
 from wp import projekt as P  # noqa: E402
 from wp import rechnen as R  # noqa: E402
+from wp import schema as S  # noqa: E402
 from wp import texte as T  # noqa: E402
 
 BLAU, ROT = "#005691", "#e20015"
@@ -46,7 +47,9 @@ st.markdown("""<style>
 </style>""", unsafe_allow_html=True)
 st.markdown(f"<span style='color:{ROT};font-weight:800;font-size:22px'>BOSCH</span> "
             "<span style='font-size:20px;font-weight:600'>WP-Schnellauslegung</span> "
-            "<span style='color:#4a5866'>· Luft/Wasser-Wärmepumpen · Heizlast, Bivalenzpunkt, Geräteauswahl</span>",
+            "<span style='color:#4a5866'>· Luft/Wasser- und Sole/Wasser-Wärmepumpen · Heizlast, Bivalenzpunkt, Geräteauswahl</span> "
+            "<span style='font-size:12px;color:#4a5866;background:#f4f7fa;border:1px solid #d3dce5;padding:3px 10px;"
+            "border-radius:14px;margin-left:8px'>Entwickelt von <b style='color:#005691'>Daniel Sommer</b> · HC/SDE3-PSD</span>",
             unsafe_allow_html=True)
 
 
@@ -356,15 +359,44 @@ with rechts:
             fig.add_scatter(x=[g["bivalenz"]], y=[qb], mode="markers+text", text=[f"Bivalenzpunkt {T.ft(g['bivalenz'])} °C"],
                             textposition="bottom left", marker=dict(size=11, color=BLAU), showlegend=False)
         fig.add_vline(x=r["nat"], line_dash="dot", line_color="#78889a", annotation_text=f"θe {T.ft(r['nat'])} °C")
+        fig.add_vline(x=-7, line_color="#e20015", line_width=1.6, annotation_text="A-7", annotation_font_color="#e20015")
+        if g["bivalenz_art"] == "punkt":
+            fig.add_vrect(x0=g["bivalenz"] - 0.8, x1=g["bivalenz"] + 0.8, fillcolor="#f28c28", opacity=0.14, line_width=0)
         fig.update_layout(height=420, margin=dict(l=10, r=10, t=30, b=10), xaxis_title="Außentemperatur in °C",
                           yaxis_title="Heizleistung in kW", legend=dict(orientation="h", y=1.12), template="plotly_white")
         st.plotly_chart(fig, width="stretch")
+        st.caption(T.min_hinweis(r))
+
+    if r.get("eheizer"):
+        st.markdown(f"**E-Heizer je Baugröße** – QGES {T.f(r['qges'], 2)} kW − Heizleistung bei θe {T.ft(r['nat'])} °C "
+                    f"und {T.f(r['vl'], 0)} °C Vorlauf (wie Excel-Werkzeug)")
+        st.dataframe([{"Bild": D.bild_uri(KAT.get("bilder", {}).get(x["geraet"])),
+                       "Wärmepumpe": (f"{x['n']} × " if x["n"] > 1 else "") + x["geraet"] + (" (gewählt)" if x["geraet"] == g["geraet"] else ""),
+                       f"Leistung bei θe": x["text_q"], "E-Heizer": x["text_eh"], "in Watt": x["text_w"], "Bewertung": x["bewertung"]}
+                      for x in T.eheizer_zeilen(r)], hide_index=True, width="stretch",
+                     column_config={"Bild": st.column_config.ImageColumn("", width="small")})
+        vb = r.get("vdi_bivalenz")
+        tab = {"ϑBiv in °C": ["Leistungsanteil μ", "αH,a bivalent-parallel", "αH,a bivalent-alternativ"]}
+        for i_, t_ in enumerate(R.VDI_BIV_T):
+            tab[("+" if t_ > 0 else "") + str(t_)] = [R.VDI_BIV_MU[i_], R.VDI_BIV_PAR[i_], R.VDI_BIV_ALT[i_]]
+        naechst = min(R.VDI_BIV_T, key=lambda t_: abs(t_ - vb["t_biv"])) if vb else None
+        st.markdown("**Deckungsanteil nach Bivalenzpunkt** (DIN V 4701-10 / VDI 4650)")
+        import pandas as pd
+        df = pd.DataFrame(tab)
+        spalte = ("+" if naechst and naechst > 0 else "") + str(naechst) if vb else None
+        st.dataframe(df.style.format({c_: "{:.2f}" for c_ in df.columns[1:]}).set_properties(
+            subset=[spalte] if spalte else [], **{"background-color": "#005691", "color": "white", "font-weight": "bold"}),
+            hide_index=True, width="stretch")
+        if vb:
+            st.caption(f"Bivalenzpunkt {T.ft(g['bivalenz'])} °C: αH,a parallel ≈ {T.f(vb['alpha_parallel'], 2)}, "
+                       f"alternativ ≈ {T.f(vb['alpha_alternativ'], 2)} (linear interpoliert).")
 
     st.markdown("**Mögliche Wärmepumpen** – kleinste passende Größe je Gerät (★ kleinste der Baureihe)")
     emp = set(r["empfehlung_je_serie"])
     zeilen = []
     for c in r["kandidaten"]:
         zeilen.append({"": "🟢" if c["ok"] else ("⚪" if not c["moeglich"] else "🔴"),
+                       "Bild": D.bild_uri(KAT.get("bilder", {}).get(c["geraet"])),
                        "Wärmepumpe": c["geraet"] + (" ★" if f"{c['geraet']}|{c['n']}" in emp else ""), "Anz.": c["n"],
                        f"{'B0' if r['waermequelle'] == 'sole' else 'A-7'}/W{T.f(r['vl'], 0)} [kW]": round(c["q_a7"], 2) if c["moeglich"] else None,
                        "bei θe [kW]": round(c["q_nat"], 2) if c["moeglich"] else None,
@@ -373,7 +405,14 @@ with rechts:
                        "Deckung [%]": round(c["deckung"] * 100, 1) if c["moeglich"] else None,
                        "UVP [€]": KAT["geraete"].get(c["geraet"], {}).get("uvp", 0) * c["n"] or None,
                        "Hinweis": c["grund"] or ("überdimensioniert" if c.get("ueberdimensioniert") else "")})
-    st.dataframe(zeilen, hide_index=True, width="stretch")
+    st.dataframe(zeilen, hide_index=True, width="stretch", column_config={"Bild": st.column_config.ImageColumn("", width="small")})
+
+    if g:
+        st.markdown("**Anlagenschema (vereinfacht)**")
+        svg = S.schema_svg(r, ie, T.heizkreis_liste(E), S.FARBEN_DRUCK).replace('width="900" height="470"', 'width="100%"')
+        st.markdown("<div style='background:#fff;border:1px solid #d3dce5;border-radius:12px;padding:8px'>" + svg + "</div>",
+                    unsafe_allow_html=True)
+        st.caption("Prinzipdarstellung – Zubehör, Speicher und Sicherheitstechnik im SysCon planen.")
 
     kacheln = T.anbindung(E, r)
     if kacheln:
@@ -396,4 +435,5 @@ with rechts:
 
     st.download_button("📄 Auslegung als PDF", B.pdf_bytes(E, r, DATEN, KAT),
                        f"WP-Auslegung_{name}{'_intern' if E['preise_drucken'] else ''}.pdf", "application/pdf", type="primary")
-    st.caption(f"Leistungsdaten: {DATEN['quelle']} · Katalog: Gesamtkatalog März 2026 · Ergebnis ersetzt keine Fachplanung.")
+    st.caption(f"Entwickelt von Daniel Sommer · HC/SDE3-PSD · Leistungsdaten: {DATEN['quelle']} · Katalog: Gesamtkatalog März 2026 · "
+               "Ergebnis ersetzt keine Fachplanung.")
