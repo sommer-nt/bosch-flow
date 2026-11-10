@@ -17,7 +17,7 @@ const FALL=[
 ];
 (async()=>{
  const b=await chromium.launch(); const p=await b.newPage({viewport:{width:1500,height:1000}});
- await p.goto('file://'+process.argv[2]);
+ await p.goto('file://'+require('path').resolve(process.argv[2]));
  let fehler=0;
  for(const [name,ae] of FALL){
   const res=await p.evaluate(([ae])=>{

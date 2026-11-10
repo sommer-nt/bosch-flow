@@ -3,7 +3,7 @@
 Raster: oben Legende und Heizkreise mit Verteilerbalken, darunter ein Korridor für die Speicherladung, unten die
 Geräte. Unter den Geräten liegt nur das Beschriftungsband – dort verlaufen keine Rohre, Texte überdecken keine Linien.
 Piktogramme im Stil der Systemkonfiguration (SysCon): Fußbodenheizung mit Wärmewellen, Heizkörper, Dusche,
-Außeneinheit mit Ventilator, nummerierte Abschnitte 1 Wärmeerzeuger · 2 Heizkreise · 3 Warmwasser · 4 Puffer.
+Außeneinheit mit Ventilator.
 """
 from __future__ import annotations
 
@@ -67,10 +67,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
     def box(x, y, w, h, rr):
         return f'<rect x="{z(x)}" y="{z(y)}" width="{z(w)}" height="{z(h)}" rx="{z(rr)}" fill="{F["paper"]}" stroke="{F["ink"]}" stroke-width="2.2"/>'
 
-    def nummer(x, y, n):
-        return (f'<circle cx="{z(x)}" cy="{z(y)}" r="11" fill="{F["badge"]}"/>' +
-                t(x, y + 4.5, str(n), 'font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff"'))
-
     def luefter(cx, cy):
         out = f'<circle cx="{z(cx)}" cy="{z(cy)}" r="22" fill="none" stroke="{F["ink"]}" stroke-width="2.2"/>'
         for w in (0, 120, 240):
@@ -93,7 +89,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
     s += (f'<path class="rohr" d="M{xV0},{hkY} L{xV1},{hkY}" stroke="{F["vl"]}" stroke-width="8"/>'
           f'<path class="rohr" d="M{xV0},{hkY + 18} L{xV1},{hkY + 18}" stroke="{F["rl"]}" stroke-width="8"/>')
     s += t(xV1, hkY + 40, f"Heizkreisverteiler · max. {zahl(r['vl'], 0)} °C", f'font-size="10.5" text-anchor="end" fill="{F["soft"]}"')
-    s += nummer(xV0 + 14, hkY - 62, 2)
     for i, h in enumerate(kreise):
         cx = xV0 + 30 + i * br + br / 2
         xv, xr, y0 = cx - 10, cx + 10, hkY - 80
@@ -131,7 +126,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
                 f"{xAE + 35},{yB + hB - 8} L{xAE + 35},{yB + 50} L{xIE + wIE},{yB + 50}", F["so"])
         er = r.get("erdreich")
         s += lab(xAE + 52, "Erdwärmesonde", f"ca. {zahl(er['sondenlaenge_m'], 0)} m (Richtwert)" if er else "oder Flächenkollektor", "")
-        s += nummer(xAE + 122, yB - 14, 1)
     else:
         n_ae = min(g["n"], 3)
         for i in range(n_ae):
@@ -142,7 +136,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
         lt = r.get("leitung")
         s += lab(xAE + 56, (f"{g['n']} × " if g["n"] > 1 else "") + "Außeneinheit", g["geraet"],
                  f"{zahl(lt['laenge_m'], 0)} m · {lt['rohr']}" if lt else "")
-        s += nummer(xAE + 128, yB - 14, 1)
 
     # ---- Inneneinheit / Sole-WP / Kaskadenregler
     if kaskade:
@@ -169,7 +162,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
         s += box(xP, yB - 20, 50, hB + 20, 10) + f'<rect x="{xP + 13}" y="{yB - 6}" width="24" height="{hB - 8}" rx="5" fill="none" stroke="{F["ink"]}" stroke-width="2"/>'
         s += lab(xP + 25, "Trennpuffer" if kaskade else "Pufferspeicher",
                  f"≥ {zahl(r['tww']['t_speicher'], 0)} °C für FriWa" if friwa else ("hydraulische Weiche" if kaskade else "Reihen-/Trennpuffer"), "")
-        s += nummer(xP + 68, yB - 32, 4)
         if kaskade:
             s += ln(f"M{xP + 50},{yB - 4} L{xAE},{yB - 4}", F["vl"]) + ln(f"M{xP + 50},{yB + 70} L{xAE},{yB + 70}", F["rl"], True)
         else:
@@ -197,7 +189,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
         s += box(xW, yB, 80, 60, 8) + "".join(
             f'<line x1="{xW + 15}" x2="{xW + 65}" y1="{yB + dy}" y2="{yB + dy}" stroke="{F["ink"]}" stroke-width="1.6"/>' for dy in (15, 30, 45))
         s += lab(xW + 40, "Frischwasserstation", f"Zapftemperatur {zahl(r['tww']['t_zapf'], 0)} °C", "")
-        s += nummer(xW - 14, yB - 14, 3)
         s += ln(f"M{xP},{yB + 10} L{xW + 80},{yB + 10}", F["vl"]) + ln(f"M{xP},{yB + 50} L{xW + 80},{yB + 50}", F["rl"], True)
         s += dusche(xW + 20, yB, xW + 60) + kalt(yB + 45)
     elif not integriert and ww:
@@ -206,7 +197,6 @@ def schema_svg(r: dict, ie: dict | None, kreise: list[dict], F: dict, W: int = 9
         s += (f'<path d="M{xW + 80},{yB + 30} L{xW + 62},{yB + 30} {zick} L{xW + 62},{yB + 62} L{xW + 80},{yB + 62}" '
               f'fill="none" stroke="{F["vl"]}" stroke-width="2"/>')
         s += lab(xW + 40, "Warmwasserspeicher", ("WW-Modul · " if kaskade else "Heizwendel · ") + zahl(r["tww"]["t_speicher"], 0) + " °C", "")
-        s += nummer(xW - 14, yB - 34, 3)
         if kaskade:
             qv, qr = f"L{xAE - 22},{yK1} L{xAE - 22},{yB - 4}", f"L{xAE - 36},{yK2} L{xAE - 36},{yB + 70}"
         elif sole:

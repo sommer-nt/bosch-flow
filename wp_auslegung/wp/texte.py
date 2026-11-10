@@ -28,8 +28,8 @@ def heizkreis_text(e: dict) -> str:
 
 
 KRITERIUM = {"monovalent": "QGES bei θe (monovalent)",
-             "monoenergetisch": "0,7 · QGES bei A-7 (monoenergetisch, ca. 98 % Deckung)",
-             "hybrid": "0,3 · QH bei A-7 (GEG § 71 Hybrid)"}
+             "monoenergetisch": "0,7 · QGES bei A-7 (Außenluft −7 °C; monoenergetisch, ca. 98 % Deckung)",
+             "hybrid": "0,3 · QH bei A-7 (Außenluft −7 °C; GEG § 71 Hybrid)"}
 
 
 def f(x, d: int = 1) -> str:

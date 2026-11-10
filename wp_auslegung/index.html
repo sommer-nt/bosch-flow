@@ -251,9 +251,9 @@
     <div class="exp">
       <div class="sub">Experte · Auslegung</div>
       <label class="f">Betriebsweise<span class="e"><select data-k="auslegung">
-        <option value="monoenergetisch">monoenergetisch (0,7 · QGES bei A-7)</option>
+        <option value="monoenergetisch">monoenergetisch (0,7 · QGES bei A-7 = −7 °C Außenluft)</option>
         <option value="monovalent">monovalent (QGES bei θe)</option>
-        <option value="hybrid">GEG-Hybrid (0,3 · QH bei A-7)</option></select></span></label>
+        <option value="hybrid">GEG-Hybrid (0,3 · QH bei A-7 = −7 °C Außenluft)</option></select></span></label>
       <label class="f">Sperrzeit Energieversorger<span class="e"><select data-k="sperrzeit_h" data-zahl="1">
         <option value="0">keine</option><option value="2">2 h → +5 %</option><option value="4">4 h → +10 %</option><option value="6">6 h → +15 %</option></select></span></label>
       <label class="f" data-quelle="luft">Spreizung Verbindungsleitung<span class="e"><input data-k="aufstellung.spreizung" type="number" step="1" min="3" max="10"><small>K</small></span></label>
@@ -284,7 +284,9 @@
     <div class="legende" id="legende"></div><div id="diagramm"></div></div></div>
   <div class="card"><h2>E-Heizer je Baugröße &amp; Deckungsanteil nach Bivalenzpunkt</h2><div class="in" style="overflow-x:auto"><div id="eheizer"></div></div></div>
   <div class="card"><h2>Mögliche Wärmepumpen <span class="rechts">kleinste passende Größe je Gerät · Klick wählt aus</span></h2><div class="in" style="overflow-x:auto">
-    <table id="tabKandidaten"></table></div></div>
+    <table id="tabKandidaten"></table>
+    <p class="hint">A-7/W55 = Heizleistung bei −7 °C Außenluft und 55 °C Vorlauf (Prüfpunkt nach EN 14511, Bezug der Mindestleistung);
+      B0/W.. bei Sole/Wasser = Sole 0 °C. θe = Norm-Außentemperatur.</p></div></div>
   <div class="card"><h2>Herleitung Heizlast</h2><div class="in"><table class="formel" id="herleitung"></table></div></div>
   <div class="card"><h2>Anlagenschema (vereinfacht)</h2><div class="in"><div id="schema"></div>
     <p class="hint">Prinzipdarstellung für die Schnellauslegung. Zubehör, Speicher und Sicherheitstechnik im SysCon planen.</p></div></div>
@@ -619,7 +621,6 @@ function schemaSvg(r, ie, kreise, F, W) {
     + (s3 ? t(cx, yLab + 27, s3, `font-size="10.5" text-anchor="middle" fill="${F.soft}"`) : '');
   const ln = (d, c, dash) => `<path class="rohr" d="${d}" fill="none" stroke="${c}" stroke-width="2.4"${dash ? ' stroke-dasharray="5 4"' : ''}/>`;
   const box = (x, y, w, h, rr) => `<rect x="${fz(x)}" y="${fz(y)}" width="${fz(w)}" height="${fz(h)}" rx="${fz(rr)}" fill="${F.paper}" stroke="${F.ink}" stroke-width="2.2"/>`;
-  const nummer = (x, y, n) => `<circle cx="${fz(x)}" cy="${fz(y)}" r="11" fill="${F.badge}"/>` + t(x, y + 4.5, String(n), `font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff"`);
   const luefter = (cx, cy) => `<circle cx="${fz(cx)}" cy="${fz(cy)}" r="22" fill="none" stroke="${F.ink}" stroke-width="2.2"/>`
     + [0, 120, 240].map(w => `<path d="M${fz(cx)},${fz(cy)} C${fz(cx - 7)},${fz(cy - 6)} ${fz(cx - 6)},${fz(cy - 17)} ${fz(cx)},${fz(cy - 18)} C${fz(cx + 6)},${fz(cy - 17)} ${fz(cx + 7)},${fz(cy - 6)} ${fz(cx)},${fz(cy)} Z" fill="${F.ink}" transform="rotate(${w} ${fz(cx)} ${fz(cy)})"/>`).join('')
     + `<circle cx="${fz(cx)}" cy="${fz(cy)}" r="4" fill="${F.paper}" stroke="${F.ink}" stroke-width="1.6"/>`;
@@ -635,7 +636,6 @@ function schemaSvg(r, ie, kreise, F, W) {
   const br = (xV1 - xV0 - 30) / kreise.length;
   s += `<path class="rohr" d="M${xV0},${hkY} L${xV1},${hkY}" stroke="${F.vl}" stroke-width="8"/><path class="rohr" d="M${xV0},${hkY + 18} L${xV1},${hkY + 18}" stroke="${F.rl}" stroke-width="8"/>`;
   s += t(xV1, hkY + 40, `Heizkreisverteiler · max. ${schemaZahl(r.vl, 0)} °C`, `font-size="10.5" text-anchor="end" fill="${F.soft}"`);
-  s += nummer(xV0 + 14, hkY - 62, 2);
   kreise.forEach((h, i) => {
     const cx = xV0 + 30 + i * br + br / 2, xv = cx - 10, xr = cx + 10, y0 = hkY - 80;
     s += ln(`M${fz(xv)},${hkY - 4} L${fz(xv)},${y0 + 28}`, F.vl) + ln(`M${fz(xr)},${hkY + 14} L${fz(xr)},${y0 + 28}`, F.rl, 1);
@@ -663,7 +663,6 @@ function schemaSvg(r, ie, kreise, F, W) {
     s += `<rect x="${xAE - 6}" y="${yB - 12}" width="116" height="${hB + 18}" fill="${F.panel}" stroke="none"/>`;
     s += ln(`M${xIE + wIE},${yB + 25} L${xAE + 65},${yB + 25} L${xAE + 65},${yB + hB - 8} Q${xAE + 50},${yB + hB + 4} ${xAE + 35},${yB + hB - 8} L${xAE + 35},${yB + 50} L${xIE + wIE},${yB + 50}`, F.so);
     s += lab(xAE + 52, 'Erdwärmesonde', r.erdreich ? 'ca. ' + schemaZahl(r.erdreich.sondenlaenge_m, 0) + ' m (Richtwert)' : 'oder Flächenkollektor', '');
-    s += nummer(xAE + 122, yB - 14, 1);
   } else {
     const nAE = Math.min(g.n, 3);
     for (let i = 0; i < nAE; i++) {
@@ -672,7 +671,6 @@ function schemaSvg(r, ie, kreise, F, W) {
       if (i === nAE - 1) s += luefter(x + 52, y + hB / 2);
     }
     s += lab(xAE + 56, (g.n > 1 ? g.n + ' × ' : '') + 'Außeneinheit', g.geraet, r.leitung ? schemaZahl(r.leitung.laenge_m, 0) + ' m · ' + r.leitung.rohr : '');
-    s += nummer(xAE + 128, yB - 14, 1);
   }
 
   // ---- Inneneinheit / Sole-WP / Kaskadenregler
@@ -693,7 +691,6 @@ function schemaSvg(r, ie, kreise, F, W) {
   if (mitPuffer) {
     s += box(xP, yB - 20, 50, hB + 20, 10) + `<rect x="${xP + 13}" y="${yB - 6}" width="24" height="${hB - 8}" rx="5" fill="none" stroke="${F.ink}" stroke-width="2"/>`;
     s += lab(xP + 25, kaskade ? 'Trennpuffer' : 'Pufferspeicher', friwa ? `≥ ${schemaZahl(r.tww.t_speicher, 0)} °C für FriWa` : (kaskade ? 'hydraulische Weiche' : 'Reihen-/Trennpuffer'), '');
-    s += nummer(xP + 68, yB - 32, 4);
     if (kaskade) s += ln(`M${xP + 50},${yB - 4} L${xAE},${yB - 4}`, F.vl) + ln(`M${xP + 50},${yB + 70} L${xAE},${yB + 70}`, F.rl, 1);
     else s += ln(`M${xP + 50},${yB + 5} L${xIE},${yB + 5}`, F.vl) + ln(`M${xP + 50},${yB + 70} L${xIE},${yB + 70}`, F.rl, 1);
     s += ln(`M${xP + 18},${yB - 20} L${xP + 18},${hkY} L${xV0},${hkY}`, F.vl) + ln(`M${xP + 32},${yB - 20} L${xP + 32},${hkY + 18} L${xV0},${hkY + 18}`, F.rl, 1);
@@ -711,14 +708,12 @@ function schemaSvg(r, ie, kreise, F, W) {
   if (friwa && ww) {
     s += box(xW, yB, 80, 60, 8) + [15, 30, 45].map(dy => `<line x1="${xW + 15}" x2="${xW + 65}" y1="${yB + dy}" y2="${yB + dy}" stroke="${F.ink}" stroke-width="1.6"/>`).join('');
     s += lab(xW + 40, 'Frischwasserstation', `Zapftemperatur ${schemaZahl(r.tww.t_zapf, 0)} °C`, '');
-    s += nummer(xW - 14, yB - 14, 3);
     s += ln(`M${xP},${yB + 10} L${xW + 80},${yB + 10}`, F.vl) + ln(`M${xP},${yB + 50} L${xW + 80},${yB + 50}`, F.rl, 1);
     s += dusche(xW + 20, yB, xW + 60) + kalt(yB + 45);
   } else if (!integriert && ww) {
     s += box(xW, yB - 20, 80, hB + 20, 10);
     s += `<path d="M${xW + 80},${yB + 30} L${xW + 62},${yB + 30} ${[0, 1, 2, 3].map(j => `L${xW + 18},${yB + 35 + j * 7} L${xW + 62},${yB + 39 + j * 7}`).join(' ')} L${xW + 62},${yB + 62} L${xW + 80},${yB + 62}" fill="none" stroke="${F.vl}" stroke-width="2"/>`;
     s += lab(xW + 40, 'Warmwasserspeicher', (kaskade ? 'WW-Modul · ' : 'Heizwendel · ') + schemaZahl(r.tww.t_speicher, 0) + ' °C', '');
-    s += nummer(xW - 14, yB - 34, 3);
     let qv, qr;
     if (kaskade) { qv = `L${xAE - 22},${yK1} L${xAE - 22},${yB - 4}`; qr = `L${xAE - 36},${yK2} L${xAE - 36},${yB + 70}`; }
     else if (sole) { qv = `L${xP + 86},${yK1} L${xP + 86},${yB + 5}`; qr = `L${xP + 100},${yK2} L${xP + 100},${yB + 70}`; }
@@ -1045,7 +1040,7 @@ function bivText(g) {
 function kpis(r) {
   const g = r.gewaehlt, ks = [
     {t: 'Gesamtheizlast QGES', v: f(r.qges, 2) + ' <small>kW</small>', s: `QH ${f(r.qh, 2)} + QTW ${f(r.qtw, 2)} + QSperr ${f(r.qsperr, 2)}`},
-    {t: 'Mindestleistung WP', v: f(r.mindestleistung, 2) + ' <small>kW</small>', s: {monovalent: '1,0 · QGES bei θe', monoenergetisch: '0,7 · QGES bei A-7', hybrid: '0,3 · QH bei A-7 (GEG)'}[r.kriterium]}];
+    {t: 'Mindestleistung WP', v: f(r.mindestleistung, 2) + ' <small>kW</small>', s: {monovalent: '1,0 · QGES bei θe', monoenergetisch: '0,7 · QGES bei A-7 (Außenluft −7 °C)', hybrid: '0,3 · QH bei A-7 (−7 °C, GEG)'}[r.kriterium]}];
   if (g && g.moeglich) {
     ks.push({t: 'Bivalenzpunkt', v: bivText(g), s: 'Schnitt mit Gebäudekennlinie', c: g.ok ? 'ok' : 'bad'});
     ks.push({t: 'Leistung bei θe', v: f(g.q_nat, 2) + ' <small>kW</small>', s: 'Abdeckung ' + f(g.abdeckung * 100, 0) + ' %', c: g.abdeckung >= 1 ? 'ok' : 'warn'});
@@ -1124,7 +1119,7 @@ function herleitung(r) {
   }
   rows.push(zeile('Sperrzeitzuschlag QSperr', E.sperrzeit_h ? `(QH + QTW) · ${({2: 5, 4: 10, 6: 15})[E.sperrzeit_h]} % (${E.sperrzeit_h} h/d)` : 'keine Sperrzeit', f(r.qsperr, 2) + ' kW'));
   rows.push(zeile('<b>Gesamtheizlast QGES</b>', 'QH + QTW + QSperr', '<b>' + f(r.qges, 2) + ' kW</b>'));
-  rows.push(zeile('Mindestleistung Wärmepumpe', {monovalent: 'QGES bei θe (monovalent)', monoenergetisch: '0,7 · QGES bei A-7 (monoenergetisch, ca. 98 % Deckung)', hybrid: '0,3 · QH bei A-7 (GEG § 71 Hybrid)'}[r.kriterium], f(r.mindestleistung, 2) + ' kW'));
+  rows.push(zeile('Mindestleistung Wärmepumpe', {monovalent: 'QGES bei θe (monovalent)', monoenergetisch: '0,7 · QGES bei A-7 (Außenluft −7 °C; monoenergetisch, ca. 98 % Deckung)', hybrid: '0,3 · QH bei A-7 (Außenluft −7 °C; GEG § 71 Hybrid)'}[r.kriterium], f(r.mindestleistung, 2) + ' kW'));
   return rows.join('');
 }
 function twwFormel() { return E.tww.bezug === 'flaeche' ? `Qw,b · ANGF · 1,1 · 365 = ${f(E.tww.qwb, 4)} · ${f(E.tww.flaeche_m2, 0)} · 1,1 · 365` : `Qw,b · np · 365 = ${f(R.tww.qwb_person, 2)} · ${f(E.tww.personen, 0)} · 365`; }
@@ -1159,7 +1154,7 @@ function legende(r) {
     ${r.kennlinien.min ? '<span><i style="border-color:var(--bosch-blue);border-top-style:dashed"></i>Mindestleistung (1 Gerät)</span>' : ''}
     <span><i style="border-color:var(--chart-other);border-top-style:dotted"></i>weitere Größen der Baureihe</span>
     <span><i style="border-color:var(--chart-ink)"></i>Gebäudekennlinie QGES</span>
-    <span><i style="border-color:#e20015"></i>A-7</span><span><i style="border-color:#f28c28;border-top-width:8px;opacity:.5"></i>Bivalenzpunkt</span>`;
+    <span title="Normprüfpunkt nach EN 14511: Außenluft −7 °C. Bezugspunkt für die Mindestleistung (Excel-Werkzeug, GEG)."><i style="border-color:#e20015"></i>A-7 = Außenluft −7 °C (Prüfpunkt EN 14511)</span><span><i style="border-color:#f28c28;border-top-width:8px;opacity:.5"></i>Bivalenzpunkt</span>`;
 }
 function diagramm(r, o) {
   const k = r.kennlinien, g = r.gewaehlt;
@@ -1190,7 +1185,7 @@ function diagramm(r, o) {
   }
   // Bivalenzbereich (Excel: orange) und A-7-Marke (Excel: rot)
   if (g.bivalenz_art === 'punkt' && g.bivalenz > t0) s += `<rect x="${X(g.bivalenz - 0.8)}" y="${T}" width="${X(g.bivalenz + 0.8) - X(g.bivalenz - 0.8)}" height="${H - B - T}" fill="#f28c28" opacity=".14"/>`;
-  if (-7 > t0) s += `<line x1="${X(-7)}" x2="${X(-7)}" y1="${T + 18}" y2="${H - B}" stroke="#e20015" stroke-width="1.6"/><text x="${X(-7) + 4}" y="${T + 28}" font-size="10.5" fill="#e20015">A-7</text>`;
+  if (-7 > t0) s += `<line x1="${X(-7)}" x2="${X(-7)}" y1="${T + 18}" y2="${H - B}" stroke="#e20015" stroke-width="1.6"/><text x="${X(-7) + 4}" y="${T + 28}" font-size="10.5" fill="#e20015">A-7 (−7 °C)</text>`;
   // NAT
   s += `<line x1="${X(r.nat)}" x2="${X(r.nat)}" y1="${T}" y2="${H - B}" stroke="var(--ink-faint)" stroke-dasharray="2 3"/><text x="${X(r.nat) + 4}" y="${T + 10}" font-size="11" fill="var(--ink-soft)">θe ${fT(r.nat)} °C</text>`;
   const ende = [];

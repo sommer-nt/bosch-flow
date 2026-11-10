@@ -215,7 +215,7 @@ def diagramm(pdf: Ausdruck, r: dict, daten: dict, x: float, y: float, w: float, 
         pdf.line(X(-7), Y(0), X(-7), Y(qmax) + 4)
         pdf.schrift_(6.2, False, ROT)
         pdf.set_xy(X(-7) + 0.8, Y(qmax) + 3.5)
-        pdf.cell(8, 3, "A-7")
+        pdf.cell(20, 3, pdf.t("A-7 (−7 °C)"))
     # θe
     pdf.set_draw_color(*HELL)
     pdf.set_dash_pattern(0.6, 0.9)
@@ -407,7 +407,7 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
         pdf.h2(f"Heizleistung über der Außentemperatur – Vorlauf {T.f(r['vl'], 0)} °C")
         pdf.schrift_(6.8, False, GRAU)
         pdf.cell(0, 4, pdf.t(f"Blau: {(str(g['n']) + ' × ') if g['n'] > 1 else ''}{g['geraet']} (max., gestrichelt Mindestleistung) · "
-                             "grau: weitere Größen der Baureihe · schwarz: Gebäudekennlinie"), new_x="LMARGIN", new_y="NEXT")
+                             "grau: weitere Größen der Baureihe · schwarz: Gebäudekennlinie · rot: A-7 = Außenluft −7 °C (Prüfpunkt EN 14511)"), new_x="LMARGIN", new_y="NEXT")
         y = pdf.get_y() + 1
         diagramm(pdf, r, daten, 13, y, 184, 92)
         pdf.set_y(y + 96)

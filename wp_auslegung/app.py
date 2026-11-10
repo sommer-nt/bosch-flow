@@ -234,9 +234,9 @@ with links:
             st.caption("Innenaufstellung; Wärmequelle Erdwärmesonde/Flächenkollektor (Sole ≈ 0 °C). Üblich: monovalent.")
         if EX:
             st.markdown("**Experte · Auslegung**")
-            wahl("Betriebsweise", "auslegung", {"monoenergetisch": "monoenergetisch (0,7 · QGES bei A-7)",
+            wahl("Betriebsweise", "auslegung", {"monoenergetisch": "monoenergetisch (0,7 · QGES bei A-7 = −7 °C Außenluft)",
                                                 "monovalent": "monovalent (QGES bei θe)",
-                                                "hybrid": "GEG-Hybrid (0,3 · QH bei A-7)"}, radio=False)
+                                                "hybrid": "GEG-Hybrid (0,3 · QH bei A-7 = −7 °C Außenluft)"}, radio=False)
             wahl("Sperrzeit Energieversorger", "sperrzeit_h", {0: "keine", 2: "2 h → +5 %", 4: "4 h → +10 %", 6: "6 h → +15 %"}, radio=False)
             if E["waermequelle"] == "luft":
                 zahl("Spreizung Verbindungsleitung [K]", "aufstellung.spreizung", min_value=3.0, max_value=10.0, step=1.0)
@@ -359,7 +359,7 @@ with rechts:
             fig.add_scatter(x=[g["bivalenz"]], y=[qb], mode="markers+text", text=[f"Bivalenzpunkt {T.ft(g['bivalenz'])} °C"],
                             textposition="bottom left", marker=dict(size=11, color=BLAU), showlegend=False)
         fig.add_vline(x=r["nat"], line_dash="dot", line_color="#78889a", annotation_text=f"θe {T.ft(r['nat'])} °C")
-        fig.add_vline(x=-7, line_color="#e20015", line_width=1.6, annotation_text="A-7", annotation_font_color="#e20015")
+        fig.add_vline(x=-7, line_color="#e20015", line_width=1.6, annotation_text="A-7 (Außenluft −7 °C)", annotation_font_color="#e20015")
         if g["bivalenz_art"] == "punkt":
             fig.add_vrect(x0=g["bivalenz"] - 0.8, x1=g["bivalenz"] + 0.8, fillcolor="#f28c28", opacity=0.14, line_width=0)
         fig.update_layout(height=420, margin=dict(l=10, r=10, t=30, b=10), xaxis_title="Außentemperatur in °C",
@@ -406,6 +406,8 @@ with rechts:
                        "UVP [€]": KAT["geraete"].get(c["geraet"], {}).get("uvp", 0) * c["n"] or None,
                        "Hinweis": c["grund"] or ("überdimensioniert" if c.get("ueberdimensioniert") else "")})
     st.dataframe(zeilen, hide_index=True, width="stretch", column_config={"Bild": st.column_config.ImageColumn("", width="small")})
+    st.caption("A-7/W.. = Heizleistung bei −7 °C Außenluft und Auslegungsvorlauf (Prüfpunkt nach EN 14511, Bezug der Mindestleistung); "
+               "B0/W.. bei Sole/Wasser = Sole 0 °C. θe = Norm-Außentemperatur.")
 
     if g:
         st.markdown("**Anlagenschema (vereinfacht)**")
