@@ -212,13 +212,21 @@ def einbetten(daten: dict, klima: dict) -> None:
     i, j = text.index(a) + len(a), text.index(b)
     block = ("\nconst GERAETE_DATEN = " + json.dumps(daten, ensure_ascii=False, separators=(",", ":")) +
              ";\nconst KATALOG_DATEN = " + json.dumps(_katalog(), ensure_ascii=False, separators=(",", ":")) +
-             ";\nconst KLIMA_DATEN = " + json.dumps(klima, ensure_ascii=False, separators=(",", ":")) + ";\n")
+             ";\nconst KLIMA_DATEN = " + json.dumps(klima, ensure_ascii=False, separators=(",", ":")) +
+             ";\nconst BILDER_DATEN = " + json.dumps(_bilder(), separators=(",", ":")) + ";\n")
     html.write_text(text[:i] + block + text[j:], encoding="utf-8")
 
 
 def _katalog() -> dict:
     """Katalogdaten (Bestell-Nr., UVP, technische Daten) – von Hand gepflegt in daten/katalog.json."""
     return json.loads((DATEN / "katalog.json").read_text(encoding="utf-8"))
+
+
+def _bilder() -> dict:
+    """Produktbilder (daten/bilder/*.jpg, aus tools/bilder_import.py) als data-URI."""
+    import base64
+    return {b.stem: "data:image/jpeg;base64," + base64.b64encode(b.read_bytes()).decode()
+            for b in sorted((DATEN / "bilder").glob("*.jpg"))}
 
 
 def schreibe(daten: dict, klima: dict) -> None:

@@ -20,6 +20,7 @@ STANDARD: dict = {
         "nutzungsgrad": 1.0, "ww_im_verbrauch": True,
     },
     "verteilung": "hk",
+    "heizkreise": [{"typ": "hk"}],
     "tww": {"aktiv": True, "personen": 4, "system": "speicher", "zapftemp": 45.0, "liter_p": 50.0, "t_kw": 10.0,
             "methode": "auto", "kw_person": 0.2, "td": 4,
             "nutzung": "Wohngebäude", "bezug": "liter", "qwb": 1.1, "flaeche_m2": 0.0},
@@ -47,7 +48,11 @@ def ergaenzen(e: dict) -> dict:
             elif isinstance(v, dict) and isinstance(ziel[k], dict):
                 mische(ziel[k], v)
         return ziel
-    return mische(copy.deepcopy(e), STANDARD)
+    neu_ = mische(copy.deepcopy(e), STANDARD)
+    if "heizkreise" not in e:   # ältere Dateien: aus der Wärmeverteilung ableiten
+        v = e.get("verteilung", "hk")
+        neu_["heizkreise"] = [{"typ": "hk"}, {"typ": "fbh"}] if v == "beides" else [{"typ": v if v in ("fbh", "konvektor") else "hk"}]
+    return neu_
 
 
 def dumps(e: dict) -> str:

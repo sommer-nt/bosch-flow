@@ -11,6 +11,22 @@ SPEZ = {"neubau": [(22, "KfW-Effizienzhaus 40+ (20–25 W/m²)"), (30, "KfW-Effi
                    (35, "KfW-Effizienzhaus 85 (35 W/m²)"), (38, "EnEV 2009 / GEG (35–40 W/m²)"), (15, "Passivhaus (15 W/m²)")],
         "sanierung": [(100, "Bestand WSchVO 1982 (80–120 W/m²)"), (70, "Bestand WSchVO 1995 (60–80 W/m²)"),
                       (50, "EnEV 2002 (40–60 W/m²)"), (40, "KfW-Effizienzhaus 100 (40 W/m²)"), (38, "EnEV 2009 (35–40 W/m²)")]}
+HK_TYP = {"hk": "Heizkörper", "fbh": "Fußbodenheizung", "konvektor": "Konvektoren"}
+HK_MAX = 4
+
+
+def heizkreis_liste(e: dict) -> list[dict]:
+    """Heizkreise wie index.html: der Kreis mit dem höchsten Vorlauf ungemischt, die anderen gemischt."""
+    hk = e.get("heizkreise") or [{"typ": e.get("verteilung") if e.get("verteilung") in ("fbh", "konvektor") else "hk"}]
+    vmax = max(VERTEILUNG_VL.get(h["typ"], 55) for h in hk)
+    return [{"nr": i + 1, "typ": h["typ"], "vl": VERTEILUNG_VL.get(h["typ"], 55),
+             "gemischt": VERTEILUNG_VL.get(h["typ"], 55) < vmax} for i, h in enumerate(hk)]
+
+
+def heizkreis_text(e: dict) -> str:
+    return " + ".join(HK_TYP[h["typ"]] + (" (gem.)" if h["gemischt"] else "") for h in heizkreis_liste(e))
+
+
 KRITERIUM = {"monovalent": "QGES bei θe (monovalent)",
              "monoenergetisch": "0,7 · QGES bei A-7 (monoenergetisch, ca. 98 % Deckung)",
              "hybrid": "0,3 · QH bei A-7 (GEG § 71 Hybrid)"}

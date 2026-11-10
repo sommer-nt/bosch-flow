@@ -100,10 +100,12 @@ with links:
         if wahl("Gebäude", "gebaeude.typ", {"neubau": "Neubau", "sanierung": "Sanierung / Bestand"}):
             neubau = E["gebaeude"]["typ"] == "neubau"
             E["klima"]["heizgrenze"] = 12.0 if neubau else 15.0
-            E["verteilung"] = "fbh" if neubau else "hk"
-            E["vl"] = float(T.VERTEILUNG_VL[E["verteilung"]])
+            E["heizkreise"] = [{"typ": "fbh" if neubau else "hk"}]
+            E["vl"] = float(T.VERTEILUNG_VL["fbh" if neubau else "hk"])
+            for k_ in [k_ for k_ in ss if str(k_).startswith("hk_")]:
+                del ss[k_]
             E["heizlast"]["spez_w_m2"] = float(T.SPEZ[E["gebaeude"]["typ"]][1][0])
-            neu_setzen("klima.heizgrenze", "verteilung", "vl", "heizlast.spez_w_m2")
+            neu_setzen("klima.heizgrenze", "vl", "heizlast.spez_w_m2")
             st.rerun()
         arten = {a: a for a in R.VOLLBENUTZUNGSSTUNDEN}
         if wahl("Gebäudeart", "heizlast.gebaeudeart", arten, radio=False):
@@ -163,13 +165,27 @@ with links:
             st.caption("Excel-Blatt „DIN EN 12831 Heizlast nach Verbrauch mit TWW“: Øh,in = Øh,g + Ew,g,in / (td · 365). "
                        "Der Warmwasser-Zuschlag läuft dabei automatisch über die Nachheizzeit.")
 
-    with st.expander("③ Wärmeverteilung", expanded=True):
-        if wahl("Wärmeverteilung", "verteilung", T.VERTEILUNG_TEXT):
-            E["vl"] = float(T.VERTEILUNG_VL[E["verteilung"]])
+    with st.expander("③ Heizkreise & Wärmeverteilung", expanded=True):
+        kreise = T.heizkreis_liste(E)
+        neu_kreise = []
+        for h_ in kreise:
+            typ = st.selectbox(f"Heizkreis {h_['nr']} · {'gemischt' if h_['gemischt'] else 'ungemischt'} · {h_['vl']} °C",
+                               list(T.HK_TYP), index=list(T.HK_TYP).index(h_["typ"]), format_func=T.HK_TYP.get, key=f"hk_{h_['nr']}")
+            neu_kreise.append({"typ": typ})
+        b1, b2 = st.columns(2)
+        if b1.button("+ Heizkreis", disabled=len(kreise) >= T.HK_MAX, width="stretch"):
+            neu_kreise.append({"typ": "hk" if any(k_["typ"] == "fbh" for k_ in neu_kreise) else "fbh"})
+        if b2.button("− Heizkreis", disabled=len(kreise) <= 1, width="stretch"):
+            neu_kreise.pop()
+            ss.pop(f"hk_{len(kreise)}", None)
+        if neu_kreise != [{"typ": h_["typ"]} for h_ in kreise]:
+            E["heizkreise"] = neu_kreise
+            E["vl"] = float(max(T.VERTEILUNG_VL[k_["typ"]] for k_ in neu_kreise))
             neu_setzen("vl")
             st.rerun()
         zahl("Max. erforderliche Vorlauftemperatur [°C]", "vl", min_value=30.0, max_value=70.0, step=1.0,
-             help="Vorschlag: FBH 35 °C, Konvektoren 45 °C, Heizkörper 55 °C – maßgebend ist der ungünstigste Raum.")
+             help="Vorschlag aus dem Heizkreis mit dem höchsten Vorlauf: FBH 35 °C, Konvektoren 45 °C, Heizkörper 55 °C. "
+                  "Kreise mit niedrigerem Vorlauf werden gemischt.")
 
     with st.expander("④ Warmwasser", expanded=True):
         t = E["tww"]
@@ -306,6 +322,10 @@ with rechts:
     if g:
         k = KAT["geraete"].get(g["geraet"], {})
         s = D.serie(g["serie"])
+        bilder = [(KAT.get("bilder", {}).get(g["geraet"]), g["geraet"]), ((ie or {}).get("bild"), (ie or {}).get("typ"))]
+        bilder = [(D.DATEN / "bilder" / f"{b_}.jpg", t_) for b_, t_ in bilder if b_ and (D.DATEN / "bilder" / f"{b_}.jpg").exists()]
+        if bilder:
+            st.image([str(b_) for b_, _ in bilder], caption=[t_ for _, t_ in bilder], width=150)
         st.subheader(("{} × ".format(g["n"]) if g["n"] > 1 else "") + g["geraet"])
         st.caption(f"{s['name']} · {s['bauart']} · {'Empfehlung' if not E['auswahl']['geraet'] else 'manuell gewählt'}"
                    + (f" · mit {ie['typ']} ({ie['art']})" if ie else ""))

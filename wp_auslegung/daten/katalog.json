@@ -345,7 +345,8 @@
     "uvp": 3100,
     "eheizer_kw": 9,
     "speicher": "extern",
-    "vl_max": 75
+    "vl_max": 75,
+    "bild": "AWEi"
    },
    {
     "typ": "AWMi",
@@ -354,7 +355,8 @@
     "uvp": 5500,
     "eheizer_kw": 9,
     "speicher": "integriert",
-    "vl_max": 75
+    "vl_max": 75,
+    "bild": "AWMi"
    }
   ],
   "CS5800": [
@@ -365,7 +367,8 @@
     "uvp": 3865,
     "eheizer_kw": 9,
     "speicher": "extern",
-    "vl_max": 75
+    "vl_max": 75,
+    "bild": "CS6800_E"
    },
    {
     "typ": "CS6800iAW 12 M",
@@ -383,7 +386,8 @@
     "uvp": 6510,
     "eheizer_kw": 9,
     "speicher": "extern",
-    "vl_max": 75
+    "vl_max": 75,
+    "bild": "CS5800_MB"
    },
    {
     "typ": "CS5800iAW 12 E",
@@ -392,7 +396,8 @@
     "uvp": 2921,
     "eheizer_kw": 9,
     "speicher": "extern",
-    "vl_max": 60
+    "vl_max": 60,
+    "bild": "CS6800_E"
    },
    {
     "typ": "CS5800iAW 12 M",
@@ -410,7 +415,8 @@
     "uvp": 5575,
     "eheizer_kw": 9,
     "speicher": "extern",
-    "vl_max": 60
+    "vl_max": 60,
+    "bild": "CS5800_MB"
    }
   ],
   "CS8800": [
@@ -421,7 +427,8 @@
     "uvp": 3540,
     "eheizer_kw": 9,
     "speicher": "extern",
-    "vl_max": 75
+    "vl_max": 75,
+    "bild": "AWEiD"
    },
    {
     "typ": "AWMBi D",
@@ -456,5 +463,37 @@
   ],
   "CS7800LW": [],
   "SupraecoT": []
+ },
+ "bilder": {
+  "CS3800iAW 4 O-S": "CS3800_OS",
+  "CS3800iAW 6 O-S": "CS3800_OS",
+  "CS3800iAW 7 O-S": "CS3800_OS",
+  "CS3800iAW 10 O-T": "CS3800_OT",
+  "CS3800iAW 13 O-T": "CS3800_OT",
+  "CS5800/6800iAW 4 OR-S": "CS5800_ORS",
+  "CS5800/6800iAW 5 OR-S": "CS5800_ORS",
+  "CS5800/6800iAW 7 OR-S": "CS5800_ORS",
+  "CS5800/6800iAW 10 OR-T": "CS5800_ORT",
+  "CS5800/6800iAW 12 OR-T": "CS5800_ORT",
+  "CS8800iAW 11 O-T": "CS8800",
+  "CS8800iAW 13 O-T": "CS8800",
+  "CS8800iAW 15 O-T": "CS8800",
+  "CS5001 AW22": "CS5001_22",
+  "CS5001 AW42": "CS5001_42",
+  "CS7000iAW 5": "CS7000",
+  "CS7000iAW 7": "CS7000",
+  "CS7000iAW 9": "CS7000",
+  "CS7000iAW 13": "CS7000",
+  "CS7000iAW 17": "CS7000",
+  "CS7400iAW 5": "CS7400",
+  "CS7400iAW 7": "CS7400",
+  "CS7800iLW 6": "CS7800LW",
+  "CS7800iLW 8": "CS7800LW",
+  "CS7800iLW 12": "CS7800LW",
+  "CS7800iLW 16": "CS7800LW",
+  "Supraeco T 220-2": "SupraecoT",
+  "Supraeco T 280-2": "SupraecoT",
+  "Supraeco T 380-2": "SupraecoT",
+  "Supraeco T 480-2": "SupraecoT"
  }
 }

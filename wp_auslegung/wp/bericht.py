@@ -14,6 +14,7 @@ from fpdf import FPDF
 from . import rechnen as R
 from . import texte as T
 
+BILDER = Path(__file__).resolve().parent.parent / "daten" / "bilder"
 ROT = (226, 0, 21)
 BLAU = (0, 86, 145)
 INK = (20, 30, 41)
@@ -119,9 +120,12 @@ class Ausdruck(FPDF):
             self.set_xy(x + 2.5, yy)
             self.cell(w * 0.44, 4.6, self.t(a))
             self.schrift_(8, b.startswith("**"))
-            self.set_xy(x + 2.5 + w * 0.44, yy)
-            self.cell(w * 0.56 - 5, 4.6, self.t(b.strip("*")))
-            yy += 4.8
+            zeilen_ = self.multi_cell(w * 0.56 - 4, 4.2, self.t(b.strip("*")), dry_run=True, output="LINES")
+            for z_ in zeilen_:
+                self.set_xy(x + 2.5 + w * 0.44, yy)
+                self.cell(w * 0.56 - 4, 4.6, z_)
+                yy += 4.0
+            yy += 0.8
         self.rect(x, y, w, yy - y + 1.5)
         return yy + 1.5
 
@@ -294,14 +298,47 @@ def schema(pdf: Ausdruck, e: dict, r: dict, ie: dict | None, x: float, y: float,
         pdf.schrift_(6.2, False, GRAU)
         pdf.set_xy(lx + 7, y)
         pdf.cell(22, 3, pdf.t(txt))
-    hk = y + 14
-    yB, hB = y + 42, 20
+    hk = y + 30
+    yB, hB = y + 58, 20
     xAE, xIE, xP, xW = x + w - 32, x + w - 76, x + w - 112, x + 14
     ln([(x + w - 76, hk), (x + w - 2, hk)], VL_F)
     ln([(x + w - 76, hk + 4), (x + w - 2, hk + 4)], RL_F, True)
     pdf.schrift_(6.2, False, GRAU)
     pdf.set_xy(x + w - 76, hk + 5)
-    pdf.cell(74, 3, pdf.t(f"Heizkreise · {T.VERTEILUNG_TEXT.get(e.get('verteilung'), '')} · max. {T.f(r['vl'], 0)} °C"), align="R")
+    pdf.cell(74, 3, pdf.t(f"Heizkreisverteiler · max. {T.f(r['vl'], 0)} °C"), align="R")
+    # Heizkreise: Pumpe, bei gemischten Kreisen 3-Wege-Mischer, Verbraucher-Symbol
+    kreise = T.heizkreis_liste(e)
+    br = 66 / len(kreise)
+    for i, h in enumerate(kreise):
+        cx = x + w - 66 + i * br + br / 2
+        xv, xr, oben = cx - 2.5, cx + 2.5, hk - 17
+        ln([(xv, hk), (xv, oben + 4)], VL_F)
+        ln([(xr, hk + 4), (xr, oben + 4)], RL_F, True)
+        pdf.set_draw_color(*INK)
+        pdf.set_line_width(0.25)
+        pdf.set_fill_color(255, 255, 255)
+        pdf.circle(xv, hk - 4, 1.3, style="DF")
+        if h["gemischt"]:
+            ln([(xr, hk - 9), (xv + 1.4, hk - 9)], RL_F, True)
+            pdf.set_draw_color(*INK)
+            pdf.set_line_width(0.25)
+            pdf.polygon([(xv - 1.4, hk - 10.4), (xv + 1.4, hk - 7.6), (xv + 1.4, hk - 10.4), (xv - 1.4, hk - 7.6)], style="DF")
+        if h["typ"] == "fbh":
+            pdf.polyline([(cx - 4.5, oben + 4), (cx - 4.5, oben), (cx - 1.5, oben), (cx - 1.5, oben + 3.5), (cx + 1.5, oben + 3.5),
+                          (cx + 1.5, oben), (cx + 4.5, oben), (cx + 4.5, oben + 4)])
+        else:
+            pdf.rect(cx - 4.5, oben, 9, 4.5, style="DF")
+            if h["typ"] == "hk":
+                for j in range(4):
+                    pdf.line(cx - 3 + j * 2, oben + 0.8, cx - 3 + j * 2, oben + 3.7)
+            else:
+                pdf.circle(cx, oben + 2.25, 1.6)
+        pdf.schrift_(5.6, True)
+        pdf.set_xy(cx - br / 2, oben - 6.5)
+        pdf.cell(br, 2.6, f"HK {h['nr']}", align="C")
+        pdf.schrift_(5.2, False, GRAU)
+        pdf.set_xy(cx - br / 2, oben - 3.8)
+        pdf.cell(br, 2.6, pdf.t({"hk": "Heizkörper", "fbh": "FBH", "konvektor": "Konvektor"}[h["typ"]] + (" · gem." if h["gemischt"] else "")), align="C")
     SO = (122, 62, 157)
     if sole:
         pdf.set_fill_color(234, 240, 245)
@@ -366,9 +403,14 @@ def schema(pdf: Ausdruck, e: dict, r: dict, ie: dict | None, x: float, y: float,
         pdf.cell(20, 3, "Kaltwasser", align="C")
     elif mit_ww:
         kasten(xW, yB - 5, 20, hB + 8, "Warmwasserspeicher", ("WW-Modul · " if kaskade else "") + f"{T.f(r['tww']['t_speicher'], 0)} °C")
-        pdf.schrift_(14, False)
-        pdf.set_xy(xW, yB + 3)
-        pdf.cell(20, 8, pdf.t("Σ") if pdf.unicode else "WW", align="C")
+        # Heizwendel (Glattrohr-Wärmetauscher) im unteren Speicherteil
+        pdf.set_draw_color(*VL_F)
+        pdf.set_line_width(0.45)
+        punkte = [(xW + 20, yB + 6), (xW + 16, yB + 6)]
+        for j in range(4):
+            punkte += [(xW + 4, yB + 7.5 + j * 1.6), (xW + 16, yB + 8.3 + j * 1.6)]
+        punkte += [(xW + 16, yB + 14), (xW + 20, yB + 14)]
+        pdf.polyline(punkte)
         y1, y2 = yB + hB + 11, yB + hB + 13.5
         sx1, sx2 = (xAE - 5, xAE - 8) if kaskade else (xIE + 26, xIE + 29)
         sy1, sy2 = (yB, yB + 17) if kaskade else (yB + 6, yB + 12)
@@ -414,7 +456,7 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
               ("Norm-Außentemperatur", T.ft(r["nat"]) + " °C"),
               ("Heizgrenze / Innentemp.", T.ft(r["heizgrenze"]) + " / " + T.ft(r["innen"]) + " °C"),
               ("Gebäude", ("Neubau" if e["gebaeude"]["typ"] == "neubau" else "Sanierung / Bestand") + " · " + e["heizlast"]["gebaeudeart"]),
-              ("Wärmeverteilung", T.VERTEILUNG_TEXT.get(e.get("verteilung"), "–") + " · max. " + T.f(r["vl"], 0) + " °C"),
+              ("Heizkreise", T.heizkreis_text(e) + " · max. " + T.f(r["vl"], 0) + " °C"),
               ("Warmwasser", (f"{T.f(e['tww']['personen'], 0)} P · " + ("Frischwasserstation" if r["tww"]["system"] == "friwa" else "Speichersystem")
                               + f" · {T.f(r['tww']['t_zapf'], 0)} °C") if r["tww"]["aktiv"] else "nicht über WP"),
               ("Wärmequelle", "Sole/Wasser (Innenaufstellung)" if r["waermequelle"] == "sole" else
@@ -437,6 +479,18 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
     y1 = pdf.box(13, 51, 89, "Projekt und Gebäude", links)
     y2 = pdf.box(108, 51, 89, "Gewählte Wärmepumpe", rechts)
     y = max(y1, y2) + 4
+    if g:
+        bx = 13
+        for name, titel in ((katalog.get("bilder", {}).get(g["geraet"]), g["geraet"]), ((ie or {}).get("bild"), (ie or {}).get("typ"))):
+            datei = BILDER / f"{name}.jpg" if name else None
+            if datei and datei.exists():
+                info = pdf.image(str(datei), x=bx, y=y, h=26)
+                pdf.schrift_(6, False, HELL)
+                pdf.set_xy(bx, y + 26.5)
+                pdf.cell(info.rendered_width, 3, pdf.t(titel), align="C")
+                bx += info.rendered_width + 6
+        if bx > 13:
+            y += 32
     pdf.set_fill_color(*BLAU)
     pdf.rect(13, y, 184, 26, style="F")
     pdf.schrift_(11, True, (255, 255, 255))

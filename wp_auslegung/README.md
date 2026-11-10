@@ -16,7 +16,8 @@ Zwei Versionen mit **identischem Rechenweg** (Test vergleicht beide):
 
 1. Neubau oder Sanierung, Gebäudeart, Raumtemperatur, PLZ → Norm-Außentemperatur, Heizgrenze (Neubau 12 °C, Bestand 15 °C)
 2. Wärmebedarf: Heizlast in kW, W/m² (Gebäudestandard je Neubau/Bestand) oder Jahresverbrauch
-3. Wärmeverteilung: FBH (35 °C), Heizkörper (55 °C), beides, Konvektoren (45 °C) → max. Vorlauf
+3. Heizkreise (bis 4): Heizkörper (55 °C), FBH (35 °C), Konvektoren (45 °C) → max. Vorlauf aus dem höchsten Kreis,
+   Kreise mit niedrigerem Vorlauf gemischt (z. B. Sanierung: Heizkörperkreis + FBH-Kreis); im Schema mit Pumpe/Mischer
 4. Warmwasser: Personen, Speichersystem oder Frischwasserstation, Zapftemperatur, Liter je Person bei 45 °C
 5. Wärmequelle Luft/Wasser (Außenaufstellung, Entfernung zum Gebäude) oder Sole/Wasser (Innenaufstellung)
 6. Beste Lösung oder Produkt wählen (Kaskade nur, wo die Baureihe es erlaubt)
@@ -54,6 +55,12 @@ Die Kurven sind maximale Heizleistungen; bei A-7/W35 stimmen sie auf ±6 % mit �
 - `daten/klima.json` – PLZ → Ort, Norm-Außentemperatur (Blatt „Klimadaten“).
 - `daten/katalog.json` – von Hand aus dem Gesamtkatalog März 2026: Bestell-Nr., UVP, Technische Daten,
   Inneneinheiten mit E-Heizer, Sole/Wasser (Compress 7800i LW, Supraeco T).
+
+- `daten/bilder/*.jpg` – Produktbilder aus dem Gesamtkatalog (CS3800 O-S aus dem Heat-Pump-Advisor-Ausdruck), erzeugt mit
+  `python wp_auslegung/tools/bilder_import.py KATALOG.pdf [HPA.pdf]` (braucht `pdfimages` aus poppler-utils).
+
+Der Rechenkern stammt aus den Zellformeln des Excel-Werkzeugs; die VBA-Makros enthalten nur Navigation, Druck und
+Eingabeprüfung.
 
 Neue Excel-Version übernehmen (die Excel-Datei wird nicht eingecheckt):
 

@@ -38,7 +38,7 @@ def szenarien():
                                                         heizlast__volumen_m3=480, auslegung="monovalent", vl=35, klima__nat=-14)},
         {"name": "mfh_gross_5001", "eingaben": e_mit(heizlast__vorgabe_kw=95, tww__personen=40, vl=65, serien=["CS5001", "CS8800"])},
         {"name": "hybrid", "eingaben": e_mit(heizlast__vorgabe_kw=30, auslegung="hybrid", vl=60)},
-        {"name": "manuell_kaskade", "eingaben": e_mit(heizlast__vorgabe_kw=18, auswahl__geraet="CS8800iAW 11 O-T", auswahl__anzahl=2,
+        {"name": "manuell_kaskade", "eingaben": e_mit(heizlast__vorgabe_kw=18, heizkreise=[{"typ": "hk"}, {"typ": "fbh"}, {"typ": "konvektor"}], auswahl__geraet="CS8800iAW 11 O-T", auswahl__anzahl=2,
                                                       sperrzeit_h=6, tww__bezug="flaeche", tww__qwb=0.0343, tww__flaeche_m2=200,
                                                       tww__methode="nachheizzeit", tww__td=3)},
         {"name": "vl_zu_hoch", "eingaben": e_mit(heizlast__vorgabe_kw=12, vl=70, auswahl__geraet="CS3800iAW 7 O-S")},
@@ -218,3 +218,20 @@ def test_pdf_alle_szenarien():
         e["preise_drucken"] = True
         pdf = B.pdf_bytes(e, rechne(e), D.geraete(), D.katalog())
         assert pdf[:5] == b"%PDF-" and len(pdf) > 5000, s["name"]
+
+
+def test_heizkreise():
+    from wp import texte as T
+    e = e_mit(heizkreise=[{"typ": "hk"}, {"typ": "fbh"}])
+    k = T.heizkreis_liste(e)
+    assert [h["gemischt"] for h in k] == [False, True]
+    alt = P.neu()
+    del alt["heizkreise"]
+    alt["verteilung"] = "beides"
+    assert [h["typ"] for h in P.ergaenzen(alt)["heizkreise"]] == ["hk", "fbh"]
+
+
+def test_bilder_vorhanden():
+    k = D.katalog()
+    for g in D.geraete()["geraete"]:
+        assert (D.DATEN / "bilder" / f"{k['bilder'][g['id']]}.jpg").exists(), g["id"]
