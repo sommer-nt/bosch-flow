@@ -920,6 +920,8 @@ function schreibeFelder() {
 }
 
 function aktualisiere() {
+  const gw = E.auswahl.geraet && geraet(E.auswahl.geraet);
+  if (gw && E.serien && E.serien.length && !E.serien.includes(gw.serie)) E.serien.push(gw.serie);
   if (!E.projekt.datum) E.projekt.datum = new Date().toISOString().slice(0, 10);
   R = RK.rechne(E, D, KAT);
   sichere();
@@ -928,8 +930,26 @@ function aktualisiere() {
 }
 
 // ------------------------------------------------------------------ Darstellung
+// Experteneinstellungen, die vom Standard abweichen (wirken auch bei ausgeblendetem Expertenmodus)
+function expertenAbweichungen() {
+  const a = [];
+  if (E.serien && E.serien.length) a.push('Baureihen-Filter');
+  if ((E.tww.bezug || 'liter') !== 'liter') a.push('Warmwasser nach DIN V 18599' + (E.tww.bezug === 'flaeche' ? ' (je m²)' : ''));
+  if ((E.tww.methode || 'auto') !== 'auto') a.push('Warmwasser-Zuschlag fest');
+  if (+E.sperrzeit_h) a.push('Sperrzeit ' + E.sperrzeit_h + ' h');
+  if (E.auslegung !== (E.waermequelle === 'sole' ? 'monovalent' : 'monoenergetisch')) a.push('Betriebsweise ' + E.auslegung);
+  if (E.heizlast.methode === 'huelle') a.push('Heizlast über Gebäudehülle');
+  return a;
+}
+function expertenZuruecksetzen() {
+  E.serien = []; E.tww.bezug = 'liter'; E.tww.methode = 'auto'; E.sperrzeit_h = 0;
+  E.auslegung = E.waermequelle === 'sole' ? 'monovalent' : 'monoenergetisch';
+  if (E.heizlast.methode === 'huelle') E.heizlast.methode = 'vorgabe';
+  aktualisiere();
+}
 function meldungen(r) {
   const g = r.gewaehlt, m = [...r.hinweise], tw = r.tww;
+  if (tw.aktiv && E.tww.bezug === 'flaeche' && !(+E.tww.flaeche_m2 > 0)) m.push('Warmwasser flächenbezogen, aber keine Nutzfläche ANGF eingegeben – Warmwasserbedarf ist 0 (Expertenmodus).');
   if (g && !g.moeglich) m.push(`${g.geraet}: ${g.grund}.`);
   else if (g && !g.ok) m.push(`${g.geraet}${g.n > 1 ? ' (' + g.n + '×)' : ''} erfüllt das Kriterium nicht: ${g.grund}.`);
   if (g && g.ueberdimensioniert) m.push('Gewählte Wärmepumpe ist deutlich überdimensioniert (Abdeckung bei θe über 150 %) – Taktverhalten prüfen.');
@@ -969,7 +989,10 @@ function zeichne() {
   if (innen.length && !innen.some(i => i.typ === E.auswahl.inneneinheit)) E.auswahl.inneneinheit = innen[0].typ;
   $('#wahlInnen').value = E.auswahl.inneneinheit || '';
 
-  $('#meldungen').innerHTML = meldungen(r).map(x => `<div class="meldung">${esc(x)}</div>`).join('');
+  const abw = E.experte ? [] : expertenAbweichungen();
+  $('#meldungen').innerHTML = meldungen(r).map(x => `<div class="meldung">${esc(x)}</div>`).join('')
+    + (abw.length ? `<div class="meldung">Experteneinstellungen aktiv: ${esc(abw.join(', '))}. <button id="bExpReset" style="margin-left:8px">Auf Standard zurücksetzen</button></div>` : '');
+  if ($('#bExpReset')) $('#bExpReset').onclick = expertenZuruecksetzen;
   $('#kpis').innerHTML = kpis(r).map(k => `<div class="kpi ${k.c || ''}"><div class="t">${k.t}</div><div class="v">${k.v}</div><div class="s">${k.s || ''}</div></div>`).join('');
   $('#wpKarte').innerHTML = wpKarte(r);
   $('#legende').innerHTML = legende(r) + minHinweis(r);
@@ -1072,9 +1095,15 @@ function produktBilder(g, ie, h) {
 }
 function kandidatenTabelle(r, preise, nurPassend) {
   const g = r.gewaehlt, emp = new Set(r.empfehlung_je_serie);
-  const liste = nurPassend ? r.kandidaten.filter(c => emp.has(c.geraet + '|' + c.n) || (g && c.geraet === g.geraet)) : r.kandidaten;
+  let liste = nurPassend ? r.kandidaten.filter(c => emp.has(c.geraet + '|' + c.n) || (g && c.geraet === g.geraet)) : r.kandidaten;
+  // gewählte Baureihe zuerst, darunter die Alternativen aus anderen Baureihen
+  if (g) liste = [...liste.filter(c => c.serie === g.serie), ...liste.filter(c => c.serie !== g.serie)];
+  const spalten = 9 + (preise ? 1 : 0) + (nurPassend ? 0 : 1);
+  let trenner = false;
   let h = `<thead><tr><th></th><th>Wärmepumpe</th><th class="z">Anz.</th><th class="z">${r.waermequelle === 'sole' ? 'B0' : 'A-7'}/W${f(r.vl, 0)}</th><th class="z">bei θe</th><th class="z">Abdeckung</th><th class="z">Bivalenzpunkt</th><th class="z">Heizstab</th><th class="z">Deckung</th>${preise ? '<th class="z">UVP</th>' : ''}${nurPassend ? '' : '<th>Hinweis</th>'}</tr></thead><tbody>`;
+  if (g && liste.length && liste[0].serie === g.serie) h += `<tr><td colspan="${spalten}" class="sub" style="padding-top:8px">Gewählte Baureihe · ${esc(g.serienname)}</td></tr>`;
   for (const c of liste) {
+    if (g && c.serie !== g.serie && !trenner) { trenner = true; h += `<tr><td colspan="${spalten}" class="sub" style="padding-top:12px">Alternativen aus anderen Baureihen</td></tr>`; }
     const sel = g && c.geraet === g.geraet;
     const amp = !c.moeglich ? 'aus' : (c.ok ? 'ok' : 'bad');
     const k = kat(c.geraet);

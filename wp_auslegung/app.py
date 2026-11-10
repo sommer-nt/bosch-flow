@@ -91,6 +91,11 @@ with kopf_r:
                              help="Zusätzlich: Gebäudehülle, Heizwert, Nutzungsgrad, Vollbenutzungsstunden, Warmwasser nach "
                                   "DIN V 18599, Lastprofil/Nachheizzeit, Sperrzeit, Betriebsweise, Baureihen")
 EX = E["experte"]
+# gewählte Baureihe immer in der Liste (Filter erweitern), wie index.html
+if E["auswahl"]["geraet"] and E.get("serien"):
+    _sid = (D.geraet(E["auswahl"]["geraet"]) or {}).get("serie")
+    if _sid and _sid not in E["serien"]:
+        E["serien"].append(_sid)
 links, rechts = st.columns([1, 2.2], gap="large")
 
 # ================================================================== Eingaben (Reihenfolge der Schnellauslegung)
@@ -308,6 +313,15 @@ ie = T.inneneinheit(E, r, KAT)
 with rechts:
     for m in T.meldungen(E, r, KAT):
         st.warning(m)
+    abw = [] if EX else T.experten_abweichungen(E)
+    if abw:
+        c_a, c_b = st.columns([4, 1])
+        c_a.warning("Experteneinstellungen aktiv: " + ", ".join(abw) + ".")
+        if c_b.button("Auf Standard zurücksetzen"):
+            T.experten_zuruecksetzen(E)
+            for k_ in [k_ for k_ in ss if str(k_).startswith(("w_", "n_"))]:
+                del ss[k_]
+            st.rerun()
     ks = [("Gesamtheizlast QGES", f"{T.f(r['qges'], 2)} kW", f"QH {T.f(r['qh'], 2)} + QTW {T.f(r['qtw'], 2)} + QSperr {T.f(r['qsperr'], 2)}", ""),
           ("Mindestleistung WP", f"{T.f(r['mindestleistung'], 2)} kW", T.KRITERIUM[r["kriterium"]], "")]
     if g and g["moeglich"]:
@@ -394,8 +408,11 @@ with rechts:
     st.markdown("**Mögliche Wärmepumpen** – kleinste passende Größe je Gerät (★ kleinste der Baureihe)")
     emp = set(r["empfehlung_je_serie"])
     zeilen = []
-    for c in r["kandidaten"]:
+    # gewählte Baureihe zuerst, darunter die Alternativen aus anderen Baureihen (wie index.html)
+    liste = sorted(r["kandidaten"], key=lambda c: 0 if g and c["serie"] == g["serie"] else 1)
+    for c in liste:
         zeilen.append({"": "🟢" if c["ok"] else ("⚪" if not c["moeglich"] else "🔴"),
+                       "Gruppe": "gewählte Baureihe" if g and c["serie"] == g["serie"] else "Alternative",
                        "Bild": D.bild_uri(KAT.get("bilder", {}).get(c["geraet"])),
                        "Wärmepumpe": c["geraet"] + (" ★" if f"{c['geraet']}|{c['n']}" in emp else ""), "Anz.": c["n"],
                        f"{'B0' if r['waermequelle'] == 'sole' else 'A-7'}/W{T.f(r['vl'], 0)} [kW]": round(c["q_a7"], 2) if c["moeglich"] else None,

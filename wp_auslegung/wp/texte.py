@@ -72,8 +72,36 @@ def inneneinheiten(r: dict, katalog: dict) -> list[dict]:
     return [i for i in katalog["inneneinheiten"].get(g["serie"], []) if not i.get("ab_anzahl") or g["n"] >= i["ab_anzahl"]]
 
 
+def experten_abweichungen(e: dict) -> list[str]:
+    """Experteneinstellungen abweichend vom Standard (wirken auch bei ausgeblendetem Expertenmodus)."""
+    a, t = [], e["tww"]
+    if e.get("serien"):
+        a.append("Baureihen-Filter")
+    if t.get("bezug", "liter") != "liter":
+        a.append("Warmwasser nach DIN V 18599" + (" (je m²)" if t.get("bezug") == "flaeche" else ""))
+    if t.get("methode", "auto") != "auto":
+        a.append("Warmwasser-Zuschlag fest")
+    if int(e.get("sperrzeit_h") or 0):
+        a.append(f"Sperrzeit {int(e['sperrzeit_h'])} h")
+    if e.get("auslegung") != ("monovalent" if e.get("waermequelle") == "sole" else "monoenergetisch"):
+        a.append(f"Betriebsweise {e.get('auslegung')}")
+    if e["heizlast"]["methode"] == "huelle":
+        a.append("Heizlast über Gebäudehülle")
+    return a
+
+
+def experten_zuruecksetzen(e: dict) -> None:
+    e["serien"] = []
+    e["tww"]["bezug"], e["tww"]["methode"], e["sperrzeit_h"] = "liter", "auto", 0
+    e["auslegung"] = "monovalent" if e.get("waermequelle") == "sole" else "monoenergetisch"
+    if e["heizlast"]["methode"] == "huelle":
+        e["heizlast"]["methode"] = "vorgabe"
+
+
 def meldungen(e: dict, r: dict, katalog: dict) -> list[str]:
     m = list(r["hinweise"])
+    if r["tww"]["aktiv"] and e["tww"].get("bezug") == "flaeche" and not float(e["tww"].get("flaeche_m2") or 0) > 0:
+        m.append("Warmwasser flächenbezogen, aber keine Nutzfläche ANGF eingegeben – Warmwasserbedarf ist 0 (Expertenmodus).")
     g = r.get("gewaehlt")
     if g and not g["moeglich"]:
         m.append(f"{g['geraet']}: {g['grund']}.")

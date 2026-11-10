@@ -414,7 +414,7 @@ def pdf_bytes(e: dict, r: dict, daten: dict, katalog: dict) -> bytes:
     pdf.h2("Passende Wärmepumpen je Baureihe (kleinste passende Größe) und gewählte Wärmepumpe")
     emp = set(r["empfehlung_je_serie"])
     zeilen, bilder_tab = [], []
-    for c in r["kandidaten"]:
+    for c in sorted(r["kandidaten"], key=lambda c: 0 if g and c["serie"] == g["serie"] else 1):
         if not ((c["geraet"] + "|" + str(c["n"])) in emp or (g and c["geraet"] == g["geraet"])):
             continue
         k = katalog["geraete"].get(c["geraet"], {})
