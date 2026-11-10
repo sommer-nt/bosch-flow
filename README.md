@@ -17,6 +17,11 @@ Es gibt zwei Versionen mit identischem Rechenweg:
 | Export | PDF (Druck), Projekt-JSON | PDF-Auslegungsbericht, Projekt-JSON, Excel |
 | Projektdateien | `.json` | dasselbe `.json`-Format, in beide Richtungen austauschbar |
 
+## WP-Schnellauslegung
+
+Im Ordner [`wp_auslegung/`](wp_auslegung/README.md): Schnellauslegung von Luft/Wasser-Wärmepumpen (Heizlast auch über
+den Jahresverbrauch, Bivalenzpunkt, Geräteauswahl bis zur CS5001-Kaskade) als HTML und Streamlit mit PDF-Ausdruck.
+
 ## Python-Version starten
 
 ```bash

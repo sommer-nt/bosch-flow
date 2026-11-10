@@ -13,5 +13,7 @@
 ## Projekt
 - Netz- & Anlagenrechner Flow 8000/7000: `index.html` (V54, Original) und Python/Streamlit (`app.py`,
   `bosch_flow/`). Beide Versionen rechnen identisch – Änderungen am Rechenweg in beiden nachziehen.
+- WP-Schnellauslegung in `wp_auslegung/`: `index.html` und Python/Streamlit (`app.py`, `wp/`) rechnen identisch –
+  Rechenweg in `wp/rechnen.py` und `<script id="rechenkern">` gemeinsam ändern; Daten über `tools/excel_import.py`.
 - Betrieb: eigener Ubuntu-Server mit Docker und nginx, siehe `deploy/ANLEITUNG.md` (flow.sommer-nt.de).
 - Vor jedem Push: `python -m pytest -q` muss grün sein.
