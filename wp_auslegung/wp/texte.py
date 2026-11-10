@@ -4,6 +4,13 @@ from __future__ import annotations
 from . import rechnen as R
 
 BETRIEBSWEISE = {"monovalent": "monovalent", "monoenergetisch": "monoenergetisch", "hybrid": "GEG-Hybrid"}
+VERTEILUNG_VL = {"fbh": 35, "hk": 55, "beides": 55, "konvektor": 45}
+VERTEILUNG_TEXT = {"fbh": "Fußbodenheizung", "hk": "Heizkörper", "beides": "Fußbodenheizung + Heizkörper",
+                   "konvektor": "Konvektoren"}
+SPEZ = {"neubau": [(22, "KfW-Effizienzhaus 40+ (20–25 W/m²)"), (30, "KfW-Effizienzhaus 55 (30 W/m²)"),
+                   (35, "KfW-Effizienzhaus 85 (35 W/m²)"), (38, "EnEV 2009 / GEG (35–40 W/m²)"), (15, "Passivhaus (15 W/m²)")],
+        "sanierung": [(100, "Bestand WSchVO 1982 (80–120 W/m²)"), (70, "Bestand WSchVO 1995 (60–80 W/m²)"),
+                      (50, "EnEV 2002 (40–60 W/m²)"), (40, "KfW-Effizienzhaus 100 (40 W/m²)"), (38, "EnEV 2009 (35–40 W/m²)")]}
 KRITERIUM = {"monovalent": "QGES bei θe (monovalent)",
              "monoenergetisch": "0,7 · QGES bei A-7 (monoenergetisch, ca. 98 % Deckung)",
              "hybrid": "0,3 · QH bei A-7 (GEG § 71 Hybrid)"}
@@ -58,11 +65,21 @@ def meldungen(e: dict, r: dict, katalog: dict) -> list[str]:
         m.append(f"{g['geraet']}{' (' + str(g['n']) + '×)' if g['n'] > 1 else ''} erfüllt das Kriterium nicht: {g['grund']}.")
     if g and g.get("ueberdimensioniert"):
         m.append("Gewählte Wärmepumpe ist deutlich überdimensioniert (Abdeckung bei θe über 150 %) – Taktverhalten prüfen.")
+    tw = r["tww"]
     if g and g["moeglich"] and r["nat"] < g["t_daten_min"]:
-        m.append(f"Leistungsdaten erst ab {ft(g['t_daten_min'])} °C – unterhalb wird der letzte Wert angesetzt.")
+        m.append(f"Leistungsdaten erst ab {ft(g['t_daten_min'])} °C – darunter wird der letzte Wert angesetzt "
+                 "(Kurve im Diagramm nicht verlängert).")
+    if g and g["moeglich"] and tw["aktiv"] and not g["vl_tww_ok"]:
+        m.append(f"Warmwasser: {'Puffer' if tw['system'] == 'friwa' else 'Speicher'} {f(tw['t_speicher'], 0)} °C braucht ca. "
+                 f"{f(tw['vl_tww'], 0)} °C Vorlauf – über {f(g['vl_max_geraet'], 0)} °C des Geräts, Nacherwärmung (E-Heizer) einplanen.")
+    if tw["aktiv"] and tw["grossanlage"]:
+        m.append(f"Warmwasser-Tagesbedarf ca. {f(tw['volumen_tag_l'], 0)} l: voraussichtlich Großanlage nach DVGW W 551 – "
+                 "Speicheraustritt ≥ 60 °C (Nacherwärmung) oder Frischwasserstation einplanen.")
     ie = inneneinheit(e, r, katalog)
     if ie and ie.get("vl_max") and r["vl"] > ie["vl_max"]:
         m.append(f"{ie['typ']}: max. Vorlauftemperatur {ie['vl_max']} °C.")
+    if r["waermequelle"] == "sole" and r["kriterium"] != "monovalent":
+        m.append("Sole/Wasser-Wärmepumpen werden üblicherweise monovalent ausgelegt (Betriebsweise im Expertenmodus).")
     if not r["empfehlung"] and r["qges"] > 0:
         m.append("Keine passende Wärmepumpe in den gewählten Baureihen – Kaskade, Vorlauf oder Betriebsweise prüfen.")
     if r["heizlast"]["methode"] != "vorgabe":
@@ -87,16 +104,26 @@ def herleitung(e: dict, r: dict) -> list[tuple[str, str, str]]:
     else:
         einheit = R.HEIZWERT.get(hl.get("energietraeger"), R.HEIZWERT["gas"])[1]
         z.append(("Jahres-Endenergie Eg,in", f"Verbrauch · Hu = {f(hl['menge'], 0)} {einheit} · {f(hl['heizwert'], 2)} kWh/{einheit}", f(h["eg_kwh"], 0) + " kWh/a"))
-        z.append(("Trinkwarmwasser Ew,g,in", tww_formel(e) if hl.get("ww_im_verbrauch") else "nicht im Verbrauch enthalten", f(h["ew_kwh"], 0) + " kWh/a"))
+        z.append(("Trinkwarmwasser Ew,g,in", tww_formel(e, r) if hl.get("ww_im_verbrauch") else "nicht im Verbrauch enthalten", f(h["ew_kwh"], 0) + " kWh/a"))
         z.append(("Heizung Ehg,in", "Eg,in − Ew,g,in", f(h["ehg_kwh"], 0) + " kWh/a"))
         z.append(("Leistung Wärmeerzeuger Øh,g = QH", f"Ehg,in · η / th = {f(h['ehg_kwh'], 0)} · {f(h['eta'], 2)} / {f(h['th'], 0)} h/a", f(r["qh"], 2) + " kW"))
         z.append(("Øh,in (Heizung + TWW, Excel-Blatt)", f"Øh,g + Ew,g,in / (td · 365), td = {f(t['td'], 0)} h/d", f(h["oh_in_kw"], 2) + " kW"))
-    if t.get("aktiv") is False:
+    tw = r["tww"]
+    if not tw["aktiv"]:
         z.append(("Warmwasserzuschlag QTW", "Warmwasser nicht über die WP", "0,00 kW"))
-    elif t.get("methode") == "nachheizzeit":
-        z.append(("Warmwasserzuschlag QTW", f"Ew,g,in / (td · 365) = {f(r['tww_kwh'], 0)} / ({f(t['td'], 0)} · 365)", f(r["qtw"], 2) + " kW"))
     else:
-        z.append(("Warmwasserzuschlag QTW", f"np · Lastprofil = {f(t['personen'], 0)} P · {f(t['kw_person'], 2)} kW/P", f(r["qtw"], 2) + " kW"))
+        liter = t.get("bezug", "liter") == "liter"
+        if h["methode"] != "verbrauch":
+            if liter:
+                z.append(("Warmwasser je Person Qw,b", f"V · c · (45 °C − ϑKW) = {f(t['liter_p'], 0)} l · 1,163 Wh/(l·K) · "
+                          f"{f(45 - (t.get('t_kw') or 10), 0)} K", f(tw["qwb_person"], 2) + " kWh/(P·d)"))
+            z.append(("Trinkwarmwasser Ew,g,in", tww_formel(e, r), f(r["tww_kwh"], 0) + " kWh/a"))
+        if tw["methode"] == "nachheizzeit":
+            z.append(("Warmwasserzuschlag QTW", f"Ew,g,in / (td · 365) = {f(r['tww_kwh'], 0)} / ({f(t['td'], 0)} · 365)", f(r["qtw"], 2) + " kW"))
+        else:
+            zus = f" (aus {f(t['liter_p'], 0)} l/(P·d))" if t.get("methode", "auto") == "auto" and liter else ""
+            z.append(("Warmwasserzuschlag QTW", f"np · Lastprofil = {f(t['personen'], 0)} P · {f(tw['kw_person'], 2)} kW/P{zus}",
+                      f(r["qtw"], 2) + " kW"))
     sp = int(e.get("sperrzeit_h") or 0)
     z.append(("Sperrzeitzuschlag QSperr", f"(QH + QTW) · {({2: 5, 4: 10, 6: 15}).get(sp, 0)} % ({sp} h/d)" if sp else "keine Sperrzeit",
               f(r["qsperr"], 2) + " kW"))
@@ -105,11 +132,35 @@ def herleitung(e: dict, r: dict) -> list[tuple[str, str, str]]:
     return z
 
 
-def tww_formel(e: dict) -> str:
+def tww_formel(e: dict, r: dict) -> str:
     t = e["tww"]
     if t.get("bezug") == "flaeche":
         return f"Qw,b · ANGF · 1,1 · 365 = {f(t['qwb'], 4)} · {f(t['flaeche_m2'], 0)} · 1,1 · 365"
-    return f"Qw,b · np · 365 = {f(t['qwb'], 2)} · {f(t['personen'], 0)} · 365"
+    return f"Qw,b · np · 365 = {f(r['tww']['qwb_person'], 2)} · {f(t['personen'], 0)} · 365"
+
+
+def anbindung(e: dict, r: dict) -> list[tuple[str, str, str]]:
+    """Kacheln (Titel, Wert, Zusatz) „Warmwasser & Anbindung“ wie index.html."""
+    tw, ltg, er, k = r["tww"], r.get("leitung"), r.get("erdreich"), []
+    if tw["aktiv"]:
+        k.append(("Warmwasser je Tag", f(tw["q_tag_kwh"], 1) + " kWh/d",
+                  f"{f(tw['volumen_tag_l'], 0)} l bei {f(tw['t_speicher'], 0)} °C · " +
+                  (f(tw["qwb_person"], 2) + " kWh/(P·d)" if tw["qwb_person"] is not None else "flächenbezogen")))
+        k.append(("Frischwasserstation" if tw["system"] == "friwa" else "Speichersystem", f(tw["t_speicher"], 0) + " °C",
+                  f"{'Puffer' if tw['system'] == 'friwa' else 'Speicher'} für {f(tw['t_zapf'], 0)} °C Zapftemperatur · "
+                  f"Ladevorlauf ≈ {f(tw['vl_tww'], 0)} °C"))
+        k.append(("Zuschlag Warmwasser QTW", f(r["qtw"], 2) + " kW",
+                  f"Ew,g,in / (td · 365), td = {f(e['tww']['td'], 0)} h" if tw["methode"] == "nachheizzeit"
+                  else f"{f(e['tww']['personen'], 0)} P · {f(tw['kw_person'], 2)} kW/P"))
+    if ltg:
+        k.append(("Verbindungsleitung", ltg["rohr"],
+                  f"{f(ltg['volumenstrom_m3h'], 2)} m³/h (Δϑ {f(ltg['spreizung'], 0)} K) · v {f(ltg['v_ms'], 2)} m/s · "
+                  f"R {f(ltg['r_pa_m'], 0)} Pa/m · Δp ≈ {f(ltg['dp_kpa'], 1)} kPa für 2 × {f(ltg['laenge_m'], 0)} m"))
+    if er:
+        k.append(("Erdwärmesonde (Richtwert)", f(er["sondenlaenge_m"], 0) + " m",
+                  f"Entzug {f(er['q_entzug_kw'], 2)} kW (COP B0/W35 {f(er['cop'], 2)}) bei {f(er['entzug_w_m'], 0)} W/m – "
+                  "Bemessung nach VDI 4640 / Geologie"))
+    return k
 
 
 HAFTUNG = ("Die Schnellauslegung dient der Produktvor- und Systemauswahl und ersetzt nicht die fachtechnische Planung. Sie "

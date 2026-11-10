@@ -7,13 +7,18 @@ Ablauf
 1. Heizlast QH – Vorgabe (z. B. aus DIN EN 12831), überschlägig über Wohnfläche × W/m², über die Gebäudehülle
    (Transmission + Lüftung wie Excel „WP-Auslegung_S“) oder über den Jahresverbrauch
    (Eg,in = Verbrauch · Hu;  Ehg,in = Eg,in − Ew,g,in;  Øh,g = Ehg,in · η / th).
-2. Warmwasserzuschlag QTW – Personen × kW/Person (Excel) oder Ew,g,in / (td · 365) (Nachheizzeit).
+2. Warmwasser – Tagesbedarf aus Liter je Person bei 45 °C (oder DIN V 18599-10), Ew,g,in = Qw,b · np · 365.
+   Zuschlag QTW automatisch: beim Jahresverbrauch wie Excel-Blatt Ew,g,in / (td · 365) (Øh,in), sonst
+   Personen × Lastprofil (≤ 30 l → 0,10 · ≤ 50 l → 0,20 · darüber 0,25 kW/P). Speicher- bzw. Pufferstemperatur aus
+   Zapftemperatur (+5 K Speicher, +10 K Frischwasserstation), Ladevorlauf +5 K.
 3. Sperrzeitzuschlag QSperr – 2/4/6 h → 5/10/15 % von QH + QTW.
 4. QGES = QH + QTW + QSperr.  Mindestleistung der WP bei A-7: monovalent 1,0 · QGES, monoenergetisch 0,7 · QGES,
    GEG-Hybrid 0,3 · QH (Excel „WP-Auslegung_S“, Erfüllungsoptionen GEG § 71 ff.).
 5. Je Gerät (auch als Kaskade) die maximale Heizleistung über der Außentemperatur beim Auslegungsvorlauf:
    Bivalenzpunkt (Schnitt mit der Gebäudekennlinie), Leistung und Abdeckung bei Norm-Außentemperatur,
-   Heizstab-Bedarf, Deckungsanteil nach VDI 4650 (Luft/Wasser, parallel) und Taktgrenze (Mindestleistung).
+   Heizstab-Bedarf, Deckungsanteil nach VDI 4650 (Luft- bzw. Sole/Wasser, parallel) und Taktgrenze (Mindestleistung).
+   Sole/Wasser: Leistung konstant (Sole ≈ 0 °C), Entzugsleistung und Sondenlänge als Richtwert (VDI 4640).
+6. Luft/Wasser-Außeneinheit: Volumenstrom und Rohrdimension der Verbindungsleitung (v ≤ 1 m/s, Darcy-Weisbach).
 """
 from __future__ import annotations
 
@@ -31,6 +36,16 @@ TWW_BEDARF = {  # Nutzenergiebedarf Trinkwarmwasser Qw,b nach DIN V 18599-10 (Au
     "Wohngebäude": (1.1, 0.0343), "Bürogebäude": (0.4, 0.0300), "Krankenhaus": (6.0, 0.4000),
     "Schule ohne Duschen": (0.4, 0.1300), "Schule mit Duschen": (1.5, 0.5000)}
 NACHHEIZZEIT = {"Standard": 4, "Gehobener Standard": 3, "Luxus": 2}
+T_WW_BEZUG = 45.0            # Bezugstemperatur der Warmwassermenge (l/(P·d) bei 45 °C)
+C_WASSER = 1.163             # Wh/(l·K)
+# Verbindungsleitung Außeneinheit (Innendurchmesser mm, Rauigkeit mm)
+ROHRE = [("Cu 22 × 1", 20.0, 0.0015), ("Cu 28 × 1,5", 25.0, 0.0015), ("Cu 35 × 1,5", 32.0, 0.0015),
+         ("Cu 42 × 1,5", 39.0, 0.0015), ("Cu 54 × 2", 50.0, 0.0015), ("St 60,3 × 2,9 (DN 50)", 54.5, 0.045),
+         ("St 76,1 × 2,9 (DN 65)", 70.3, 0.045), ("St 88,9 × 3,2 (DN 80)", 82.5, 0.045),
+         ("St 114,3 × 3,6 (DN 100)", 107.1, 0.045), ("St 139,7 × 4 (DN 125)", 131.7, 0.045)]
+V_MAX_ROHR = 1.0             # m/s
+R_MAX_ROHR = 200.0           # Pa/m
+ZUSCHLAG_EINZEL = 1.3        # Einzelwiderstände pauschal +30 %
 
 
 def runden_ab(x: float) -> int:
@@ -56,7 +71,7 @@ def interp(punkte: list, t: float) -> float:
 
 
 def kurve_bei_vl(kurven: dict | None, vl: float):
-    """Liefert (Funktion T -> Q, tiefste erfasste Außentemperatur) beim Vorlauf vl oder None.
+    """Liefert (Funktion T -> Q, tiefste, höchste erfasste Außentemperatur) beim Vorlauf vl oder None.
 
     Zwischen den erfassten Vorlauftemperaturen wird linear interpoliert; unterhalb der kleinsten gilt deren Kurve
     (tieferer Vorlauf liefert eher mehr Leistung), oberhalb der größten ist das Gerät nicht auslegbar.
@@ -68,12 +83,13 @@ def kurve_bei_vl(kurven: dict | None, vl: float):
         return None
     if vl <= vls[0]:
         k = kurven[_schluessel(vls[0])]
-        return (lambda t: interp(k, t)), k[0][0]
+        return (lambda t: interp(k, t)), k[0][0], k[-1][0]
     for v0, v1 in zip(vls, vls[1:]):
         if v0 <= vl <= v1:
             k0, k1 = kurven[_schluessel(v0)], kurven[_schluessel(v1)]
             w = (vl - v0) / (v1 - v0)
-            return (lambda t: interp(k0, t) * (1 - w) + interp(k1, t) * w), max(k0[0][0], k1[0][0])
+            return ((lambda t: interp(k0, t) * (1 - w) + interp(k1, t) * w), max(k0[0][0], k1[0][0]),
+                    min(k0[-1][0], k1[-1][0]))
     return None
 
 
@@ -82,7 +98,7 @@ def _schluessel(v: float) -> str:
 
 
 def vdi4650(tabelle: list, anteil_prozent: float) -> float:
-    """Deckungsanteil α (Luft/Wasser, parallel) zum Leistungsanteil in % (Tabelle aus dem Excel-Werkzeug)."""
+    """Deckungsanteil α (parallel) zum Leistungsanteil in % (Tabelle VDI 4650 aus dem Excel-Werkzeug)."""
     p = min(100, max(tabelle[0][0], runden_ab(anteil_prozent)))
     for a, alpha in tabelle:
         if a == p:
@@ -125,22 +141,63 @@ def heizlast(e: dict, nat: float) -> dict:
     return {"d": d, "hinweise": hinweise}
 
 
+def tww_qwb_person(e: dict) -> float:
+    """Nutzenergie Warmwasser je Person und Tag [kWh/(P·d)]: aus Litern bei 45 °C oder DIN V 18599-10."""
+    t = e["tww"]
+    if t.get("bezug", "liter") == "liter":
+        return float(t.get("liter_p") or 0) * C_WASSER * (T_WW_BEZUG - float(t.get("t_kw") or 10)) / 1000
+    return float(t.get("qwb") or 0)
+
+
 def tww_jahresenergie(e: dict) -> float:
     """Ew,g,in nach Excel-Blatt: personenbezogen Qw,b · np · 365, flächenbezogen Qw,b · ANGF · 1,1 · 365."""
     t = e["tww"]
     if t.get("bezug") == "flaeche":
         return float(t.get("qwb") or 0) * float(t.get("flaeche_m2") or 0) * 1.1 * 365
-    return float(t.get("qwb") or 0) * float(t.get("personen") or 0) * 365
+    return tww_qwb_person(e) * float(t.get("personen") or 0) * 365
 
 
-def tww_zuschlag(e: dict) -> float:
+def lastprofil_aus_liter(liter: float) -> float:
+    """Lastprofil des Excel-Werkzeugs aus der Warmwassermenge je Person (45 °C)."""
+    if liter <= 30:
+        return 0.10
+    if liter <= 50:
+        return 0.20
+    return 0.25
+
+
+def tww_zuschlag(e: dict) -> tuple[float, str, float | None]:
+    """(QTW in kW, wirksame Methode, kW je Person oder None)."""
     t = e["tww"]
     if not t.get("aktiv", True):
-        return 0.0
-    if t.get("methode") == "nachheizzeit":
+        return 0.0, "aus", None
+    m = t.get("methode", "auto")
+    if m == "auto":
+        if e["heizlast"]["methode"] == "verbrauch":
+            m = "nachheizzeit"
+        elif t.get("bezug", "liter") == "liter":
+            kwp = lastprofil_aus_liter(float(t.get("liter_p") or 0))
+            return float(t.get("personen") or 0) * kwp, "personen", kwp
+        else:
+            m = "personen"
+    if m == "nachheizzeit":
         td = float(t.get("td") or 0)
-        return tww_jahresenergie(e) / (td * 365) if td > 0 else 0.0
-    return float(t.get("personen") or 0) * float(t.get("kw_person") or 0)
+        return (tww_jahresenergie(e) / (td * 365) if td > 0 else 0.0), "nachheizzeit", None
+    kwp = float(t.get("kw_person") or 0)
+    return float(t.get("personen") or 0) * kwp, "personen", kwp
+
+
+def tww_temperaturen(e: dict) -> dict:
+    """Speicher-/Puffertemperatur, Ladevorlauf und Tagesvolumen bei Speichertemperatur."""
+    t = e["tww"]
+    friwa = t.get("system") == "friwa"
+    t_zapf = float(t.get("zapftemp") or 45)
+    t_sp = t_zapf + (10.0 if friwa else 5.0)
+    t_kw = float(t.get("t_kw") or 10)
+    q_tag = tww_jahresenergie(e) / 365
+    vol = q_tag * 1000 / (C_WASSER * (t_sp - t_kw)) if t_sp > t_kw else 0.0
+    return {"system": "friwa" if friwa else "speicher", "t_zapf": t_zapf, "t_speicher": t_sp, "vl_tww": t_sp + 5.0,
+            "q_tag_kwh": q_tag, "volumen_tag_l": vol, "grossanlage": bool(not friwa and vol > 400)}
 
 
 # ------------------------------------------------------------------------------------------------ Auslegung
@@ -167,7 +224,7 @@ def bewerte(geraet: dict, n: int, vl: float, r: dict, daten: dict, katalog: dict
     if vl_max is not None and vl > vl_max:
         out["grund"] = f"Vorlauf über {_zahl(vl_max)} °C"
         return out
-    fmax, t_daten = km
+    fmax, t_daten, t_daten_max = km
     kmin = kurve_bei_vl(geraet.get("min"), vl)
     q = lambda t: n * fmax(t)  # noqa: E731
     lt = lambda t: last(t, qhs, qtw, nat, thg)  # noqa: E731
@@ -175,10 +232,14 @@ def bewerte(geraet: dict, n: int, vl: float, r: dict, daten: dict, katalog: dict
 
     q_nat, q_a7 = q(nat), q(-7.0)
     out.update(q_nat=q_nat, q_a7=q_a7, abdeckung=q_nat / qges if qges > 0 else 0.0,
-               heizstab_kw=max(0.0, qges - q_nat), t_daten_min=t_daten)
+               heizstab_kw=max(0.0, qges - q_nat), t_daten_min=t_daten, t_daten_max=t_daten_max)
     anteil = 100.0 * q_nat / qges if qges > 0 else 100.0
     out["leistungsanteil"] = min(100, runden_ab(anteil))
-    out["deckung"] = vdi4650(daten["vdi4650_luft_parallel"], anteil)
+    tab = daten["vdi4650_sole_parallel"] if serie.get("quelle") == "sole" else daten["vdi4650_luft_parallel"]
+    out["deckung"] = vdi4650(tab, anteil)
+    vl_dev = vl_max if vl_max is not None else max(float(v) for v in geraet["max"])
+    out["vl_max_geraet"] = vl_dev
+    out["vl_tww_ok"] = r["tww"]["vl_tww"] <= vl_dev + 1e-9 if r["tww"]["aktiv"] else True
 
     # Bivalenzpunkt: höchste Außentemperatur, ab der die WP die Last allein deckt
     t0 = max(T_SUCHE_MIN, math.ceil(t_daten))
@@ -235,7 +296,10 @@ def _zahl(x: float) -> str:
 
 
 def kennlinien(geraet: dict, n: int, vl: float, r: dict) -> dict:
-    """Wertetabellen für Diagramme (1-K-Raster von NAT−3 bis Heizgrenze+3)."""
+    """Wertetabellen für Diagramme (1-K-Raster von NAT−3 bis Heizgrenze+3).
+
+    Gerätekurven nur im erfassten Datenbereich (außerhalb None) – es wird nichts extrapoliert dargestellt.
+    """
     km = kurve_bei_vl(geraet["max"], vl)
     kmin = kurve_bei_vl(geraet.get("min"), vl)
     t0, t1 = math.floor(min(r["nat"], -7.0)) - 3, math.ceil(r["heizgrenze"]) + 3
@@ -243,8 +307,12 @@ def kennlinien(geraet: dict, n: int, vl: float, r: dict) -> dict:
     qhs = r["qh"] + r["qsperr"]
     return {"t": ts,
             "last": [last(t, qhs, r["qtw"], r["nat"], r["heizgrenze"]) for t in ts],
-            "max": [n * km[0](t) for t in ts] if km else None,
-            "min": [kmin[0](t) for t in ts] if kmin else None}
+            "max": werte_im_bereich(km, ts, n) if km else None,
+            "min": werte_im_bereich(kmin, ts, 1) if kmin else None}
+
+
+def werte_im_bereich(k, ts: list, n: int) -> list:
+    return [n * k[0](t) if k[1] - 1e-9 <= t <= k[2] + 1e-9 else None for t in ts]
 
 
 def rechne(e: dict, daten: dict, katalog: dict | None = None) -> dict:
@@ -254,25 +322,31 @@ def rechne(e: dict, daten: dict, katalog: dict | None = None) -> dict:
     vl = float(e["vl"])
     hl = heizlast(e, nat)
     qh = hl["d"]["qh_kw"]
-    qtw = tww_zuschlag(e)
+    qtw, tww_methode, tww_kwp = tww_zuschlag(e)
+    quelle = e.get("waermequelle", "luft")
     sperr = int(e.get("sperrzeit_h") or 0)
     qsperr = (qh + qtw) * SPERRZUSCHLAG.get(sperr, 0.0)
     qges = qh + qtw + qsperr
     krit = e.get("auslegung", "monoenergetisch")
     mindest = FAKTOR[krit] * (qh if krit == "hybrid" else qges)
     r = {"nat": nat, "heizgrenze": thg, "innen": float(k["innen"]), "vl": vl, "heizlast": hl["d"], "qh": qh,
-         "qtw": qtw, "tww_kwh": tww_jahresenergie(e), "qsperr": qsperr, "qges": qges, "kriterium": krit,
+         "qtw": qtw, "tww_kwh": tww_jahresenergie(e), "qsperr": qsperr, "waermequelle": quelle, "qges": qges, "kriterium": krit,
          "faktor": FAKTOR[krit], "mindestleistung": mindest, "hinweise": list(hl["hinweise"])}
-    if qges <= 0:
+    tw = tww_temperaturen(e)
+    tw.update(aktiv=bool(e["tww"].get("aktiv", True)), methode=tww_methode, kw_person=tww_kwp,
+              qwb_person=tww_qwb_person(e) if e["tww"].get("bezug") != "flaeche" else None)
+    r["tww"] = tw
+    if qh <= 0:
         r["hinweise"].append("Heizlast eingeben.")
 
     serien = e.get("serien") or [s["id"] for s in daten["serien"]]
     # je Gerät die kleinste passende Anzahl (Kaskade bis kaskade_max)
     kandidaten = []
     for g in daten["geraete"]:
-        if g["serie"] not in serien:
+        sd = next(s for s in daten["serien"] if s["id"] == g["serie"])
+        if g["serie"] not in serien or sd.get("quelle", "luft") != quelle:
             continue
-        smax = next(s for s in daten["serien"] if s["id"] == g["serie"])["kaskade_max"]
+        smax = sd["kaskade_max"]
         best = None
         for n in range(1, smax + 1):
             b = bewerte(g, n, vl, r, daten, katalog)
@@ -288,7 +362,7 @@ def rechne(e: dict, daten: dict, katalog: dict | None = None) -> dict:
 
     # Empfehlung je Serie (kleinste passende Leistung bei A-7) und gesamt: Einzelgerät vor Kaskade,
     # dann Reihenfolge der Serien in geraete.json (aktuelle R290-Geräte zuerst)
-    passend = [c for c in kandidaten if c["ok"] and qges > 0]
+    passend = [c for c in kandidaten if c["ok"] and qh > 0]
     je_serie = {}
     for c in passend:
         s = c["serie"]
@@ -306,13 +380,62 @@ def rechne(e: dict, daten: dict, katalog: dict | None = None) -> dict:
     if not gid and r["empfehlung"]:
         gid, n = r["empfehlung"].split("|")[0], int(r["empfehlung"].split("|")[1])
     geraet = next((g for g in daten["geraete"] if g["id"] == gid), None)
-    if geraet is not None and qges > 0:
+    if geraet is not None and qh > 0:
         r["gewaehlt"] = bewerte(geraet, n, vl, r, daten, katalog)
         r["kennlinien"] = kennlinien(geraet, n, vl, r) if r["gewaehlt"]["moeglich"] else None
         r["energie"] = energie(e, r, katalog)
     else:
         r["gewaehlt"], r["kennlinien"], r["energie"] = None, None, None
+    r["leitung"] = leitung(e, r)
+    r["erdreich"] = erdreich(e, r, katalog)
     return r
+
+
+def leitung(e: dict, r: dict) -> dict | None:
+    """Verbindungsleitung Außeneinheit ↔ Gebäude: Volumenstrom bei max. Leistung A-7, kleinstes Rohr mit
+    v ≤ 1 m/s und R ≤ 200 Pa/m."""
+    g = r.get("gewaehlt")
+    a = e.get("aufstellung") or {}
+    lang = float(a.get("entfernung_m") or 0)
+    if not g or not g["moeglich"] or r["waermequelle"] != "luft" or lang <= 0:
+        return None
+    dt = float(a.get("spreizung") or 5)
+    q = g["q_a7"]
+    vs = q / (C_WASSER * dt)                     # m³/h
+    for rohr in ROHRE:                           # sonst bleibt das größte Rohr
+        wahl = (rohr, rohr_werte(rohr, vs))
+        if wahl[1][0] <= V_MAX_ROHR + 1e-9 and wahl[1][1] <= R_MAX_ROHR + 1e-9:
+            break
+    (name, di, _), (v, rr) = wahl
+    dp = rr * 2 * lang * ZUSCHLAG_EINZEL / 1000  # kPa (Vor- und Rücklauf)
+    return {"laenge_m": lang, "spreizung": dt, "q_kw": q, "volumenstrom_m3h": vs, "rohr": name, "di_mm": di,
+            "v_ms": v, "r_pa_m": rr, "dp_kpa": dp}
+
+
+def rohr_werte(rohr: tuple, vs_m3h: float) -> tuple[float, float]:
+    """(Geschwindigkeit m/s, Druckgefälle R Pa/m) – Darcy-Weisbach, λ nach Swamee-Jain, Wasser ca. 35 °C."""
+    d = rohr[1] / 1000
+    v = vs_m3h / 3600 / (math.pi * d * d / 4)
+    re = v * d / 0.7e-6
+    if re < 2300:
+        lam = 64 / re if re > 0 else 0.0
+    else:
+        lam = 0.25 / math.log10(rohr[2] / 1000 / (3.7 * d) + 5.74 / re ** 0.9) ** 2
+    return v, lam / d * 994 * v * v / 2
+
+
+def erdreich(e: dict, r: dict, katalog: dict | None) -> dict | None:
+    """Sole/Wasser: Entzugsleistung Q0 = Q · (1 − 1/COP B0/W35) und Sondenlänge als Richtwert (VDI 4640)."""
+    g = r.get("gewaehlt")
+    if not g or not g["moeglich"] or r["waermequelle"] != "sole":
+        return None
+    kat = (katalog or {}).get("geraete", {}).get(g["geraet"], {})
+    cop = kat.get("cop_b0w35")
+    if not cop:
+        return None
+    w_m = float((e.get("aufstellung") or {}).get("entzug_w_m") or 50)
+    q0 = g["q_nat"] * (1 - 1 / cop)
+    return {"cop": cop, "q_entzug_kw": q0, "entzug_w_m": w_m, "sondenlaenge_m": q0 * 1000 / w_m}
 
 
 def energie(e: dict, r: dict, katalog: dict | None) -> dict | None:
@@ -325,7 +448,7 @@ def energie(e: dict, r: dict, katalog: dict | None) -> dict | None:
         q_heiz = r["heizlast"]["ehg_kwh"] * r["heizlast"]["eta"]
     else:
         q_heiz = r["qh"] * float(h.get("vbh") or 2100)
-    q_ww = r["tww_kwh"] if e["tww"].get("aktiv", True) else 0.0
+    q_ww = r["tww_kwh"] if r["tww"]["aktiv"] else 0.0
     q = q_heiz + q_ww
     kat = (katalog or {}).get("geraete", {}).get(g["geraet"], {})
     s35, s55 = kat.get("scop35"), kat.get("scop55")

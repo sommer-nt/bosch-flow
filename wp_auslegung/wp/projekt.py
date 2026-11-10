@@ -8,7 +8,9 @@ FORMAT = "wp_auslegung"
 VERSION = 1
 
 STANDARD: dict = {
+    "experte": False,
     "projekt": {"name": "", "kunde": "", "plz": "", "ort": "", "bearbeiter": "", "datum": "", "notiz": ""},
+    "gebaeude": {"typ": "sanierung"},
     "klima": {"nat": -12.0, "heizgrenze": 15.0, "innen": 20.0},
     "heizlast": {
         "methode": "vorgabe", "vorgabe_kw": 10.0,
@@ -17,9 +19,13 @@ STANDARD: dict = {
         "energietraeger": "gas", "menge": 0.0, "heizwert": 10.42, "gebaeudeart": "EFH", "vbh": 2100,
         "nutzungsgrad": 1.0, "ww_im_verbrauch": True,
     },
-    "tww": {"aktiv": True, "personen": 4, "kw_person": 0.1, "methode": "personen", "td": 4,
-            "nutzung": "Wohngebäude", "bezug": "personen", "qwb": 1.1, "flaeche_m2": 0.0},
+    "verteilung": "hk",
+    "tww": {"aktiv": True, "personen": 4, "system": "speicher", "zapftemp": 45.0, "liter_p": 50.0, "t_kw": 10.0,
+            "methode": "auto", "kw_person": 0.2, "td": 4,
+            "nutzung": "Wohngebäude", "bezug": "liter", "qwb": 1.1, "flaeche_m2": 0.0},
     "sperrzeit_h": 0,
+    "waermequelle": "luft",
+    "aufstellung": {"entfernung_m": 5.0, "spreizung": 5.0, "entzug_w_m": 50.0},
     "auslegung": "monoenergetisch",
     "vl": 55.0,
     "serien": [],

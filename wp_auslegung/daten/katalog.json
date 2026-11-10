@@ -234,6 +234,106 @@
    "phasen": "3~",
    "katalogname": "CS5001AW 42",
    "hinweis": "Verfügbar ab 06/2026."
+  },
+  "CS7800iLW 6": {
+   "artnr": "8738212050",
+   "uvp": 13325,
+   "cop_b0w35": 4.61,
+   "scop35": 5.23,
+   "scop55": 3.84,
+   "vl_max": 67,
+   "lw_db": 36,
+   "masse": "1180 × 600 × 600 mm",
+   "gewicht_kg": 174,
+   "phasen": "3~",
+   "hinweis": "Schallleistung in Innenräumen. Ausführung F (Glasdesign), M (integrierter WW-Speicher) und MB mit eigener Bestell-Nr."
+  },
+  "CS7800iLW 8": {
+   "artnr": "8738212052",
+   "uvp": 14415,
+   "cop_b0w35": 4.61,
+   "scop35": 5.38,
+   "scop55": 3.99,
+   "vl_max": 67,
+   "lw_db": 36,
+   "masse": "1180 × 600 × 600 mm",
+   "gewicht_kg": 174,
+   "phasen": "3~",
+   "hinweis": "Schallleistung in Innenräumen. Ausführung F (Glasdesign), M (integrierter WW-Speicher) und MB mit eigener Bestell-Nr."
+  },
+  "CS7800iLW 12": {
+   "artnr": "8738212054",
+   "uvp": 16190,
+   "cop_b0w35": 4.75,
+   "scop35": 5.55,
+   "scop55": 4.17,
+   "vl_max": 71,
+   "lw_db": 41,
+   "masse": "1180 × 600 × 600 mm",
+   "gewicht_kg": 207,
+   "phasen": "3~",
+   "hinweis": "Schallleistung in Innenräumen. Ausführung F (Glasdesign), M (integrierter WW-Speicher) und MB mit eigener Bestell-Nr."
+  },
+  "CS7800iLW 16": {
+   "artnr": "8738212056",
+   "uvp": 18630,
+   "cop_b0w35": 4.8,
+   "scop35": 5.33,
+   "scop55": 4.1,
+   "vl_max": 71,
+   "lw_db": 41,
+   "masse": "1180 × 600 × 600 mm",
+   "gewicht_kg": 211,
+   "phasen": "3~",
+   "hinweis": "Schallleistung in Innenräumen. Ausführung F (Glasdesign), M (integrierter WW-Speicher) und MB mit eigener Bestell-Nr."
+  },
+  "Supraeco T 220-2": {
+   "artnr": "8738207497",
+   "uvp": 21100,
+   "cop_b0w35": 4.57,
+   "scop35": 5.3,
+   "scop55": 4.1,
+   "lw_db": 56,
+   "masse": "1620 × 700 × 770 mm",
+   "gewicht_kg": 350,
+   "phasen": "3~",
+   "hinweis": "SCOP aus ηs (EN 14825: SCOP = (ηs + 3 %) · 2,5). Schallleistung in Innenräumen."
+  },
+  "Supraeco T 280-2": {
+   "artnr": "8738207498",
+   "uvp": 23800,
+   "cop_b0w35": 4.57,
+   "scop35": 5.08,
+   "scop55": 4.0,
+   "lw_db": 57,
+   "masse": "1620 × 700 × 770 mm",
+   "gewicht_kg": 360,
+   "phasen": "3~",
+   "hinweis": "SCOP aus ηs (EN 14825: SCOP = (ηs + 3 %) · 2,5). Schallleistung in Innenräumen."
+  },
+  "Supraeco T 380-2": {
+   "artnr": "8738207499",
+   "uvp": 26500,
+   "cop_b0w35": 4.48,
+   "scop35": 5.0,
+   "scop55": 4.23,
+   "lw_db": 55,
+   "masse": "1620 × 700 × 770 mm",
+   "gewicht_kg": 370,
+   "phasen": "3~",
+   "hinweis": "SCOP aus ηs (EN 14825: SCOP = (ηs + 3 %) · 2,5). Schallleistung in Innenräumen."
+  },
+  "Supraeco T 480-2": {
+   "artnr": "8738207500",
+   "uvp": 29300,
+   "cop_b0w35": 4.36,
+   "scop35": 4.93,
+   "scop55": 4.08,
+   "lw_db": 54,
+   "masse": "1620 × 700 × 770 mm",
+   "gewicht_kg": 380,
+   "phasen": "3~",
+   "hinweis": "SCOP aus ηs (EN 14825: SCOP = (ηs + 3 %) · 2,5). Schallleistung in Innenräumen."
   }
  },
  "inneneinheiten": {
@@ -353,6 +453,8 @@
     "vl_max": 70,
     "ab_anzahl": 2
    }
-  ]
+  ],
+  "CS7800LW": [],
+  "SupraecoT": []
  }
 }

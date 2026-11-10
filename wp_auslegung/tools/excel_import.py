@@ -24,20 +24,53 @@ DATEN = HIER / "daten"
 
 # --------------------------------------------------------------------------------- Serien (Stammdaten)
 SERIEN = [
-    {"id": "CS3800", "name": "Compress 3800i AW", "bauart": "Monoblock", "kaeltemittel": "R290", "eheizer_kw": 9,
-     "kaskade_max": 2, "hinweis": "10 O-T und 13 O-T: Kurven aus dem Excel-Werkzeug, bitte mit Katalog prüfen."},
-    {"id": "CS5800", "name": "Compress 5800i / 6800i AW", "bauart": "Monoblock", "kaeltemittel": "R290",
-     "eheizer_kw": 9, "kaskade_max": 2, "hinweis": "E-Heizer bis 9 kW."},
-    {"id": "CS8800", "name": "Compress 8800i AW", "bauart": "Monoblock", "kaeltemittel": "R290", "eheizer_kw": 9,
-     "kaskade_max": 2, "hinweis": "E-Heizer bis 9 kW."},
-    {"id": "CS5001", "name": "Compress 5000 AW (CS5001AW)", "bauart": "Monoblock (Großanlage)", "kaeltemittel": "R290",
-     "eheizer_kw": None, "kaskade_max": 14,
+    # Luft/Wasser – Kaskaden wie Navigation im Excel-Werkzeug: CS3800 und CS7400 nicht kaskadierbar
+    {"id": "CS3800", "name": "Compress 3800i AW", "quelle": "luft", "bauart": "Monoblock", "kaeltemittel": "R290",
+     "eheizer_kw": 9, "kaskade_max": 1,
+     "hinweis": "Nicht kaskadierbar. 10 O-T und 13 O-T: Kurven aus dem Excel-Werkzeug, Katalogdaten noch offen."},
+    {"id": "CS5800", "name": "Compress 5800i / 6800i AW", "quelle": "luft", "bauart": "Monoblock", "kaeltemittel": "R290",
+     "eheizer_kw": 9, "kaskade_max": 2, "hinweis": "E-Heizer bis 9 kW, 2er-Kaskade."},
+    {"id": "CS8800", "name": "Compress 8800i AW", "quelle": "luft", "bauart": "Monoblock", "kaeltemittel": "R290",
+     "eheizer_kw": 9, "kaskade_max": 2, "hinweis": "E-Heizer bis 9 kW, 2er-Kaskade."},
+    {"id": "CS5001", "name": "Compress 5000 AW (CS5001AW)", "quelle": "luft", "bauart": "Monoblock (Großanlage)",
+     "kaeltemittel": "R290", "eheizer_kw": None, "kaskade_max": 14,
      "hinweis": "Großanlage, Kaskade bis 14 Geräte mit HPC 301 C. Zweiter Wärmeerzeuger/Heizstab bauseits."},
-    {"id": "CS7000", "name": "Compress 7000i AW", "bauart": "Monoblock", "kaeltemittel": "R410A",
-     "eheizer_kw": None, "kaskade_max": 2, "hinweis": ""},
-    {"id": "CS7400", "name": "Compress 7400i AW", "bauart": "Monoblock", "kaeltemittel": "R32",
-     "eheizer_kw": None, "kaskade_max": 2, "hinweis": ""},
+    {"id": "CS7000", "name": "Compress 7000i AW", "quelle": "luft", "bauart": "Monoblock", "kaeltemittel": "R410A",
+     "eheizer_kw": None, "kaskade_max": 2, "hinweis": "2er-Kaskade."},
+    {"id": "CS7400", "name": "Compress 7400i AW", "quelle": "luft", "bauart": "Monoblock", "kaeltemittel": "R32",
+     "eheizer_kw": None, "kaskade_max": 1, "hinweis": "Nicht kaskadierbar."},
+    # Sole/Wasser – aus dem Gesamtkatalog März 2026 (nicht im Excel-Werkzeug)
+    {"id": "CS7800LW", "name": "Compress 7800i LW", "quelle": "sole", "bauart": "Sole/Wasser, Innenaufstellung",
+     "kaeltemittel": "R410A", "eheizer_kw": 9, "kaskade_max": 1,
+     "hinweis": "Max. Heizleistung B0/W35 laut Katalog; bei 55 °C Nennwärmeleistung (ErP) angesetzt. "
+                "Ausführungen M (mit WW-Speicher), MB und F siehe Katalog."},
+    {"id": "SupraecoT", "name": "Supraeco T (T-2)", "quelle": "sole", "bauart": "Sole/Wasser, 2 Verdichter",
+     "kaeltemittel": "R410A", "eheizer_kw": None, "kaskade_max": 1,
+     "hinweis": "Heizleistung B0/W35 und B0/W45 nach EN 14511 (2 Verdichter); bei 55 °C Nennwärmeleistung (ErP). "
+                "Zuheizer EZH 42 als Zubehör."},
 ]
+
+# Sole/Wasser: Heizleistung praktisch unabhängig von der Außentemperatur (Sole ca. 0 °C) – konstante Kurven.
+# (Gerät, Serie, {Vorlauf: max. kW}, min. kW (Modulation) oder None)
+SOLE = [
+    ("CS7800iLW 6", "CS7800LW", {35: 6.0, 55: 5.0}, 2.0), ("CS7800iLW 8", "CS7800LW", {35: 8.0, 55: 7.0}, 2.0),
+    ("CS7800iLW 12", "CS7800LW", {35: 12.0, 55: 11.0}, 3.0), ("CS7800iLW 16", "CS7800LW", {35: 15.0, 55: 14.0}, 4.0),
+    ("Supraeco T 220-2", "SupraecoT", {35: 22.9, 45: 23.05, 55: 21.0}, 11.83),
+    ("Supraeco T 280-2", "SupraecoT", {35: 29.3, 45: 29.25, 55: 29.0}, 15.21),
+    ("Supraeco T 380-2", "SupraecoT", {35: 38.7, 45: 38.53, 55: 38.0}, 20.48),
+    ("Supraeco T 480-2", "SupraecoT", {35: 47.37, 45: 47.27, 55: 47.0}, 25.28),
+]
+
+
+def sole_geraete() -> list[dict]:
+    out = []
+    for gid, serie, q, qmin in SOLE:
+        g = {"id": gid, "serie": serie, "kurz": gid.split()[-1],
+             "max": {str(v): [[-25.0, kw], [40.0, kw]] for v, kw in q.items()},
+             "min": {str(v): [[-25.0, qmin], [40.0, qmin]] for v in q} if qmin else None}
+        out.append(g)
+    return out
+
 
 # Blöcke: (Blatt, Spalte Außentemperatur, erste Zeile, letzte Zeile, Vorlauf, {Spalte: (Serie, Gerät, max|min)})
 # Bei „min“ ist Gerät eine Liste: die Mindestleistung gilt für alle genannten Geräte.
@@ -131,11 +164,13 @@ def lese(pfad: Path) -> tuple[dict, dict]:
                     g["min"][str(vl)] = punkte
 
     # VDI 4650 (Blatt LWP_Propan, ED7:EF87): Leistungsanteil % -> Deckungsanteil Luft/Wasser parallel
-    vdi = []
+    vdi, vdi_sole = [], []
     for row in wb["LWP_Propan"].iter_rows(min_row=7, max_row=87, min_col=CI("ED"), max_col=CI("EF"), values_only=True):
         if isinstance(row[0], (int, float)):
             vdi.append([int(row[0]), round(float(row[2]), 4)])
+            vdi_sole.append([int(row[0]), round(float(row[1]), 4)])
     vdi.sort()
+    vdi_sole.sort()
 
     # Klimadaten: PLZ -> Ort, Norm-Außentemperatur
     plz = {}
@@ -153,10 +188,11 @@ def lese(pfad: Path) -> tuple[dict, dict]:
         g["min"] = g["min"] or None
         geraete_liste.append(g)
     geraete_liste.sort(key=lambda g: (reihenfolge[g["serie"]], _nenn(g)))
+    geraete_liste += sole_geraete()
 
     stand = date.today().isoformat()
     daten = {"quelle": f"Excel-Werkzeug {pfad.name}", "stand": stand, "serien": SERIEN,
-             "geraete": geraete_liste, "vdi4650_luft_parallel": vdi}
+             "geraete": geraete_liste, "vdi4650_luft_parallel": vdi, "vdi4650_sole_parallel": vdi_sole}
     klima = {"quelle": f"{pfad.name}, Blatt Klimadaten", "stand": stand, "plz": dict(sorted(plz.items()))}
     return daten, klima
 
