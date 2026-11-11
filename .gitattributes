@@ -1,0 +1,5 @@
+# Sprachstatistik auf GitHub (Linguist)
+# Referenzwerte, erzeugt mit tools/make_golden.py aus index.html
+tests/golden.json linguist-generated=true
+# Original-App Bosch Flow V54 – zählt als HTML
+index.html linguist-language=HTML
