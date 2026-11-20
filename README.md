@@ -8,7 +8,7 @@ Bosch-HIU-Methodik) und DLE-Auslegungshilfe (Flow 7000 HPS).
 
 Es gibt zwei Versionen mit identischem Rechenweg:
 
-| | `index.html` (V54) | Python / Streamlit |
+| | `index.html` (V55) | Python / Streamlit |
 |---|---|---|
 | Start | Datei im Browser öffnen, läuft offline | `streamlit run app.py` |
 | Oberfläche | Original mit Canvas-Schemata | gleicher Aufbau: Eingabekarten ①②③ links, Ergebniskarten rechts |
@@ -38,7 +38,7 @@ Die App öffnet sich unter <http://localhost:8501>.
   Ein Klick auf eine Kachel öffnet die Details (Schemata, Tabellen, Herleitungen, Diagramme).
 - **Eingaben:** Panel links mit den Reitern Gebäude · System · Auslegung · Projekt, ein-/ausblendbar über
   „Eingaben“. Speichern, Laden und PDF direkt in der Kopfleiste, Zwischenspeichern/Excel/Zurücksetzen im Menü „···“.
-- **Druckverlust, Pumpe & Rohrmengen (Erweiterung über V54):** „Experteneinstellungen“ (unter Auslegung) mit Geschosshöhe, Stations- und
+- **Druckverlust, Pumpe & Rohrmengen (Erweiterung über V55):** „Experteneinstellungen“ (unter Auslegung) mit Geschosshöhe, Stations- und
   Strangabständen, Zuschlag Einzelwiderstände und Ansatz Wärmezentrale. Daraus: Druckverlust je Abschnitt im gewählten
   Rohr (Darcy-Weisbach, λ wie im HIU-Kern), ungünstigster Fließweg, Förderhöhe inkl. Primär-Δp der Station laut
   Katalog als Betriebspunkt der (bauseits auszulegenden) Netzpumpe und Rohrmengen je Nennweite mit Wasserinhalt. Auch in PDF (eigene Seite), Excel (Blatt „Hydraulik“) und Stückliste.
@@ -64,7 +64,7 @@ Die App öffnet sich unter <http://localhost:8501>.
   Heizkreis (ungemischt/gemischt). Die App zeigt die passende Station mit Produktbild, Bestell-Nr., UVP und den
   Katalogdaten am gewählten Vorlauf (Primär-Volumenstrom, Primär-Druckverlust, Mindest-/Höchstvorlauf) samt
   Katalog-Hinweisen. Die Stückliste (App, PDF, Excel) enthält Stationen, Montage- und Regelungszubehör,
-  thermischen Bypass, Netzpumpe als Betriebspunkt (bauseits) und Inbetriebnahme. Der Rechenkern V54 bleibt unverändert.
+  thermischen Bypass, Netzpumpe als Betriebspunkt (bauseits) und Inbetriebnahme. Der Rechenkern V55 bleibt unverändert.
   Preise sind intern: In der App immer sichtbar, in PDF und Excel nur mit dem Schalter „Preise im Export (intern)“
   im Menü „···“ (Standard: aus; Dateiname dann mit „_intern“).
 - **PDF:** „Planung als PDF exportieren“ erzeugt den Auslegungsbericht (A4 quer) mit allen Schemata und Tabellen.

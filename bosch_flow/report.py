@@ -211,7 +211,7 @@ def excel_bytes(inp: Inputs, meta: dict, results: list, straenge: list, preise: 
                        "Δp [mbar]": z["dp"] / 100} for z in h["pfad"]]).to_excel(
             xw, sheet_name="Hydraulik", index=False, startrow=2)
         pd.DataFrame([[f"Förderhöhe {h['bar']:.2f} bar · V̇ {h['V']:.2f} m³/h · Netzpumpenmodul "
-                       f"{h['nm']['typ'] if h['nm'] else 'individuell'} (Erweiterung über V54)"],
+                       f"{h['nm']['typ'] if h['nm'] else 'individuell'} (Erweiterung über V55)"],
                       ["Ungünstigster Fließweg (einfach):"]]).to_excel(xw, sheet_name="Hydraulik", index=False,
                                                                         header=False)
         start = len(h["pfad"]) + 5

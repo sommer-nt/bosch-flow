@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from .calc import Inputs, Strang
 
 APP_NAME = "Bosch Flow – Netz- & Anlagenrechner"
-SAVE_VERSION = 52  # wie index.html V54 (Dateiformat unverändert, + topoPos)
+SAVE_VERSION = 52  # wie index.html V55 (Dateiformat seit V54 unverändert, + topoPos)
 META_KEYS = ("projName", "projLoc", "projPlanner", "projDate",
              "montage", "heizkreis",                                     # Katalog-Ausführung
              "hG", "aAn", "aSt", "aStr", "aZen", "zuschlag", "dpZen")     # Hydraulik-Geometrie

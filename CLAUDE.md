@@ -11,7 +11,7 @@
 - Niemals API-Schlüssel, Passwörter, `.env`, `secrets.toml` oder Kundenprojekte (JSON) einchecken.
 
 ## Projekt
-- Netz- & Anlagenrechner Flow 8000/7000: `index.html` (V54, Original) und Python/Streamlit (`app.py`,
+- Netz- & Anlagenrechner Flow 8000/7000: `index.html` (V55, Original) und Python/Streamlit (`app.py`,
   `bosch_flow/`). Beide Versionen rechnen identisch – Änderungen am Rechenweg in beiden nachziehen.
 - Betrieb: eigener Ubuntu-Server mit Docker und nginx, siehe `deploy/ANLEITUNG.md` (flow.sommer-nt.de).
 - Vor jedem Push: `python -m pytest -q` muss grün sein.

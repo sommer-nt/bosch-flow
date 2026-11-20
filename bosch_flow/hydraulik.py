@@ -1,4 +1,4 @@
-"""Druckverlust, Förderhöhe der Netzpumpe und Rohrmengen – Erweiterung über den Rechenkern V54 hinaus.
+"""Druckverlust, Förderhöhe der Netzpumpe und Rohrmengen – Erweiterung über den Rechenkern V55 hinaus.
 
 Grundlage sind die Abschnitte des Rechenkerns (Volumenstrom, gewähltes Rohr mit Innendurchmesser, reale
 Geschwindigkeit). Ergänzt werden Leitungslängen aus einer vereinfachten Gebäudegeometrie:

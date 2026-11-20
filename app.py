@@ -3,7 +3,7 @@
 Start:  streamlit run app.py
 Kachel-Dashboard: oben die vier Kennzahlen, darunter 3D-Gebäude, Prüfungen, Variantenempfehlung, Rohrnetz, Gerät
 und Stückliste. Jede Kachel öffnet per Klick ihre Details (Schemata, Tabellen, Herleitungen). Die Eingaben stehen im
-Panel links (ein-/ausblendbar). Rechenkern wie die HTML-Version V54 (index.html). Auto-Sicherung im Browser, Hell/Dunkel,
+Panel links (ein-/ausblendbar). Rechenkern wie die HTML-Version V55 (index.html). Auto-Sicherung im Browser, Hell/Dunkel,
 PDF- und Excel-Export.
 """
 from __future__ import annotations
@@ -562,7 +562,10 @@ def eingaben() -> None:
         a, b = st.columns(2)
         tvl = a.number_input("Versorgungs-VL °C", float(lo), float(hi), float(min(max(float(ss.inp.tvl), lo), hi)), 1.0,
                              format="%.0f", key=k(f"tvl_{lo}_{hi}"),
-                             help=f"Frei einstellbar {lo}–{hi} °C. Kommt 1:1 an der Wohnungsstation an.")
+                             help=f"Frei einstellbar {lo}–{hi} °C. Ohne HPS 50–70 °C, mit HPS 40–50 °C (tief, da der "
+                                  "Tronic Heat die WW-Temperatur macht). Für Fernwärme bis 70 °C den Zuheizer/HPS "
+                                  "ausschalten. Kommt 1:1 an der Wohnungsstation an (kein pauschaler Netzverlust); "
+                                  "unabhängig vom VL Heizkreis.")
         qhk = b.number_input("Heizlast je WE kW", 0.0, mxq, min(float(ss.inp.qhk), mxq), 0.1, format="%.1f",
                              key=k(f"qhk_{mxq}"), help=f"Begrenzt auf Geräte-Heizleistung + 3 kW (max. {mxq:g} kW).")
         vlhk = a.number_input("VL Heizkreis °C", 30.0, 70.0, float(ss.inp.vlhk), 1.0, format="%.0f", key=k("vlhk"),
@@ -1010,7 +1013,7 @@ def dialog_strom() -> None:
 @st.dialog("Druckverlust, Pumpe & Rohrmengen", width="large")
 def dialog_hydraulik() -> None:
     h = HY.berechne(ss.inp, ss.straenge, ss.meta)
-    st.caption("Erweiterung über den Rechenkern V54 hinaus: vereinfachtes Vorplanungsmodell mit "
+    st.caption("Erweiterung über den Rechenkern V55 hinaus: vereinfachtes Vorplanungsmodell mit "
                "Standardlängen (anpassbar unter Auslegung → Experteneinstellungen). Ersetzt keine Rohrnetzberechnung.")
     a, b, c, d = st.columns(4)
     a.metric("Förderhöhe Netzpumpe", f"{fmt(h['bar'], 2)} bar", help="Erforderlich am ungünstigsten Fließweg")

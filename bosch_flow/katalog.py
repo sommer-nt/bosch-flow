@@ -1,6 +1,6 @@
 """Gerätedaten aus dem Bosch Gesamtkatalog Wohnungsstationen (Deutschland, März 2026, Kapitel 11).
 
-Der Rechenkern (V54) bleibt unverändert – dieses Modul ergänzt ihn um das, was der Katalog liefert:
+Der Rechenkern (V55) bleibt unverändert – dieses Modul ergänzt ihn um das, was der Katalog liefert:
 Ausführung und Bestellnummer der Station, Produktbild, technische Daten am gewählten Vorlauf
 (Primär-Volumenstrom, Primär-Druckverlust, Abmessungen), Netzpumpenmodule, Zubehörhinweise und eine
 Stückliste mit unverbindlichen Preisempfehlungen (ohne MwSt.).

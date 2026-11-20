@@ -1,4 +1,4 @@
-"""PDF-Auslegungsbericht (A4 quer) – Inhalt wie „Planung als PDF exportieren“ der HTML-Version V54.
+"""PDF-Auslegungsbericht (A4 quer) – Inhalt wie „Planung als PDF exportieren“ der HTML-Version V55.
 
 Deckblatt mit Eingabeparametern und Gesamt-Kennzahlen, je Strang Netzschema und Steigstrang-Tabelle,
 Gesamtübersicht mit Netztopologie (Position der Wärmezentrale), Diagramme, Anlagenschema,
@@ -24,7 +24,7 @@ from .zeichnung import in_pdf
 BOSCH_ROT = (226, 0, 21)
 BOSCH_BLAU = (0, 86, 145)
 GRAU = (90, 98, 108)
-VERSION = "Rechenkern V54"
+VERSION = "Rechenkern V55"
 ENTWICKLER = "Entwickelt von Daniel Sommer · HC/SDE3-PSD"
 
 SCHRIFTEN = [  # (normal, fett) – erste vorhandene wird genutzt
@@ -253,7 +253,10 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
         pdf.abschnitt(f"Strang {i + 1} · {r['totalWE']} Wohnungen · {r['floors']} Etagen · "
                       f"{'beidseitig' if r['split'] == 'both' else 'einseitig'} · Strangfuß {foot['dim']} · "
                       f"{RP.fmt(foot['Vtot'], 2)} m³/h", neue_seite=True)
-        pdf.szene(SC.netzschema(r), hoehe_max=118)
+        # Wie V55 (Druck): bei vielen Etagen nicht unter ~8 mm je Etage stauchen – lieber ein höheres Schema
+        # (bis eine ganze Seite) als unlesbare Etagen; die Tabelle rückt dann ggf. auf die nächste Seite.
+        hoehe = max(118, min(r["floors"] * 8 + 14, pdf.h - 16 - pdf.get_y()))
+        pdf.szene(SC.netzschema(r), hoehe_max=hoehe)
         df = RP.strang_table(r, "V")
         pdf.tabelle(list(df.columns), [[_z(v, c) for c, v in zip(df.columns, row)] for row in df.itertuples(index=False)],
                     [60, 18, 14, 26, 24, 26, 20, 22, 30])
@@ -352,7 +355,7 @@ def pdf_bericht(inp: Inputs, straenge: list, meta: dict, results: list, bestaeti
 
     # ------------------------------------------------------------ Druckverlust, Pumpe, Rohrmengen (Erweiterung)
     h = HY.berechne(inp, straenge, meta)
-    pdf.abschnitt("Druckverlust, Förderhöhe & Rohrmengen (Erweiterung über V54)", platz=110)
+    pdf.abschnitt("Druckverlust, Förderhöhe & Rohrmengen (Erweiterung über V55)", platz=110)
     pdf.kacheln([("Netzpumpe – erforderliche Förderhöhe", f"{RP.fmt(h['bar'], 2)} bar ≈ {RP.fmt(h['H'], 1)} m"),
                  ("Netzpumpe – Volumenstrom" + (f" (je Anlage, {h['pumpen']}×)" if h["pumpen"] > 1 else ""),
                   f"{RP.fmt(h['V'], 2)} m³/h"),
